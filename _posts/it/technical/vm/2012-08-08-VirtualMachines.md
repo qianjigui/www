@@ -1,0 +1,643 @@
+---
+layout: default
+category: it/technical/vm
+title: "Virtual Machines"
+---
+
+#Virtual Machines#
+##导论##
+*  计算机体系结构
+  *  概念
+    *  ISA(Instruction Set Architecture)指令集体系结构
+      *  user ISA
+      *  system ISA
+    *  ABI(Application Binary Interface)应用二进制接口
+    *  API(Application Program Interface)应用编程接口
+  *  ![http://pic.yupoo.com/qianjigui/CaVbCW9i/medish.jpg](http://pic.yupoo.com/qianjigui/CaVbCW9i/medish.jpg)
+  *  ![http://pic.yupoo.com/qianjigui/CaVcUY2N/medish.jpg](http://pic.yupoo.com/qianjigui/CaVcUY2N/medish.jpg)
+*  VM-base
+  *  ![http://pic.yupoo.com/qianjigui/CaVbEzly/medish.jpg](http://pic.yupoo.com/qianjigui/CaVbEzly/medish.jpg)
+  *  ![http://pic.yupoo.com/qianjigui/CaVbHPeS/medish.jpg](http://pic.yupoo.com/qianjigui/CaVbHPeS/medish.jpg)
+  *  ![http://pic.yupoo.com/qianjigui/CaVbMx2U/medish.jpg](http://pic.yupoo.com/qianjigui/CaVbMx2U/medish.jpg)
+*  进程VM
+  *  多进程支持级别
+  *  仿真器和动态二进制翻译器
+    *  ![http://pic.yupoo.com/qianjigui/CaVbFSZm/medish.jpg](http://pic.yupoo.com/qianjigui/CaVbFSZm/medish.jpg)
+  *  相同ISA下的二进制优化器
+  *  HLL-VM
+    *  ![http://pic.yupoo.com/qianjigui/CaVbE2FD/medish.jpg](http://pic.yupoo.com/qianjigui/CaVbE2FD/medish.jpg)
+*  系统VM
+  *  ![http://pic.yupoo.com/qianjigui/CaVbIPjz/medish.jpg](http://pic.yupoo.com/qianjigui/CaVbIPjz/medish.jpg)
+  *  ![http://pic.yupoo.com/qianjigui/CaVbBtBs/medish.jpg](http://pic.yupoo.com/qianjigui/CaVbBtBs/medish.jpg)
+*  分类
+  *  进程VM
+    *  相同ISA
+      *  多进程
+      *  动态二进制优化器
+    *  不同ISA
+      *  动态翻译器
+      *  高级语言虚拟机
+  *  系统VM
+    *  相同ISA
+      *  标准系统虚拟机
+      *  主机虚拟机
+    *  不同ISA
+      *  全系统虚拟机
+      *  协同设计虚拟机
+##仿真：解释和二进制翻译##
+*  基本的解释器
+  *  译码分派解释器
+  *  switch-case:instruction
+  *  loop:codes
+  *  上下文环境:Context
+  *  问题
+    *  存在大量直接或间接的跳转
+    *  对cache不友好
+*  线索解释
+  *  利用分派表来查找下一条指令解释例程
+  *  分派表
+    *  间接线索解释
+    *  dispatch-table
+*  预先处理
+  *  预先译码
+  *  直接线索解释
+    *  通过预先译码，将操作码与具体例程做函数对应
+    *  直接例程地址
+    *  一次偏移内存地址
+*  处理复杂指令集
+  *  不可能将每个例程都线索化
+  *  多个指令可能就是参数量不同，大量处理逻辑一致
+  *  多次分派与共享例程处理
+    *  ![http://pic.yupoo.com/qianjigui/CaVDjup9/medish.jpg](http://pic.yupoo.com/qianjigui/CaVDjup9/medish.jpg)
+    *  ![http://pic.yupoo.com/qianjigui/CaVDjpvO/medish.jpg](http://pic.yupoo.com/qianjigui/CaVDjpvO/medish.jpg)
+  *  通过软件流水的方式来组织分派循环的关键点是：与将来的源指令相关的加载操作与当前指令的解释相互重叠
+*  二进制翻译
+  *  直接将源程序翻译成平台相关的二进制码
+  *  状态隐射
+    *  指令操作
+    *  寄存器使用
+    *  存储器结构
+    *  虚拟机状态维护
+*  代码发现和动态翻译
+  *  存在的问题(即代码发现问题)是如何准确定位需要执行的代码序列
+    *  无法将全部源码做二进制翻译
+  *  如何定位间接跳转到源码位置(代码定位问题）
+  *  增量式预译码和翻译
+    *  通过一个仿真管理器来处理源ISA和目标ISA对应链接问题
+    *  一次只对一个动态block做二进制翻译
+    *  这些block被管理
+    *  通过管理器将执行流串起来
+  *  存在的问题
+    *  自修改代码
+    *  自引用代码
+    *  异常处理
+*  控制转移优化
+  *  翻译链接
+    *  通过仿真管理器将动态block链接起来
+  *  软件间接跳转预测
+    *  内联高速缓存(inline caching)
+  *  影子栈
+    *  在翻译时发生从翻译代码到目标二进制代码间接跳转时，需要纪录源程序的PC值（SPC），然后调用结束后通过SPC计算源程序的地址。这样存在一次查表
+    *  将源程序翻译时，发生调用时候的地址纪录放入影子栈中。在目标二进制代码调用返回时，目标二进制有个结果PC值（DPC），如果状态正常，则这个DPC可以直接被使用（上次动态二进制翻译时，这个DPC可能是个陷阱值：需要再次解析，也可能已经链接完成）
+    *  ![http://pic.yupoo.com/qianjigui/CaVDjvhm/medish.jpg](http://pic.yupoo.com/qianjigui/CaVDjvhm/medish.jpg)
+##进程虚拟机##
+*  ![http://pic.yupoo.com/qianjigui/CbHVlKve/medish.jpg](http://pic.yupoo.com/qianjigui/CbHVlKve/medish.jpg)
+*  兼容性
+  *  概念
+    *  内在兼容性
+      *  系统透明
+      *  完全满足各种需求
+    *  外在兼容性
+      *  满足部分兼容性
+      *  依赖于具体实现和目标系统的特性
+    *  源主机(被仿真设备)
+    *  目标机(虚拟机运行的硬件平台)
+  *  框架
+    *  状态映射
+    *  方法
+      *  软件映射控制
+        *  内存
+          *  权限控制
+          *  粒度
+        *  指令集合
+      *  直接映射
+        *  目标机提供支持是源主机需求的超集
+  *  虚拟机实现与目标机(实际主机)有依赖
+*  状态映射
+  *  上下文环境
+    *  寄存器
+      *  完全映射
+        *  目标机寄存器可以涵盖虚拟机需求和源机器需求
+      *  部分映射
+        *  部分存在目标机寄存器
+        *  部分存在于目标机内存
+    *  内存地址空间
+      *  软件转换表
+        *  类似于虚拟内存管理技术
+      *  直接映射硬件区域
+        *  直接偏移
+        *  存在结构上的兼容性考虑
+*  内存结构仿真
+  *  考虑的方面
+    *  内存空间的整体结构
+      *  分段
+      *  整体单调线性结构
+    *  所支持的访问空间的权限类型
+      *  读
+      *  写
+      *  执行
+    *  保护/分配粒度
+      *  有些是4k一页
+      *  有些可能是2的幂次
+  *  具体的问题
+    *  内存保护(权限控制映射)
+      *  借助于目标机的权限控制
+      *  通过软件映射表控制
+        *  目标机支持是源主机的子集
+        *  效率较低
+      *  页大小问题(粒度映射)
+        *  数据和代码各自页对齐
+    *  自引用和自修改代码
+      *  基本方法:写保护、陷阱中断、软件控制
+      *  伪自修改代码(可写的数据区和代码混杂在一起的情况)
+        *  被保护代码和数据在一个页
+        *  方法
+          *  动态检查
+            *  代码区开启写保护
+            *  发生自修改
+            *  复制源码作为比较依据
+            *  插入检查逻辑
+            *  永远关闭该页的写保护
+          *  将上述方法的检查逻辑作为独立块，进行链接
+      *  细粒度写保护
+        *  更细级别程度上设置标记
+      *  可靠的自修改代码
+        *  利用固有的习惯用语进行操作
+        *  识别这些习惯用语
+      *  保护运行时软件的内存
+        *  保证虚拟机不修改源主机的程序
+        *  进行软件检查
+          *  类似于高级语言的NULL-CHECK等
+            *  通过控制流、数据流分析优化掉部分检查
+          *  只在解释器阶段检查，翻译后不做处理
+*  指令仿真
+  *  权衡性能付出
+    *  解释器
+    *  翻译器
+  *  分阶段指令仿真
+    *  ![http://pic.yupoo.com/qianjigui/CbHVjx12/medish.jpg](http://pic.yupoo.com/qianjigui/CbHVjx12/medish.jpg)
+    *  ![http://pic.yupoo.com/qianjigui/CbHVkIq0/medish.jpg](http://pic.yupoo.com/qianjigui/CbHVkIq0/medish.jpg)
+*  异常处理
+  *  例外仿真
+    *  ABI可见
+      *  例如段错误
+      *  例外检查
+        *  利用目标机基础设施
+          *  源主机可见
+            *  直接映射
+          *  源主机不可见
+            *  虚拟机封装掉
+    *  ABI不可见
+      *  例如Java的OutOfArrayIndex
+      *  添加指令做检查
+  *  中断处理
+    *  处于解释器
+      *  直接处理
+    *  处于翻译块阶段
+      *  快速反馈
+      *  尽量减少到可中断点时间
+  *  确定精确的客户机状态
+    *  便于调试
+    *  翻译时
+      *  即刻反馈
+    *  二进制状态时
+      *  维护反向索引链表
+      *  从识别包含陷阱源指令的翻译块开始，然后将控制返回给运行时软件，运行时软件通过分析上下文给出正确的源状态和PC值
+*  操作系统的仿真
+  *  系统调用映射问题
+  *  相同系统
+    *  一般可以直接映射调用
+    *  部分还是需要修改源程序的调用逻辑，进行修补调用
+  *  不同系统
+    *  尽量保证逻辑上的正确性
+*  代码Cache管理
+  *  结构
+    *  Hash映射
+    *  有限内存
+      *  时间空间局部性
+  *  替换算法
+    *  最近最少使用
+      *  回退状态指针
+        *  在删除某个翻译块后，和其相关的翻译块(链接关系)都需要更新状态
+      *  难于维护，开销大
+    *  满时清除
+      *  重复翻译浪费
+      *  丢失了部分profiling信息
+    *  抢先清除
+      *  外部监控，定时处理
+    *  细粒度FIFO
+      *  管理简单
+      *  仍然需要回退指针
+    *  粗粒度FIFO
+      *  完全清楚是该方法的退化实现
+*  系统环境
+  *  尽量透明
+    *  客户机限制最小化
+    *  客户机和主机可互操作
+  *  主要是运行程序的加载器
+    *  源主机加载目标机DLL
+      *  尽量使加载过程由目标机统一完成
+##动态二进制优化##
+*  框架
+  *  基于基本块优化
+  *  可以分阶段不同程度优化
+*  动态程序的行为
+  *  一般程序的表现状况，统计结果
+  *  动态控制流是高度可预测的
+  *  容易出现双峰分支
+  *  大部分分支的判定结果与上次相同
+  *  向后的分支(多半是loop)通常是满足的
+  *  间接跳转的可预测性
+    *  向单一目标20%
+  *  数据值的可预测性
+    *  大约20%与总是产生相同值的静态指令相关联
+*  剖析(profiling)
+  *  意义
+    *  有选择的优化
+    *  利用有限的资源做出尽量最优的优化方案
+  *  类型
+    *  执行频度--热点
+      *  基本块剖析
+    *  基于控制流
+      *  块的边剖析
+      *  路径剖析
+        *  代价较大
+        *  利用边剖析结果基本可以获得较好的路径结果
+  *  收集方法
+    *  插桩
+      *  在跳转等特殊逻辑处放入统计代码
+      *  多处于解释处理阶段
+    *  采样
+      *  多作用于翻译后的二进制码
+  *  解释期间的剖析
+    *  管理结构
+      *  分支PC散列
+    *  剖析器衰减
+    *  边剖析的问题
+      *  数据量大
+      *  采用局部性原理
+  *  剖析翻译后的代码
+    *  插桩效率损失严重
+  *  开销
+    *  性能
+      *  缩小插桩点
+    *  空间
+*  优化翻译块
+  *  提高局部性
+    *  空间
+      *  过程内联
+      *  代码重排
+    *  时间
+  *  分析单元
+    *  踪迹
+    *  超块
+      *  起始点
+        *  频繁程度
+        *  启发门限
+      *  持续
+        *  结点信息＆边信息
+        *  最常使用
+        *  最近使用
+      *  终止点
+        *  到达一个超级块
+        *  超块达到最大容量
+        *  不再有达到候选门限的候选基本块
+        *  到达一个间接跳转/方法调用
+    *  树簇
+      *  泛化的超块
+      *  适合分支跳转各分支概率持平
+*  优化框架
+  *  总的原则是应该使用快速、低开销的优化来收集那些“可轻松实现的目标”
+  *  方法
+    *  ![http://pic.yupoo.com/qianjigui/CcycBiL4/medish.jpg](http://pic.yupoo.com/qianjigui/CcycBiL4/medish.jpg)
+    *  ![http://pic.yupoo.com/qianjigui/CcycB3n2/medish.jpg](http://pic.yupoo.com/qianjigui/CcycB3n2/medish.jpg)
+  *  兼容性
+    *  陷阱
+    *  内存
+    *  寄存器
+*  代码重排
+  *  基本指令重排
+    *  ![http://pic.yupoo.com/qianjigui/CcycADFb/medish.jpg](http://pic.yupoo.com/qianjigui/CcycADFb/medish.jpg)
+    *  ![http://pic.yupoo.com/qianjigui/CcyczZ27/medish.jpg](http://pic.yupoo.com/qianjigui/CcyczZ27/medish.jpg)
+    *  ![http://pic.yupoo.com/qianjigui/Ccyczqav/medish.jpg](http://pic.yupoo.com/qianjigui/Ccyczqav/medish.jpg)
+    *  ![http://pic.yupoo.com/qianjigui/Ccycz2bn/medish.jpg](http://pic.yupoo.com/qianjigui/Ccycz2bn/medish.jpg)
+    *  ![http://pic.yupoo.com/qianjigui/CcycAvM7/medish.jpg](http://pic.yupoo.com/qianjigui/CcycAvM7/medish.jpg)
+  *  调度算法
+    *  1. 翻译到单指令形式
+    *  2. 形成寄存器映射
+    *  3. 重排代码
+    *  4. 确定检查点
+    *  5. 分配寄存器
+*  代码优化
+  *  基本
+    *  常量传播
+    *  常量折叠
+    *  代码下沉
+    *  复写传播
+    *  冗余分支消除
+    *  强度削除
+    *  无用赋值消除
+    *  循环不定式外提
+  *  兼容性问题
+    *  陷阱安全
+  *  超块间优化
+    *  链接
+    *  赋值移除
+*  特定指令集优化
+##高级语言虚拟机##
+*  结构
+  *  特点
+    *  安全和保护
+      *  数据访问权限
+      *  静态＆动态检查
+    *  健壮性
+      *  GC
+    *  网络
+    *  性能
+      *  Interp
+      *  JIT
+      *  AOT
+  *  Modules
+    *  VM
+      *  数据
+        *  类型
+          *  Primitive
+          *  Reference
+          *  Object
+          *  Array
+        *  存储
+          *  Stack
+          *  Heap
+          *  全局内存
+          *  常量池
+          *  层次
+            *  ![http://pic.yupoo.com/qianjigui/CcyuP9pa/medish.jpg](http://pic.yupoo.com/qianjigui/CcyuP9pa/medish.jpg)
+      *  ISA指令集
+        *  Format
+        *  MOV
+        *  Cast
+        *  if/loop
+        *  Stack-opt
+      *  Exception&Error
+      *  ClassFileFormat
+        *  class
+        *  dex
+      *  JNI
+    *  APIs
+      *  Platforms
+      *  Serializes
+      *  Reflect
+      *  Thread
+*  实现
+  *  结构
+    *  ![http://pic.yupoo.com/qianjigui/CcAYoNH5/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYoNH5/medish.jpg)
+  *  动态类加载
+    *  用于统一字节码
+    *  静态安全检查
+    *  验证完整性
+  *  实现安全
+    *  沙盒
+      *  保护远程文件
+        *  远程操作系统控制
+      *  本地文件受运行的Java程序保护
+        *  安全按理器实现
+      *  JVM代码受运行的Java程序保护
+        *  静态＆动态检查
+    *  进程内保护
+      *  静态检查
+        *  元数据
+      *  动态检查
+        *  NULL-Check
+        *  Array-Range-Check
+        *  Type-Cast-Check
+    *  安全强制执行
+      *  API
+    *  增强的安全模型
+      *  身份
+      *  签名
+        *  ![http://pic.yupoo.com/qianjigui/CcAYtdh1/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYtdh1/medish.jpg)
+      *  利用调用栈做分析
+        *  ![http://pic.yupoo.com/qianjigui/CcAYENvY/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYENvY/medish.jpg)
+  *  垃圾收集
+    *  ![http://pic.yupoo.com/qianjigui/CcAYtokN/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYtokN/medish.jpg)
+  *  JNI
+    *  ![http://pic.yupoo.com/qianjigui/CcAYstmG/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYstmG/medish.jpg)
+  *  仿真
+    *  Interp
+    *  JIT
+      *  优化方法
+        *  代码重排
+        *  方法内联
+        *  VirtualMethodInvoke
+          *  Polymorphic Inline Caching(PIC)
+            *  ![http://pic.yupoo.com/qianjigui/CcAYEka1/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYEka1/medish.jpg)
+          *  守护指令
+            *  ![http://pic.yupoo.com/qianjigui/CcAYQjf0/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYQjf0/medish.jpg)
+        *  多版本和专门化
+          *  ![http://pic.yupoo.com/qianjigui/CcAYFHc2/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYFHc2/medish.jpg)
+        *  栈替换
+          *  ![http://pic.yupoo.com/qianjigui/CcAYIV5g/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYIV5g/medish.jpg)
+        *  堆分配对象
+          *  标量替换
+            *  逃逸分析
+          *  对象域排列
+            *  ![http://pic.yupoo.com/qianjigui/CcAYDAGo/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYDAGo/medish.jpg)
+        *  低级别
+          *  Remove
+            *  NULL-Check
+            *  Range-Check
+          *  循环剥离
+            *  ![http://pic.yupoo.com/qianjigui/CcAYzvb7/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYzvb7/medish.jpg)
+    *  Profiling
+##协同设计虚拟机##
+*  Structure
+  *  通过结合使用专用硬件和软件协同实现VMM
+  *  ![http://pic.yupoo.com/qianjigui/CeGFosAw/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFosAw/medish.jpg)
+*  寄存器和存储器
+  *  映射
+    *  ![http://pic.yupoo.com/qianjigui/CeGFkd7j/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFkd7j/medish.jpg)
+  *  VMM部分隐藏
+    *  ![http://pic.yupoo.com/qianjigui/CeGFh4If/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFh4If/medish.jpg)
+*  自修改和自引用代码
+  *  TLB
+  *  ![http://pic.yupoo.com/qianjigui/CeGFmgFA/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFmgFA/medish.jpg)
+*  代码cache支持
+  *  跳转TLB(JTLB)
+    *  ![http://pic.yupoo.com/qianjigui/CeGFefHN/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFefHN/medish.jpg)
+    *  ![http://pic.yupoo.com/qianjigui/CeGF8NrK/medish.jpg](http://pic.yupoo.com/qianjigui/CeGF8NrK/medish.jpg)
+  *  双地址的返回地址栈
+    *  ![http://pic.yupoo.com/qianjigui/CeGFnBbX/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFnBbX/medish.jpg)
+*  实现精确陷阱
+  *  检查点硬件支持
+    *  ![http://pic.yupoo.com/qianjigui/CeGFbe1C/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFbe1C/medish.jpg)
+  *  页错误兼容
+    *  积极页错误检测
+      *  LoopCheckAndReflesh
+    *  懒惰页错误检测
+      *  CodeCacheUsedReflesh
+    *  ![http://pic.yupoo.com/qianjigui/CeGFd4qE/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFd4qE/medish.jpg)
+*  IO
+  *  ![http://pic.yupoo.com/qianjigui/CeGFiabB/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFiabB/medish.jpg)
+##系统虚拟机##
+*  应用
+  *  实现多道程序设计
+  *  多个安全环境
+  *  管理应用环境
+  *  混合操作系统环境
+  *  遗留的应用程序
+  *  跨平台应用开发
+  *  新系统过渡
+  *  系统软件开发
+  *  操作系统培训
+  *  客户帮助支持
+  *  操作系统分析
+  *  事件监控
+  *  系统封装
+*  关键概念
+  *  外观
+    *  ![http://pic.yupoo.com/qianjigui/CeGWMr2z/medish.jpg](http://pic.yupoo.com/qianjigui/CeGWMr2z/medish.jpg)
+  *  状态管理
+    *  ![http://pic.yupoo.com/qianjigui/CeGWKs3X/medish.jpg](http://pic.yupoo.com/qianjigui/CeGWKs3X/medish.jpg)
+  *  资源控制
+    *  ![http://pic.yupoo.com/qianjigui/CeGWG36A/medish.jpg](http://pic.yupoo.com/qianjigui/CeGWG36A/medish.jpg)
+  *  本地虚拟机和宿主虚拟机
+    *  ![http://pic.yupoo.com/qianjigui/CeGWO13S/medish.jpg](http://pic.yupoo.com/qianjigui/CeGWO13S/medish.jpg)
+*  资源虚拟化
+  *  CPU
+  *  Mem
+  *  IO
+*  性能提升
+  *  下降原因
+    *  建立
+    *  仿真
+    *  中断处理
+    *  状态保存
+    *  记录
+    *  时间延长
+  *  VMM辅助手段
+    *  ContextSwitchByHardware
+    *  特权指令译码ByHardware
+    *  虚拟间隔计时器
+    *  扩展指令集
+  *  客户系统的性能提升
+    *  不分页模式
+    *  伪缺页处理
+    *  假脱机文件
+    *  VMM间通信
+  *  专用系统
+    *  虚实相等虚拟机
+    *  旁路影像页表辅助
+    *  优先机辅助
+    *  段共享
+##多处理器虚拟化##
+*  目的
+  *  工作负载合并
+  *  SMP
+  *  系统移植
+  *  减少系统停机时间
+  *  异构系统
+  *  提高系统利用率
+  *  多时区需求
+  *  故障隔离
+*  划分
+  *  物理
+    *  好处
+      *  故障隔离
+      *  安全隔离
+      *  满足系统级需求
+  *  逻辑
+    *  分配
+      *  CPU
+      *  Storage
+##实际机器##
+*  Hardware
+  *  ![http://pic.yupoo.com/qianjigui/CeJsprNf/medish.jpg](http://pic.yupoo.com/qianjigui/CeJsprNf/medish.jpg)
+  *  CPU
+    *  ![http://pic.yupoo.com/qianjigui/CeJsrljX/medish.jpg](http://pic.yupoo.com/qianjigui/CeJsrljX/medish.jpg)
+  *  Storage
+    *  ![http://pic.yupoo.com/qianjigui/CeJsxZtb/medish.jpg](http://pic.yupoo.com/qianjigui/CeJsxZtb/medish.jpg)
+    *  ![http://pic.yupoo.com/qianjigui/CeJsvSNl/medish.jpg](http://pic.yupoo.com/qianjigui/CeJsvSNl/medish.jpg)
+  *  IO
+    *  ![http://pic.yupoo.com/qianjigui/CeJstqED/medish.jpg](http://pic.yupoo.com/qianjigui/CeJstqED/medish.jpg)
+*  ISA
+  *  用户
+    *  运算
+      *  Register
+        *  通用
+        *  特殊
+        *  专用
+      *  Storage
+  *  系统
+    *  资源管理
+      *  特权级别
+        *  System
+        *  User
+      *  SystemRegister
+        *  SystemTimer
+        *  Interupt&Halt
+        *  MarkInterupt
+        *  AddressTransferPointer
+      *  CPU
+        *  系统调用
+        *  返回指令
+        *  可产生中断的时间间隔计时器
+      *  Storage
+        *  Structure
+          *  Fragment大小任意
+          *  Page大小固定
+        *  PageTable
+          *  TLB
+          *  prot
+          *  ![http://pic.yupoo.com/qianjigui/CeJsxG80/medish.jpg](http://pic.yupoo.com/qianjigui/CeJsxG80/medish.jpg)
+      *  IO
+        *  IOStorageMapping
+      *  Interupt
+*  OS
+  *  Structure
+    *  ![http://pic.yupoo.com/qianjigui/CeJsvf75/medish.jpg](http://pic.yupoo.com/qianjigui/CeJsvf75/medish.jpg) 
+    *  CPUManagement
+    *  StorageManagement
+    *  IOManagement
+      *  ![http://pic.yupoo.com/qianjigui/CeJsuM6X/medish.jpg](http://pic.yupoo.com/qianjigui/CeJsuM6X/medish.jpg)
+  *  Interface
+    *  Process
+      *  fork
+      *  exec
+      *  exit
+      *  wait
+      *  sleep
+      *  wakeup
+      *  setpriority
+      *  getrusage
+    *  Storage
+      *  sbrk
+      *  malloc
+      *  free
+      *  mprotect
+      *  shmget
+    *  IO
+      *  ![http://pic.yupoo.com/qianjigui/CeJssy1x/medish.jpg](http://pic.yupoo.com/qianjigui/CeJssy1x/medish.jpg)
+      *  read
+      *  open
+      *  close
+      *  write
+    *  Signal
+      *  sigvec
+      *  kill
+      *  sigblock
+      *  sigsetmask
+      *  sigreturn
+  *  Init
+*  MultiCPUs
+  *  集群计算
+  *  共享存储多处理器
