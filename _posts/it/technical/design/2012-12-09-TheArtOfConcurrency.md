@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/design
 title: "TheArtOfConcurrency"
-tags:  Concurrency, Rules, Threads
+tags:  Concurrency Rules Threads
 ---
 
 #TheArtOfConcurrency#
@@ -104,4 +104,4 @@ tags:  Concurrency, Rules, Threads
 
 
 
-##tags: Concurrency, Rules, Threads##
+##tags: Concurrency Rules Threads##

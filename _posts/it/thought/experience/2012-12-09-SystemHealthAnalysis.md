@@ -2,7 +2,7 @@
 layout: default
 category: it/thought/experience
 title: "系统健康与分析"
-tags:  system, 优化, 经验
+tags:  system 优化 经验
 ---
 
 #系统健康与分析#
@@ -68,4 +68,4 @@ tags:  system, 优化, 经验
 
 
 
-##tags: system, 优化, 经验##
+##tags: system 优化 经验##

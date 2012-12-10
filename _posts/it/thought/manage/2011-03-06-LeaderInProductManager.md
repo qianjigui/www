@@ -2,7 +2,7 @@
 layout: default
 category: it/thought/manage
 title: "LeaderInProductManager"
-tags:  PD, product, team, 经验
+tags:  PD product team 经验
 ---
 
 #LeaderInProductManager#
@@ -31,4 +31,4 @@ tags:  PD, product, team, 经验
 
 
 
-##tags: PD, product, team, 经验##
+##tags: PD product team 经验##

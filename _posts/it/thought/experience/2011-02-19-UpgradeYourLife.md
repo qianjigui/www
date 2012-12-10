@@ -2,7 +2,7 @@
 layout: default
 category: it/thought/experience
 title: "高效人士的116个IT秘诀"
-tags: IT, Tools
+tags: IT Tools
 ---
 
 
