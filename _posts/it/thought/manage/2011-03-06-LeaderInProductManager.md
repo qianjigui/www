@@ -7,6 +7,8 @@ tags:  PD, product, team, 经验
 
 #LeaderInProductManager#
 
+
+
 ##产品团队##
 * 将员工个人能力成长与团队业绩发展紧密结合 
   * 提高员工的核心竞争力，提高抗风险能力
@@ -26,5 +28,7 @@ tags:  PD, product, team, 经验
   * 文档化， 文档保证交流与传承；我们每个产品文档都要不断地优化与专业
 * 发现与培养人才，加强梯队建设
 * 强化有效沟通，鼓励向上沟通
+
+
 
 ##tags: PD, product, team, 经验##

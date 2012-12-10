@@ -2,9 +2,13 @@
 layout: default
 category: it/study/dcu
 title: "EE500PerformanceofDataNetworks"
+tags: undefine
 ---
 
 #EE500PerformanceofDataNetworks#
+
+
+
 ##background##
 * Hierarchy of Layer
   * Modularity模块化
@@ -71,6 +75,9 @@ title: "EE500PerformanceofDataNetworks"
     * TCP
     * UDP
   * Application
+
+
+
 ##QoS##
 * the collective effect of service performance which determine the degree of satisfaction of a user of the service
 * SLA(Service Level Agreement)服务级别许可
@@ -225,6 +232,9 @@ Steps:
         * Congestion control including Explicit Congestion Notification (ECN) and ECN Nonce 
         * Mechanisms to avoid holding state for unacknowledged connection attempts or finished connections 
         * No graceful close, no other flow control apart from congestion control 
+
+
+
 ##Network Performance Metrics##
 * Availablity
   * Connectivity
@@ -301,6 +311,9 @@ Steps:
   * Jitter
   * Throughput
   * Available bandwidth; bottleneck bandwidth
+
+
+
 ##Modeling and Simulations##
 * Modeling
   * Motivation
@@ -379,6 +392,9 @@ Steps:
       * Verification and validation 
         * (Verification)Did we build the model right? (according to specifications) 确认
         * (Validation )Did we build the right model? (relative to the real system) 证实
+
+
+
 ##Android##
 * Architecture
   * http://qjg-wiki.googlecode.com/files/Android-system-architecture.jpg
@@ -390,6 +406,9 @@ Steps:
       * Executes files in the Dalvik Executable (.dex) format 
       * DX tool converts classes to .dex format 
       * Relies on the Linux Kernel for underlying functionality: threading and low-level memory management 
+
+
+
 ##Performance at Higher Network Layers ##
 * QOE
   * Definition
@@ -417,6 +436,9 @@ Steps:
     * QOAS
     * RAP
     * LQA
+
+
+
 ##Performance at Lower Network Layers ##
 * Internet
   * Router
@@ -434,6 +456,9 @@ Steps:
       * WiFi
     * MANs
       * WiMAX
+
+
+
 ##Mobility Issues##
 * Moblie IP
   * Features
@@ -509,6 +534,9 @@ Steps:
       * MS informs MSC via BSS B about handover completion. MSC reroutes call 
       * MSC and BSS A release resources 
 * http://hi.baidu.com/yuanmx0307/blog/item/a10b79ec474da54779f05540.html
+
+
+
 ##Energy Conservation in Wireless and Mobile Communications ##
 * OSI layer - power save protocols 
   * Load Partitioning 
@@ -598,4 +626,7 @@ Steps:
   * Human Passive Energy 
   * RF Energy/Ambient Energy 
   * Wind Generators 
+
+
+
 ##http://code.google.com/p/wpcdcuassignment2010-2011/downloads/detail?name=500ee.zip&can=2&q=##

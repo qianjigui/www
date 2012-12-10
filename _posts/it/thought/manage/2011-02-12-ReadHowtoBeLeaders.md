@@ -2,12 +2,19 @@
 layout: default
 category: it/thought/manage
 title: "恩威并重的领导艺术"
+tags: undefine
 ---
 
 #恩威并重的领导艺术#
+
+
+
 ##2R##
 * 协作型
 * 管理型
+
+
+
 ##基本管理类型##
 * 让位
   * 低度协作、低度命令

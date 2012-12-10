@@ -2,9 +2,13 @@
 layout: default
 category: it/technical/language/ruby
 title: "RubyAuthorThinking"
+tags: undefine
 ---
 
 #RubyAuthorThinking#
+
+
+
 ##Design##
 * 原则
   * 简洁性 
@@ -36,10 +40,19 @@ title: "RubyAuthorThinking"
 * 程序块
   * Block
   * Yield
+
+
+
 ##设计模式##
+
+
+
 ##Web##
 * RoR
 * AJAX
+
+
+
 ##语言实现的点##
 * 文字编码
   * UTF8

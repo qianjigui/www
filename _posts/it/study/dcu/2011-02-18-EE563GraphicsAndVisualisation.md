@@ -2,9 +2,13 @@
 layout: default
 category: it/study/dcu
 title: "EE563GraphicsAndVisualisation"
+tags: undefine
 ---
 
 #EE563GraphicsAndVisualisation#
+
+
+
 ##Java2D##
 * Functions
   * Interpretation 解释(输入)
@@ -79,6 +83,9 @@ title: "EE563GraphicsAndVisualisation"
         * Rotate 旋转
           * http://qjg-wiki.googlecode.com/files/EE563Java2DTransformationsRotate.jpg
   * Advanced(JAI)
+
+
+
 ##VRML(Virtual Reality Markup Language )##
 * Coordinate System
   * Every point in a VRML world can be described by a set of x, y and z coordinates.
@@ -95,6 +102,9 @@ title: "EE563GraphicsAndVisualisation"
 * Creating Custom Geomtery
   * 凸立方体(不能有凹面)
   * 同一个平面的点必须共面
+
+
+
 ##Java3D##
 * the scene graph programming model 场景图像编程模型
   * What to draw
@@ -314,10 +324,16 @@ title: "EE563GraphicsAndVisualisation"
         * Transform
         * SoundScheduler
       * TimerThread
+
+
+
 ##实际应用##
 * CT
   * MCA 利用切面构造三角形
   * Volume Rendering 体构造
+
+
+
 ##OpenGL##
 * Install
   * Ubuntu

@@ -7,6 +7,8 @@ tags:  Concurrency, Rules, Threads
 
 #TheArtOfConcurrency#
 
+
+
 ##背景##
 * 基本概念
   * 并发
@@ -34,6 +36,8 @@ tags:  Concurrency, Rules, Threads
 * Model
   * PRAM(Parallel Random Access Machine)
 
+
+
 ##Todo##
 * DesignModel
   * Task Decomposition
@@ -60,6 +64,8 @@ tags:  Concurrency, Rules, Threads
   * 归约Reduction
   * Loop-Carried-Dependence
 
+
+
 ##MultiThreadsDesignRules##
 * 找出真正独立的运算
 * 在尽可能高的层次上实现并发
@@ -76,12 +82,16 @@ tags:  Concurrency, Rules, Threads
 * 尽可能使用线程局部存储或与特定数据相关的锁
 * BraveToRefactorCodeToGetPerformance
 
+
+
 ##ThreadingFrameworks##
 * OpenMP
 * Interl Threading Building Blocks
 * Erlang
 * OpenMPI
 * PThreads
+
+
 
 ##Tools##
 * Debug
@@ -91,5 +101,7 @@ tags:  Concurrency, Rules, Threads
 * Performance
   * gprof
   * VTune
+
+
 
 ##tags: Concurrency, Rules, Threads##

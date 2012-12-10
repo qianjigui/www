@@ -2,9 +2,13 @@
 layout: default
 category: it/living/habit
 title: "PragmaticThinkingAndLearning"
+tags: undefine
 ---
 
 #PragmaticThinkingAndLearning#
+
+
+
 ##Bug##
 * Bugs
   * Cognitive biases(偏见)
@@ -30,6 +34,9 @@ title: "PragmaticThinkingAndLearning"
   * 直觉
     * 相信
     * 验证
+
+
+
 ##学习##
 * 目标
   * SMART
@@ -76,6 +83,9 @@ title: "PragmaticThinkingAndLearning"
         * 笔记
           * 在于过程
         * 复习
+
+
+
 ##积累经验##
 * 经历/尝试
 * 乐趣
@@ -83,6 +93,9 @@ title: "PragmaticThinkingAndLearning"
 * 挫折
 * 发现
 * 想和做相结合
+
+
+
 ##管理自己的关注点##
 * 提升注意力
   * How
@@ -96,6 +109,9 @@ title: "PragmaticThinkingAndLearning"
 * 环境
   * 消除干扰
   * 量化时间消耗
+
+
+
 ##站在自己的土地上##
 * 改掉恶习
   * 指定计划

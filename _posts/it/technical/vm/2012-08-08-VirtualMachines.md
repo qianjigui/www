@@ -2,9 +2,13 @@
 layout: default
 category: it/technical/vm
 title: "Virtual Machines"
+tags: undefine
 ---
 
 #Virtual Machines#
+
+
+
 ##导论##
 * 计算机体系结构
   * 概念
@@ -44,6 +48,9 @@ title: "Virtual Machines"
     * 不同ISA
       * 全系统虚拟机
       * 协同设计虚拟机
+
+
+
 ##仿真：解释和二进制翻译##
 * 基本的解释器
   * 译码分派解释器
@@ -100,6 +107,9 @@ title: "Virtual Machines"
     * 在翻译时发生从翻译代码到目标二进制代码间接跳转时，需要纪录源程序的PC值（SPC），然后调用结束后通过SPC计算源程序的地址。这样存在一次查表
     * 将源程序翻译时，发生调用时候的地址纪录放入影子栈中。在目标二进制代码调用返回时，目标二进制有个结果PC值（DPC），如果状态正常，则这个DPC可以直接被使用（上次动态二进制翻译时，这个DPC可能是个陷阱值：需要再次解析，也可能已经链接完成）
     * ![http://pic.yupoo.com/qianjigui/CaVDjvhm/medish.jpg](http://pic.yupoo.com/qianjigui/CaVDjvhm/medish.jpg)
+
+
+
 ##进程虚拟机##
 * ![http://pic.yupoo.com/qianjigui/CbHVlKve/medish.jpg](http://pic.yupoo.com/qianjigui/CbHVlKve/medish.jpg)
 * 兼容性
@@ -247,6 +257,9 @@ title: "Virtual Machines"
   * 主要是运行程序的加载器
     * 源主机加载目标机DLL
       * 尽量使加载过程由目标机统一完成
+
+
+
 ##动态二进制优化##
 * 框架
   * 基于基本块优化
@@ -354,6 +367,9 @@ title: "Virtual Machines"
     * 链接
     * 赋值移除
 * 特定指令集优化
+
+
+
 ##高级语言虚拟机##
 * 结构
   * 特点
@@ -459,6 +475,9 @@ title: "Virtual Machines"
           * 循环剥离
             * ![http://pic.yupoo.com/qianjigui/CcAYzvb7/medish.jpg](http://pic.yupoo.com/qianjigui/CcAYzvb7/medish.jpg)
     * Profiling
+
+
+
 ##协同设计虚拟机##
 * Structure
   * 通过结合使用专用硬件和软件协同实现VMM
@@ -488,6 +507,9 @@ title: "Virtual Machines"
     * ![http://pic.yupoo.com/qianjigui/CeGFd4qE/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFd4qE/medish.jpg)
 * IO
   * ![http://pic.yupoo.com/qianjigui/CeGFiabB/medish.jpg](http://pic.yupoo.com/qianjigui/CeGFiabB/medish.jpg)
+
+
+
 ##系统虚拟机##
 * 应用
   * 实现多道程序设计
@@ -539,6 +561,9 @@ title: "Virtual Machines"
     * 旁路影像页表辅助
     * 优先机辅助
     * 段共享
+
+
+
 ##多处理器虚拟化##
 * 目的
   * 工作负载合并
@@ -559,6 +584,9 @@ title: "Virtual Machines"
     * 分配
       * CPU
       * Storage
+
+
+
 ##实际机器##
 * Hardware
   * ![http://pic.yupoo.com/qianjigui/CeJsprNf/medish.jpg](http://pic.yupoo.com/qianjigui/CeJsprNf/medish.jpg)

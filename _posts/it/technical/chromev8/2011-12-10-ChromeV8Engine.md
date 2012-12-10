@@ -2,9 +2,13 @@
 layout: default
 category: it/technical/chromev8
 title: "JS-V8引擎"
+tags: undefine
 ---
 
 #JS-V8引擎#
+
+
+
 ##设计理念##
 * 译文地址 [V8 Javascript 引擎设计理念](http://blog.pluskid.org/?p=186)
 * 快速属性访问
@@ -21,6 +25,9 @@ title: "JS-V8引擎"
   * 大部分情况下，每个垃圾收集周期只处理整个对象堆的一部分，这让程序中断造成的影响得以减轻。
   * 总是知道内存中所有的对象和指针所在的位置，这避免了非 accurate 的垃圾收集器中普遍存在的由于错误地把对象当作指针而造成的内存溢出的情况。
   * 在 V8 中，对象堆被分成两部分：用于为新创建的对象分配空间的部分和用于存放在垃圾收集周期中生存下来的那些老的对象的部分。如果一个对象在垃圾收集的过程中被移动了，V8 会更新所有指向这个对象的指针到新的地址。
+
+
+
 ##API##
 * 基本概念 http://www.2009fly.com/index/a/bianchengyuyan/javascript/V8_Javascript_Engine/2011/0326/844.html
   * 句柄（Handle）
@@ -56,6 +63,9 @@ title: "JS-V8引擎"
 * 关键技术
   * 相互调用与通信
   * 数据共享
+
+
+
 ##JS引擎基本##
 * 已经成为一个独立的基础平台而单独存在
 * API的基本要求
