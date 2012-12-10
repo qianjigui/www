@@ -2,10 +2,24 @@
 layout: default
 category: it/technical/tools
 title: "DebugHacks"
+tags:  system, debug, 经验
 ---
 
 #DebugHacks#
+
 ##思路图##
+* Image
+* Invoke API
+  * Debug API
+    * valgrind
+    * dump
+  * System status API
+    * proc
+    * sys
+  * System API
+    * Invoke function
+* 目录
+
 ##心得##
 * 复现
   * 之前
@@ -37,6 +51,7 @@ title: "DebugHacks"
     * assert
   * 跟同事讨论
   * 咨询社区
+
 ##Basic##
 * CoreDump
   * OpenUse
@@ -83,6 +98,7 @@ title: "DebugHacks"
     * bpn
     * display xxx
     * mem 
+
 ##应用程序调试##
 * SIGSEGV
   * 系统层面的signal
@@ -101,6 +117,7 @@ title: "DebugHacks"
 * watch *addr
 * malloc/free
   * MALLOC_CHECK_
+
 ##tools##
 * strace
   * std:run with kernel invoke
@@ -116,3 +133,5 @@ title: "DebugHacks"
     * access free mem
     * double free
     * stack error opt
+
+##tags: system, debug, 经验##

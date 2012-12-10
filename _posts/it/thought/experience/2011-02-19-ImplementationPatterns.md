@@ -2,7 +2,7 @@
 layout: default
 category: it/thought/experience
 title: "实现模式 读书笔记"
-tags: undefine
+tags: Pattern
 ---
 
 
