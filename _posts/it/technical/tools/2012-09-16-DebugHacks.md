@@ -11,6 +11,8 @@ tags:  system debug 经验
 
 ##思路图##
 * Image
+  * ![Don't Response](http://pic.yupoo.com/qianjigui/ClqS2IyK/medish.jpg)
+  * ![AppExitUnUsual](http://pic.yupoo.com/qianjigui/ClqS39ys/medish.jpg)
 * Invoke API
   * Debug API
     * valgrind
@@ -21,6 +23,7 @@ tags:  system debug 经验
   * System API
     * Invoke function
 * 目录
+  * http://book.douban.com/subject/6799412/
 
 
 
