@@ -1,11 +1,11 @@
 ---
 layout: default
 category: it/technical/scm
-title: "持续集成(IC)"
-tags: undefine
+title: "持续集成(CI)"
+tags: CI SCM Document
 ---
 
-#持续集成(IC)#
+#持续集成(CI)#
 
 
 
@@ -81,3 +81,7 @@ tags: undefine
 * 可靠性：工具的成熟度。
 * 寿命：考虑工具的将来，要在健康的用户群和开发团队中寻找证据。
 * 易用性：工具配置和使用起来越容易，它就越好。
+
+
+
+##tags:CI SCM Document##
