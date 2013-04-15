@@ -321,3 +321,7 @@ tags:  Heap Memory Pattern
 * Compaction
 * Reference Counting
 * GC
+
+
+
+##![http://pic.yupoo.com/qianjigui/CM2ddHDD/medish.jpg](http://pic.yupoo.com/qianjigui/CM2ddHDD/medish.jpg)##
