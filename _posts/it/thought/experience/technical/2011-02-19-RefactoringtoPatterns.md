@@ -1,6 +1,6 @@
 ---
 layout: default
-category: it/thought/experience
+category: it/thought/experience/technical
 title: "重构与模式 读书笔记"
 tags: undefine
 ---

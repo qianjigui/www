@@ -1,8 +1,8 @@
 ---
 layout: default
-category: it/thought/experience
+category: it/thought/experience/technical
 title: "BeautifulCode"
-tags: undefine
+tags:  code
 ---
 
 #BeautifulCode#
@@ -38,3 +38,7 @@ tags: undefine
   * 代码作者显然很关心软件和其他开发者（针对双方的可读性和可维护性）
   * 最小化（做一件事，最小的依赖）
   * 以最合适的方式解决问题
+
+
+
+##tags: code##

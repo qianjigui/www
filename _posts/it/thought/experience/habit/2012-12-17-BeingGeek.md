@@ -1,6 +1,6 @@
 ---
 layout: default
-category: it/thought/experience
+category: it/thought/experience/habit
 title: "BeingGeek"
 tags:  Geek Career Review
 ---

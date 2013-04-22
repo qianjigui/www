@@ -1,6 +1,6 @@
 ---
 layout: default
-category: it/thought/experience
+category: it/thought/experience/technical
 title: "系统健康与分析"
 tags:  system 优化 经验
 ---

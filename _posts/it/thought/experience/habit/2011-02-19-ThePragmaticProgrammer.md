@@ -1,8 +1,8 @@
 ---
 layout: default
-category: it/thought/experience
+category: it/thought/experience/habit
 title: "程序员修炼之道 读书笔记"
-tags: Coder Grow
+tags: Coder Grow Review
 ---
 
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-category: it/thought/experience
+category: it/thought/experience/technical
 title: "实现模式 读书笔记"
 tags: Pattern
 ---
