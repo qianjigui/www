@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/algorithm
 title: "数据结构"
-tags: undefine
+tags:  DataStructure Review
 ---
 
 #数据结构#
@@ -159,3 +159,7 @@ tags: undefine
   * 索引
   * Hash
 * 并查集
+
+
+
+##tags: DataStructure Review##

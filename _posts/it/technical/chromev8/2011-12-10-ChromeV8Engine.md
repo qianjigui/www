@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/chromev8
 title: "JS-V8引擎"
-tags: undefine
+tags:  JavaScript V8
 ---
 
 #JS-V8引擎#
@@ -79,3 +79,7 @@ tags: undefine
   * 错误处理
   * 安全控制
   * Debug支持
+
+
+
+##tags: JavaScript V8##

@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/design
 title: "设计模式"
-tags: undefine
+tags: DesignPattern
 ---
 
 

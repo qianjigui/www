@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/vm
 title: "Virtual Machines"
-tags: undefine
+tags:  VM JVM 
 ---
 
 #Virtual Machines#
@@ -669,3 +669,7 @@ tags: undefine
 * MultiCPUs
   * 集群计算
   * 共享存储多处理器
+
+
+
+##tags: VM JVM ##

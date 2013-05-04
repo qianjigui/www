@@ -2,7 +2,7 @@
 layout: default
 category: it/living/habit
 title: "PragmaticThinkingAndLearning"
-tags: undefine
+tags:  Review
 ---
 
 #PragmaticThinkingAndLearning#
@@ -121,3 +121,7 @@ tags: undefine
   * 积跬步
 * 用心
 * 对明天要有激情
+
+
+
+##tags: Review##

@@ -2,7 +2,7 @@
 layout: default
 category: it/project/mywiki
 title: "Introduction Functions"
-tags: undefine
+tags:  MyWiki
 ---
 
 #Introduction Functions#
@@ -44,3 +44,7 @@ tags: undefine
 * 合成Wiki文件
 * Wiki文件注入新同步地址
 * 同步
+
+
+
+##tags: MyWiki##

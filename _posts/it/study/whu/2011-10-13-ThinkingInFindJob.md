@@ -2,7 +2,7 @@
 layout: default
 category: it/study/whu
 title: "笔试面试总结与思考"
-tags: undefine
+tags: 笔试 面试
 ---
 
 

@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/scm
 title: "MercurialSCM使用知识"
-tags: undefine
+tags: SCM
 ---
 
 

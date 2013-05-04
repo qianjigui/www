@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/language/ruby
 title: "RubyAuthorThinking"
-tags: undefine
+tags:  Ruby LanguagePattern
 ---
 
 #RubyAuthorThinking#
@@ -83,3 +83,7 @@ tags: undefine
 * 函数式编程
   * Block
   * Erlang
+
+
+
+##tags: Ruby LanguagePattern##

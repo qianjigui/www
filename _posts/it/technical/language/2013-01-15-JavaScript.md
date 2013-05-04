@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/language
 title: "JavaScript"
-tags: undefine
+tags:  JavaScript
 ---
 
 #JavaScript#
@@ -60,3 +60,7 @@ tags: undefine
     * JSR292
     * invokedynamic
     * JSR223
+
+
+
+##tags: JavaScript##

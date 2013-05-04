@@ -2,7 +2,7 @@
 layout: default
 category: it/project/FinancialManage
 title: "BasicMethods"
-tags: undefine
+tags:  Finacial
 ---
 
 #BasicMethods#
@@ -106,3 +106,7 @@ tags: undefine
     * 财产分配
   * 教育
   * 养老
+
+
+
+##tags: Finacial##

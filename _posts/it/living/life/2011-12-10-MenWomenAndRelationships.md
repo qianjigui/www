@@ -2,7 +2,7 @@
 layout: default
 category: it/living/life
 title: "男人来自火星女人来自金星"
-tags: undefine
+tags:  Love
 ---
 
 #男人来自火星女人来自金星#
@@ -86,3 +86,7 @@ tags: undefine
 ##对待压力##
 * 男人需要时间和空间，以寻求客观的解决之道
 * 女人需要时间和他人的关爱，去发现主观的解决之道
+
+
+
+##tags: Love##

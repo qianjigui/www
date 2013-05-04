@@ -2,7 +2,7 @@
 layout: default
 category: it/thought/manage
 title: "恩威并重的领导艺术"
-tags: undefine
+tags:  Manage 2R
 ---
 
 #恩威并重的领导艺术#
@@ -51,3 +51,7 @@ tags: undefine
   * 恰到好处的协作、低度命令
 * 专治
   * 高度协作、高度命令
+
+
+
+##tags: Manage 2R##

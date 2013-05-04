@@ -2,7 +2,7 @@
 layout: default
 category: it/study/whu
 title: "ComputerNetworking"
-tags: undefine
+tags:  Network
 ---
 
 #ComputerNetworking#
@@ -33,3 +33,7 @@ tags: undefine
 * 典型
   * TCP
   * UDP
+
+
+
+##tags: Network##
