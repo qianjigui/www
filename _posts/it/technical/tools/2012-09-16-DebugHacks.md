@@ -131,6 +131,55 @@ tags:  system debug 经验
 
 
 
+##Android系统死机调试##
+* 发生死机时的测试
+  * 看屏幕与按键是否有反应
+  * 电话可否打入
+  * USB可否连接
+* USB测试
+  * 是否有事件产生
+  * 系统状态
+    * CPU
+    * Memory
+    * Mount size
+  * SystemServer状况
+    * 信号级别调试
+
+
+
+##Unix##
+* Crash
+  * Core dump
+  * ulimit
+    * 设置和查看用户的使用的资源限制情况
+* 内存泄露
+  * Purify
+  * valgrind
+  * free
+* 性能不满足预期
+  * prtdiag
+  * prstat
+  * top
+  * ps
+    * ps -e -o user,pid,ppid,tid,time,%cpu,cmd --sort=%cpu
+* 句柄泄露
+  * iostat
+    * 报告中央处理单元（中央处理器）统计和输入 / 输出设备和分区统计
+  * lsof
+* Others
+  * nm
+    * 显示目标文件的符号表信息
+  * ldd –显示动态库的依赖信息
+  * pstack（Solaris， Linux）， procstack（AIX）– 打印十六进制地址和符号名称
+  * pmap(Solaris, Linux), procmap(AIX) –打印地址空间映射
+  * pldd(Solaris), procldd(AIX) —列出进程加载的库
+  * pfiles(Solaris), procfiles(AIX)– 报告有关的所有文件描述符
+  * prstat(Solaris), ps -e -o user,pid,ppid,tid,time,%cpu,cmd –sort=%cpu(Linux)– 检查每个线程的处理器
+  * pwdx（Linux，Solaris）  pid 显示当前工作目录
+* ![UnixProfile](http://pic.yupoo.com/qianjigui/CIwePulE/11Uyc9.jpg) 
+
+
+
 ##tools##
 * strace
   * std:run with kernel invoke

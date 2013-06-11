@@ -29,3 +29,20 @@ tags: Android SystemServer PackageManager
 
 
 ##tags:Android SystemServer PackageManager##
+
+
+
+##HowToStart##
+* RuntimeInit.zygoteInit
+  * 调用 com.android.server.SystemServer类的main函数 
+    * init1
+      * system_init(System_init.cpp)
+        * Start Surface Flinger
+        * Start Sensor Service
+        * com/android/server/SystemServer::init2
+          * Thread thr = new ServerThread();
+          * thr.start
+        * ProcessState::self()->startThreadPool();
+        * IPCThreadState::self()->joinThreadPool();
+* thr.start
+  * ServerThread::run
