@@ -46,3 +46,23 @@ tags: Android SystemServer PackageManager
         * IPCThreadState::self()->joinThreadPool();
 * thr.start
   * ServerThread::run
+
+
+
+##Debug##
+* Crash
+  * System server fault
+    * Zygote会重新启动SystemServer
+    * 主要原因
+      * Watchdog
+        * killed a system_server process because of deadlock in of services it's running
+        * In rare cases watchdog can be timed out because of high memory and CPU usage.
+        * 存在形式
+          * system_process thread
+            * watchdog
+              * com.android.server.Watchdog.run
+      * Fatal exception occured in one of system services
+        * a hardware issue
+  * Kernel panic
+    * Device reboot
+    * dmesg
