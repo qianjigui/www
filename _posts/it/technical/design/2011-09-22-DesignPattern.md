@@ -3,8 +3,8 @@ layout: default
 category: it/technical/design
 title: "设计模式"
 tags: DesignPattern
----
 
+---
 
 
 
@@ -36,7 +36,8 @@ http://qjg-wiki.googlecode.com/files/FactoryMethodDP.jpg
 http://qjg-wiki.googlecode.com/files/ProtoTypeDP.jpg
 
 ###Singleton 模式###
-{% highlight java %}
+
+```java
 public class Singleton {
     private static Singleton instance = new Singleton();
 
@@ -50,9 +51,11 @@ public class Singleton {
 
     // 其它实作
 }
-{% endhighlight %}
+```
 
-{% highlight java %}
+
+
+```java
 public class Singleton {
     private static Singleton instance = null;
     private Singleton(){}
@@ -67,7 +70,8 @@ public class Singleton {
         return instance;
     }
 }
-{% endhighlight %}
+```
+
 
 http://qjg-wiki.googlecode.com/files/SingletonDP.jpg
 

@@ -3,8 +3,8 @@ layout: default
 category: it/technical/algorithm
 title: "算法与数据结构小结"
 tags: algorithm datastructure
----
 
+---
 
 
 
@@ -43,7 +43,8 @@ tags: algorithm datastructure
 ####O(n^2^)排序方法####
 
 #####插入排序#####
-{% highlight c %}
+
+```c
 #A[1..length]
 INSERTION-SORT(A)
   for j <- 2 to length[A]
@@ -55,10 +56,12 @@ INSERTION-SORT(A)
       A[i+1] <- A[i]
       i <- i - 1
     A[i+1] <- key
-{% endhighlight %}
+```
+
 
 #####冒泡排序#####
-{% highlight c %}
+
+```c
 #A[1..length]
 BUBBLE-SORT(A)
   #注意边界
@@ -69,7 +72,8 @@ BUBBLE-SORT(A)
       if A[i]<A[i-1]
       then
         A[i-1] <-> A[i]
-{% endhighlight %}
+```
+
 
 #####选择排序#####
 #####希尔排序#####
@@ -77,7 +81,8 @@ BUBBLE-SORT(A)
 ####O(nlog(n))排序方法####
 
 #####归并排序#####
-{% highlight c %}
+
+```c
 #include <stdio.h>
 
 #define MAX (5)
@@ -134,10 +139,12 @@ int main()
   printf("\n");
   return 0;
 }
-{% endhighlight %}
+```
+
 
 #####堆排序#####
-{% highlight c %}
+
+```c
 
 #include <stdio.h>
 
@@ -258,10 +265,12 @@ int main()
 
   return 0;
 }
-{% endhighlight %}
+```
+
 
 #####快速排序#####
-{% highlight c %}
+
+```c
 
 #include <stdio.h>
 
@@ -343,11 +352,13 @@ void random_qsort(int l,int r)
   }
 }
 
-{% endhighlight %}
+```
+
 
 
 #####线性查找#####
-{% highlight c %}
+
+```c
 int select(int index, int l, int r)
 {
   int i;
@@ -365,4 +376,5 @@ int select(int index)
 {
   return select(index, 0, MAX);
 }
-{% endhighlight %}
+```
+

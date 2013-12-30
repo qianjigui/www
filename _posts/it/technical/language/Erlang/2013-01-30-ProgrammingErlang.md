@@ -3,8 +3,8 @@ layout: default
 category: it/technical/language/Erlang
 title: "Programming Eralng"
 tags: Erlang
----
 
+---
 
 
 #整体介绍#
@@ -383,7 +383,8 @@ Erlang 开源语言系出名门，通信巨头爱立信公司用它开发出了�
 索引　415
 
 #Note#
-{% highlight erlang %}
+
+```erlang
 
 第1章　引言　1
 1.1　路线图　1
@@ -1636,4 +1637,5 @@ Dispose of a table.
 16.4.2　my_bank　245
 16.5　进一步深入　246
 一套优秀的Erlang服务框架，利用绑定回调机制实现相关操作。 
-{% endhighlight %}
+```
+
