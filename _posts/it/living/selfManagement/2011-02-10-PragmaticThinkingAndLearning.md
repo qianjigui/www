@@ -2,7 +2,7 @@
 layout: default
 category: it/living/selfManagement
 title: "PragmaticThinkingAndLearning"
-tags:  Review
+tags:  Method
 
 ---
 #PragmaticThinkingAndLearning#
@@ -124,4 +124,4 @@ tags:  Review
 
 
 
-##tags: Review##
+##tags: Method##

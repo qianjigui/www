@@ -2,14 +2,14 @@
 layout: default
 category: it/career/coder
 title: "BeingGeek"
-tags:  Geek Career Review
+tags:  Review
 
 ---
 #BeingGeek#
 
 
 
-##tags: Geek Career Review##
+##tags: Review##
 
 
 

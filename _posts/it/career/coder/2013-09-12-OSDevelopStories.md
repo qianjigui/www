@@ -2,7 +2,7 @@
 layout: default
 category: it/career/coder
 title: "OSDevelopStories"
-tags:  OS develop Review
+tags:  OS Review
 
 ---
 #OSDevelopStories#
@@ -127,4 +127,4 @@ tags:  OS develop Review
 
 
 
-##tags: OS develop Review##
+##tags: OS Review##

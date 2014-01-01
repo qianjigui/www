@@ -2,7 +2,7 @@
 layout: default
 category: it/career/manage
 title: "恩威并重的领导艺术"
-tags:  Manage 2R
+tags:  Manage 2R Leader
 
 ---
 #恩威并重的领导艺术#
@@ -54,4 +54,4 @@ tags:  Manage 2R
 
 
 
-##tags: Manage 2R##
+##tags: Manage 2R Leader##

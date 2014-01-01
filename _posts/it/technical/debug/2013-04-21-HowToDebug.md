@@ -2,14 +2,14 @@
 layout: default
 category: it/technical/debug
 title: "HowToDebug"
-tags:  debug Review methods
+tags:  Method
 
 ---
 #HowToDebug#
 
 
 
-##tags: debug Review methods##
+##tags: Method##
 
 
 

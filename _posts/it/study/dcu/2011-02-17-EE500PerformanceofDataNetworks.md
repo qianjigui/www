@@ -2,7 +2,7 @@
 layout: default
 category: it/study/dcu
 title: "EE500PerformanceofDataNetworks"
-tags: undefine
+tags:  Network
 
 ---
 #EE500PerformanceofDataNetworks#
@@ -630,3 +630,7 @@ Steps:
 
 
 ##http://code.google.com/p/wpcdcuassignment2010-2011/downloads/detail?name=500ee.zip&can=2&q=##
+
+
+
+##tags: Network##

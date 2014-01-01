@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/ContinuousIntegration
 title: "持续集成(CI)"
-tags: CI SCM Document
+tags: Tool
 
 ---
 #持续集成(CI)#
@@ -84,4 +84,4 @@ tags: CI SCM Document
 
 
 
-##tags:CI SCM Document##
+##tags:Tool##

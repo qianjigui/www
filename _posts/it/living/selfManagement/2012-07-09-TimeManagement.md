@@ -2,7 +2,7 @@
 layout: default
 category: it/living/selfManagement
 title: "时间管理"
-tags: GTD Time SelfManage
+tags: Time
 
 ---
 

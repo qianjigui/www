@@ -2,7 +2,7 @@
 layout: default
 category: it/living/selfManagement
 title: "精神力量"
-tags:  Plan Review
+tags: undefine
 
 ---
 #精神力量#
@@ -204,7 +204,3 @@ tags:  Plan Review
 * 我利用我自己的痛苦，使自己变得明智起来，能够同情和宽恕他人。 
 * 我平静而勇敢地面对不幸。 
 * 我经常告诉那些与我关系最密切的人，我是那么欣赏他们，多么爱他们。 
-
-
-
-##tags: Plan Review##

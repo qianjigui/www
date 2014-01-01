@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/debug
 title: "DebugHacks"
-tags:  system debug 经验
+tags:  Tool
 
 ---
 #DebugHacks#
@@ -198,4 +198,4 @@ tags:  system debug 经验
 
 
 
-##tags: system debug 经验##
+##tags: Tool##
