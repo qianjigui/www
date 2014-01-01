@@ -3,8 +3,8 @@ layout: default
 category: it/technical/language/java
 title: "ThinkingInJavaFromVM"
 tags:  VM Java
----
 
+---
 #ThinkingInJavaFromVM#
 
 

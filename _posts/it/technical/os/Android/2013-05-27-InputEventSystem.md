@@ -3,8 +3,8 @@ layout: default
 category: it/technical/os/Android
 title: "Android 事件处理系统"
 tags: Android EventProcess
----
 
+---
 
 #主要参考#
 http://blog.csdn.net/myarrow/article/details/7091061
@@ -78,4 +78,42 @@ InputManager类从不与Java交互，而InputDispatchPolicy负责执行所有与
             1. mDispatcherThread <- new InputDispatcherThread(mDispatcher);
 1. com_android_server_input_InputManagerService.cpp::nativeStart
     1. mReader->loopOnce (InputReader.cpp)
-    1. mDispatcher -> dispatchOnce
+    1. mDispatcher -> dispatchOnce (InputDispatcher.cpp)
+1. SystemServer
+    1. Create InputManager
+    1. WindowManagerService.main 创建一个WindowManagerService对象，作为inputManager的回调
+
+##事件反馈##
+由InputDispatcher进行事件的分发处理:
+    * mDispatcher
+        * dispatchOnce
+            * dispatchOnceInnerLocked
+                * Check EventType
+                    1. TYPE_CONFIGURATION_CHANGED: dispatchConfigurationChangedLocked
+                    1. TYPE_DEVICE_RESET: dispatchDeviceResetLocked
+                    1. TYPE_KEY: dispatchKeyLocked
+                    1. TYPE_MOTION: dispatchMotionLocked
+                        * findFocusedWindowTargetsLocked
+                        * dispatchEventLocked
+                            * prepareDispatchCycleLocked
+                                * enqueueDispatchEntriesLocked
+                                    * startDispatchCycleLocked
+                                        * connection->inputPublisher.publishMotionEvent
+                                            * mChannel -> sendMessage()
+            * poll
+                * pollInter
+                    * handler -> handleMessage(message)
+
+### InputManagerService::handleMessage ###
+InputManagerHandler::handleMessage
+
+### WindowManagerService::handleMessage ###
+
+### ViewRootImpl::ViewRootHandler::handleMessage ###
+case MSG_PROCESS_INPUT_EVENTS:
+    * doProcessInputEvents
+        * deliverInputEvent
+            * deliverPointerEvent
+                * mView.dispatchPointerEvent
+                    * dispatchTouchEvent
+                        * onTouchEvent

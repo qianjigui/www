@@ -3,8 +3,8 @@ layout: default
 category: it/technical/language/ruby
 title: "Reading Note for Rails Recipes"
 tags: Rails Ruby Framework
----
 
+---
 
 
 对于目录的翻译整理，方便以后查阅。

@@ -3,8 +3,8 @@ layout: default
 category: it/technical/language/ruby
 title: "RubyAuthorThinking"
 tags:  Ruby LanguagePattern
----
 
+---
 #RubyAuthorThinking#
 
 

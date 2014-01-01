@@ -3,8 +3,8 @@ layout: default
 category: it/technical/os/Android
 title: "AndroidOSMemory分析"
 tags:  Android OS Memory Heap
----
 
+---
 #AndroidOSMemory分析#
 
 
@@ -74,3 +74,20 @@ tags:  Android OS Memory Heap
 
 
 ##tags: Android OS Memory Heap##
+
+
+
+##系统级内存分析的一般方法##
+* 系统级
+  * meminfo
+* 程序级
+  * procrank
+  * ps
+* 程序内部级
+  * smaps
+  * Java_heap
+    * DDMS
+  * Native Heap
+    * Malloc Debugger
+  * StrictMode
+    * http://www.androidlearner.net/use-strictmode.html

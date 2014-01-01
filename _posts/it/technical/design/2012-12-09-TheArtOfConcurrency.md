@@ -3,8 +3,8 @@ layout: default
 category: it/technical/design
 title: "TheArtOfConcurrency"
 tags:  Concurrency Rules Threads
----
 
+---
 #TheArtOfConcurrency#
 
 
