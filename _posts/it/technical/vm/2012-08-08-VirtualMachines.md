@@ -3,8 +3,8 @@ layout: default
 category: it/technical/vm
 title: "Virtual Machines"
 tags:  VM JVM 
----
 
+---
 #Virtual Machines#
 
 

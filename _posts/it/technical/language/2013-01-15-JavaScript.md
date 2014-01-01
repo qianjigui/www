@@ -3,8 +3,8 @@ layout: default
 category: it/technical/language
 title: "JavaScript"
 tags:  JavaScript
----
 
+---
 #JavaScript#
 
 

@@ -3,8 +3,8 @@ layout: default
 category: it/technical/language/ruby
 title: "Reading Note for Advanced Rails Recipes"
 tags: Rails Ruby Framework
----
 
+---
 
 1  Introduction
    1.1 What Makes a Good Recipe Book?

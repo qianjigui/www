@@ -3,8 +3,8 @@ layout: default
 category: it/technical/os/Android
 title: "SystemServer"
 tags: Android SystemServer PackageManager
----
 
+---
 #SystemServer#
 
 
@@ -46,6 +46,20 @@ tags: Android SystemServer PackageManager
         * IPCThreadState::self()->joinThreadPool();
 * thr.start
   * ServerThread::run
+    * Start Services
+      * Watchdog
+        * battery
+        * power
+        * alarm
+        * activity
+      * Input Manager
+        * start
+      * windowmanager
+        * main
+    * ready
+      * wm
+        * displayReady
+        * systemReady
 
 
 
