@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/algorithm
 title: "散列表"
-tags: algorithm
+tags: Datastructure
 
 ---
 

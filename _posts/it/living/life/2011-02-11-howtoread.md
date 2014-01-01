@@ -2,7 +2,7 @@
 layout: default
 category: it/living/life
 title: "如何读书"
-tags: Method Reading
+tags: Read Method
 
 ---
 

@@ -2,14 +2,14 @@
 layout: default
 category: it/technical/design/memory
 title: "SmallMemorySoftwarePatternsForSystemWithLimitedMemory"
-tags:  Heap Memory Pattern
+tags:  System
 
 ---
 #SmallMemorySoftwarePatternsForSystemWithLimitedMemory#
 
 
 
-##tags: Heap Memory Pattern##
+##tags: System##
 
 
 

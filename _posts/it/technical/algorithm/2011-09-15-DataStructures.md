@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/algorithm
 title: "算法与数据结构小结"
-tags: algorithm datastructure
+tags: Datastructure
 
 ---
 

@@ -2,7 +2,7 @@
 layout: default
 category: it/study/dcu
 title: "EE563GraphicsAndVisualisation"
-tags: undefine
+tags:  3D
 
 ---
 #EE563GraphicsAndVisualisation#
@@ -341,3 +341,7 @@ tags: undefine
     * http://ubuntuforums.org/showthread.php?t=375425
 * Libs
   * -lglut -lGLU
+
+
+
+##tags: 3D##

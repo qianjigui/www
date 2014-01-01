@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/ContinuousIntegration
 title: "MercurialSCM使用知识"
-tags: SCM
+tags: Tool
 
 ---
 

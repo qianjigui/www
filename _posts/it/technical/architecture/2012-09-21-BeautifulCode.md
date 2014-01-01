@@ -2,7 +2,7 @@
 layout: default
 category: it/technical/architecture
 title: "BeautifulCode"
-tags:  code
+tags:  Design
 
 ---
 #BeautifulCode#
@@ -41,4 +41,4 @@ tags:  code
 
 
 
-##tags: code##
+##tags: Design##
