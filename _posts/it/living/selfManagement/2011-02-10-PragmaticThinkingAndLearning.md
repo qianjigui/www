@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/living/selfManagement
 title: "PragmaticThinkingAndLearning"
 tags:  Method

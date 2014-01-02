@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/ContinuousIntegration
 title: "MercurialSCM使用知识"
 tags: Tool

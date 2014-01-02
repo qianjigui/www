@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/living/selfManagement
 title: "精神力量"
 tags: undefine

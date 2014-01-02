@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/living/life
 title: "如何读书"
 tags: Read Method

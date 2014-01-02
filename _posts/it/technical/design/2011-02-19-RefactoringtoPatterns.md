@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/design
 title: "重构与模式 读书笔记"
 tags: Refactor Pattern

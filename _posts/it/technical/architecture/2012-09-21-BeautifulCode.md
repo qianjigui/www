@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/architecture
 title: "BeautifulCode"
 tags:  Design

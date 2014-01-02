@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/living/life
 title: 心灵提醒与反馈
 tags: Review Heart

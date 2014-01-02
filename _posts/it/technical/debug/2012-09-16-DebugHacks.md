@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/debug
 title: "DebugHacks"
 tags:  Tool

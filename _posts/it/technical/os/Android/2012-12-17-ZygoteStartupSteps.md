@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/os/Android
 title: "ZygoteStartupSteps"
 tags: undefine

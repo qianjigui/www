@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/SoftwareEngineering
 title: "死亡之旅笔记"
 tags: SoftwareEngineering

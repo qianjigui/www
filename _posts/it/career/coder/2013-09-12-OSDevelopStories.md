@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/career/coder
 title: "OSDevelopStories"
 tags:  OS Review
