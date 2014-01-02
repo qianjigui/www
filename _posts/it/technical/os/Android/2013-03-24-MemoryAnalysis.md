@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/os/Android
 title: "AndroidOSMemory分析"
 tags:  Android OS Memory Heap

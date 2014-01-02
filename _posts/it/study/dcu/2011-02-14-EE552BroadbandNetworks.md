@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/study/dcu
 title: "EE552-BroadbandNetworks"
 tags:  Network

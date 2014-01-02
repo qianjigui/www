@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/study/whu
 title: "笔试面试总结与思考"
 tags: Job

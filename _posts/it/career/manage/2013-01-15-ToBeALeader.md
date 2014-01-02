@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/career/manage
 title: "ToBeALeader"
 tags:  Manage

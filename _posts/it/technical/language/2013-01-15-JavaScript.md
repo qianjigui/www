@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/language
 title: "JavaScript"
 tags:  JavaScript

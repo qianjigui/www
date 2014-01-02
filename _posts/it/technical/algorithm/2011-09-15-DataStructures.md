@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/algorithm
 title: "算法与数据结构小结"
 tags: Datastructure

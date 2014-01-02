@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/living/interest
 title: "口琴"
 tags: Music

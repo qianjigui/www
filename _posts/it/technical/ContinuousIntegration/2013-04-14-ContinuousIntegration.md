@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/ContinuousIntegration
 title: "持续集成(CI)"
 tags: Tool

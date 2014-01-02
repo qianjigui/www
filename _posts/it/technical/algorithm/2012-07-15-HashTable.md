@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/algorithm
 title: "散列表"
 tags: Datastructure

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/study/dcu
 title: "EE500PerformanceofDataNetworks"
 tags:  Network

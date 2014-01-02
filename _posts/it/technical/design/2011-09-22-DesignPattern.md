@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/design
 title: "设计模式"
 tags: DesignPattern

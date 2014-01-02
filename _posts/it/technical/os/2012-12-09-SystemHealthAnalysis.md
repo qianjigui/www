@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/os
 title: "系统健康与分析"
 tags:  system 优化 经验

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/vm
 title: "Virtual Machines"
 tags:  VM JVM 

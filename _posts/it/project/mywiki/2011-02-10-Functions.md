@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/project/mywiki
 title: "Introduction Functions"
 tags: undefine

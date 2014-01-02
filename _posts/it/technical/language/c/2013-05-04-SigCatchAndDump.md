@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/language/c
 title: "C语言发生问题产生log并crash dump"
 tags: C

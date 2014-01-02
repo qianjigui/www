@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/language
 title: "信息的表示和处理"
 tags: ComputerSystem

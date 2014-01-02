@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/language/java
 title: "ThinkingInJavaFromVM"
 tags:  VM Java

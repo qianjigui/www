@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/technical/algorithm
 title: "数据结构"
 tags:  DataStructure Review

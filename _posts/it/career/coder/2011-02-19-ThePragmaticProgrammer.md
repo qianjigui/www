@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/career/coder
 title: 程序员修炼之道 读书笔记
 tags: Review

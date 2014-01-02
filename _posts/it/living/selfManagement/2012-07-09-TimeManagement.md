@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 category: it/living/selfManagement
 title: "时间管理"
 tags: Time
