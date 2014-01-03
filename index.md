@@ -1,6 +1,6 @@
 ---
 layout: page
-title: WPC WebSite
+title: PC Code life
 ---
 
 {% include JB/setup %}

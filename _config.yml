@@ -11,10 +11,10 @@ baseurl: '/'
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : WPC WebSite
-tagline: WPC Site Tagline
+title : PC的程序员记录
+tagline: 2014 "码" 到成功 !
 author :
-  name : Pengcheng Wang
+  name : PC
   email : qianjigui@gmail.com
   github : qianjigui
   twitter : qianjigui
@@ -118,3 +118,13 @@ JB :
   #   ./_includes/custom/[HELPER]
   # where [HELPER] is the name of the helper you are overriding.
   
+
+
+#words language support
+lang:
+  cn:
+      previous: 老的一篇
+      next: 新的一篇
+      archive: 归档列表
+      published: 添加日期
+      all_pages: 导航页面
