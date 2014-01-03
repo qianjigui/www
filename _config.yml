@@ -106,7 +106,11 @@ JB :
   #
   sharing :
     provider : false
-    
+
+  # Local Search
+  search:
+    provider: baidu
+
   # Settings for all other include helpers can be defined by creating 
   # a hash with key named for the given helper. ex:
   #

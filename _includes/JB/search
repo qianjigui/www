@@ -1,13 +1,12 @@
-<script>
-  (function() {
-    var cx = '010139465594742427943:kmtlpjww_ge';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//www.google.com/cse/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
-<gcse:search></gcse:search>
+{% if site.JB.search.provider %}
+
+{% case site.JB.search.provider %}
+{% when "baidu" %}
+  {% include JB/search-providers/baidu %}
+{% when "google" %}
+  {% include JB/search-providers/google %}
+{% when "custom" %}
+  {% include custom/search %}
+{% endcase %}
+
+{% endif %}
