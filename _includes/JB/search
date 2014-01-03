@@ -1,12 +1,6 @@
 {% if site.JB.search.provider %}
 
-{% case site.JB.search.provider %}
-{% when "baidu" %}
-  {% include JB/search-providers/baidu %}
-{% when "google" %}
-  {% include JB/search-providers/google %}
-{% when "custom" %}
-  {% include custom/search %}
-{% endcase %}
+{% include JB/search-providers/baidu %}
+{% include JB/search-providers/google %}
 
 {% endif %}
