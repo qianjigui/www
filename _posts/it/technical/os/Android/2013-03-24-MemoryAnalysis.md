@@ -2,7 +2,7 @@
 layout: post
 category: it/technical/os/Android
 title: "AndroidOSMemory分析"
-tags:  Android OS Memory Heap
+tags:  GC Memory
 
 ---
 #AndroidOSMemory分析#
@@ -73,7 +73,7 @@ tags:  Android OS Memory Heap
 
 
 
-##tags: Android OS Memory Heap##
+##tags: GC Memory##
 
 
 

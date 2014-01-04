@@ -2,7 +2,7 @@
 layout: post
 category: it/technical/os/Android
 title: "AndroidDebugger"
-tags: undefine
+tags:  Debug
 
 ---
 #AndroidDebugger#
@@ -37,3 +37,7 @@ tags: undefine
 * bugreport
 * dumpsys
 * dumpstate
+
+
+
+##tags: Debug##

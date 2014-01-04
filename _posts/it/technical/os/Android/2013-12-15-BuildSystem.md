@@ -2,7 +2,7 @@
 layout: post
 category: it/technical/os/Android
 title: "Android Build System"
-tags: undefine
+tags:  Make
 
 ---
 #Android Build System#
@@ -72,3 +72,16 @@ tags: undefine
 ##BUILD_PREBUILT##
 * main.mk
 * prebuilt.mk
+
+
+
+##新功能方向与学习##
+* DexpreoptForPREBUILTmodules
+  * APP build 涉及模块的作用
+  * 去掉system下的so
+* AddNewGlobalVariable
+* AddNewProject
+
+
+
+##tags: Make##

@@ -2,7 +2,7 @@
 layout: post
 category: it/technical/os/Android
 title: "Android 事件处理系统"
-tags: Android EventProcess
+tags: EventProcess
 
 ---
 

@@ -2,7 +2,7 @@
 layout: post
 category: it/technical/os/Android
 title: "SystemServer"
-tags: Android SystemServer PackageManager
+tags: undefine
 
 ---
 #SystemServer#
@@ -25,10 +25,6 @@ tags: Android SystemServer PackageManager
   * 对jar进行dexopt优化
   * 通过ScanDirLI()扫描并解析当前已存在的apk
   * 将解析/安装的.apk信息保存到/data/system/packages.xml和/data/system/packages.lst文件以备查询
-
-
-
-##tags:Android SystemServer PackageManager##
 
 
 

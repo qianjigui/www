@@ -2,7 +2,7 @@
 layout: post
 category: it/technical/os/Android
 title: "APIChecker"
-tags: undefine
+tags:  SoftwareEngineering
 
 ---
 #APIChecker#
@@ -26,3 +26,7 @@ tags: undefine
     * LOCAL_STATIC_LIBRARY
     * LOCAL_PACKAGE
     * LOCAL_SHARED_LIBRARY
+
+
+
+##tags: SoftwareEngineering##

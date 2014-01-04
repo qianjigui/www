@@ -2,7 +2,7 @@
 layout: post
 category: it/technical/os/chromev8
 title: "JS-V8引擎"
-tags:  JavaScript V8
+tags:  VM
 
 ---
 #JS-V8引擎#
@@ -82,4 +82,4 @@ tags:  JavaScript V8
 
 
 
-##tags: JavaScript V8##
+##tags: VM##
