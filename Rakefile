@@ -40,6 +40,9 @@ module JB
   end #Path
 end #JB
 
+desc 'Run jekyll local for test'
+task :default => :preview
+
 # Usage: rake post title="A Title" [date="2012-02-09"]
 desc "Begin a new post in #{CONFIG['posts']}"
 task :post do
@@ -97,7 +100,7 @@ end # task :page
 
 desc "Launch preview environment"
 task :preview do
-  system "jekyll --auto --server"
+  system "jekyll serve --safe"
 end # task :preview
 
 # Public: Alias - Maintains backwards compatability for theme switching.
