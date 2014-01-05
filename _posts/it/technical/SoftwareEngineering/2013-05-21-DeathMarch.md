@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-01
 category: it/technical/SoftwareEngineering
 title: "死亡之旅笔记"
 tags: SoftwareEngineering

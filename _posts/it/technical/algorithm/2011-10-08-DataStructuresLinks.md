@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2013-05-04
 category: it/technical/algorithm
 title: "数据结构"
 tags:  DataStructure Review

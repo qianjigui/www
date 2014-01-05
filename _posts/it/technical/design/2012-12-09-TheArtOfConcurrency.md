@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2012-12-10
 category: it/technical/design
 title: "TheArtOfConcurrency"
 tags:  Concurrency Rules Threads

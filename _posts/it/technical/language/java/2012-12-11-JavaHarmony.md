@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2012-12-12
 category: it/technical/language/java
 title: "JavaHarmony"
 tags:  JVM Harmony JDK Java

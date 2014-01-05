@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2013-04-13
 category: it/technical/language/java
 title: "ThinkingInJavaFromVM"
 tags:  VM Java

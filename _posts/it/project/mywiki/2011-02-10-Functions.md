@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-01
 category: it/project/mywiki
 title: "Introduction Functions"
 tags: undefine

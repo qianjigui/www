@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-01
 category: it/technical/design
 title: "实现模式 读书笔记"
 tags: Pattern

@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-01
 category: it/study/whu
 title: "笔试面试总结与思考"
 tags: Job

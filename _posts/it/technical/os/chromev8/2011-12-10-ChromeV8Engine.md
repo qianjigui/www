@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-03
 category: it/technical/os/chromev8
 title: "JS-V8引擎"
 tags:  VM

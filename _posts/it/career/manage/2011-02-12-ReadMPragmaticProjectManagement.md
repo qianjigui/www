@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-01
 category: it/career/manage
 title: "Manage It!: Your Guide to Modern, Pragmatic Project Management 项目管理修炼之道"
 tags: Manage SoftwareEngineering

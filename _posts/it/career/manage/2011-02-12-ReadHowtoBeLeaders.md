@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-01
 category: it/career/manage
 title: "恩威并重的领导艺术"
 tags:  Manage 2R Leader

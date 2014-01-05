@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-03
 category: it/technical/os
 title: "系统健康与分析"
 tags:  SystemOptimize

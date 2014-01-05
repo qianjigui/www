@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2013-09-10
 category: it/technical/design
 title: "DesignPatternsForEmbeddedSystemsInC"
 tags:  Embedded Review

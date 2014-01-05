@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2013-12-30
 category: it/technical/design
 title: "设计模式"
 tags: DesignPattern

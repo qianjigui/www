@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2013-06-11
 category: it/living/life
 title: "健康与保健"
 tags: Health

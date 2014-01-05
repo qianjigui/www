@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-03
 category: it/technical/os/Android
 title: "Android 事件处理系统"
 tags: EventProcess

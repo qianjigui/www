@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2013-01-30
 category: it/technical/language/ruby
 title: "Reading Note for Rails Recipes"
 tags: Rails Ruby Framework

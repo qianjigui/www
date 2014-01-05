@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-01
 category: it/career/coder
 title: 程序员修炼之道 读书笔记
 tags: Review

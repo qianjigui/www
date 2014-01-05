@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-04
 category: it/living/selfManagement
 title: "时间管理"
 tags: Time

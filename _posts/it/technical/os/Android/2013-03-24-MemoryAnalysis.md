@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-03
 category: it/technical/os/Android
 title: "AndroidOSMemory分析"
 tags:  GC Memory

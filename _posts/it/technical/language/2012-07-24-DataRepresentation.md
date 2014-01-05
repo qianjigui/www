@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2013-12-30
 category: it/technical/language
 title: "信息的表示和处理"
 tags: ComputerSystem

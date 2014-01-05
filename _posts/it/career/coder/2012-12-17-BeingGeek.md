@@ -1,5 +1,6 @@
 ---
 layout: post
+lmtime: 2014-01-01
 category: it/career/coder
 title: "BeingGeek"
 tags:  Review
