@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-01-03
+lmtime: 2014-01-06
 category: it/technical/os/Android
 title: "Android Build System"
 tags:  Make
@@ -73,15 +73,6 @@ tags:  Make
 ##BUILD_PREBUILT##
 * main.mk
 * prebuilt.mk
-
-
-
-##新功能方向与学习##
-* DexpreoptForPREBUILTmodules
-  * APP build 涉及模块的作用
-  * 去掉system下的so
-* AddNewGlobalVariable
-* AddNewProject
 
 
 
