@@ -1,6 +1,6 @@
 ---
 layout: page
-title: PC Code life
+title: PC 程序员记忆
 ---
 
 {% include JB/setup %}
