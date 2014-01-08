@@ -133,4 +133,6 @@ lang:
       archive: 归档列表
       published: 创建@
       lmtime: 最后修改@
-      all_pages: 导航页面
+      all_pages: 主要页面
+      last_5_p: 最近发布
+      last_5_e: 最近更新
