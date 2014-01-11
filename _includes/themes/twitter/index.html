@@ -1,14 +1,20 @@
 <div class="row">
-  <div class="span8">
-    {{ content }}
-  </div>
-  <div class="span4">
-    <h4>{{ site.lang.cn.aboutme }}</h4>
-    <p>
-    {{ site.author.name }}
-    {{ site.author.email }}
-    </p>
-    <h4>{{ site.lang.cn.last_5_comments }}</h4>
-    {% include JB/comments-providers/duoshuoLatest %}
-  </div>
+    <div class="span8">
+        {{ content }}
+    </div>
+    <div class="span4">
+        <h3>
+            <a href="/atom.xml" target="_black"><img width="25" height="25" src="http://pic.yupoo.com/qianjigui/Dscs6VQI/medish.jpg" alt="RSS/ATOM" />atom RSS</a>
+            <a href="/sitemap.txt" target="_black"><img width="25" height="25" src="http://pic.yupoo.com/qianjigui/Dscs6XxN/medish.jpg" alt="Sitemap" />Sitemap</a>
+        </h3>
+        <h4>{{ site.lang.cn.aboutme }}</h4>
+        <p>
+        {{ site.author.name }}
+        {{ site.author.email }}
+        <a href="http://weibo.com/u/1620259387?s=6uyXnP" target="_blank"><img border="0" src="http://service.t.sina.com.cn/widget/qmd/1620259387/4e2885d2/1.png"/></a>
+        </p>
+
+        <h4>{{ site.lang.cn.last_5_comments }}</h4>
+        {% include JB/comments-providers/duoshuoLatest %}
+    </div>
 </div>
