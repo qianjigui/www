@@ -81,6 +81,7 @@ JB :
   #
   comments :
     provider : duoshuo
+    last_max_num: 5
     disqus :
       short_name : 5wpc
     duoshuo :
@@ -136,3 +137,6 @@ lang:
       all_pages: 主要页面
       last_5_p: 最近发布
       last_5_e: 最近更新
+      last_5_comments: 最近评论
+      aboutme: 关于我
+      star_post: 特别关注

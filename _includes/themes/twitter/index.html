@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="span8">
+    {{ content }}
+  </div>
+  <div class="span4">
+    <h4>{{ site.lang.cn.aboutme }}</h4>
+    <h4>{{ site.lang.cn.last_5_comments }}</h4>
+    {% include JB/comments-providers/duoshuoLatest %}
+  </div>
+</div>
