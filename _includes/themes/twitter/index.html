@@ -4,6 +4,10 @@
   </div>
   <div class="span4">
     <h4>{{ site.lang.cn.aboutme }}</h4>
+    <p>
+    {{ site.author.name }}
+    {{ site.author.email }}
+    </p>
     <h4>{{ site.lang.cn.last_5_comments }}</h4>
     {% include JB/comments-providers/duoshuoLatest %}
   </div>
