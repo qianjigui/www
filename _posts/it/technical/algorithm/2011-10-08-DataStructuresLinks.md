@@ -1,9 +1,9 @@
 ---
 layout: post
-lmtime: 2013-05-04
+lmtime: 2014-01-11
 category: it/technical/algorithm
 title: "数据结构"
-tags:  DataStructure Review
+tags:  DataStructure
 
 ---
 #数据结构#
@@ -163,4 +163,4 @@ tags:  DataStructure Review
 
 
 
-##tags: DataStructure Review##
+##tags: DataStructure##

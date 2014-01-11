@@ -1,16 +1,16 @@
 ---
 layout: post
-lmtime: 2013-09-10
+lmtime: 2014-01-11
 category: it/technical/design
 title: "DesignPatternsForEmbeddedSystemsInC"
-tags:  Embedded Review
+tags:  Embedded
 
 ---
 #DesignPatternsForEmbeddedSystemsInC#
 
 
 
-##tags: Embedded Review##
+##tags: Embedded##
 
 
 
