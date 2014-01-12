@@ -3,7 +3,7 @@ layout: post
 lmtime: 2014-01-01
 category: it/technical/vm
 title: "VM-Group-Discuss"
-tags: undefine
+tags: 
 
 ---
 #VM-Group-Discuss#

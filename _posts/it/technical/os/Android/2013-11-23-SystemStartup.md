@@ -3,7 +3,7 @@ layout: post
 lmtime: 2014-01-03
 category: it/technical/os/Android
 title: "SystemStartup"
-tags: undefine
+tags: 
 
 ---
 #SystemStartup#

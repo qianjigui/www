@@ -1,9 +1,8 @@
 ---
 layout: post
-lmtime: 2014-01-03
+lmtime: 2014-01-12
 category: it/technical/language/java
 title: "Java 标注"
-tags: Java
 
 ---
 

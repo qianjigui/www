@@ -3,7 +3,7 @@ layout: post
 lmtime: 2014-01-04
 category: it/living/life
 title: 心灵提醒与反馈
-tags: Review Heart
+tags: Review
 
 ---
 

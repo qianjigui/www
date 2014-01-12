@@ -1,16 +1,16 @@
 ---
 layout: post
-lmtime: 2013-04-13
+lmtime: 2014-01-12
 category: it/technical/language/java
 title: "ThinkingInJavaFromVM"
-tags:  VM Java
+tags:  VM
 
 ---
 #ThinkingInJavaFromVM#
 
 
 
-##tags: VM Java##
+##tags: VM##
 
 
 

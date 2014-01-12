@@ -1,9 +1,9 @@
 ---
 layout: post
-lmtime: 2013-05-04
+lmtime: 2014-01-12
 category: it/technical/language
 title: "JavaScript"
-tags:  JavaScript
+tags: 
 
 ---
 #JavaScript#
@@ -61,7 +61,3 @@ tags:  JavaScript
     * JSR292
     * invokedynamic
     * JSR223
-
-
-
-##tags: JavaScript##

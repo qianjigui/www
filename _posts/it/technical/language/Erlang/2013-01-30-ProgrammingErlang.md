@@ -1,9 +1,8 @@
 ---
 layout: post
-lmtime: 2013-12-30
+lmtime: 2014-01-12
 category: it/technical/language/Erlang
 title: "Programming Eralng"
-tags: Erlang
 
 ---
 

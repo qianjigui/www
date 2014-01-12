@@ -1,9 +1,9 @@
 ---
 layout: post
-lmtime: 2013-05-04
+lmtime: 2014-01-12
 category: it/technical/language/ruby
 title: "RubyAuthorThinking"
-tags:  Ruby LanguagePattern
+tags: 
 
 ---
 #RubyAuthorThinking#
@@ -84,7 +84,3 @@ tags:  Ruby LanguagePattern
 * 函数式编程
   * Block
   * Erlang
-
-
-
-##tags: Ruby LanguagePattern##

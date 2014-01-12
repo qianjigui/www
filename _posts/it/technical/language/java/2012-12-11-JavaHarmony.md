@@ -1,9 +1,9 @@
 ---
 layout: post
-lmtime: 2012-12-12
+lmtime: 2014-01-12
 category: it/technical/language/java
 title: "JavaHarmony"
-tags:  JVM Harmony JDK Java
+tags:  JVM Harmony
 
 ---
 #JavaHarmony#
@@ -113,7 +113,7 @@ tags:  JVM Harmony JDK Java
 
 
 
-##tags: JVM Harmony JDK Java##
+##tags: JVM Harmony##
 
 
 
