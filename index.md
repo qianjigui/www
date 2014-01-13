@@ -21,4 +21,5 @@ group: index
         {% include JB/pages_list %}
     {% endif %}
 {% endfor %}
+    <li><a href="http://may511.lofter.com/">May511Blog</a></li>
 </ul>
