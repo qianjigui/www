@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-01-04
+lmtime: 2014-01-14
 category: it/living/life
 title: 心灵提醒与反馈
 tags: Review
@@ -61,6 +61,7 @@ tags: Review
         - Technical
     - Life
         - Movie
+        - SPA
         - Clean house
 
 ## 2013
