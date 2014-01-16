@@ -129,6 +129,7 @@ JB :
 lang:
   cn:
       tags: 标签/Tags
+      categories: 相同类目/Categories
       previous: 老的一篇
       next: 新的一篇
       archive: 归档列表

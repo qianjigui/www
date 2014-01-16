@@ -48,6 +48,15 @@
     {% assign tags_list = page.tags %}
     {% include JB/tags_list %}
     </ul>
-  {% endunless %}  
+  {% endunless %}
+
+  {% unless page.category == empty %}
+    <h4>{{ site.lang.cn.categories }}</h4>
+    <ul>
+    {% assign dc_category = page.category | downcase %}
+    {% assign pages_list = site.categories[dc_category] %}
+    {% include JB/pages_list %}
+    </ul>
+  {% endunless %}
   </div>
 </div>
