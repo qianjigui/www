@@ -1,5 +1,6 @@
 {% if site.JB.search.provider %}
 
+{% include JB/search-providers/duckduckgo %}
 {% include JB/search-providers/baidu %}
 {% include JB/search-providers/google %}
 
