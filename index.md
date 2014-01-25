@@ -1,7 +1,9 @@
 ---
 layout: index
-title: index
+title: PC的程序员记录
+description: 记载技术,生活相关文字. 目前主要关注在Android, Ruby等方面.
 group: index
+date: 2011-02-01
 ---
 
 {% include JB/setup %}
