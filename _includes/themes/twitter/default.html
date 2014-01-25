@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="cn">
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
   <head>
     <meta charset="utf-8">
     <title>{{ page.title }}</title>
     {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
     <meta name="author" content="{{ site.author.name }}">
+
+    <!-- sina weibo API -->
     <meta property="wb:webmaster" content="632e6945a16c1527" />
+    <!--必填-->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{page.url}}" />
+    <meta property="og:title" content="{{page.title}}" />
+    <meta property="og:description" content="{{page.description}}" />
+    <!--选填-->
+    <meta name="weibo: article:create_at" content="{{ page.date | date: "%Y-%m-%d" }}" />
+    {% if page.lmtime %}
+    <meta name="weibo: article:update_at" content="{{ page.lmtime | date: "%Y-%m-%d" }}" />
+    {% endif %}
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    <!-- sina weibo API END -->
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
