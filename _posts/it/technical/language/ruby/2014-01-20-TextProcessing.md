@@ -1,8 +1,8 @@
 ---
 layout: post
-lmtime: 2014-01-20
+lmtime: 2014-02-13
 category: it/technical/language/ruby
-title: 文本处理
+title: Ruby文本处理相关实践
 
 ---
 
@@ -61,6 +61,7 @@ else
    process
 end
 ```
+
 ## 基于正则表达式的处理
 
 充分利用正则表达式的特性, 特别是 锚点, 分组与捕获.

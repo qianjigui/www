@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-01-14
+lmtime: 2014-02-13
 category: it/living/life
 title: 心灵提醒与反馈
 tags: Review
@@ -41,7 +41,10 @@ tags: Review
             - Run
             - Energy
         - Music
-        - On Time
+        - Use Time Right?
+            - On Time
+            - Computer Time
+            - Happy Time
     - Read
         - Technial
             - ATA
