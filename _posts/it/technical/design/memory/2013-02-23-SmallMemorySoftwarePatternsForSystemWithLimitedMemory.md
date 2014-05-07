@@ -3,14 +3,14 @@ layout: post
 lmtime: 2014-01-01
 category: it/technical/design/memory
 title: "SmallMemorySoftwarePatternsForSystemWithLimitedMemory"
-tags:  System
+tags:  System Memory GC
 
 ---
 #SmallMemorySoftwarePatternsForSystemWithLimitedMemory#
 
 
 
-##tags: System##
+##tags: System Memory GC##
 
 
 
@@ -326,3 +326,7 @@ tags:  System
 
 
 ##![http://pic.yupoo.com/qianjigui/CM2ddHDD/medish.jpg](http://pic.yupoo.com/qianjigui/CM2ddHDD/medish.jpg)##
+
+
+
+##![LowRamStuctureView](/assets/svgfiles/SmallMemorySoftwarePatternsForSystemWithLimitedMemorryGlobalView.svg)##
