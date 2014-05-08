@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-01-01
+lmtime: 2014-05-08
 category: it/technical/design/memory
 title: "SmallMemorySoftwarePatternsForSystemWithLimitedMemory"
 tags:  System Memory GC
