@@ -1,14 +1,15 @@
 ---
 layout: post
-lmtime: 2014-01-01
+lmtime: 2014-06-02
 category: it/living/interest
 title: "口琴"
 tags: Music
 
 ---
 
+#主要布局#
 
-
+![http://pic.yupoo.com/qianjigui/DNJfPnO4/62Usa.jpg](http://pic.yupoo.com/qianjigui/DNJfPnO4/62Usa.jpg)
 
 #口琴#
 ##布鲁斯口琴##
