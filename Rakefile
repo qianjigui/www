@@ -100,7 +100,7 @@ end # task :page
 
 desc "Launch preview environment"
 task :preview do
-  system "jekyll serve --safe"
+  system "bundle exec jekyll serve --safe"
 end # task :preview
 
 # Public: Alias - Maintains backwards compatability for theme switching.

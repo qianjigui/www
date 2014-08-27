@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-01-01
+lmtime: 2014-06-02
 category: it/living/selfManagement
 title: "PragmaticThinkingAndLearning"
 tags:  Method Review

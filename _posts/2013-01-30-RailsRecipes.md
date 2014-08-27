@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-01-12
+lmtime: 2014-01-20
 category: it/technical/language/ruby
 title: "Reading Note for Rails Recipes"
 tags: Rails
