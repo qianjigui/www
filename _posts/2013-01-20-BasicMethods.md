@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-09-04
+lmtime: 2014-09-10
 category: it/project/FinancialManage
 title: "BasicMethods"
 tags:  Finacial

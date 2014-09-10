@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-09-04
+lmtime: 2014-09-10
 category: it/project/FinancialManage
 title: "StockManage"
 tags: 
@@ -23,3 +23,9 @@ tags:
 * 股票
 * 理财产品
 * 基金
+
+
+
+##主要要求##
+* 资金流转
+  * 每个人每年50000美金
