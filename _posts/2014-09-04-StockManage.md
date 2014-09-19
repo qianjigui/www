@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-09-10
+lmtime: 2014-09-19
 category: it/project/FinancialManage
 title: "StockManage"
 tags: 
@@ -13,6 +13,9 @@ tags:
 ##交易通道##
 * https://www.ibkr.com.cn/cn/main.php
   * 证券通道
+  * 开户相关
+    * http://blog.sina.com.cn/s/blog_672f4b1f0102uzun.html
+    * http://www.aliway.com/read.php?tid=255547
 * http://xueqiu.com/
   * 信息汇总通道
 
