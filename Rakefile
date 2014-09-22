@@ -2,6 +2,8 @@ require "rubygems"
 require 'rake'
 require 'yaml'
 require 'time'
+require 'jekyll'
+require 'fileutils'
 
 SOURCE = "."
 CONFIG = {
@@ -100,8 +102,50 @@ end # task :page
 
 desc "Launch preview environment"
 task :preview do
-  system "bundle exec jekyll serve --safe"
+  #system "bundle exec jekyll serve --safe"
+  system "bundle exec jekyll serve"
 end # task :preview
+
+
+# Usage:
+# http://blog.sorryapp.com/blogging-with-jekyll/2014/01/31/using-jekyll-plugins-on-github-pages.html
+# bundle exec rake publish
+desc "Publish blog to gh-pages"
+task :publish do
+    # Compile the Jekyll site using the config.
+    Jekyll::Site.new(Jekyll.configuration({
+        "source"      => ".",
+        "destination" => "_site",
+        "config" => "_config.yml"
+    })).process
+
+    # Get the origin to which we are going to push the site.
+    origin = `git config --get remote.origin.url`
+
+    tmp = 'gh-pages/'
+    if File.directory?(tmp)
+        FileUtils.rm_rf tmp+'*'
+        # Make a temporary directory for the build before production release.
+        # This will be torn down once the task is complete.
+        # Copy accross our compiled _site directory.
+        FileUtils.cp_r "_site/.", tmp
+
+        # Switch in to the tmp dir.
+        Dir.chdir tmp
+
+        # Prepare all the content in the repo for deployment.
+        system "git add -A . && git commit -m 'Site updated at #{Time.now.utc}'" # Add and commit all the files.
+
+        #system "git push origin gh-pages:refs/heads/gh-pages --force"
+        system "git push"
+        puts 'Success'
+    else
+        puts 'Please: git clone git@github.com:qianjigui/www.git -b gh-pages gh-pages'
+        exit 1
+    end
+
+    # Done.
+end
 
 # Public: Alias - Maintains backwards compatability for theme switching.
 task :switch_theme => "theme:switch"
