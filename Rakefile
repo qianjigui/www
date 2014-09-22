@@ -124,20 +124,20 @@ task :publish do
 
     tmp = 'gh-pages/'
     if File.directory?(tmp)
-        FileUtils.rm_rf tmp+'*'
+        # Switch in to the tmp dir.
+        FileUtils.rm_r Dir.glob(tmp+'*')
+
         # Make a temporary directory for the build before production release.
         # This will be torn down once the task is complete.
         # Copy accross our compiled _site directory.
-        FileUtils.cp_r "_site/.", tmp
+        FileUtils.cp_r '_site/.', tmp
 
-        # Switch in to the tmp dir.
         Dir.chdir tmp
-
         # Prepare all the content in the repo for deployment.
-        system "git add -A . && git commit -m 'Site updated at #{Time.now.utc}'" # Add and commit all the files.
+        #system "git add -A . && git commit -m 'Site updated at #{Time.now.utc}'" # Add and commit all the files.
 
         #system "git push origin gh-pages:refs/heads/gh-pages --force"
-        system "git push"
+        #system "git push"
         puts 'Success'
     else
         puts 'Please: git clone git@github.com:qianjigui/www.git -b gh-pages gh-pages'
