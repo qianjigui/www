@@ -1,16 +1,16 @@
 ---
 layout: post
-lmtime: 2014-09-21
+lmtime: 2014-09-22
 category: it/technical/design
 title: "TheDesignOfDesign"
-tags:  DesignPatterns
+tags:  DesignPattern
 
 ---
 #TheDesignOfDesign#
 
 
 
-##tags: DesignPatterns##
+##tags: DesignPattern##
 
 
 
