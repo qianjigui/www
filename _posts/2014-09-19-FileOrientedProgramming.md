@@ -1,9 +1,9 @@
 ---
 layout: post
-lmtime: 2014-09-19
+lmtime: 2014-09-21
 category: it/technical/design
 title: "FileOrientedProgramming"
-tags: 
+tags:  DesignPatterns IO
 
 ---
 #FileOrientedProgramming#
@@ -15,10 +15,16 @@ tags:
   * filepath
 * io
 * filesystem API
+  * http://en.wikipedia.org/wiki/File_system_API
+
+
+
+##tags: DesignPatterns IO##
 
 
 
 ##FileSystem##
+* http://en.wikipedia.org/wiki/File_system
 * 文件系统涉及的主要方面
   * 存储空间管理
   * 文件名称管理
@@ -38,3 +44,19 @@ tags:
   * FS API
   * 设计限制/规格
     * 例如:最大文件大小,maxfilenamelength
+* 主要的类型
+  * Disk
+    * 有日志文件系统,版本文件系统
+  * 光盘
+  * Flash
+  * 磁带
+  * 数据库
+  * 事务文件系统
+  * 网络文件系统
+    * SMB
+    * NFS
+    * AFS
+    * FTP
+  * 共享磁盘文件系统
+  * 特殊文件系统
+  * 设备文件系统
