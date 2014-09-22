@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>重构与模式 读书笔记</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/design/2011/02/19/RefactoringtoPatterns" />
+<meta property="og:title" content="重构与模式 读书笔记" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2011-02-19" />
+
+<meta name="weibo:article:update_at" content="2014-09-19" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
+    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search.html">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        重构与模式 读书笔记
+        <small>
+            
+            2014 "码" 到成功 !
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1>目录</h1>
+
+<ol>
+<li>本书的写作缘由　1</li>
+<li> 1.1　过度设计　1</li>
+<li> 1.2　模式万灵丹　2</li>
+<li> 1.3　设计不足　2</li>
+<li> 1.4　测试驱动开发和持续重构　3</li>
+<li> 1.5　重构与模式　5</li>
+<li> 1.6　演进式设计　6</li>
+<li>重构　7</li>
+<li> 2.1　何谓重构　7</li>
+<li> 2.2　重构的动机　8</li>
+<li> 2.3　众目睽睽　9</li>
+<li> 2.4　可读性好的代码　10</li>
+<li> 2.5　保持清晰　11</li>
+<li> 2.6　循序渐进　11</li>
+<li> 2.7　设计欠账　12</li>
+<li> 2.8　演变出新的架构　13</li>
+<li> 2.9　复合重构与测试驱动的重构　13</li>
+<li> 2.10　复合重构的优点　15</li>
+<li> 2.11　重构工具　15</li>
+<li>模式　17</li>
+<li> 3.1　何谓模式　17</li>
+<li> 3.2　模式痴迷　18</li>
+<li> 3.3　实现模式的方式不止一种　20</li>
+<li> 3.4　通过重构实现、趋向和去除模式　22</li>
+<li> 3.5　模式是否会使代码更加复杂　24</li>
+<li> 3.6　模式知识　25</li>
+<li> 3.7　使用模式的预先设计　26</li>
+<li>代码坏味　29</li>
+<li> 4.1　重复代码(Duplicated Code)　31</li>
+<li> 4.2　方法过长(Long Method)　31</li>
+<li> 4.3　条件逻辑太复杂(Conditional Complexity)　32</li>
+<li> 4.4　基本类型迷恋(Primitive Obsession)　33</li>
+<li> 4.5　不恰当的暴露(Indecent Exposure)　33</li>
+<li> 4.6　解决方案蔓延(Solution Sprawl)　34</li>
+<li> 4.7　异曲同工的类(Alternative Classes with Different Interfaces)　34</li>
+<li> 4.8　冗赘类(Lazy Class)　34</li>
+<li> 4.9　类过大(Large Class)　34</li>
+<li> 4.10　分支语句(Switch Statement)　35</li>
+<li> 4.11　组合爆炸(Combinatorial Explosion)　35</li>
+<li> 4.12　怪异解决方案(Oddball Solution)　35</li>
+<li>模式导向的重构目录　37</li>
+<li> 5.1　重构的格式　37</li>
+<li> 5.2　本目录中引用的项目　38</li>
+<li> 5.2.1　XML Builder　39</li>
+<li> 5.2.2　HTML Parser　39</li>
+<li> 5.2.3　贷款风险计算程序　40</li>
+<li> 5.3　起点　40</li>
+<li> 5.4　学习顺序　41</li>
+<li>创建　43</li>
+<li> 6.1　用Creation Method替换构造函数　44</li>
+<li> 6.1.1　动机　44</li>
+<li> 6.1.2　做法　46</li>
+<li> 6.1.3　示例　46</li>
+<li> 6.1.4　变体　51</li>
+<li> 6.2　将创建知识搬移到Factory　52</li>
+<li> 6.2.1　动机　53</li>
+<li> 6.2.2　做法　55</li>
+<li> 6.2.3　示例　56</li>
+<li> 6.3　用Factory封装类　61</li>
+<li> 6.3.1　动机　62</li>
+<li> 6.3.2　做法　63</li>
+<li> 6.3.3　示例　63</li>
+<li> 6.3.4　变体　66</li>
+<li> 6.4　用Factory Method引入多态创建　68</li>
+<li> 6.4.1　动机　68</li>
+<li> 6.4.2　做法　69</li>
+<li> 6.4.3　示例　71</li>
+<li> 6.5　用Builder封装Composite　74</li>
+<li> 6.5.1　做法　76</li>
+<li> 6.5.2　示例　77</li>
+<li> 6.5.3　变体　87</li>
+<li> 6.6　内联Singleton　90</li>
+<li> 6.6.1　动机　90</li>
+<li> 6.6.2　做法　92</li>
+<li> 6.6.3　示例　93</li>
+<li>简化　97</li>
+<li> 7.1　组合方法　98</li>
+<li> 7.1.1　动机　98</li>
+<li> 7.1.2　做法　100</li>
+<li> 7.1.3　示例　100</li>
+<li> 7.2　用Strategy替换条件逻辑　103</li>
+<li> 7.2.1　动机　103</li>
+<li> 7.2.2　做法　105</li>
+<li> 7.2.3　示例　106</li>
+<li> 7.3　将装饰功能搬移到Decorator　115</li>
+<li> 7.3.1　动机　115</li>
+<li> 7.3.2　做法　119</li>
+<li> 7.3.3　示例　120</li>
+<li> 7.4　用State替换状态改变条件语句　134</li>
+<li> 7.4.1　动机　134</li>
+<li> 7.4.2　做法　135</li>
+<li> 7.4.3　示例　136</li>
+<li> 7.5　用Composite替换隐含树　144</li>
+<li> 7.5.1　动机　144</li>
+<li> 7.5.2　做法　147</li>
+<li> 7.5.3　示例　148</li>
+<li> 7.6　用Command替换条件调度程序　155</li>
+<li> 7.6.1　动机　156</li>
+<li> 7.6.2　做法　157</li>
+<li> 7.6.3　示例　158</li>
+<li>泛化　165</li>
+<li> 8.1　形成Template Method　166</li>
+<li> 8.1.1　动机　167</li>
+<li> 8.1.2　做法　168</li>
+<li> 8.1.3　示例　168</li>
+<li> 8.2　提取Composite　173</li>
+<li> 8.2.1　动机　173</li>
+<li> 8.2.2　做法　174</li>
+<li> 8.2.3　示例　175</li>
+<li> 8.3　用Composite替换一/多之分　181</li>
+<li> 8.3.1　动机　181</li>
+<li> 8.3.2　做法　183</li>
+<li> 8.3.3　示例　184</li>
+<li> 8.4　用Observer替换硬编码的通知　191</li>
+<li> 8.4.1　动机　191</li>
+<li> 8.4.2　做法　192</li>
+<li> 8.4.3　示例　193</li>
+<li> 8.5　通过Adapter统一接口　200</li>
+<li> 8.5.1　动机　200</li>
+<li> 8.5.2　做法　201</li>
+<li> 8.5.3　示例　202</li>
+<li> 8.6　提取Adapter　209</li>
+<li> 8.6.1　动机　209</li>
+<li> 8.6.2　做法　211</li>
+<li> 8.6.3　示例　211</li>
+<li> 8.6.4　变体　217</li>
+<li> 8.7　用Interpreter替换隐式语言　218</li>
+<li> 8.7.1　动机　218</li>
+<li> 8.7.2　做法　220</li>
+<li> 8.7.3　示例　221</li>
+<li>保护　231</li>
+<li> 9.1　用类替换类型代码　232</li>
+<li> 9.1.1　动机　232</li>
+<li> 9.1.2　做法　234</li>
+<li> 9.1.3　示例　235</li>
+<li> 9.2　用Singleton限制实例化　240</li>
+<li> 9.2.1　动机　240</li>
+<li> 9.2.2　做法　241</li>
+<li> 9.2.3　示例　241</li>
+<li> 9.3　引入Null Object　243</li>
+<li> 9.3.1　动机　244</li>
+<li> 9.3.2　做法　245</li>
+<li> 9.3.3　示例　246</li>
+<li>聚集操作　251</li>
+<li> 10.1　将聚集操作搬移到Collecting Parameter　252</li>
+<li> 10.1.1　动机　252</li>
+<li> 10.1.2　做法　253</li>
+<li> 10.1.3　示例　254</li>
+<li> 10.2　将聚集操作搬移到Visitor　258</li>
+<li> 10.2.1　动机　258</li>
+<li> 10.2.2　做法　262</li>
+<li> 10.2.3　示例　266</li>
+<li>实用重构　273</li>
+<li> 11.1　链构造函数　274</li>
+<li> 11.1.1　动机　274</li>
+<li> 11.1.2　做法　275</li>
+<li> 11.1.3　示例　275</li>
+<li> 11.2　统一接口　277</li>
+<li> 11.2.1　动机　277</li>
+<li> 11.2.2　做法　278</li>
+<li> 11.2.3　示例　278</li>
+<li> 11.3　提取参数　279</li>
+<li> 11.3.1　动机　279</li>
+<li> 11.3.2　做法　279</li>
+<li> 11.3.3　示例　280</li>
+<li>跋　281</li>
+<li>参考文献　283</li>
+<li>索引　287</li>
+</ol>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/technical/design/2011/02/19/ImplementationPatterns" title="实现模式 读书笔记">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/career/coder/2011/02/19/ThePragmaticProgrammer" title="程序员修炼之道 读书笔记">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/design/2011/02/19/RefactoringtoPatterns" data-title="重构与模式 读书笔记" data-url="http://www.5wpc.info/it/technical/design/2011/02/19/RefactoringtoPatterns/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <h4>文章目录</h4>
+      <div id='toc'></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2011-02-19</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-09-19</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Refactor-ref">Refactor <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Pattern-ref">Pattern <span>2</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2014/09/21/TheDesignOfDesign">TheDesignOfDesign</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2014/09/19/FileOrientedProgramming">FileOrientedProgramming</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2013/09/10/DesignPatternsForEmbeddedSystemsInC">DesignPatternsForEmbeddedSystemsInC</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2012/12/09/TheArtOfConcurrency">TheArtOfConcurrency</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2011/09/22/DesignPattern">设计模式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/design/2011/02/19/RefactoringtoPatterns" class="active">重构与模式 读书笔记</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2011/02/19/ImplementationPatterns">实现模式 读书笔记</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

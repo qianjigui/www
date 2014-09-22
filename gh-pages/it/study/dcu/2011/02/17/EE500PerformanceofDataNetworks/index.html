@@ -1,0 +1,1691 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>EE500PerformanceofDataNetworks</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/study/dcu/2011/02/17/EE500PerformanceofDataNetworks" />
+<meta property="og:title" content="EE500PerformanceofDataNetworks" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2011-02-17" />
+
+<meta name="weibo:article:update_at" content="2014-01-01" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
+    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search.html">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        EE500PerformanceofDataNetworks
+        <small>
+            
+            2014 "码" 到成功 !
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1>EE500PerformanceofDataNetworks</h1>
+
+<h2>background</h2>
+
+<ul>
+<li>Hierarchy of Layer
+
+<ul>
+<li>Modularity模块化</li>
+<li>Protocol协议化</li>
+<li>Interfaces接口化</li>
+</ul>
+</li>
+<li>Example
+
+<ul>
+<li>OSI</li>
+<li>TCP/IP</li>
+</ul>
+</li>
+<li>Five Layer factors
+
+<ul>
+<li>Physical
+
+<ul>
+<li>signal
+
+<ul>
+<li>bandwidth
+
+<ul>
+<li>Signal</li>
+<li>Channel</li>
+</ul>
+</li>
+<li>Problems
+
+<ul>
+<li>noise
+
+<ul>
+<li>crosstalk串线</li>
+<li>impulse noise叠加</li>
+<li>thermal or white noise物理设备热辐射</li>
+</ul>
+</li>
+<li>signal attenuation信号辐射</li>
+<li>signal distortion信号失真</li>
+<li>delay distortion延迟失真</li>
+</ul>
+</li>
+<li>Capacity 有效载荷
+
+<ul>
+<li>香农定律</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Converting bits into signals
+
+<ul>
+<li>Way
+
+<ul>
+<li>DC/lowpass矩形波
+
+<ul>
+<li>Encoding Schemes
+
+<ul>
+<li>NRZ(Non-Return-Zero)</li>
+<li>Bipolar</li>
+<li>Manchester</li>
+</ul>
+</li>
+<li>http://qjg-wiki.googlecode.com/files/DCLowpass.jpg</li>
+</ul>
+</li>
+<li>Bandpass/Modulated叠加正弦波(Ignore Low Frequence)
+
+<ul>
+<li>Modulation techniques
+
+<ul>
+<li>ASK</li>
+<li>FSK</li>
+<li>PSK</li>
+<li>DPSK</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Switching and multiplexing
+
+<ul>
+<li>Switch
+
+<ul>
+<li>Circuit</li>
+<li>Packet
+
+<ul>
+<li>Virtual Circuit</li>
+<li>Datagram</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Multiplexing
+
+<ul>
+<li>FDM</li>
+<li>TDM</li>
+<li>Statistical
+
+<ul>
+<li>Framing</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Data Link
+
+<ul>
+<li>Framing</li>
+<li>Detecting and correcting errors
+
+<ul>
+<li>FEC
+
+<ul>
+<li>CRC</li>
+</ul>
+</li>
+<li>BEC</li>
+</ul>
+</li>
+<li>Controlling data flow
+
+<ul>
+<li>Stop and wait
+
+<ul>
+<li>ARQ</li>
+</ul>
+</li>
+<li>Sliding window
+
+<ul>
+<li>ARQ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Network
+
+<ul>
+<li>Routing</li>
+</ul>
+</li>
+<li>Transport
+
+<ul>
+<li>TCP</li>
+<li>UDP</li>
+</ul>
+</li>
+<li>Application</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>QoS</h2>
+
+<ul>
+<li>the collective effect of service performance which determine the degree of satisfaction of a user of the service</li>
+<li>SLA(Service Level Agreement)服务级别许可
+
+<ul>
+<li>Service Level Objectives (SLO)要求
+
+<ul>
+<li>Parameters
+
+<ul>
+<li>Availability可靠性
+
+<ul>
+<li>the percentage of the feasibility of service in every particular service request 成功服务率</li>
+<li>availability of service is the key parameter that customers are interested in</li>
+</ul>
+</li>
+<li>Delivery 传输稳定性
+
+<ul>
+<li>the converse of packet loss, which means that a percentage of each service is delivered without packet loss 成功传输率</li>
+<li>packet delay 数据包延迟</li>
+</ul>
+</li>
+<li>Latency 延迟
+
+<ul>
+<li>the time taken for a packet to travel from a service access point (SAP) to a distant target and back</li>
+<li>it usually includes the transport time and queuing delay.</li>
+</ul>
+</li>
+<li>Bandwidth 带宽
+
+<ul>
+<li>means the used capacity or available capacity – stated in the SLA</li>
+</ul>
+</li>
+<li>MTBF (Mean Time Between Failure)</li>
+<li>MTRS (Mean Time to Restore Service)
+
+<ul>
+<li>The average time that a device will take to recover from any failure</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Service Level Guarantees (SLG)保证
+
+<ul>
+<li>QoS Viewpoint
+
+<ul>
+<li>http://qjg-wiki.googlecode.com/files/FourViewpointOfQoS.jpg</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Service Level Management (SLM) 管理
+
+<ul>
+<li>http://qjg-wiki.googlecode.com/files/QoSSLMImg.jpg</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>传输层
+
+<ul>
+<li>TCP
+
+<ul>
+<li>可靠分组连接服务
+
+<ul>
+<li>分组大小
+
+<ul>
+<li>MSS(Maximum Segment Size)
+
+<ul>
+<li>Segment Header
+
+<ul>
+<li>TCP Header(20bytes)</li>
+<li>IP Header(20bytes)</li>
+</ul>
+</li>
+<li>越大效率越高，主要问题是每一段都需要附带一个包头。段越多，包头越多。整体上效率越低。</li>
+<li>连接时确定</li>
+<li>由SYN Segment携带</li>
+<li>Default Value=534bytes</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>失效重发
+
+<ul>
+<li>重发的时间控制
+
+<ul>
+<li>RTO(Retransmission TimeOut)
+
+<ul>
+<li>由RTT(Round trip time)确定初值</li>
+<li>由SRTT(Smoothed estimator)估计
+
+<ul>
+<li>low-pass filter</li>
+</ul>
+</li>
+<li>2次指数增长
+
+<ul>
+<li>1,3,7,15,31,63</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Keepalive Timer
+
+<ul>
+<li>如果在一个时间段内全部为失败，则需要重置连接</li>
+</ul>
+</li>
+<li>http://wwuyingjie.blog.51cto.com/309671/109553</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>拥塞控制
+
+<ul>
+<li>慢启动
+
+<ul>
+<li>确定传输时候的参数(网络承载能力)
+
+<ul>
+<li>Congestion window (cwnd)</li>
+<li>Receiver window (rwnd)</li>
+<li>Slow start threshold (ssthresh)</li>
+<li>Sender Maximum Segment Size (SMSS)</li>
+<li>FlightSize</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>冲突处理
+
+<ul>
+<li>发生
+
+<ul>
+<li>发送端超时</li>
+<li>数据包冲突</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>快速重传</li>
+<li>快速恢复</li>
+</ul>
+</li>
+<li>具体实现
+
+<ul>
+<li>http://jasonccie.blog.51cto.com/2143955/422966</li>
+<li>Tahoe(原始)
+
+<ul>
+<li>无快速恢复</li>
+<li>无快速重传</li>
+</ul>
+</li>
+<li>Reno
+
+<ul>
+<li>添加了快速恢复</li>
+<li>对丢包进行分类
+
+<ul>
+<li>超时</li>
+<li>ACK</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>New Reno
+
+<ul>
+<li>调整重传机制</li>
+</ul>
+</li>
+<li>SACK
+
+<ul>
+<li>调整块大小</li>
+</ul>
+</li>
+<li>Vegas</li>
+</ul>
+</li>
+<li>SCTP
+
+<ul>
+<li>用途
+
+<ul>
+<li>无线</li>
+<li>手机</li>
+</ul>
+</li>
+<li>Need
+
+<ul>
+<li>Multi-Streaming</li>
+<li>Multi-Homing</li>
+</ul>
+</li>
+<li>Features
+
+<ul>
+<li>Reliable transport protocol
+
+<ul>
+<li>可靠</li>
+</ul>
+</li>
+<li>Use association instread of connection
+
+<ul>
+<li>关联</li>
+</ul>
+</li>
+<li>Design for message oriented application
+
+<ul>
+<li>面向消息应用的设计</li>
+<li>块绑定</li>
+</ul>
+</li>
+<li>Acknowledge error free transfer of message</li>
+<li>Detection of data corruption, data loss and data duplication</li>
+<li>Selective retransmission to correct lost data and duplicated data
+
+<ul>
+<li>选择性ACK</li>
+</ul>
+</li>
+<li>Active monitoring of session connectivity via heartbeat</li>
+<li>Resistance to denial of service attacks
+
+<ul>
+<li>抵抗DDOS</li>
+</ul>
+</li>
+<li>Supports multi-streaming</li>
+<li>Supports multi-homing</li>
+</ul>
+</li>
+<li>http://blogold.chinaunix.net/u1/34831/showart_1871853.html</li>
+<li>Message Format
+
+<ul>
+<li>http://qjg-wiki.googlecode.com/files/SCTP-Header.jpg</li>
+<li>http://qjg-wiki.googlecode.com/files/SCTP-Chunks.jpg</li>
+<li>http://qjg-wiki.googlecode.com/files/SCTP-Chunk-Important.jpg</li>
+</ul>
+</li>
+<li>Association Establishment Procedure
+
+<ul>
+<li>http://qjg-wiki.googlecode.com/files/SCTP-Connection-Steps.jpg</li>
+<li>:</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Steps:
+1. Assume Endpoint A initiates association establishment with endpoint B
+1. A sends an INIT chunk and enters the COOKIE WAIT state
+1. A starts an INIT timer whose timeout determines resending of the INIT chunk
+1. B receives the INIT chunk and reads chunk data
+1. Based on the data, B generates a secure hash code using a secret key
+1. The generated values are placed into a COOKIE chunk, along with the derived message authentication code (MAC)
+1. The cookie is sent to A in an INIT-ACK chunk
+1. B remains in CLOSED state
+1. A receives the INIT-ACK chunk and stops the INIT timer
+1. A places the cookie from the INIT-ACK chunk in a COOKIE ECHO chunk returned to B
+1. A COOKIE ECHO timer is started whose timeout determines resending of COOKIE ECHO
+1. A enters the COOKIE ECHOED STATE
+1. B receives the echoed cookie and uses MAC to verify it If OK, B initialises the SCTP instance
+1. B responds with a COOKIE-ACK chunk
+1. Both A and B endpoints enter the ESTABLISHED state</p>
+
+<pre><code>  * Mobile SCTP
+    * Adds Dynamic Address Reconfiguration (ADDIP) 
+      * Enables SCTP to add, delete, and change existing IP addresses attached to an association during an active connection
+      * Enables support for seamless handover for mobile hosts that are moving between IP networks 
+    * Uses ASCONF and ASCONF-ACK chunks 
+      * Add new IP address to the association 
+      * Change the primary IP address of the association 
+      * Delete an old IP address from the association 
+</code></pre>
+
+<ul>
+<li>UDP
+
+<ul>
+<li>DCCP
+
+<ul>
+<li>Features
+
+<ul>
+<li>Supports unreliable transport of datagram flows</li>
+<li>Provides acknowledgements</li>
+<li>A reliable handshake for connection setup and teardown</li>
+<li>Reliable negotiation of features</li>
+<li>A choice of TCP-friendly congestion control mechanisms
+
+<ul>
+<li>TCP-like congestion control [RFC 2581] (CCID 2)
+
+<ul>
+<li>appropriate for flows wishing to quickly take advantage of available bandwidth</li>
+</ul>
+</li>
+<li>TCP-Friendly Rate Control [RFC 3448] (CCID 3)
+
+<ul>
+<li>appropriate for flows that require a steadier sent rate</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Options to tell reliably the sender which packets reached the receiver
+
+<ul>
+<li>and if lost packets were ECN marked, corrupted, or dropped in the receive buffer</li>
+</ul>
+</li>
+<li>Congestion control including Explicit Congestion Notification (ECN) and ECN Nonce</li>
+<li>Mechanisms to avoid holding state for unacknowledged connection attempts or finished connections</li>
+<li>No graceful close, no other flow control apart from congestion control</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Network Performance Metrics</h2>
+
+<ul>
+<li>Availablity
+
+<ul>
+<li>Connectivity</li>
+<li>Functionality</li>
+</ul>
+</li>
+<li>Loss
+
+<ul>
+<li>One Way Loss</li>
+<li>RT(Round Trip) Loss</li>
+</ul>
+</li>
+<li>Delay
+
+<ul>
+<li>One Way Delay</li>
+<li>RT Delay</li>
+<li>Delay Variance</li>
+</ul>
+</li>
+<li>Utilization
+
+<ul>
+<li>Capacity</li>
+<li>Bandwidth</li>
+<li>Throughput</li>
+</ul>
+</li>
+<li>http://qjg-wiki.googlecode.com/files/QoSParametertoNPMMapping.jpg</li>
+<li>Measurement method
+
+<ul>
+<li>Active
+
+<ul>
+<li>Mechanism
+
+<ul>
+<li>Generate test traffic periodicaly or on-demand</li>
+<li>Measure performance of test packet response</li>
+</ul>
+</li>
+<li>Method
+
+<ul>
+<li>ICMP
+
+<ul>
+<li>Find problem</li>
+<li>RT Loss</li>
+<li>RT Delay</li>
+</ul>
+</li>
+<li>TCP
+
+<ul>
+<li>Bandwidth</li>
+<li>Rate</li>
+</ul>
+</li>
+<li>UDP
+
+<ul>
+<li>One way loss</li>
+<li>RT bandwidth</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Factors
+
+<ul>
+<li>Multi-point</li>
+<li>Small data size</li>
+<li>Additional traffic</li>
+<li>For Delay, packet loss,  availability</li>
+<li>Low to Moderate CPU</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Passive
+
+<ul>
+<li>Mechanism
+
+<ul>
+<li>Capture the traffic by mirroring or splitting</li>
+<li>Analyze the captured packets</li>
+</ul>
+</li>
+<li>Method
+
+<ul>
+<li>SNMP</li>
+</ul>
+</li>
+<li>Factors
+
+<ul>
+<li>Single or multi point</li>
+<li>Large data size</li>
+<li>Device overload/no overlod with splitter</li>
+<li>For Throughput, traffic pattern, trend and detection</li>
+<li>High CPU usage</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>测量方法的缺点
+
+<ul>
+<li>Active Measurements - problems 主动测量的问题
+
+<ul>
+<li>Path Asymmetry 路径不一致，发送与接收路径就有可能有不同
+
+<ul>
+<li>Nodes visited by traceroute are those in 'forward' path, which are not necessary the same as 'reverse' path</li>
+</ul>
+</li>
+<li>Unstable Paths and False Edges 发送的路径不稳定，有些节点可能已经失效
+
+<ul>
+<li>Traceroute reports nodes visited by successive probe packets with increasing TTL. Discovered IP path is only valid if the path being measured does not change during measurement process.</li>
+</ul>
+</li>
+<li>Alias Resolution 同一个设备可能有多个标示
+
+<ul>
+<li>Traceroute discovers 'interfaces' rather than 'routers' 不仅仅是路由，还有很多是接口</li>
+<li>Nodes can have multiple network interfaces, each with different IP address 同一个节点可能含有多个网卡</li>
+<li>Source IP address in ICMP 'time exceeded' response packets is the address of the interface that the router uses to send packets back.</li>
+<li>If both interfaces belong to the same router, responses will be sent by one interface => we can match ECHO responses from trace route to both IP address. If the response comes from the same source interface, we infer that both interfaces belong to the same router</li>
+</ul>
+</li>
+<li>Measurement load 用于测量的负载
+
+<ul>
+<li>Sometimes RTT for TTL=n could be smaller than TTL=n‐1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Passive Measurements - challenges 被动测量的挑战
+
+<ul>
+<li>Large volume of measurement data 大量需要测量的数据
+
+<ul>
+<li>Challenges in storing and processing data 存储与处理数据</li>
+</ul>
+</li>
+<li>Privacy issues 隐私问题</li>
+<li>Collection of detailed traffic statistics from heterogeneous network links. 异构网络详细统计间有冲突</li>
+<li>Non‐interference with the measured network (nonintrusiveness). 存在很多不允许干扰的网络</li>
+<li>Obtaining a global view of the monitored network from a reasonable number of monitoring points. 如何由一部分来考察整体</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Performance
+
+<ul>
+<li>Packet loss rate</li>
+<li>Latency</li>
+<li>Jitter</li>
+<li>Throughput</li>
+<li>Available bandwidth; bottleneck bandwidth</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Modeling and Simulations</h2>
+
+<ul>
+<li>Modeling
+
+<ul>
+<li>Motivation
+
+<ul>
+<li>Understanding and predicting complex system behaviours
+
+<ul>
+<li>Ignore
+
+<ul>
+<li>environment</li>
+<li>Input</li>
+<li>Output</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Building real time system
+
+<ul>
+<li>Expensive</li>
+<li>Require personnel</li>
+<li>Difficult to modify</li>
+<li>Not sure how</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Benefit
+
+<ul>
+<li>Allows for investigation of the properties of the system</li>
+<li>Enables prediction of future system behavior and outputs</li>
+</ul>
+</li>
+<li>As a solution
+
+<ul>
+<li>Reduced complex</li>
+<li>Important characteristics only</li>
+<li>Cheaper</li>
+<li>Highly modifiable</li>
+</ul>
+</li>
+<li>Limitation
+
+<ul>
+<li>Accuracy
+
+<ul>
+<li>Parameters</li>
+<li>Initial Conditions</li>
+<li>Environment influence</li>
+</ul>
+</li>
+<li>Most models are inherently inexact (due to the simplifications and assumptions made)</li>
+</ul>
+</li>
+<li>Definition
+
+<ul>
+<li>Process of building a model</li>
+<li>Designing and analyzing a representation of a system to study the effect changes to system variables have
+
+<ul>
+<li>Simulation</li>
+<li>Analysis</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Type
+
+<ul>
+<li>Variables
+
+<ul>
+<li>Deterministic: all variables are deterministic</li>
+<li>Stochastic: some model variables or behavior are random</li>
+</ul>
+</li>
+<li>Model
+
+<ul>
+<li>Static: the model does not change in time</li>
+<li>Dynamic: the model is modified in time</li>
+</ul>
+</li>
+<li>Time
+
+<ul>
+<li>Continuous: the system state evolve continuously</li>
+<li>Discrete: the system state changes at discrete points in time</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Stages
+
+<ul>
+<li>A
+
+<ul>
+<li>Simplification and abstractisation
+
+<ul>
+<li>A model contains essential characteristics of real-life objects or events</li>
+<li>This stage identifies relevant features of the real system to be modeled</li>
+<li>Assumptions are made</li>
+<li>Input parameters are determined</li>
+<li>Output measures are listed</li>
+</ul>
+</li>
+<li>Representation and Measurements
+
+<ul>
+<li>Objects, events, numbers and relationships in the real system are associated model components</li>
+</ul>
+</li>
+<li>Manipulation
+
+<ul>
+<li>Implications of real world objects and relationships are determined</li>
+<li>New objects and relationships are represented</li>
+</ul>
+</li>
+<li>Verification
+
+<ul>
+<li>Outcomes from the model are compared with real word outcome</li>
+<li>It is determined if the model is adequate for the desired purpose</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>B
+
+<ul>
+<li>Determine goals and objectives
+
+<ul>
+<li>Level of abstractisation</li>
+<li>Relevant features to be modelled</li>
+<li>Required input and expected output</li>
+</ul>
+</li>
+<li>Build a conceptual model
+
+<ul>
+<li>Very high level</li>
+<li>Determines how comprehensive the model will be</li>
+<li>Determines state variables; if they are dynamic, how important they are, etc.</li>
+</ul>
+</li>
+<li>Create the specification model
+
+<ul>
+<li>Average detailed level</li>
+<li>May involve equations, pseudocode, etc.</li>
+<li>Indicates input and output</li>
+</ul>
+</li>
+<li>Convert into a computational model
+
+<ul>
+<li>Low detail level</li>
+<li>Involves a general purpose or a simulation programming language</li>
+<li>It is the actual useful model</li>
+</ul>
+</li>
+<li>Verification and validation
+
+<ul>
+<li>(Verification)Did we build the model right? (according to specifications) 确认</li>
+<li>(Validation )Did we build the right model? (relative to the real system) 证实</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Android</h2>
+
+<ul>
+<li>Architecture
+
+<ul>
+<li>http://qjg-wiki.googlecode.com/files/Android-system-architecture.jpg</li>
+<li>Android Runtime Layer
+
+<ul>
+<li>Core Libraries – provide the functionality of JAVA Programming Language</li>
+<li>Android Applications runs in its own process, with its own instance of the Dalvik Virtual machine</li>
+<li>Dalvik VM: Java based license free VM
+
+<ul>
+<li>Register based VM, optimization for low memory requirements</li>
+<li>Executes files in the Dalvik Executable (.dex) format</li>
+<li>DX tool converts classes to .dex format</li>
+<li>Relies on the Linux Kernel for underlying functionality: threading and low-level memory management</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Performance at Higher Network Layers</h2>
+
+<ul>
+<li>QOE
+
+<ul>
+<li>Definition
+
+<ul>
+<li>Subjective measure of a user’s experience with a service</li>
+</ul>
+</li>
+<li>Areas
+
+<ul>
+<li>Service</li>
+<li>User</li>
+<li>Device</li>
+<li>Network</li>
+<li>Cost</li>
+<li>Content and Context</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Improving
+
+<ul>
+<li>Transport Layer Solutions
+
+<ul>
+<li>RTP/RTCP
+
+<ul>
+<li>Provide
+
+<ul>
+<li>End-to-end delivery mechanism for real-time multimedia traffic</li>
+<li>Sequence numbering and time-stamping of packets in the stream</li>
+<li>Payload type identification</li>
+<li>Supports multicast distribution</li>
+<li>Monitoring of Quality of Service (QoS) of delivery</li>
+<li>Identification of different sources of traffic within an application session</li>
+</ul>
+</li>
+<li>http://zhangjunhd.blog.51cto.com/113473/25481</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Application Layer Solutions
+
+<ul>
+<li>RTSP</li>
+<li>QOAS</li>
+<li>RAP</li>
+<li>LQA</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Performance at Lower Network Layers</h2>
+
+<ul>
+<li>Internet
+
+<ul>
+<li>Router
+
+<ul>
+<li>Algorithm
+
+<ul>
+<li>Distance Vector</li>
+<li>Link State</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Protocol
+
+<ul>
+<li>IPv4</li>
+<li>IPv6</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Physical
+
+<ul>
+<li>Wireless
+
+<ul>
+<li>PANs
+
+<ul>
+<li>Bluetooth</li>
+</ul>
+</li>
+<li>LANs
+
+<ul>
+<li>WiFi</li>
+</ul>
+</li>
+<li>MANs
+
+<ul>
+<li>WiMAX</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Mobility Issues</h2>
+
+<ul>
+<li>Moblie IP
+
+<ul>
+<li>Features
+
+<ul>
+<li>Enables dynamical point of network attachment change with host location change</li>
+<li>Maintains all network connections</li>
+<li>Enables hosts to be tracked without changing their IP addresses</li>
+<li>Requires no software changes in any non-mobile hosts or routers</li>
+<li>Requires additional infrastructure</li>
+<li>Requires no modifications to IP addresses or IP address format</li>
+<li>Supports security</li>
+<li>Standardised by the Internet Engineering Task Force (IETF)</li>
+</ul>
+</li>
+<li>Nodes     移动节点（MN）、家乡代理（HA）、通信节点（CN）。其中MN为移动终端；HA位于家乡子网，负责记录MN的当前位置，并将发往MN的数据转发至MN的当前位置；CN为与MN通信的对端节点。
+
+<ul>
+<li>Mobile Node (MN)
+
+<ul>
+<li>A host that changes its point of attachment from one network or subnetwork to another</li>
+<li>Assigned a permanent IP address (called home address) which does not change</li>
+<li>All other hosts send packets to the home address regardless of mobile node’ s location</li>
+<li>It continues to communicate with other hosts via the network at current location</li>
+</ul>
+</li>
+<li>Home Agent (HA)
+
+<ul>
+<li>A router with additional functionality</li>
+<li>Located on the home network of MN</li>
+<li>Maintains current location information of MN</li>
+<li>Performs mobility binding of MN’ s home address with temporary IP address dependent on current location</li>
+<li>Forwards packets (tunnels) to the appropriate network when MN is away</li>
+</ul>
+</li>
+<li>Foreign Agent (FA)
+
+<ul>
+<li>A router on a MN's visited network with enhanced functionality</li>
+<li>Advertises itself periodically</li>
+<li>Accepts MN registration requests</li>
+<li>Sends a care-of-address (CoA) (usually FA’ s IP address) to HA when a MN registers</li>
+<li>Provides routing services to the MN while registered
+
+<ul>
+<li>The foreign agent detunnels and delivers datagrams tunneled by HA to the MN</li>
+<li>Routes all datagrams sent by MN</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Correspondent Node (CN)
+
+<ul>
+<li>End-host with which MN communicates (e.g. a web server, another host)</li>
+<li>Can be located anywhere</li>
+<li>Can be mobile or stationary</li>
+<li>Is not aware of the fact that MN is changing location</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hierarchical Mobile IPv6 (HMIPv6)
+
+<ul>
+<li>Principles
+
+<ul>
+<li>Frequent handovers increase the BU overhead</li>
+<li>Increased delay if CN is located far away from the MN</li>
+<li>Hierarchical Mobile IPv6 organizes the network hierarchically</li>
+<li>Separate mobility management in local mobility and global mobility</li>
+<li>Mobility anchor point (MAP) manages local mobility</li>
+</ul>
+</li>
+<li>Handover Procedure
+
+<ul>
+<li>MN (at home) communicates with CN</li>
+<li>MN moves to new network (Stage 1)</li>
+<li>MN registers its CoA with HA (Stage 2)</li>
+<li>MN registers its CoA with MAP (Stage 3)</li>
+<li>MN moves to new network in same domain(Stage 4)</li>
+<li>MN registers its CoA with MAP (Stage 5)</li>
+<li>MN moves to new network in a different domain (Stage 6)</li>
+<li>MN registers its CoA with HA (Stage 7)</li>
+<li>MN registers its CoA with MAP (Stage 8)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Intra-MSC
+
+<ul>
+<li>Handover
+
+<ul>
+<li>http://qjg-wiki.googlecode.com/files/Intra-MSC-Handover.jpg</li>
+<li>Aim
+
+<ul>
+<li>Perform communication with mobile device via BSS B instead of via BSS A</li>
+<li>Seamless continue the communication</li>
+</ul>
+</li>
+<li>Initiation
+
+<ul>
+<li>handover initiated by BSS A</li>
+<li>stronger signal to/from BSS B than that to/from BSS A</li>
+<li>maintaining connectivity</li>
+<li>reducing battery power drain</li>
+<li>Balancing load (free resources e.g. channel in BSS A)</li>
+</ul>
+</li>
+<li>Process
+
+<ul>
+<li>BSS A informs MSC about pending handover and provides a list of potential BSSs</li>
+<li>MSC selects BSS B from list and sets up path to BSS B</li>
+<li>BSS B allocates radio channel to be used by MS</li>
+<li>BSS B informs BSS A via MSC it is ready for handover</li>
+<li>BSS A informs MS to perform handover to BSS B</li>
+<li>MS and BSS B exchange signals to activate new channel</li>
+<li>MS informs MSC via BSS B about handover completion. MSC reroutes call</li>
+<li>MSC and BSS A release resources</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>http://hi.baidu.com/yuanmx0307/blog/item/a10b79ec474da54779f05540.html</li>
+</ul>
+
+
+<h2>Energy Conservation in Wireless and Mobile Communications</h2>
+
+<ul>
+<li>OSI layer - power save protocols
+
+<ul>
+<li>Load Partitioning
+
+<ul>
+<li>all the power intensive computation is performed at the AP and not locally. The Mobile device sends a request to the AP which contains the computation that needs to be performed and waits for the result.</li>
+</ul>
+</li>
+<li>Application – based Adaptive Mechanisms
+
+<ul>
+<li>Proxies – used to inform the application about the changes in battery power. The applications can use this info in order to limit their functionalities</li>
+<li>For database systems – energy can be conserved by reducing the number of transmissions for different operations: data retrieval, indexing, querying operations.</li>
+<li>For video processing – adaptation mechanisms which slightly degrade the video quality by reducing the number of bits transmitted over the wireless system</li>
+</ul>
+</li>
+<li>Transport Layer
+
+<ul>
+<li>TCP-Probing</li>
+<li>Wave and Wait Protocols</li>
+</ul>
+</li>
+<li>Network Layer
+
+<ul>
+<li>Routing Protocols
+
+<ul>
+<li>Backbone based routing protocol
+
+<ul>
+<li>backbone node骨干节点
+
+<ul>
+<li>Active</li>
+<li>A path between all source and destination nodes in the network is established</li>
+<li>Any node will be within one hop of at least one backbone node</li>
+<li>The decision of which nodes to be the backbone nodes is also changing periodically</li>
+</ul>
+</li>
+<li>Other nodes
+
+<ul>
+<li>Sleep periodically</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Topology based routing protocol
+
+<ul>
+<li>Goal: reduce the transmission power of all nodes in the network</li>
+<li>All the nodes operate with the lowest transmission power possible</li>
+<li>Homogeneous networks – the nodes are within the range of their nearest one-hop neighbour</li>
+<li>Heterogeneous networks – (different nodes with different power limitations) – transmission powers may be adjusted according to the network needs</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Data Link Layer
+
+<ul>
+<li>The techniques involve reducing the transmission overhead during ARQ (Automatic Repeat Request) and FEC (Forward Error Correction) - schemes used to reduce the number of packet errors at the receiver</li>
+<li>ARQ enabled – the router can automatically request the retransmission of a packet directly from its source without involving the receiver.</li>
+<li>It has been shown that transmitting at lower power and sending multiple ARQ is more energy efficient than to send at high transmission power and achieve better throughput.</li>
+<li>By integrating FEC – which reduces the number of retransmissions necessary at the lower transmission power – more energy savings can be achieved</li>
+<li>Packet Scheduling protocols - may reduce the number of retransmissions => the overall power consumption is reduced</li>
+</ul>
+</li>
+<li>MAC Layer
+
+<ul>
+<li>Sleep Scheduling Protocols
+
+<ul>
+<li>Basic Principle: a big amount of power is wasted listening on the radio channel even though there is nothing there to receive</li>
+<li>The radio will switch between its on and off power states in order to reduce the effects of the idle listening</li>
+<li>The radio interface will be wake up whenever it expects to transmit or receive packets and sleep otherwise</li>
+</ul>
+</li>
+<li>Synchronous Sleep Scheduling Protocols</li>
+<li>Battery aware MAC protocols (BAMAC)</li>
+</ul>
+</li>
+<li>Physical Layer</li>
+<li>Topology Control Mechanisms</li>
+</ul>
+</li>
+<li>Existing Standards
+
+<ul>
+<li>WPAN - 802.15.1 standard (Bluetooth)
+
+<ul>
+<li>There are 8 different operational states defined in Bluetooth, 3 of them are dedicated to low power operations
+
+<ul>
+<li>Sniff state - the active Bluetooth device lowers its duty cycle and listens to the piconet at reduced rate</li>
+<li>Hold state - the device shuts down all communication capabilities it has with the piconet, but keeps the slot (from the seven activeslots available in a piconet) as active</li>
+<li>Park state - disable all communication with the piconet, as in case of Hold state, except that this time give up also its access to one of the seven active slots available for the devices within the piconet</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>WiMAX
+
+<ul>
+<li>3 Power Save Classes (PSCs) based on different QoS characteristics
+
+<ul>
+<li>Each PSC consists of a sequence of interleaved listening and sleep intervals 都含有相间的监听和等待</li>
+<li>Can support one or multiple traffic flows in a mobile station with similar characteristics 支持一个或多个数据流</li>
+<li>A mobile station can turn off its radio interface when all its PSCs are in the sleep window, it wakes up when any PSC is in a listening window 在空闲时可以完全进入睡眠状态，如果有某个PSC进入监听状态，则唤醒其他。</li>
+<li>Each flow of a mobile station can be corresponded to a PSC 每个流都可以响应PSC</li>
+<li>class power saving
+
+<ul>
+<li>1st
+
+<ul>
+<li>designed for non-real-time traffic flows</li>
+<li>it has exponentially increasing sleep window if no packet comes</li>
+</ul>
+</li>
+<li>2nd
+
+<ul>
+<li>designed for real-time traffic flows</li>
+<li>It has a fixed size of sleep window</li>
+</ul>
+</li>
+<li>3rd
+
+<ul>
+<li>designed for multicast connections or management opeartions</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>http://qjg-wiki.googlecode.com/files/WiMAXClassesPowerSaving.jpg</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>LTE
+
+<ul>
+<li>RRC Active State
+
+<ul>
+<li>Data is exchanged between the network and the mobile device 数据交换发生在网络和移动设备中</li>
+<li>The mobile remains in active state even when there is no data transmitted for some time (e.g., after the content of a web page has been fully loaded) 一直处于工作状态不管是否有数据传输</li>
+<li>The mobile can deactivate its receiver in order to conserve energy 移动设备可以关闭接收端以降低能耗</li>
+<li>After some inactivity time the network can activate the Discontinuous Reception Mode (DRX) - meaning that the mobile has to listen to downlink bandwidth assignments and control commands periodically and switch off its receiver at all other times</li>
+<li>DRX interval can be flexible (from ms to s)</li>
+<li>Mobility is controlled by the network - the mobile device has to send signal measurements from the current or neighbour cell</li>
+</ul>
+</li>
+<li>RRC Idle State
+
+<ul>
+<li>If no packets were transmitted for a certain amount of time, the eNodeB can put the connection to a user in RRC Idle state 如果没有传输，则进入关闭状态</li>
+<li>The logical connection to the network and the assigned IP address is retained 地址被保留</li>
+<li>The radio connection is removed 信号连接关闭</li>
+<li>The MME is informed about the Idle State as the IP packets arriving from the Internet cannot be delivered to the radio network</li>
+<li>In this case the MME sends a paging message to the mobile device, re-establishing the radio bearer</li>
+<li>If the mobile device in Idle states wants to send an IP packet, it has to request the establishment of a new radio bearer before the packet transmission</li>
+<li>When in Idle state, the network cannot control the mobility of the device</li>
+<li>The device can decide on its own to move from one cell to another</li>
+<li>The device has to report a cell change to the network only if the tracking area is changed (a tracking area consists of several cells)</li>
+<li>MME will send a paging message via all the cells within the tracking are when a new IP packet for the device arrives from the Internet</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Energy Harvesting Techniques
+
+<ul>
+<li>Solar panels</li>
+<li>Piezoelectric materials</li>
+<li>Human Active Energy</li>
+<li>Human Passive Energy</li>
+<li>RF Energy/Ambient Energy</li>
+<li>Wind Generators</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>http://code.google.com/p/wpcdcuassignment2010-2011/downloads/detail?name=500ee.zip&amp;can=2&amp;q=</h2>
+
+<h2>tags: Network</h2>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/study/dcu/2011/02/14/EE552BroadbandNetworks" title="EE552-BroadbandNetworks">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/study/dcu/2011/02/18/EE563GraphicsAndVisualisation" title="EE563GraphicsAndVisualisation">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/study/dcu/2011/02/17/EE500PerformanceofDataNetworks" data-title="EE500PerformanceofDataNetworks" data-url="http://www.5wpc.info/it/study/dcu/2011/02/17/EE500PerformanceofDataNetworks/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <h4>文章目录</h4>
+      <div id='toc'></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2011-02-17</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-01</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Network-ref">Network <span>4</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/study/dcu/2011/02/26/NS2">NS-2</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/study/dcu/2011/02/18/EE563GraphicsAndVisualisation">EE563GraphicsAndVisualisation</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/study/dcu/2011/02/17/EE500PerformanceofDataNetworks" class="active">EE500PerformanceofDataNetworks</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/study/dcu/2011/02/14/EE552BroadbandNetworks">EE552-BroadbandNetworks</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

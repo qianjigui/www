@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>JS-V8引擎</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/os/chromev8/2011/12/10/ChromeV8Engine" />
+<meta property="og:title" content="JS-V8引擎" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2011-12-10" />
+
+<meta name="weibo:article:update_at" content="2014-01-03" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
+    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search.html">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        JS-V8引擎
+        <small>
+            
+            2014 "码" 到成功 !
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1>JS-V8引擎</h1>
+
+<h2>设计理念</h2>
+
+<ul>
+<li>译文地址 <a href="http://blog.pluskid.org/?p=186">V8 Javascript 引擎设计理念</a></li>
+<li>快速属性访问
+
+<ul>
+<li>动态地为对象创建隐藏类
+
+<ul>
+<li>当一个新的属性被添加到对象中时，对象所对应的隐藏类会随之改变。</li>
+<li>属性访问不再需要动态字典查找了</li>
+<li>为 V8 使用经典的基于类的优化和内联缓存技术创造了条件。</li>
+</ul>
+</li>
+<li>利用类转移信息，隐藏类可以被重用。</li>
+</ul>
+</li>
+<li>动态机器码生成
+
+<ul>
+<li>V8 在第一次执行 JavaScript 代码的时候会将其直接编译为本地机器码，而不是使用中间字节码的形式，因此也没有解释器的存在。</li>
+<li>属性访问由内联缓存代码来完成，这些代码通常会在运行时由 V8 修改为合适的机器指令。</li>
+</ul>
+</li>
+<li>高效的垃圾收集
+
+<ul>
+<li>在执行垃圾回收的时候会中断程序的执行</li>
+<li>大部分情况下，每个垃圾收集周期只处理整个对象堆的一部分，这让程序中断造成的影响得以减轻。</li>
+<li>总是知道内存中所有的对象和指针所在的位置，这避免了非 accurate 的垃圾收集器中普遍存在的由于错误地把对象当作指针而造成的内存溢出的情况。</li>
+<li>在 V8 中，对象堆被分成两部分：用于为新创建的对象分配空间的部分和用于存放在垃圾收集周期中生存下来的那些老的对象的部分。如果一个对象在垃圾收集的过程中被移动了，V8 会更新所有指向这个对象的指针到新的地址。</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>API</h2>
+
+<ul>
+<li>基本概念 http://www.2009fly.com/index/a/bianchengyuyan/javascript/V8_Javascript_Engine/2011/0326/844.html
+
+<ul>
+<li>句柄（Handle）
+
+<ul>
+<li>从实质上来说，每一个句柄就是一个指向v8对象的指针，所有的v8对象必须使用句柄来操作。</li>
+<li>如果一个v8对象没有任何句柄与之相关联，那么这个对象很快就会被垃圾回收器给干掉（句柄跟对象的引用计数有很大关系）。</li>
+<li>具体使用
+
+<ul>
+<li>Local
+
+<ul>
+<li>存放在函数调用栈中
+
+<ul>
+<li>HandleScope
+
+<ul>
+<li>只能通过栈申请，不能使用new</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Local<SomeType>
+
+<ul>
+<li>父类 Handle<SomeType></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Persistent
+
+<ul>
+<li>申请 Persistent::New</li>
+<li>释放 Persistent::Dispose</li>
+<li>Persistent<SomeType>
+
+<ul>
+<li>父类 Handle<SomeType></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>作用域（Scope）
+
+<ul>
+<li>从概念上理解，作用域可以看成是一个句柄的容器，在一个作用域里面可以有很多很多个句柄（也就是说，一个scope里面可以包含很多很多个v8引擎相关的对象）</li>
+<li>句柄指向的对象是可以一个一个单独地释放的，但是很多时候（尤其是写一些“有用”的程序的时候），一个一个地释放句柄过于繁琐，取而代之的是，可以释放一个scope，那么包含在这个scope中的所有handle就都会被统一释放掉了。</li>
+</ul>
+</li>
+<li>上下文环境（Context）
+
+<ul>
+<li>可以理解为运行环境</li>
+<li>在执行javascript脚本的时候，总要有一些环境变量或者全局函数。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>API实例 http://www.cppblog.com/corelito/category/8535.html
+
+<ul>
+<li>全局模板（Global Template） http://www.cppblog.com/corelito/archive/2008/10/19/64435.html
+
+<ul>
+<li>构造一个自己系统需要的环境</li>
+</ul>
+</li>
+<li>访问器——访问脚本中的变量 http://www.cppblog.com/corelito/archive/2008/10/19/64445.html
+
+<ul>
+<li>提供哦你数据访问的接口</li>
+</ul>
+</li>
+<li>自定义函数-打印 http://www.cppblog.com/corelito/archive/2008/10/20/64545.html
+
+<ul>
+<li>扩展函数</li>
+</ul>
+</li>
+<li>使用访问器访问 C++ 对象 http://www.cppblog.com/corelito/archive/2008/10/23/64654.html
+
+<ul>
+<li>相互访问</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>关键技术
+
+<ul>
+<li>相互调用与通信</li>
+<li>数据共享</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>JS引擎基本</h2>
+
+<ul>
+<li>已经成为一个独立的基础平台而单独存在</li>
+<li>API的基本要求
+
+<ul>
+<li>数据类型可操作</li>
+<li>运行时环境可控制</li>
+<li>数据对象集合可管理</li>
+<li>可以执行函数与脚本</li>
+<li>支持String操作
+
+<ul>
+<li>字符串基本操作</li>
+<li>正则表达式引擎</li>
+</ul>
+</li>
+<li>错误处理</li>
+<li>安全控制</li>
+<li>Debug支持</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>tags: VM</h2>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/study/whu/2011/10/13/ThinkingInFindJob" title="笔试面试总结与思考">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/living/life/2011/12/10/MenWomenAndRelationships" title="男人来自火星女人来自金星">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/os/chromev8/2011/12/10/ChromeV8Engine" data-title="JS-V8引擎" data-url="http://www.5wpc.info/it/technical/os/chromev8/2011/12/10/ChromeV8Engine/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <h4>文章目录</h4>
+      <div id='toc'></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2011-12-10</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-03</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#VM-ref">VM <span>5</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/os/chromev8/2011/12/10/ChromeV8Engine" class="active">JS-V8引擎</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

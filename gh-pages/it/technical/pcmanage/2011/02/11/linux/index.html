@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Linux/Ubuntu 使用知识</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/pcmanage/2011/02/11/linux" />
+<meta property="og:title" content="Linux/Ubuntu 使用知识" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2011-02-11" />
+
+<meta name="weibo:article:update_at" content="2014-02-07" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
+    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search.html">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Linux/Ubuntu 使用知识
+        <small>
+            
+            2014 "码" 到成功 !
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1>Ubuntu</h1>
+
+<h2>常识</h2>
+
+<h3>用户态与内核态</h3>
+
+<p>这个网上讨论很多，从编程角度看：调用内核函数的为内核态，其他可以看作用户态。
+time指令中的标准输出就是由：墙上时间、用户态调用、内核态调用三部分时间组成。</p>
+
+<p>一个已经安装的系统的支持的所有的系统调用可以在<em>/usr/include/bits/syscall.h</em>文件里面看到。</p>
+
+<h2>基本操作</h2>
+
+<h2>Mercurial SCM</h2>
+
+<p><a href="/it/technical/ContinuousIntegration/2011/08/24/mercurial">MercurialSCM使用知识</a></p>
+
+<h2>Firefox打印问题</h2>
+
+<p>很多时候，页面被不正常的分页或者打印内容不全等一系列问题的时候，可以考虑检查css代码。</p>
+
+<ul>
+<li>overflow 需要关闭</li>
+<li>padding/margin 需要调节</li>
+</ul>
+
+
+<h2>网络设置</h2>
+
+<h3>VPN</h3>
+
+<p>Ubuntu <a href="http://ubuntuforums.org/showthread.php?p=7002673">需要设置个把属性</a>:
+需要让PPTP拒绝EAP验证，而这个设置在VPN设置栏中没有。
+需要通过手工进行处理:
+1. 打开gconf-editor
+2. 进入到 /system/networking/connections
+3. 查看并找到VPN文件夹
+4. 添加新的键值
+5. Name: refuse-eap
+6. Type: string
+7. Value: yes
+8. 保存、退出并重新连接</p>
+
+<p>日志信息，从错误到成功:</p>
+
+<pre><code class="bash">pppd[5094]: pppd 2.4.5 started by root, uid 0
+pppd[5094]: Using interface ppp0
+pppd[5094]: Connect: ppp0 &lt;--&gt; /dev/pts/2
+pppd[5094]: LCP terminated by peer (WM--^Al^@&lt;M-Mt^@^@^CM-")
+pppd[5094]: Connection terminated.
+pppd[5094]: Modem hangup
+pppd[5094]: Exit.
+pppd[5238]: Plugin /usr/lib/pppd/2.4.5//nm-pptp-pppd-plugin.so loaded.
+pppd[5238]: pppd 2.4.5 started by root, uid 0
+pppd[5238]: Using interface ppp0
+pppd[5238]: Connect: ppp0 &lt;--&gt; /dev/pts/2
+pppd[5238]: LCP: timeout sending Config-Requests
+pppd[5238]: Connection terminated.
+pppd[5238]: Modem hangup
+pppd[5238]: Exit.
+pppd[5427]: Plugin /usr/lib/pppd/2.4.5//nm-pptp-pppd-plugin.so loaded.
+pppd[5427]: pppd 2.4.5 started by root, uid 0
+pppd[5427]: Using interface ppp0
+pppd[5427]: Connect: ppp0 &lt;--&gt; /dev/pts/2
+pppd[5427]: CHAP authentication succeeded
+kernel: [20287.732748] PPP BSD Compression module registered
+kernel: [20287.768881] PPP Deflate Compression module registered
+pppd[5427]: local  IP address 172.0.0.18
+pppd[5427]: remote IP address 172.0.0.1
+pppd[5427]: primary   DNS address 20x.1x5.xxx.xxx
+pppd[5427]: secondary DNS address 20x.1x5.xxx.xxx
+</code></pre>
+
+<p>另外就是如果前端有个不怎么给力的路由器，请设置DMZ主机为后端VPN使用的PC机。</p>
+
+<h2>屏幕问题</h2>
+
+<h3>开机黑屏/中途使用突然黑屏</h3>
+
+<p>网上也有很多材料谈到，目前确实不知道这类问题产生的真正原因。</p>
+
+<p>查错的困难:
+由于笔记本突然黑屏，我技术水平还不是很过硬，不能够在完全黑屏的情况下导出系统日志，也就不能够通过日志的方法进行排查。另一方面这种错误是随机出现的，发现后做应急处理的程序不完备。</p>
+
+<p>由于上面的错误，我在做系统差错时，多是采用外部的观察:</p>
+
+<ul>
+<li>指示灯: 在启动时黑屏，系统和平常进入登陆界面一样，硬盘灯先是不断闪烁，然后就停止闪烁了。估计是已经加载完毕登陆界面等待输入用户信息。中途黑屏时，多为一直闪烁。</li>
+<li>CPU风扇声音: 启动时和平常声音相同，系统中间进入黑屏时多是高速运转。</li>
+</ul>
+
+
+<p>那么导致上述现象的原因可能是什么呢？</p>
+
+<p>综合了网上多是配置启动系统内核的显卡模块参数，我觉得:
+系统的电源管理系统出现了一些问题，不正常的向系统发送信号(进入休眠状态)，系统关闭屏幕，并将数据拷入swap分区。但是由于我的及其的休眠状态有问题，导致一直无法进入。</p>
+
+<p>由于以上问题，我把问题定位到了ACPI(高级电源管理接口)上面。可能是由于它的错误控制导致了系统在开机时将视频信号输出到其他端口，而在运行过程中又将错误信号发给了系统导致了挂起。</p>
+
+<p>配置ACPI http://www.brighthub.com/computing/linux/articles/39504.aspx :
+主要是通过在grub加载时向内核发送参数来控制ACPI模块的加载:</p>
+
+<ul>
+<li><code>bashacpi=off</code>: 关闭ACPI的支持</li>
+<li><code>bash acpi=ht</code>: 关闭除超线程之外的ACPI支持</li>
+<li><code>bash pci=noacpi</code>: 关闭ACPI的硬中断并且PCI不再扫描ACPI</li>
+<li><code>bash acpi=noirq</code>: 关闭ACPI的IRQ(硬中断)</li>
+</ul>
+
+
+<p>而我是直接采用 <code>pci=noacpi</code>。
+休眠、挂起、待机的区别:</p>
+
+<ul>
+<li>挂起是一种省电模式，系统将机器的硬盘、显示器等外部设备停止工作，而CPU、内存仍然工作，等待用户随时唤醒。</li>
+<li>体眠是一种更加省电的模式，它将内存中的数据保存于硬盘中，使CPU也停止工作，当再次使用时需按开关机键，机器将会恢复到您的执行休眠时的状态，而不用再次执行启动这个复杂的过程。</li>
+<li>待机是将当前处于运行状态的数据保存在内存中，机器只对内存供电，而硬盘、屏幕和CPU等部件则停止供电。由于数据存储在速度快的内存中，因此进入等待状态和唤醒的速度比较快。不过这些数据是保存在内存中 ，如果断电则会使数据丢失。</li>
+</ul>
+
+
+<h1>ubuntu 10.04常用命令</h1>
+
+<h2>升级 firefox</h2>
+
+<pre><code class="shell">sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
+sudo apt-get update
+sudo apt-get install firefox
+</code></pre>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/living/life/2011/02/11/index.livinglife" title="生活中的小技巧">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/career/manage/2011/02/12/ReadHowtoBeLeaders" title="恩威并重的领导艺术">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/pcmanage/2011/02/11/linux" data-title="Linux/Ubuntu 使用知识" data-url="http://www.5wpc.info/it/technical/pcmanage/2011/02/11/linux/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <h4>文章目录</h4>
+      <div id='toc'></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2011-02-11</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-02-07</span></div>
+    
+
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/pcmanage/2014/02/21/mail-client">邮件客户端配置</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/pcmanage/2014/01/04/vpn">Ubuntu 10.04 安装 VPN</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/pcmanage/2011/02/11/linux" class="active">Linux/Ubuntu 使用知识</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

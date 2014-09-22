@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Erlang</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/language/erlang/2011/03/31/Syntax" />
+<meta property="og:title" content="Erlang" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2011-03-31" />
+
+<meta name="weibo:article:update_at" content="2014-01-12" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
+    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search.html">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Erlang
+        <small>
+            
+            2014 "码" 到成功 !
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1>Erlang</h1>
+
+<h2>串行编程</h2>
+
+<ul>
+<li>常量
+
+<ul>
+<li>数值
+
+<ul>
+<li>Integer</li>
+<li>Float</li>
+</ul>
+</li>
+<li>Atom</li>
+</ul>
+</li>
+<li>复合
+
+<ul>
+<li>tuple</li>
+<li>List</li>
+</ul>
+</li>
+<li>保护式
+
+<ul>
+<li>子句
+
+<ul>
+<li>fun() when ...</li>
+</ul>
+</li>
+<li>断言
+
+<ul>
+<li>atom(X) X 是一个原子式</li>
+<li>constant(X) X 不是列表或元组</li>
+<li>float(X) X 是一个浮点数</li>
+<li>integer(X) X 是一个整数</li>
+<li>list(X) X 是一个列表或 []</li>
+<li>number(X) X 是一个整数或浮点数</li>
+<li>pid(X) X 是一个进程标识符</li>
+<li>port(X) X 是一个端口</li>
+<li>reference(X) X 是一个引用</li>
+<li>tuple(X) X 是一个元组</li>
+<li>binary(X) X 是一段二进制数据</li>
+<li>element/2, float/1, hd/1, length/1, round/1, self/0, size/1 trunc/1, tl/1, abs/1, node/1, node/0, nodes/0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>比较
+
+<ul>
+<li>X > Y     X 大于 Y         coerce</li>
+<li>X &lt; Y     X 小于 Y         coerce</li>
+<li>X =&lt; Y    X 小于或等于 Y   coerce</li>
+<li>X >= Y    X 大于或等于 Y   coerce</li>
+<li>X == Y    X 等于 Y         coerce</li>
+<li>X /= Y    X 不等于 Y       coerce</li>
+<li>X =:= Y   X 等于 Y         exact</li>
+<li>X =/= Y   X 不等于 Y       exact</li>
+<li>number &lt; atom &lt; reference &lt; port &lt; pid &lt; tuple &lt; list</li>
+<li>元组首先按大小排序,然后再按元素排序。列表的比较顺序是先头部,后尾部。</li>
+<li>如果比较运算符的两个参数都是数值类型且运算符为coerce型,则如果一个参数是 integer 另一个是 float , 那么 integer 将被转换为 float 再进行比较。</li>
+<li>exact 类型的运算符则不做这样的转换。</li>
+</ul>
+</li>
+<li>原语
+
+<ul>
+<li>case
+
+<ul>
+<li>case Expr of</li>
+<li>Pattern1 [when Guard1] -> Seq1;</li>
+<li>Pattern2 [when Guard2] -> Seq2;</li>
+<li>...</li>
+<li>PatternN [when GuardN] -> SeqN</li>
+<li>_ -> ...</li>
+<li>end</li>
+</ul>
+</li>
+<li>If
+
+<ul>
+<li>if</li>
+<li>Guard1 -></li>
+<li>Sequence1 ;</li>
+<li>Guard2 -></li>
+<li>Sequence2 ;</li>
+<li>...</li>
+<li>true -> ...</li>
+<li>end</li>
+</ul>
+</li>
+<li>算术表达式
+
+<ul>
+<li>:</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th><em>运算符</em>   </th>
+<th>   <em>描述</em>               </th>
+<th>  <em>类型</em>  </th>
+<th>  <em>操作数类型</em> </th>
+<th> <em>优先</em> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+ X        </td>
+<td>   + X                  </td>
+<td>  单目    </td>
+<td>   混合        </td>
+<td> 1      </td>
+</tr>
+<tr>
+<td>- X        </td>
+<td>   - X                  </td>
+<td>  单目    </td>
+<td>   混合        </td>
+<td> 1      </td>
+</tr>
+<tr>
+<td>X * Y      </td>
+<td>   X * Y                </td>
+<td>  双目    </td>
+<td>   混合        </td>
+<td> 2      </td>
+</tr>
+<tr>
+<td>X / Y      </td>
+<td>   X / Y (浮点除法)     </td>
+<td>  双目    </td>
+<td>   混合        </td>
+<td> 2      </td>
+</tr>
+<tr>
+<td>X div Y    </td>
+<td>   X 整除 Y             </td>
+<td>  双目    </td>
+<td>   整数        </td>
+<td> 2      </td>
+</tr>
+<tr>
+<td>X rem Y    </td>
+<td>   X 除以 Y 的余数      </td>
+<td>  双目    </td>
+<td>   整数        </td>
+<td> 2      </td>
+</tr>
+<tr>
+<td>X band Y   </td>
+<td>   X 与 Y 的位与        </td>
+<td>  双目    </td>
+<td>   整数        </td>
+<td> 2      </td>
+</tr>
+<tr>
+<td>X + Y      </td>
+<td>   X + Y                </td>
+<td>  双目    </td>
+<td>   混合        </td>
+<td> 3      </td>
+</tr>
+<tr>
+<td>X - Y      </td>
+<td>   X - Y                </td>
+<td>  双目    </td>
+<td>   混合        </td>
+<td> 3      </td>
+</tr>
+<tr>
+<td>X bor Y    </td>
+<td>   X 与 Y 位或          </td>
+<td>  双目    </td>
+<td>   整数        </td>
+<td> 3      </td>
+</tr>
+<tr>
+<td>X bxor Y   </td>
+<td>   X 与 Y 的位算数异或  </td>
+<td>  双目    </td>
+<td>   整数        </td>
+<td> 3      </td>
+</tr>
+<tr>
+<td>X bsl N    </td>
+<td>   X 算数左移 N 位      </td>
+<td>  双目    </td>
+<td>   整数        </td>
+<td> 3      </td>
+</tr>
+<tr>
+<td>X bsr N    </td>
+<td>   X 右移 N 位          </td>
+<td>  双目    </td>
+<td>   整数        </td>
+<td> 3      </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>列表编程</h2>
+
+<ul>
+<li>BIF
+
+<ul>
+<li>:</li>
+</ul>
+</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th><em>函数原型</em>            </th>
+<th>  <em>作用</em>                             </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>atom_to_list(A)       </td>
+<td>  将原子式 A 转换为一个ASCII字符列表 </td>
+</tr>
+<tr>
+<td>float_to_list(F)      </td>
+<td> 将浮点数 F 转换为一个ASCII字符列表  </td>
+</tr>
+<tr>
+<td>integer_to_list(I)    </td>
+<td> 将整数 I 转换为一个ASCII字符列表    </td>
+</tr>
+<tr>
+<td>list_to_atom(L)       </td>
+<td> 将ASCII字符列表 L 转换为一个原子式  </td>
+</tr>
+<tr>
+<td>list_to_float(L)      </td>
+<td> 将ASCII字符列表 L 转换为一个浮点数  </td>
+</tr>
+<tr>
+<td>list_to_integer(L)    </td>
+<td> 将ASCII字符列表 L 转换为一个整数    </td>
+</tr>
+<tr>
+<td>hd(L)                 </td>
+<td> 返回列表 L 的第一个元素             </td>
+</tr>
+<tr>
+<td>tl(L)                 </td>
+<td> 返回列表 L 的尾部                   </td>
+</tr>
+<tr>
+<td>length(L)             </td>
+<td> 返回列表 L 的长度                   </td>
+</tr>
+</tbody>
+</table>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/career/manage/2011/03/06/LeaderInProductManager" title="LeaderInProductManager">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/multicores/2011/07/11/HPC" title="高性能计算">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/language/erlang/2011/03/31/Syntax" data-title="Erlang" data-url="http://www.5wpc.info/it/technical/language/erlang/2011/03/31/Syntax/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <h4>文章目录</h4>
+      <div id='toc'></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2011-03-31</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-12</span></div>
+    
+
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/erlang/2013/01/30/ProgrammingErlang">Programming Eralng</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/language/erlang/2011/03/31/Syntax" class="active">Erlang</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+
