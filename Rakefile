@@ -134,10 +134,7 @@ task :publish do
 
         Dir.chdir tmp
         # Prepare all the content in the repo for deployment.
-        #system "git add -A . && git commit -m 'Site updated at #{Time.now.utc}'" # Add and commit all the files.
-
-        #system "git push origin gh-pages:refs/heads/gh-pages --force"
-        #system "git push"
+        system "git add -A . && git commit -m 'Site updated at #{Time.now.utc}' && git push"
         puts 'Success'
     else
         puts 'Please: git clone git@github.com:qianjigui/www.git -b gh-pages gh-pages'
