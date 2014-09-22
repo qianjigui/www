@@ -4,7 +4,7 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-09-22T12:05:36+08:00</updated>
+ <updated>2014-09-22T14:02:48+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
@@ -19,7 +19,7 @@
    <id>http://www.5wpc.info/it/technical/design/2014/09/21/TheDesignOfDesign</id>
    <content type="html">&lt;h1&gt;TheDesignOfDesign&lt;/h1&gt;
 
-&lt;h2&gt;tags: DesignPatterns&lt;/h2&gt;
+&lt;h2&gt;tags: DesignPattern&lt;/h2&gt;
 
 &lt;h2&gt;设计面面观&lt;/h2&gt;
 
@@ -232,7 +232,7 @@
 &lt;/ul&gt;
 
 
-&lt;h2&gt;tags: DesignPatterns IO&lt;/h2&gt;
+&lt;h2&gt;tags: DesignPattern IO&lt;/h2&gt;
 
 &lt;h2&gt;FileSystem&lt;/h2&gt;
 
