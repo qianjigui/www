@@ -4,13 +4,350 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-09-22T14:19:03+08:00</updated>
+ <updated>2014-09-23T12:06:16+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
    <email>qianjigui@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>CodeQuality</title>
+   <link href="http://www.5wpc.info/it/technical/softwareengineering/2014/09/22/CodeQuality"/>
+   <updated>2014-09-22T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/technical/softwareengineering/2014/09/22/CodeQuality</id>
+   <content type="html">&lt;h1&gt;CodeQuality&lt;/h1&gt;
+
+&lt;h2&gt;代码质量的主要关注点&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;可靠性
+
+&lt;ul&gt;
+&lt;li&gt;输入问题&lt;/li&gt;
+&lt;li&gt;输出问题
+
+&lt;ul&gt;
+&lt;li&gt;不完整&lt;/li&gt;
+&lt;li&gt;缺失&lt;/li&gt;
+&lt;li&gt;错误时刻的正确结果&lt;/li&gt;
+&lt;li&gt;错误的格式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;逻辑问题
+
+&lt;ul&gt;
+&lt;li&gt;偏差为一的错误与循环迭代&lt;/li&gt;
+&lt;li&gt;被忽视的极端情况&lt;/li&gt;
+&lt;li&gt;被遗漏的情况,条件测试或步骤&lt;/li&gt;
+&lt;li&gt;被遗漏的方法&lt;/li&gt;
+&lt;li&gt;多余的功能&lt;/li&gt;
+&lt;li&gt;对需求的误解&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;计算问题
+
+&lt;ul&gt;
+&lt;li&gt;不正确的算法或计算&lt;/li&gt;
+&lt;li&gt;表达式中错误的操作数&lt;/li&gt;
+&lt;li&gt;表达式中不正确的运算符&lt;/li&gt;
+&lt;li&gt;运算符优先级问题&lt;/li&gt;
+&lt;li&gt;溢出,下溢和符号转换错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;并行性与时序问题&lt;/li&gt;
+&lt;li&gt;接口问题
+
+&lt;ul&gt;
+&lt;li&gt;不正确的例程或参数&lt;/li&gt;
+&lt;li&gt;没有测试返回值&lt;/li&gt;
+&lt;li&gt;未做错误探查或恢复&lt;/li&gt;
+&lt;li&gt;资源泄漏&lt;/li&gt;
+&lt;li&gt;面向对象功能的误用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;数据处理问题
+
+&lt;ul&gt;
+&lt;li&gt;不正确的数据初始化&lt;/li&gt;
+&lt;li&gt;引用错误的数据变量&lt;/li&gt;
+&lt;li&gt;越界引用&lt;/li&gt;
+&lt;li&gt;不正确的下标使用&lt;/li&gt;
+&lt;li&gt;不正确的比例或数据单位&lt;/li&gt;
+&lt;li&gt;错误的数据打包与解包
+
+&lt;ul&gt;
+&lt;li&gt;序列化与反序列化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;不一致的数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;容错
+
+&lt;ul&gt;
+&lt;li&gt;管理策略&lt;/li&gt;
+&lt;li&gt;空间冗余&lt;/li&gt;
+&lt;li&gt;时间冗余&lt;/li&gt;
+&lt;li&gt;可复原性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;安全性
+
+&lt;ul&gt;
+&lt;li&gt;脆弱代码&lt;/li&gt;
+&lt;li&gt;缓冲区溢出&lt;/li&gt;
+&lt;li&gt;竞态条件&lt;/li&gt;
+&lt;li&gt;问题API
+
+&lt;ul&gt;
+&lt;li&gt;容易出现缓冲区溢出的函数&lt;/li&gt;
+&lt;li&gt;格式字符串漏洞&lt;/li&gt;
+&lt;li&gt;路径和命令行解释器元字符漏洞&lt;/li&gt;
+&lt;li&gt;临时文件&lt;/li&gt;
+&lt;li&gt;不适合做加密用途的函数&lt;/li&gt;
+&lt;li&gt;可篡改数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;不可信输入&lt;/li&gt;
+&lt;li&gt;结果验证&lt;/li&gt;
+&lt;li&gt;数据与特权泄漏
+
+&lt;ul&gt;
+&lt;li&gt;数据&lt;/li&gt;
+&lt;li&gt;特权&lt;/li&gt;
+&lt;li&gt;分离特权代码
+
+&lt;ul&gt;
+&lt;li&gt;MPI&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;木马&lt;/li&gt;
+&lt;li&gt;第三方工具&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;时间性能
+
+&lt;ul&gt;
+&lt;li&gt;测试技术
+
+&lt;ul&gt;
+&lt;li&gt;负载描述&lt;/li&gt;
+&lt;li&gt;受限于
+
+&lt;ul&gt;
+&lt;li&gt;IO任务&lt;/li&gt;
+&lt;li&gt;内核的任务&lt;/li&gt;
+&lt;li&gt;CPU的任务与剖析工具&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;算法复杂性&lt;/li&gt;
+&lt;li&gt;独立的代码&lt;/li&gt;
+&lt;li&gt;与操作系统交互&lt;/li&gt;
+&lt;li&gt;与外设交互&lt;/li&gt;
+&lt;li&gt;非故意交互&lt;/li&gt;
+&lt;li&gt;缓存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;空间性能
+
+&lt;ul&gt;
+&lt;li&gt;数据&lt;/li&gt;
+&lt;li&gt;内存组织&lt;/li&gt;
+&lt;li&gt;内存层级结构
+
+&lt;ul&gt;
+&lt;li&gt;主存及其高速缓存&lt;/li&gt;
+&lt;li&gt;磁盘缓存和后备存储器&lt;/li&gt;
+&lt;li&gt;交换区和基于文件的磁盘存储&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;进程/操作系统接口
+
+&lt;ul&gt;
+&lt;li&gt;内存分配&lt;/li&gt;
+&lt;li&gt;内存映射&lt;/li&gt;
+&lt;li&gt;数据映射&lt;/li&gt;
+&lt;li&gt;代码映射&lt;/li&gt;
+&lt;li&gt;访问硬件资源&lt;/li&gt;
+&lt;li&gt;进程间通信&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;堆内存管理
+
+&lt;ul&gt;
+&lt;li&gt;堆碎片&lt;/li&gt;
+&lt;li&gt;堆剖析分析&lt;/li&gt;
+&lt;li&gt;内存泄漏&lt;/li&gt;
+&lt;li&gt;垃圾回收&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;栈内存管理
+
+&lt;ul&gt;
+&lt;li&gt;栈帧&lt;/li&gt;
+&lt;li&gt;栈空间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;代码
+
+&lt;ul&gt;
+&lt;li&gt;设计&lt;/li&gt;
+&lt;li&gt;编码&lt;/li&gt;
+&lt;li&gt;构建&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;可移植性
+
+&lt;ul&gt;
+&lt;li&gt;操作系统间&lt;/li&gt;
+&lt;li&gt;硬件与处理器架构
+
+&lt;ul&gt;
+&lt;li&gt;数据类型的属性&lt;/li&gt;
+&lt;li&gt;数据存储&lt;/li&gt;
+&lt;li&gt;特定于机器的代码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;编译器与语言扩展
+
+&lt;ul&gt;
+&lt;li&gt;编译器错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;图形用户界面GUI&lt;/li&gt;
+&lt;li&gt;国际化与本地化
+
+&lt;ul&gt;
+&lt;li&gt;字符集&lt;/li&gt;
+&lt;li&gt;区域&lt;/li&gt;
+&lt;li&gt;消息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;可维护性
+
+&lt;ul&gt;
+&lt;li&gt;测量可维护性
+
+&lt;ul&gt;
+&lt;li&gt;相关指数&lt;/li&gt;
+&lt;li&gt;OO的度量&lt;/li&gt;
+&lt;li&gt;包相关性度量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;可分析性
+
+&lt;ul&gt;
+&lt;li&gt;一致性&lt;/li&gt;
+&lt;li&gt;表达式格式化&lt;/li&gt;
+&lt;li&gt;语句格式化&lt;/li&gt;
+&lt;li&gt;命名惯例&lt;/li&gt;
+&lt;li&gt;语句级注释&lt;/li&gt;
+&lt;li&gt;版本注释&lt;/li&gt;
+&lt;li&gt;视觉结构: 块与缩进&lt;/li&gt;
+&lt;li&gt;表达式,函数以及方法的长度&lt;/li&gt;
+&lt;li&gt;控制结构&lt;/li&gt;
+&lt;li&gt;布尔表达式&lt;/li&gt;
+&lt;li&gt;可辨认性与内聚性&lt;/li&gt;
+&lt;li&gt;依赖和耦合&lt;/li&gt;
+&lt;li&gt;代码块注释&lt;/li&gt;
+&lt;li&gt;数据声明注释&lt;/li&gt;
+&lt;li&gt;恰当的标识符名字&lt;/li&gt;
+&lt;li&gt;依赖的位置&lt;/li&gt;
+&lt;li&gt;不确定性&lt;/li&gt;
+&lt;li&gt;可复查性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;可变化&lt;/li&gt;
+&lt;li&gt;稳定性
+
+&lt;ul&gt;
+&lt;li&gt;封装与数据隐藏&lt;/li&gt;
+&lt;li&gt;数据抽象&lt;/li&gt;
+&lt;li&gt;类型检查&lt;/li&gt;
+&lt;li&gt;编译时断言&lt;/li&gt;
+&lt;li&gt;运行时检查和查看时断言&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;可测试性
+
+&lt;ul&gt;
+&lt;li&gt;单元测试&lt;/li&gt;
+&lt;li&gt;集成测试&lt;/li&gt;
+&lt;li&gt;系统测试&lt;/li&gt;
+&lt;li&gt;测试覆盖度分析&lt;/li&gt;
+&lt;li&gt;偶发性测试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;开发环境的影响
+
+&lt;ul&gt;
+&lt;li&gt;增量构建&lt;/li&gt;
+&lt;li&gt;调整构建性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;浮点运算
+
+&lt;ul&gt;
+&lt;li&gt;浮点数表示
+
+&lt;ul&gt;
+&lt;li&gt;量度误差&lt;/li&gt;
+&lt;li&gt;舍入&lt;/li&gt;
+&lt;li&gt;内存格式&lt;/li&gt;
+&lt;li&gt;规格化和隐含的一位&lt;/li&gt;
+&lt;li&gt;阶码偏移&lt;/li&gt;
+&lt;li&gt;负数&lt;/li&gt;
+&lt;li&gt;反向规格化数&lt;/li&gt;
+&lt;li&gt;特殊值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;舍入&lt;/li&gt;
+&lt;li&gt;溢出&lt;/li&gt;
+&lt;li&gt;下溢&lt;/li&gt;
+&lt;li&gt;消去&lt;/li&gt;
+&lt;li&gt;合并&lt;/li&gt;
+&lt;li&gt;无效运算&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;代码质量的参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;代码质量 http://book.douban.com/subject/2342995/&lt;/li&gt;
+&lt;li&gt;相关支持工具
+
+&lt;ul&gt;
+&lt;li&gt;静态代码分析工具
+
+&lt;ul&gt;
+&lt;li&gt;checkstyle&lt;/li&gt;
+&lt;li&gt;findbug&lt;/li&gt;
+&lt;li&gt;PMD&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;自动重构工具&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>TheDesignOfDesign</title>
@@ -836,11 +1173,11 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
  </entry>
  
  <entry>
-   <title>Lesson</title>
+   <title>FitnessLesson</title>
    <link href="http://www.5wpc.info/it/project/fitness/2014/09/04/Lesson"/>
    <updated>2014-09-04T00:00:00+08:00</updated>
    <id>http://www.5wpc.info/it/project/fitness/2014/09/04/Lesson</id>
-   <content type="html">&lt;h1&gt;Lesson&lt;/h1&gt;
+   <content type="html">&lt;h1&gt;FitnessLesson&lt;/h1&gt;
 
 &lt;h2&gt;Review&lt;/h2&gt;
 

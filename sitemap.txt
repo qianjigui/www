@@ -7,6 +7,7 @@ http://www.5wpc.info/search.html
 http://www.5wpc.info/sitemap.txt
 http://www.5wpc.info/tags.html
 
+http://www.5wpc.info/it/technical/softwareengineering/2014/09/22/CodeQuality
 http://www.5wpc.info/it/technical/design/2014/09/21/TheDesignOfDesign
 http://www.5wpc.info/it/technical/language/go/2014/09/19/GoPackageBuiltin
 http://www.5wpc.info/it/technical/design/2014/09/19/FileOrientedProgramming

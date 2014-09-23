@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>CodeQuality</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/softwareengineering/2014/09/22/CodeQuality" />
+<meta property="og:title" content="CodeQuality" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2014-09-22" />
+
+<meta name="weibo:article:update_at" content="2014-09-22" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.3/jquery.min.js"></script>
+
+    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search.html">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        CodeQuality
+        <small>
+            
+            2014 "码" 到成功 !
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1>CodeQuality</h1>
+
+<h2>代码质量的主要关注点</h2>
+
+<ul>
+<li>可靠性
+
+<ul>
+<li>输入问题</li>
+<li>输出问题
+
+<ul>
+<li>不完整</li>
+<li>缺失</li>
+<li>错误时刻的正确结果</li>
+<li>错误的格式</li>
+</ul>
+</li>
+<li>逻辑问题
+
+<ul>
+<li>偏差为一的错误与循环迭代</li>
+<li>被忽视的极端情况</li>
+<li>被遗漏的情况,条件测试或步骤</li>
+<li>被遗漏的方法</li>
+<li>多余的功能</li>
+<li>对需求的误解</li>
+</ul>
+</li>
+<li>计算问题
+
+<ul>
+<li>不正确的算法或计算</li>
+<li>表达式中错误的操作数</li>
+<li>表达式中不正确的运算符</li>
+<li>运算符优先级问题</li>
+<li>溢出,下溢和符号转换错误</li>
+</ul>
+</li>
+<li>并行性与时序问题</li>
+<li>接口问题
+
+<ul>
+<li>不正确的例程或参数</li>
+<li>没有测试返回值</li>
+<li>未做错误探查或恢复</li>
+<li>资源泄漏</li>
+<li>面向对象功能的误用</li>
+</ul>
+</li>
+<li>数据处理问题
+
+<ul>
+<li>不正确的数据初始化</li>
+<li>引用错误的数据变量</li>
+<li>越界引用</li>
+<li>不正确的下标使用</li>
+<li>不正确的比例或数据单位</li>
+<li>错误的数据打包与解包
+
+<ul>
+<li>序列化与反序列化</li>
+</ul>
+</li>
+<li>不一致的数据</li>
+</ul>
+</li>
+<li>容错
+
+<ul>
+<li>管理策略</li>
+<li>空间冗余</li>
+<li>时间冗余</li>
+<li>可复原性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安全性
+
+<ul>
+<li>脆弱代码</li>
+<li>缓冲区溢出</li>
+<li>竞态条件</li>
+<li>问题API
+
+<ul>
+<li>容易出现缓冲区溢出的函数</li>
+<li>格式字符串漏洞</li>
+<li>路径和命令行解释器元字符漏洞</li>
+<li>临时文件</li>
+<li>不适合做加密用途的函数</li>
+<li>可篡改数据</li>
+</ul>
+</li>
+<li>不可信输入</li>
+<li>结果验证</li>
+<li>数据与特权泄漏
+
+<ul>
+<li>数据</li>
+<li>特权</li>
+<li>分离特权代码
+
+<ul>
+<li>MPI</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>木马</li>
+<li>第三方工具</li>
+</ul>
+</li>
+<li>时间性能
+
+<ul>
+<li>测试技术
+
+<ul>
+<li>负载描述</li>
+<li>受限于
+
+<ul>
+<li>IO任务</li>
+<li>内核的任务</li>
+<li>CPU的任务与剖析工具</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>算法复杂性</li>
+<li>独立的代码</li>
+<li>与操作系统交互</li>
+<li>与外设交互</li>
+<li>非故意交互</li>
+<li>缓存</li>
+</ul>
+</li>
+<li>空间性能
+
+<ul>
+<li>数据</li>
+<li>内存组织</li>
+<li>内存层级结构
+
+<ul>
+<li>主存及其高速缓存</li>
+<li>磁盘缓存和后备存储器</li>
+<li>交换区和基于文件的磁盘存储</li>
+</ul>
+</li>
+<li>进程/操作系统接口
+
+<ul>
+<li>内存分配</li>
+<li>内存映射</li>
+<li>数据映射</li>
+<li>代码映射</li>
+<li>访问硬件资源</li>
+<li>进程间通信</li>
+</ul>
+</li>
+<li>堆内存管理
+
+<ul>
+<li>堆碎片</li>
+<li>堆剖析分析</li>
+<li>内存泄漏</li>
+<li>垃圾回收</li>
+</ul>
+</li>
+<li>栈内存管理
+
+<ul>
+<li>栈帧</li>
+<li>栈空间</li>
+</ul>
+</li>
+<li>代码
+
+<ul>
+<li>设计</li>
+<li>编码</li>
+<li>构建</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可移植性
+
+<ul>
+<li>操作系统间</li>
+<li>硬件与处理器架构
+
+<ul>
+<li>数据类型的属性</li>
+<li>数据存储</li>
+<li>特定于机器的代码</li>
+</ul>
+</li>
+<li>编译器与语言扩展
+
+<ul>
+<li>编译器错误</li>
+</ul>
+</li>
+<li>图形用户界面GUI</li>
+<li>国际化与本地化
+
+<ul>
+<li>字符集</li>
+<li>区域</li>
+<li>消息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可维护性
+
+<ul>
+<li>测量可维护性
+
+<ul>
+<li>相关指数</li>
+<li>OO的度量</li>
+<li>包相关性度量</li>
+</ul>
+</li>
+<li>可分析性
+
+<ul>
+<li>一致性</li>
+<li>表达式格式化</li>
+<li>语句格式化</li>
+<li>命名惯例</li>
+<li>语句级注释</li>
+<li>版本注释</li>
+<li>视觉结构: 块与缩进</li>
+<li>表达式,函数以及方法的长度</li>
+<li>控制结构</li>
+<li>布尔表达式</li>
+<li>可辨认性与内聚性</li>
+<li>依赖和耦合</li>
+<li>代码块注释</li>
+<li>数据声明注释</li>
+<li>恰当的标识符名字</li>
+<li>依赖的位置</li>
+<li>不确定性</li>
+<li>可复查性</li>
+</ul>
+</li>
+<li>可变化</li>
+<li>稳定性
+
+<ul>
+<li>封装与数据隐藏</li>
+<li>数据抽象</li>
+<li>类型检查</li>
+<li>编译时断言</li>
+<li>运行时检查和查看时断言</li>
+</ul>
+</li>
+<li>可测试性
+
+<ul>
+<li>单元测试</li>
+<li>集成测试</li>
+<li>系统测试</li>
+<li>测试覆盖度分析</li>
+<li>偶发性测试</li>
+</ul>
+</li>
+<li>开发环境的影响
+
+<ul>
+<li>增量构建</li>
+<li>调整构建性能</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>浮点运算
+
+<ul>
+<li>浮点数表示
+
+<ul>
+<li>量度误差</li>
+<li>舍入</li>
+<li>内存格式</li>
+<li>规格化和隐含的一位</li>
+<li>阶码偏移</li>
+<li>负数</li>
+<li>反向规格化数</li>
+<li>特殊值</li>
+</ul>
+</li>
+<li>舍入</li>
+<li>溢出</li>
+<li>下溢</li>
+<li>消去</li>
+<li>合并</li>
+<li>无效运算</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>代码质量的参考资料</h2>
+
+<ul>
+<li>代码质量 http://book.douban.com/subject/2342995/</li>
+<li>相关支持工具
+
+<ul>
+<li>静态代码分析工具
+
+<ul>
+<li>checkstyle</li>
+<li>findbug</li>
+<li>PMD</li>
+</ul>
+</li>
+<li>自动重构工具</li>
+</ul>
+</li>
+</ul>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/technical/design/2014/09/21/TheDesignOfDesign" title="TheDesignOfDesign">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next disabled"><a>新的一篇 &rarr;</a>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/softwareengineering/2014/09/22/CodeQuality" data-title="CodeQuality" data-url="http://www.5wpc.info/it/technical/softwareengineering/2014/09/22/CodeQuality/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <h4>文章目录</h4>
+      <div id='toc'></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2014-09-22</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-09-22</span></div>
+    
+
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/softwareengineering/2014/09/22/CodeQuality" class="active">CodeQuality</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/softwareengineering/2013/05/21/DeathMarch">死亡之旅笔记</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+
