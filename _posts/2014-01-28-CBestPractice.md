@@ -56,7 +56,7 @@ title: C 语言最佳实践
 目前实现上述方案的有: Ragel, lex, yacc等标准生成引擎.
 
 ### 手工处理
-类似于[Ruby文本处理方法](/it/technical/language/ruby/2014/01/20/TextProcessing), 目前主要讨论基于行解析的一些实践.
+类似于[Ruby文本处理方法](/it/technical/language/ruby/2014/01/20/TextProcessing/), 目前主要讨论基于行解析的一些实践.
 主要使用如下API:
 
 - sscanf

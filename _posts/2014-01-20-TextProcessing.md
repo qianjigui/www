@@ -66,7 +66,7 @@ end
 
 充分利用正则表达式的特性, 特别是 锚点, 分组与捕获.
 
-关于正则表达式的详细API见[Regular](/it/technical/language/ruby/2014/01/15/Regular)
+关于正则表达式的详细API见[Regular](/it/technical/language/ruby/2014/01/15/Regular/)
 
 ## 文件处理的API
 

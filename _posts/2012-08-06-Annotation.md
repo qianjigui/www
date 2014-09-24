@@ -8,7 +8,7 @@ tags: Annotation
 ---
 
 # 目前的主要项目
-* [利用标注做代码生成](/it/technical/language/java/2014/08/19/JavaCompileTransform)
+* [利用标注做代码生成](/it/technical/language/java/2014/08/19/JavaCompileTransform/)
 
 #Java Annotations#
 

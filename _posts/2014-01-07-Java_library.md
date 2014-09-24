@@ -29,7 +29,7 @@ tagline: 将Makefile打造成OOP
 all_modules
 ```
 
-从上面的log看,其主要的过程与[APP](/it/technical/os/Android/build/2014/01/03/APP)相同.
+从上面的log看,其主要的过程与[APP](/it/technical/os/Android/build/2014/01/03/APP/)相同.
 主要区别是最后产生的是javalib.jar, 需要进行安装的是/system/framework/uiautomator.samples.jar
 
 具体模块列表如下:
