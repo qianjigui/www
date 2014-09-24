@@ -4,7 +4,7 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-09-23T12:06:16+08:00</updated>
+ <updated>2014-09-24T10:34:47+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
@@ -1519,6 +1519,52 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 &lt;/ul&gt;
 
 
+&lt;h2&gt;7. 肱二头肌练习(20140923晚上)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;10min 爬山&lt;/li&gt;
+&lt;li&gt;矮子步
+
+&lt;ul&gt;
+&lt;li&gt;3*来回&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;支撑俯卧撑
+
+&lt;ul&gt;
+&lt;li&gt;4*15个&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;举抬器械
+
+&lt;ul&gt;
+&lt;li&gt;4*9&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;依靠腿部单手抬举哑铃
+
+&lt;ul&gt;
+&lt;li&gt;4*左&amp;amp;右9&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;双手上拉
+
+&lt;ul&gt;
+&lt;li&gt;4*9&lt;/li&gt;
+&lt;li&gt;5kg&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;双手下拉
+
+&lt;ul&gt;
+&lt;li&gt;4*9&lt;/li&gt;
+&lt;li&gt;5kg&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;绕场&lt;/li&gt;
+&lt;/ul&gt;
+
+
 &lt;h2&gt;价值&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -1616,9 +1662,9 @@ end
    <content type="html">&lt;h1&gt;相关技术&lt;/h1&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;/it/technical/language/ruby/2013/01/30/RailsRecipes&quot;&gt;Rails Recipes&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/it/technical/language/ruby/2013/01/30/AdvancedRailsRecipes&quot;&gt;Advanced Rails Recipes&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/it/technical/language/ruby/2014/01/20/TDD&quot;&gt;Rspec&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/it/technical/language/ruby/2013/01/30/RailsRecipes/&quot;&gt;Rails Recipes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/it/technical/language/ruby/2013/01/30/AdvancedRailsRecipes/&quot;&gt;Advanced Rails Recipes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/it/technical/language/ruby/2014/01/20/TDD/&quot;&gt;Rspec&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2635,7 +2681,7 @@ user_pref(&quot;ldap_2.servers.eds.uri&quot;, &quot;moz-abedsdirectory://&quot;)
 
 &lt;h3&gt;手工处理&lt;/h3&gt;
 
-&lt;p&gt;类似于&lt;a href=&quot;/it/technical/language/ruby/2014/01/20/TextProcessing&quot;&gt;Ruby文本处理方法&lt;/a&gt;, 目前主要讨论基于行解析的一些实践.
+&lt;p&gt;类似于&lt;a href=&quot;/it/technical/language/ruby/2014/01/20/TextProcessing/&quot;&gt;Ruby文本处理方法&lt;/a&gt;, 目前主要讨论基于行解析的一些实践.
 主要使用如下API:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -2764,7 +2810,7 @@ end
 
 &lt;p&gt;充分利用正则表达式的特性, 特别是 锚点, 分组与捕获.&lt;/p&gt;
 
-&lt;p&gt;关于正则表达式的详细API见&lt;a href=&quot;/it/technical/language/ruby/2014/01/15/Regular&quot;&gt;Regular&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;关于正则表达式的详细API见&lt;a href=&quot;/it/technical/language/ruby/2014/01/15/Regular/&quot;&gt;Regular&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2&gt;文件处理的API&lt;/h2&gt;
 
@@ -4224,7 +4270,7 @@ LOCAL_BUILT_MODULE := $(built_module_path)/$(LOCAL_BUILT_MODULE_STEM)
 all_modules
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;从上面的log看,其主要的过程与&lt;a href=&quot;/it/technical/os/Android/build/2014/01/03/APP&quot;&gt;APP&lt;/a&gt;相同.
+&lt;p&gt;从上面的log看,其主要的过程与&lt;a href=&quot;/it/technical/os/Android/build/2014/01/03/APP/&quot;&gt;APP&lt;/a&gt;相同.
 主要区别是最后产生的是javalib.jar, 需要进行安装的是/system/framework/uiautomator.samples.jar&lt;/p&gt;
 
 &lt;p&gt;具体模块列表如下:&lt;/p&gt;
@@ -4425,6 +4471,16 @@ all_modules
 &lt;/li&gt;
 &lt;/ul&gt;
 
+
+&lt;h1&gt;食物与身体&lt;/h1&gt;
+
+&lt;h2&gt;女生&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://pic.yupoo.com/qianjigui/E53ud2Az/medish.jpg&quot; alt=&quot;http://pic.yupoo.com/qianjigui/E53ud2Az/medish.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;男生&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://pic.yupoo.com/qianjigui/E53uKEbQ/medish.jpg&quot; alt=&quot;http://pic.yupoo.com/qianjigui/E53uKEbQ/medish.jpg&quot; /&gt;&lt;/p&gt;
 </content>
  </entry>
  
@@ -17640,7 +17696,7 @@ Dispose of a table.
    <content type="html">&lt;h1&gt;目前的主要项目&lt;/h1&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;/it/technical/language/java/2014/08/19/JavaCompileTransform&quot;&gt;利用标注做代码生成&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/it/technical/language/java/2014/08/19/JavaCompileTransform/&quot;&gt;利用标注做代码生成&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -18900,7 +18956,7 @@ unsigned int BKDRHash(char *str)
 
 &lt;ol&gt;
 &lt;li&gt; 在撰写自己简历的时候，三思而后行。不要急求于简历内容的扩张，要真正挖掘自己所经历项目、活动、比赛中的具体收获与真正提高。这也要求我们在今后参与项目开发时，不但能够很好的完成自己的业务逻辑需求，更多地是从专业眼光出发挖掘其中的技术难点和原理，俗话说知其然更要知其所以然嘛。&lt;/li&gt;
-&lt;li&gt; 在个人复习时从基础出发，我这里主要是谈谈技术开发。语言关自然不多说，C系自然需要融会贯通于指针、链表、虚类等语言构件；然后就是把语言很好运用起来的数据结构与算法: &lt;a href=&quot;/it/technical/algorithm/2011/10/08/DataStructuresLinks&quot;&gt;数据结构相关知识&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt; 在个人复习时从基础出发，我这里主要是谈谈技术开发。语言关自然不多说，C系自然需要融会贯通于指针、链表、虚类等语言构件；然后就是把语言很好运用起来的数据结构与算法: &lt;a href=&quot;/it/technical/algorithm/2011/10/08/DataStructuresLinks/&quot;&gt;数据结构相关知识&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt; HR等: 这个我没有做相关练习，求高人指点。&lt;/li&gt;
 &lt;li&gt; 通过《程序员面试宝典》、《编程之美》拓展思路总结自己&lt;/li&gt;
 &lt;li&gt; 多动手写实际代码&lt;/li&gt;
@@ -18910,9 +18966,9 @@ unsigned int BKDRHash(char *str)
 &lt;h1&gt;相关材料&lt;/h1&gt;
 
 &lt;ol&gt;
-&lt;li&gt; &lt;a href=&quot;/it/study/whu/2011/09/22/FindJob&quot;&gt;笔试面试题汇总&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;/it/technical/algorithm/2011/09/15/DataStructures&quot;&gt;数据结构代码&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;/it/technical/design/2011/09/22/DesignPattern&quot;&gt;设计模式相关&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt; &lt;a href=&quot;/it/study/whu/2011/09/22/FindJob/&quot;&gt;笔试面试题汇总&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt; &lt;a href=&quot;/it/technical/algorithm/2011/09/15/DataStructures/&quot;&gt;数据结构代码&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt; &lt;a href=&quot;/it/technical/design/2011/09/22/DesignPattern/&quot;&gt;设计模式相关&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 </content>
@@ -20882,7 +20938,7 @@ text
    <link href="http://www.5wpc.info/it/living/life/2011/08/10/FitnessHelp"/>
    <updated>2011-08-10T00:00:00+08:00</updated>
    <id>http://www.5wpc.info/it/living/life/2011/08/10/FitnessHelp</id>
-   <content type="html">&lt;p&gt;页面转移到&lt;a href=&quot;/it/living/sport/2014/01/07/HealthKeep&quot;&gt;养生与保健&lt;/a&gt;&lt;/p&gt;
+   <content type="html">&lt;p&gt;页面转移到&lt;a href=&quot;/it/living/sport/2014/01/07/HealthKeep/&quot;&gt;养生与保健&lt;/a&gt;&lt;/p&gt;
 </content>
  </entry>
  
@@ -20891,7 +20947,7 @@ text
    <link href="http://www.5wpc.info/it/living/life/2011/08/10/EqLearn"/>
    <updated>2011-08-10T00:00:00+08:00</updated>
    <id>http://www.5wpc.info/it/living/life/2011/08/10/EqLearn</id>
-   <content type="html">&lt;p&gt;页面已经转移到&lt;a href=&quot;/it/living/selfManagement/2014/01/07/EQ&quot;&gt;个人管理EQ相关&lt;/a&gt;&lt;/p&gt;
+   <content type="html">&lt;p&gt;页面已经转移到&lt;a href=&quot;/it/living/selfManagement/2014/01/07/EQ/&quot;&gt;个人管理EQ相关&lt;/a&gt;&lt;/p&gt;
 </content>
  </entry>
  
@@ -21194,7 +21250,7 @@ text
 &lt;ul&gt;
 &lt;li&gt;读书&lt;/li&gt;
 &lt;li&gt;旅行&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/it/living/interest/2011/07/15/harmonica&quot;&gt;口琴&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/it/living/interest/2011/07/15/harmonica/&quot;&gt;口琴&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -21351,11 +21407,11 @@ text
 
 &lt;h3&gt;OpenMP&lt;/h3&gt;
 
-&lt;p&gt;当我们正在自己组建具有一定通用效果的多线程模型时，已经有了专业的工具帮助我们做并行化处理。这就是&lt;a href=&quot;/it/technical/multicores/2011/07/21/OpenMP&quot;&gt;OpenMP&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;当我们正在自己组建具有一定通用效果的多线程模型时，已经有了专业的工具帮助我们做并行化处理。这就是&lt;a href=&quot;/it/technical/multicores/2011/07/21/OpenMP/&quot;&gt;OpenMP&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3&gt;OpenMPI&lt;/h3&gt;
 
-&lt;p&gt;利用多线程进行分布式运算的推荐框架&lt;a href=&quot;/it/technical/multicores/2011/02/26/OpenMPI&quot;&gt;OpenMPI&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;利用多线程进行分布式运算的推荐框架&lt;a href=&quot;/it/technical/multicores/2011/02/26/OpenMPI/&quot;&gt;OpenMPI&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2&gt;总结与教训&lt;/h2&gt;
 
@@ -26489,7 +26545,7 @@ time指令中的标准输出就是由：墙上时间、用户态调用、内核�
 
 &lt;h2&gt;Mercurial SCM&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;/it/technical/ContinuousIntegration/2011/08/24/mercurial&quot;&gt;MercurialSCM使用知识&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/it/technical/ContinuousIntegration/2011/08/24/mercurial/&quot;&gt;MercurialSCM使用知识&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2&gt;Firefox打印问题&lt;/h2&gt;
 
@@ -26614,11 +26670,11 @@ sudo apt-get install firefox
 
 &lt;p&gt;作为一个技术人，有很多事情是繁琐的，有很多事情是快乐的。可以在这些日常生活中，更有激情的或者。&lt;/p&gt;
 
-&lt;h2&gt;&lt;a href=&quot;/it/living/life/2011/02/11/howtoread&quot;&gt;如何读书&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a href=&quot;/it/living/life/2011/02/11/howtoread/&quot;&gt;如何读书&lt;/a&gt;&lt;/h2&gt;
 
-&lt;h2&gt;&lt;a href=&quot;/it/living/life/2011/08/10/EqLearn&quot;&gt;情商训练&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a href=&quot;/it/living/life/2011/08/10/EqLearn/&quot;&gt;情商训练&lt;/a&gt;&lt;/h2&gt;
 
-&lt;h2&gt;&lt;a href=&quot;/it/living/life/2011/08/10/FitnessHelp&quot;&gt;健康与保健&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a href=&quot;/it/living/life/2011/08/10/FitnessHelp/&quot;&gt;健康与保健&lt;/a&gt;&lt;/h2&gt;
 
 &lt;h2&gt;着装&lt;/h2&gt;
 
@@ -27623,9 +27679,9 @@ fun(s);//Right
 &lt;h1&gt;其它参考&lt;/h1&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;/it/technical/language/ruby/2011/02/19/ruby265methods&quot;&gt;Ruby常用265技巧&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/it/technical/language/ruby/2011/02/19/ruby265methods/&quot;&gt;Ruby常用265技巧&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.chinaunix.net/topic/ruby/&quot;&gt;Ruby技术讨论&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/it/technical/language/ruby/2014/01/15/Regular&quot;&gt;Ruby 正则表达式&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/it/technical/language/ruby/2014/01/15/Regular/&quot;&gt;Ruby 正则表达式&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
