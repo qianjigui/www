@@ -10,15 +10,9 @@ date: 2011-02-01
 
 <h2>{{ site.lang.cn.last_5_p }}</h2>
 <ul class="posts">
-  {% assign size = 0 %}
-  {% for post in site.posts %}
-    {% if post.category contains 'it/technical' %}
-        {% if size <= 12 %}
-            {% assign size = size | plus:1 %}
-            <li><span>{{ post.date | date: "%Y-%m-%d" }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
-        {% endif %}
-    {% endif %}
-  {% endfor %}
+    {% for post in site.sorted_ctime_posts %}
+        <li><span>{{ post.date | date: "%Y-%m-%d" }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
 </ul>
 
 <h2>{{ site.lang.cn.star_post }}</h2>
@@ -30,4 +24,11 @@ date: 2011-02-01
     {% endif %}
 {% endfor %}
     <li><a href="http://may511.lofter.com/" target='_black'>May511Blog</a></li>
+</ul>
+
+<h2>{{ site.lang.cn.last_5_e }}</h2>
+<ul class="posts">
+    {% for post in site.sorted_mtime_posts %}
+        <li><span>{{ post.lmtime | date: "%Y-%m-%d" }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
 </ul>
