@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-09-19
+lmtime: 2014-09-26
 category: it/project/FinancialManage
 title: "StockManage"
 tags: 
@@ -16,8 +16,20 @@ tags:
   * 开户相关
     * http://blog.sina.com.cn/s/blog_672f4b1f0102uzun.html
     * http://www.aliway.com/read.php?tid=255547
+  * 相关信息学习
+    * 工具安装
+      * http://blog.sina.com.cn/s/blog_661972880100jt26.html
 * http://xueqiu.com/
   * 信息汇总通道
+
+
+
+##体验感受##
+* 20140925晚上
+  * 在TWS的虚拟系统上体验后
+    * 我们这种做短期处理的,基本不会有什么收益
+      * 对于大量的股票如果没有内部消息,很难可以一天涨很多倍
+    * 在这种情况下,基本就是做为长线投资, 通过对业界的了解与把握去做出选择.
 
 
 

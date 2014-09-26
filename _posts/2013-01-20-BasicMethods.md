@@ -1,12 +1,12 @@
 ---
 layout: post
-lmtime: 2014-09-10
+lmtime: 2014-09-26
 category: it/project/FinancialManage
-title: "BasicMethods"
+title: "理财BasicMethods"
 tags:  Finacial
 
 ---
-#BasicMethods#
+#理财BasicMethods#
 
 
 
