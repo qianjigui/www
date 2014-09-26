@@ -4,13 +4,104 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-09-24T18:09:30+08:00</updated>
+ <updated>2014-09-26T11:21:48+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
    <email>qianjigui@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>移动86页PPT数据之感</title>
+   <link href="http://www.5wpc.info/it/career/business/2014/09/25/WirelessInternet2014DataReview"/>
+   <updated>2014-09-25T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/career/business/2014/09/25/WirelessInternet2014DataReview</id>
+   <content type="html">&lt;h1&gt;移动86页PPT数据之感&lt;/h1&gt;
+
+&lt;h2&gt;美媒86页ppt预测未来：堪称最全的移动互联网PPT数据库&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;http://mp.weixin.qq.com/s?__biz=MjM5NDUzMDYyMw==&amp;amp;mid=200203007&amp;amp;idx=1&amp;amp;sn=2cde71d21a61fca2ad1281c2560dc596&amp;amp;scene=3&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;数据总结与整理的启示&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;看腾讯科技
+
+&lt;ul&gt;
+&lt;li&gt;要专业,还是要在一个圈子里&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;多多参与圈子的讨论&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;大数据时代的价值&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;利用数据优化现有产品&lt;/li&gt;
+&lt;li&gt;通过新产品去创造更有意义的数据&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;移动设备的价值&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;平板的增多,很有可能是PC人们的复用&lt;/li&gt;
+&lt;li&gt;更表明有很多事情是可以有更好的处理方式的,移动平台给这些事情带来了希望&lt;/li&gt;
+&lt;li&gt;我们是可以创造平台,也可以在新平台到来的时候,把握时机进入&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Android的影响&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在中国大量的Android是没有携带google服务的&lt;/li&gt;
+&lt;li&gt;由于价格的原因,打入了低端市场&lt;/li&gt;
+&lt;li&gt;平台如何收费
+
+&lt;ul&gt;
+&lt;li&gt;占位费与流量费&lt;/li&gt;
+&lt;li&gt;广告费&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;应用如何收费
+
+&lt;ul&gt;
+&lt;li&gt;本身价值
+
+&lt;ul&gt;
+&lt;li&gt;使用收费&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;附带价值
+
+&lt;ul&gt;
+&lt;li&gt;服务收费&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;成为平台&lt;/li&gt;
+&lt;li&gt;&lt;Free&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;个人认为&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;深入圈子&lt;/li&gt;
+&lt;li&gt;明确自己在其中的价值&lt;/li&gt;
+&lt;li&gt;想做点事情,顺势而为&lt;/li&gt;
+&lt;li&gt;物联网下,让人沉浸在Smart中&lt;/li&gt;
+&lt;li&gt;在这里工作,我们的目标是集聚能量,提升自己,但也要把握时机,去做一件自己的事情&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>CodeQuality</title>
@@ -928,11 +1019,11 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
  </entry>
  
  <entry>
-   <title>WorkFlow</title>
+   <title>买房WorkFlow</title>
    <link href="http://www.5wpc.info/it/project/home/2014/09/04/WorkFlow"/>
    <updated>2014-09-04T00:00:00+08:00</updated>
    <id>http://www.5wpc.info/it/project/home/2014/09/04/WorkFlow</id>
-   <content type="html">&lt;h1&gt;WorkFlow&lt;/h1&gt;
+   <content type="html">&lt;h1&gt;买房WorkFlow&lt;/h1&gt;
 
 &lt;h2&gt;1.了解与选择：主要是在符合租房基本要求后，还要考虑开发商与物业&lt;/h2&gt;
 
@@ -1137,12 +1228,46 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 &lt;li&gt;http://www.aliway.com/read.php?tid=255547&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;相关信息学习
+
+&lt;ul&gt;
+&lt;li&gt;工具安装
+
+&lt;ul&gt;
+&lt;li&gt;http://blog.sina.com.cn/s/blog_661972880100jt26.html&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;http://xueqiu.com/
 
 &lt;ul&gt;
 &lt;li&gt;信息汇总通道&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;体验感受&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;20140925晚上
+
+&lt;ul&gt;
+&lt;li&gt;在TWS的虚拟系统上体验后
+
+&lt;ul&gt;
+&lt;li&gt;我们这种做短期处理的,基本不会有什么收益
+
+&lt;ul&gt;
+&lt;li&gt;对于大量的股票如果没有内部消息,很难可以一天涨很多倍&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;在这种情况下,基本就是做为长线投资, 通过对业界的了解与把握去做出选择.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -1562,6 +1687,53 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;绕场&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;8. 背阔肌练习(20140925晚上)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;10min跑步&lt;/li&gt;
+&lt;li&gt;500m划船&lt;/li&gt;
+&lt;li&gt;靠墙下蹲
+
+&lt;ul&gt;
+&lt;li&gt;40s*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;双手托杠铃下蹲
+
+&lt;ul&gt;
+&lt;li&gt;4*10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;深蹲
+
+&lt;ul&gt;
+&lt;li&gt;4*20&lt;/li&gt;
+&lt;li&gt;负重深蹲&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;双杠臂屈伸
+
+&lt;ul&gt;
+&lt;li&gt;4*10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;锤式哑铃臂弯举
+
+&lt;ul&gt;
+&lt;li&gt;4*10&lt;/li&gt;
+&lt;li&gt;左右都是&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;俯卧撑
+
+&lt;ul&gt;
+&lt;li&gt;20个&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;3min椭圆机&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -12376,11 +12548,11 @@ Dispose of a table.
  </entry>
  
  <entry>
-   <title>BasicMethods</title>
+   <title>理财BasicMethods</title>
    <link href="http://www.5wpc.info/it/project/financialmanage/2013/01/20/BasicMethods"/>
    <updated>2013-01-20T00:00:00+08:00</updated>
    <id>http://www.5wpc.info/it/project/financialmanage/2013/01/20/BasicMethods</id>
-   <content type="html">&lt;h1&gt;BasicMethods&lt;/h1&gt;
+   <content type="html">&lt;h1&gt;理财BasicMethods&lt;/h1&gt;
 
 &lt;h2&gt;理财陷阱&lt;/h2&gt;
 
