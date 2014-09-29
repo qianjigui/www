@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-09-26
+lmtime: 2014-09-29
 category: it/project/FinancialManage
 title: "StockManage"
 tags: 
@@ -30,6 +30,9 @@ tags:
     * 我们这种做短期处理的,基本不会有什么收益
       * 对于大量的股票如果没有内部消息,很难可以一天涨很多倍
     * 在这种情况下,基本就是做为长线投资, 通过对业界的了解与把握去做出选择.
+* 20140929上午学习
+  * http://xueqiu.com/4226803442/21990358
+    * 将这些材料汇总用于个人学习
 
 
 
