@@ -36,6 +36,7 @@
   </div>
   
   <div class="span4">
+    {{ content  | toc_generate_toc }}
     <h4>{{ site.lang.cn.published }}</h4>
     <div class="date"><span>{{ page.date | date: "%Y-%m-%d" }}</span></div>
     {% if page.lmtime %}

@@ -12,15 +12,21 @@
     font-weight: bold;
     padding: 0;
 }
+
+table#toc.toc{
+    width: 100%;
+}
+
 #toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle {
-    text-align: center;
+    text-align: left;
+    padding-left: 0px;
 }
 #toc ul, .toc ul {
     list-style-image: none;
     list-style-type: none;
     margin-left: 0;
     margin-bottom: 0;
-    padding-left: 0;
+    padding-left: 20px;
     text-align: left;
 }
 #toc ul ul, .toc ul ul {
