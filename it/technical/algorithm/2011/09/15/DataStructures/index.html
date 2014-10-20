@@ -28,14 +28,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.3/jquery.min.js"></script>
-
-    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
-    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
-
     <!-- Le styles -->
     <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -131,9 +127,9 @@
 
 <div class="row">
   <div class="span8" id='main_content'>
-    <h1>算法与数据结构小结</h1>
+    <h1 id="tocAnchor-1-1">算法与数据结构小结</h1>
 
-<h2>概述</h2>
+<h2 id="tocAnchor-1-1-1">概述</h2>
 
 <p>本科阶段学习数据结构与算法主要是受高中NOIP、NOI以及大学ACM等比赛的影响。
 另一方面，感觉这些东西能够激发自己的兴趣爱好，何乐而不为呢？</p>
@@ -142,7 +138,7 @@
 现在翻看过去的笔记，已经是多少年以前的事情了。
 至此，我准备借着复习之际将当时的笔记与现在的体会放在这个Wiki上面。</p>
 
-<h2>算法导论</h2>
+<h2 id="tocAnchor-1-1-2">算法导论</h2>
 
 <h3>第一部分 基础知识</h3>
 
@@ -173,7 +169,8 @@
 
 <h5>插入排序</h5>
 
-<pre><code class="c">#A[1..length]
+<pre>
+   <code class="c">#A[1..length]
 INSERTION-SORT(A)
   for j &lt;- 2 to length[A]
   do
@@ -184,11 +181,13 @@ INSERTION-SORT(A)
       A[i+1] &lt;- A[i]
       i &lt;- i - 1
     A[i+1] &lt;- key
-</code></pre>
+</code>
+</pre>
 
 <h5>冒泡排序</h5>
 
-<pre><code class="c">#A[1..length]
+<pre>
+   <code class="c">#A[1..length]
 BUBBLE-SORT(A)
   #注意边界
   for j &lt;- 1 to length[A]
@@ -198,7 +197,8 @@ BUBBLE-SORT(A)
       if A[i]&lt;A[i-1]
       then
         A[i-1] &lt;-&gt; A[i]
-</code></pre>
+</code>
+</pre>
 
 <h5>选择排序</h5>
 
@@ -208,7 +208,8 @@ BUBBLE-SORT(A)
 
 <h5>归并排序</h5>
 
-<pre><code class="c">#include &lt;stdio.h&gt;
+<pre>
+   <code class="c">#include &lt;stdio.h&gt;
 
 #define MAX (5)
 
@@ -264,11 +265,13 @@ int main()
   printf("\n");
   return 0;
 }
-</code></pre>
+</code>
+</pre>
 
 <h5>堆排序</h5>
 
-<pre><code class="c">
+<pre>
+   <code class="c">
 #include &lt;stdio.h&gt;
 
 #define MAX (2000)
@@ -388,11 +391,13 @@ int main()
 
   return 0;
 }
-</code></pre>
+</code>
+</pre>
 
 <h5>快速排序</h5>
 
-<pre><code class="c">
+<pre>
+   <code class="c">
 #include &lt;stdio.h&gt;
 
 #define MAX (2000000)
@@ -472,11 +477,13 @@ void random_qsort(int l,int r)
     qpsort(i+1,r);
   }
 }
-</code></pre>
+</code>
+</pre>
 
 <h5>线性查找</h5>
 
-<pre><code class="c">int select(int index, int l, int r)
+<pre>
+   <code class="c">int select(int index, int l, int r)
 {
   int i;
   if(l==r-1)
@@ -493,7 +500,8 @@ int select(int index)
 {
   return select(index, 0, MAX);
 }
-</code></pre>
+</code>
+</pre>
 
     <hr>
     <div class="pagination">
@@ -534,8 +542,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <h4>文章目录</h4>
-      <div id='toc'></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">算法与数据结构小结</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">概述</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">算法导论</span></a></li></ul></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
     <div class="date"><span>2011-09-15</span></div>
     

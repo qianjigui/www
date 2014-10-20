@@ -28,14 +28,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.3/jquery.min.js"></script>
-
-    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
-    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
-
     <!-- Le styles -->
     <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -131,13 +127,13 @@
 
 <div class="row">
   <div class="span8" id='main_content'>
-    <h1>学习环境</h1>
+    <h1 id="tocAnchor-1-1">学习环境</h1>
 
 <p>Android: android-4.2.2_r1.2</p>
 
-<h1>一个例子</h1>
+<h1 id="tocAnchor-1-2">一个例子</h1>
 
-<h2>模块编译并明确需要分析的过程</h2>
+<h2 id="tocAnchor-1-2-1">模块编译并明确需要分析的过程</h2>
 
 <ol>
 <li>以下是进入一个已经编译完成的项目, 项目环境要求:
@@ -228,12 +224,14 @@
 </ol>
 
 
-<h2>过程分析</h2>
+<h2 id="tocAnchor-1-2-2">过程分析</h2>
 
 <p>首先我们同样通过make系统动态获取编译的命令:</p>
 
-<pre><code>mm -B --debug=b -n | tee compilecmds.log
-</code></pre>
+<pre>
+   <code>mm -B --debug=b -n | tee compilecmds.log
+</code>
+</pre>
 
 <p>下面我们一个个分析各过程.</p>
 
@@ -241,7 +239,8 @@
 
 <p>通过aapt工具生成R.java,并cp成R.stamp</p>
 
-<pre><code class="shell"># 将资源进行编号,ID化
+<pre>
+   <code class="shell"># 将资源进行编号,ID化
 echo "target R.java/Manifest.java: Calculator (out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp)"
 # rm old R.stamp
 rm -f out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp
@@ -268,13 +267,15 @@ for GENERATED_R_FILE in `find out/target/common/obj/APPS/Calculator_intermediate
 &gt;---done; \
 
       Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp'.
-</code></pre>
+</code>
+</pre>
 
 <h3>out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar</h3>
 
 <p>基于R.java, 依赖包, 源代码编译成 classes-full-debug.jar</p>
 
-<pre><code class="shell"># 生成Java classes 保存为 classes-full-debug.jar
+<pre>
+   <code class="shell"># 生成Java classes 保存为 classes-full-debug.jar
 echo "target Java: Calculator (out/target/common/obj/APPS/Calculator_intermediates/classes)"
 rm -f out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar
 rm -rf out/target/common/obj/APPS/Calculator_intermediates/classes
@@ -294,68 +295,81 @@ rm -f out/target/common/obj/APPS/Calculator_intermediates/classes/java-source-li
 # jar 打包
 jar -cf out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar  -C out/target/common/obj/APPS/Calculator_intermediates/classes .
                   Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar'.
-</code></pre>
+</code>
+</pre>
 
 <h3>out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar</h3>
 
 <p>cp classes-full-debug.jar intermediates/classes-jarjar.jar</p>
 
-<pre><code class="shell"># 生成classes-jarjar.jar
+<pre>
+   <code class="shell"># 生成classes-jarjar.jar
 echo Copying: out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar
 # acp: Android cp command
 out/host/linux-x86/bin/acp -fp out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar
                 Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar'.
-</code></pre>
+</code>
+</pre>
 
 <h3>out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar</h3>
 
 <p>cp intermediates/classes-jarjar.jar emma_out/lib/classes-jarjar.jar</p>
 
-<pre><code class="shell"># 生成存放在emma_out下的classes-jarjar.jar
+<pre>
+   <code class="shell"># 生成存放在emma_out下的classes-jarjar.jar
 echo Copying: out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar
 mkdir -p out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/
 out/host/linux-x86/bin/acp -fp out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar
               Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar'.
-</code></pre>
+</code>
+</pre>
 
 <h3>out/target/common/obj/APPS/Calculator_intermediates/classes.jar</h3>
 
 <p>cp intermediates/emma_out/lib/classes-jarjar.jar classes.jar</p>
 
-<pre><code class="shell"># 生成classes.jar
+<pre>
+   <code class="shell"># 生成classes.jar
 echo Copying: out/target/common/obj/APPS/Calculator_intermediates/classes.jar
 out/host/linux-x86/bin/acp -fp out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar out/target/common/obj/APPS/Calculator_intermediates/classes.jar
             Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/classes.jar'.
-</code></pre>
+</code>
+</pre>
 
 <h3>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar</h3>
 
 <p>通过proguard.sh基于classes.jar生成proguard.classes.jar</p>
 
-<pre><code class="shell">echo Proguard: out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar
+<pre>
+   <code class="shell">echo Proguard: out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar
 external/proguard/bin/proguard.sh -injars out/target/common/obj/APPS/Calculator_intermediates/classes.jar -outjars out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar -libraryjars out/target/common/obj/JAVA_LIBRARIES/android_stubs_current_intermediates/classes.jar -include build/core/proguard.flags -forceprocessing -printmapping out/target/common/obj/APPS/Calculator_intermediates/proguard_dictionary -include out/target/common/obj/APPS/Calculator_intermediates/proguard_options
 ---
           Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar'.
-</code></pre>
+</code>
+</pre>
 
 <h3>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex</h3>
 
 <p>基于proguard.classes.jar通过dx生成proguard.classes-with-local.dex</p>
 
-<pre><code class="shell">echo "target Dex: Calculator"
+<pre>
+   <code class="shell">echo "target Dex: Calculator"
 mkdir -p out/target/common/obj/APPS/Calculator_intermediates/
 out/host/linux-x86/bin/dx -JXms16M -JXmx2048M --dex --output=out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex     out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar
         Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex'.
-</code></pre>
+</code>
+</pre>
 
 <h3>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex</h3>
 
 <p>cp proguard.classes-with-local.dex proguard.classes.dex</p>
 
-<pre><code class="shell">echo Copying: out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex
+<pre>
+   <code class="shell">echo Copying: out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex
 out/host/linux-x86/bin/acp -fp out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex
       Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex'.
-</code></pre>
+</code>
+</pre>
 
 <h3>out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk</h3>
 
@@ -371,7 +385,8 @@ out/host/linux-x86/bin/acp -fp out/target/common/obj/APPS/Calculator_intermediat
 </ol>
 
 
-<pre><code class="shell">echo "target Package: Calculator (out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk)"
+<pre>
+   <code class="shell">echo "target Package: Calculator (out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk)"
 mkdir -p out/target/product/maguro/obj/APPS/Calculator_intermediates/
 # make a empty file for create a zip
 touch out/target/product/maguro/obj/APPS/Calculator_intermediates//dummy
@@ -400,29 +415,34 @@ out/host/linux-x86/bin/zipalign -f 4 out/target/product/maguro/obj/APPS/Calculat
 # To apk
 mv out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk.aligned out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk
     Successfully remade target file `out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk'.
-</code></pre>
+</code>
+</pre>
 
 <h3>out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt</h3>
 
 <p>cp NOTICE to Calculator.apk.txt</p>
 
-<pre><code class="shell">echo Notice file: packages/apps/Calculator/NOTICE -- out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt
+<pre>
+   <code class="shell">echo Notice file: packages/apps/Calculator/NOTICE -- out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt
 mkdir -p out/target/product/maguro/obj/NOTICE_FILES/src//system/app/
 cat packages/apps/Calculator/NOTICE &gt;&gt; out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt
       Successfully remade target file `out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt'.
-</code></pre>
+</code>
+</pre>
 
 <h3>out/target/product/maguro/system/app/Calculator.apk</h3>
 
 <p>cp package.apk Calculator.apk</p>
 
-<pre><code class="shell">echo "Install: out/target/product/maguro/system/app/Calculator.apk"
+<pre>
+   <code class="shell">echo "Install: out/target/product/maguro/system/app/Calculator.apk"
 mkdir -p out/target/product/maguro/system/app/
 out/host/linux-x86/bin/acp -fp out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk out/target/product/maguro/system/app/Calculator.apk
     Successfully remade target file `out/target/product/maguro/system/app/Calculator.apk'.
-</code></pre>
+</code>
+</pre>
 
-<h2>过程回顾</h2>
+<h2 id="tocAnchor-1-2-3">过程回顾</h2>
 
 <h3>从中看到的一般流程</h3>
 
@@ -572,7 +592,8 @@ out/host/linux-x86/bin/acp -fp out/target/product/maguro/obj/APPS/Calculator_int
 
 <p>完整的Makefile加载过程见下面的log:</p>
 
-<pre><code class="shell">This program built for x86_64-pc-linux-gnu
+<pre>
+   <code class="shell">This program built for x86_64-pc-linux-gnu
 Reading makefiles...
 Reading makefile `Makefile'...
 Reading makefile `build/core/main.mk' (search path) (no ~ expansion)...
@@ -670,14 +691,15 @@ Reading makefile `build/core/notice_files.mk' (search path) (no ~ expansion)...
 Reading makefile `build/core/post_clean.mk' (search path) (no ~ expansion)...
 Reading makefile `build/core/legacy_prebuilts.mk' (search path) (no ~ expansion)...
 Reading makefile `build/core/Makefile' (search path) (no ~ expansion)...
-</code></pre>
+</code>
+</pre>
 
-<h1>编译脚本</h1>
+<h1 id="tocAnchor-1-6">编译脚本</h1>
 
 <p>目前先关注主要的Makefile过程,后续从整体上分析整个系统的结构.
 例如后续从APPS入手,分析整个编译系统的功能分布与依赖继承关系.</p>
 
-<h2>Makefile加载的主要步骤</h2>
+<h2 id="tocAnchor-1-6-1">Makefile加载的主要步骤</h2>
 
 <ul>
 <li>Makefile
@@ -711,17 +733,19 @@ Reading makefile `build/core/Makefile' (search path) (no ~ expansion)...
 </ul>
 
 
-<h2>具体运行过程</h2>
+<h2 id="tocAnchor-1-6-2">具体运行过程</h2>
 
-<pre><code class="shell">mm
+<pre>
+   <code class="shell">mm
     M=packages/apps/Calculator/Android.mk
     T=TOPDIR/Makefile
     ONE_SHOT_MAKEFILE=$M make -C $T all_modules $@
         $T include build/core/main.mk
             build/core/main.mk include $(ONE_SHOT_MAKEFILE)
-</code></pre>
+</code>
+</pre>
 
-<h2>各个过程的功能</h2>
+<h2 id="tocAnchor-1-6-3">各个过程的功能</h2>
 
 <ol>
 <li>mm 获取上下文与目标Android.mk后, 设置关键ONE_SHOT_MAKEFILE, 并进入make</li>
@@ -811,9 +835,9 @@ Reading makefile `build/core/Makefile' (search path) (no ~ expansion)...
 </ol>
 
 
-<h1>开发者需要关注的API</h1>
+<h1 id="tocAnchor-1-10">开发者需要关注的API</h1>
 
-<h2>可以使用的工具</h2>
+<h2 id="tocAnchor-1-10-1">可以使用的工具</h2>
 
 <ol>
 <li>SRC
@@ -842,7 +866,7 @@ Reading makefile `build/core/Makefile' (search path) (no ~ expansion)...
 </ol>
 
 
-<h2>编译控制参数</h2>
+<h2 id="tocAnchor-1-10-2">编译控制参数</h2>
 
 <p>目前我们主要关注APP相关的控制参数.</p>
 
@@ -937,7 +961,7 @@ Reading makefile `build/core/Makefile' (search path) (no ~ expansion)...
 <li>default value:
 
 <ul>
-<li>$(LOCAL_MODULE_TAGS))$(LOCAL_INSTRUMENTATION_FOR) contain tests => true</li>
+<li>$(LOCAL_MODULE_TAGS))$(LOCAL_INSTRUMENTATION_FOR) contain tests =&gt; true</li>
 </ul>
 </li>
 <li>会根据上下文自动添加emma的模块依赖</li>
@@ -955,7 +979,7 @@ Reading makefile `build/core/Makefile' (search path) (no ~ expansion)...
 <li>default value:
 
 <ul>
-<li>TARGET_BUILD_VARIANT contains user,userdebug=> full</li>
+<li>TARGET_BUILD_VARIANT contains user,userdebug=&gt; full</li>
 </ul>
 </li>
 <li>value:
@@ -990,7 +1014,7 @@ Reading makefile `build/core/Makefile' (search path) (no ~ expansion)...
 <li>default value:
 
 <ul>
-<li>WITH_DEXPREOPT==true => true</li>
+<li>WITH_DEXPREOPT==true =&gt; true</li>
 </ul>
 </li>
 </ul>
@@ -1097,14 +1121,14 @@ Reading makefile `build/core/Makefile' (search path) (no ~ expansion)...
 </ul>
 
 
-<h1>分析后的感觉</h1>
+<h1 id="tocAnchor-1-13">分析后的感觉</h1>
 
 <p>不得不说, Makefile能够变成OO化的东西, 确实不容易.
 整体编译系统中,我们可以看到Google在工程化上的强大, 将开发, 集成, 发布, 测试, 代码开源许可证等大量工程流程化的工作进行了一体化的封装与管理.</p>
 
 <p>后续我准备按模块地将这些OO化的东西进行学习.</p>
 
-<h2>具体使用中的问题</h2>
+<h2 id="tocAnchor-1-13-1">具体使用中的问题</h2>
 
 <h3>内置工具优化与整合</h3>
 
@@ -1116,14 +1140,17 @@ Reading makefile `build/core/Makefile' (search path) (no ~ expansion)...
 
 <p>官方文档<a href="http://developer.android.com/tools/help/lint.html">lint</a></p>
 
-<pre><code class="shell">mm lintall
-</code></pre>
+<pre>
+   <code class="shell">mm lintall
+</code>
+</pre>
 
 <h3>java_library 是如何起作用的</h3>
 
 <p>通过变量LOCAL_JAVA_LIBRARIES:</p>
 
-<pre><code class="shell">###################
+<pre>
+   <code class="shell">###################
 # @ base_rules.mk
 ###################
 
@@ -1142,7 +1169,8 @@ PRIVATE_ALL_JAVA_LIBRARIES:= $(full_java_libs)
 ###################
 compile-java
     javac -classpath $(PRIVATE_ALL_JAVA_LIBRARIES)
-</code></pre>
+</code>
+</pre>
 
     <hr>
     <div class="pagination">
@@ -1183,8 +1211,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <h4>文章目录</h4>
-      <div id='toc'></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">学习环境</span></a></li><li class="toc_level-1 toc_section-2"><a href="#tocAnchor-1-2"><span class="tocnumber">2</span> <span class="toctext">一个例子</span></a><ul><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-2-1"><span class="tocnumber">2.1</span> <span class="toctext">模块编译并明确需要分析的过程</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-2-2"><span class="tocnumber">2.2</span> <span class="toctext">过程分析</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-2-3"><span class="tocnumber">2.3</span> <span class="toctext">过程回顾</span></a></li></ul></li><li class="toc_level-1 toc_section-6"><a href="#tocAnchor-1-6"><span class="tocnumber">3</span> <span class="toctext">编译脚本</span></a><ul><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-6-1"><span class="tocnumber">3.1</span> <span class="toctext">Makefile加载的主要步骤</span></a></li><li class="toc_level-2 toc_section-8"><a href="#tocAnchor-1-6-2"><span class="tocnumber">3.2</span> <span class="toctext">具体运行过程</span></a></li><li class="toc_level-2 toc_section-9"><a href="#tocAnchor-1-6-3"><span class="tocnumber">3.3</span> <span class="toctext">各个过程的功能</span></a></li></ul></li><li class="toc_level-1 toc_section-10"><a href="#tocAnchor-1-10"><span class="tocnumber">4</span> <span class="toctext">开发者需要关注的API</span></a><ul><li class="toc_level-2 toc_section-11"><a href="#tocAnchor-1-10-1"><span class="tocnumber">4.1</span> <span class="toctext">可以使用的工具</span></a></li><li class="toc_level-2 toc_section-12"><a href="#tocAnchor-1-10-2"><span class="tocnumber">4.2</span> <span class="toctext">编译控制参数</span></a></li></ul></li><li class="toc_level-1 toc_section-13"><a href="#tocAnchor-1-13"><span class="tocnumber">5</span> <span class="toctext">分析后的感觉</span></a><ul><li class="toc_level-2 toc_section-14"><a href="#tocAnchor-1-13-1"><span class="tocnumber">5.1</span> <span class="toctext">具体使用中的问题</span></a></li></ul></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
     <div class="date"><span>2014-01-03</span></div>
     

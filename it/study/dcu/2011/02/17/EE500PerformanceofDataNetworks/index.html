@@ -28,14 +28,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.3/jquery.min.js"></script>
-
-    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
-    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
-
     <!-- Le styles -->
     <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -131,9 +127,9 @@
 
 <div class="row">
   <div class="span8" id='main_content'>
-    <h1>EE500PerformanceofDataNetworks</h1>
+    <h1 id="tocAnchor-1-1">EE500PerformanceofDataNetworks</h1>
 
-<h2>background</h2>
+<h2 id="tocAnchor-1-1-1">background</h2>
 
 <ul>
 <li>Hierarchy of Layer
@@ -316,7 +312,7 @@
 </ul>
 
 
-<h2>QoS</h2>
+<h2 id="tocAnchor-1-1-2">QoS</h2>
 
 <ul>
 <li>the collective effect of service performance which determine the degree of satisfaction of a user of the service</li>
@@ -626,7 +622,8 @@
 1. B responds with a COOKIE-ACK chunk
 1. Both A and B endpoints enter the ESTABLISHED state</p>
 
-<pre><code>  * Mobile SCTP
+<pre>
+   <code>  * Mobile SCTP
     * Adds Dynamic Address Reconfiguration (ADDIP) 
       * Enables SCTP to add, delete, and change existing IP addresses attached to an association during an active connection
       * Enables support for seamless handover for mobile hosts that are moving between IP networks 
@@ -634,7 +631,8 @@
       * Add new IP address to the association 
       * Change the primary IP address of the association 
       * Delete an old IP address from the association 
-</code></pre>
+</code>
+</pre>
 
 <ul>
 <li>UDP
@@ -685,7 +683,7 @@
 </ul>
 
 
-<h2>Network Performance Metrics</h2>
+<h2 id="tocAnchor-1-1-3">Network Performance Metrics</h2>
 
 <ul>
 <li>Availablity
@@ -825,7 +823,7 @@
 <li>Traceroute discovers 'interfaces' rather than 'routers' 不仅仅是路由，还有很多是接口</li>
 <li>Nodes can have multiple network interfaces, each with different IP address 同一个节点可能含有多个网卡</li>
 <li>Source IP address in ICMP 'time exceeded' response packets is the address of the interface that the router uses to send packets back.</li>
-<li>If both interfaces belong to the same router, responses will be sent by one interface => we can match ECHO responses from trace route to both IP address. If the response comes from the same source interface, we infer that both interfaces belong to the same router</li>
+<li>If both interfaces belong to the same router, responses will be sent by one interface =&gt; we can match ECHO responses from trace route to both IP address. If the response comes from the same source interface, we infer that both interfaces belong to the same router</li>
 </ul>
 </li>
 <li>Measurement load 用于测量的负载
@@ -866,7 +864,7 @@
 </ul>
 
 
-<h2>Modeling and Simulations</h2>
+<h2 id="tocAnchor-1-1-4">Modeling and Simulations</h2>
 
 <ul>
 <li>Modeling
@@ -1057,7 +1055,7 @@
 </ul>
 
 
-<h2>Android</h2>
+<h2 id="tocAnchor-1-1-5">Android</h2>
 
 <ul>
 <li>Architecture
@@ -1085,7 +1083,7 @@
 </ul>
 
 
-<h2>Performance at Higher Network Layers</h2>
+<h2 id="tocAnchor-1-1-6">Performance at Higher Network Layers</h2>
 
 <ul>
 <li>QOE
@@ -1149,7 +1147,7 @@
 </ul>
 
 
-<h2>Performance at Lower Network Layers</h2>
+<h2 id="tocAnchor-1-1-7">Performance at Lower Network Layers</h2>
 
 <ul>
 <li>Internet
@@ -1207,7 +1205,7 @@
 </ul>
 
 
-<h2>Mobility Issues</h2>
+<h2 id="tocAnchor-1-1-8">Mobility Issues</h2>
 
 <ul>
 <li>Moblie IP
@@ -1351,7 +1349,7 @@
 </ul>
 
 
-<h2>Energy Conservation in Wireless and Mobile Communications</h2>
+<h2 id="tocAnchor-1-1-9">Energy Conservation in Wireless and Mobile Communications</h2>
 
 <ul>
 <li>OSI layer - power save protocols
@@ -1424,7 +1422,7 @@
 <li>ARQ enabled – the router can automatically request the retransmission of a packet directly from its source without involving the receiver.</li>
 <li>It has been shown that transmitting at lower power and sending multiple ARQ is more energy efficient than to send at high transmission power and achieve better throughput.</li>
 <li>By integrating FEC – which reduces the number of retransmissions necessary at the lower transmission power – more energy savings can be achieved</li>
-<li>Packet Scheduling protocols - may reduce the number of retransmissions => the overall power consumption is reduced</li>
+<li>Packet Scheduling protocols - may reduce the number of retransmissions =&gt; the overall power consumption is reduced</li>
 </ul>
 </li>
 <li>MAC Layer
@@ -1549,9 +1547,9 @@
 </ul>
 
 
-<h2>http://code.google.com/p/wpcdcuassignment2010-2011/downloads/detail?name=500ee.zip&amp;can=2&amp;q=</h2>
+<h2 id="tocAnchor-1-1-10">http://code.google.com/p/wpcdcuassignment2010-2011/downloads/detail?name=500ee.zip&amp;can=2&amp;q=</h2>
 
-<h2>tags: Network</h2>
+<h2 id="tocAnchor-1-1-11">tags: Network</h2>
 
     <hr>
     <div class="pagination">
@@ -1592,8 +1590,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <h4>文章目录</h4>
-      <div id='toc'></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">EE500PerformanceofDataNetworks</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">background</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">QoS</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">Network Performance Metrics</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-1-4"><span class="tocnumber">1.4</span> <span class="toctext">Modeling and Simulations</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-1-5"><span class="tocnumber">1.5</span> <span class="toctext">Android</span></a></li><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-1-6"><span class="tocnumber">1.6</span> <span class="toctext">Performance at Higher Network Layers</span></a></li><li class="toc_level-2 toc_section-8"><a href="#tocAnchor-1-1-7"><span class="tocnumber">1.7</span> <span class="toctext">Performance at Lower Network Layers</span></a></li><li class="toc_level-2 toc_section-9"><a href="#tocAnchor-1-1-8"><span class="tocnumber">1.8</span> <span class="toctext">Mobility Issues</span></a></li><li class="toc_level-2 toc_section-10"><a href="#tocAnchor-1-1-9"><span class="tocnumber">1.9</span> <span class="toctext">Energy Conservation in Wireless and Mobile Communications</span></a></li><li class="toc_level-2 toc_section-11"><a href="#tocAnchor-1-1-10"><span class="tocnumber">1.10</span> <span class="toctext">http://code.google.com/p/wpcdcuassignment2010-2011/downloads/detail?name=500ee.zip&can=2&q=</span></a></li><li class="toc_level-2 toc_section-12"><a href="#tocAnchor-1-1-11"><span class="tocnumber">1.11</span> <span class="toctext">tags: Network</span></a></li></ul></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
     <div class="date"><span>2011-02-17</span></div>
     

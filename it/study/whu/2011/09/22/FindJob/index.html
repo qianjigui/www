@@ -28,14 +28,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.3/jquery.min.js"></script>
-
-    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
-    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
-
     <!-- Le styles -->
     <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -131,27 +127,28 @@
 
 <div class="row">
   <div class="span8" id='main_content'>
-    <h1>设计模式</h1>
+    <h1 id="tocAnchor-1-1">设计模式</h1>
 
-<h2>观察者</h2>
+<h2 id="tocAnchor-1-1-1">观察者</h2>
 
 <p>http://www.riabook.cn/doc/designpattern/images/observer-1.jpg</p>
 
-<h2>策略</h2>
+<h2 id="tocAnchor-1-1-2">策略</h2>
 
 <p>http://www.riabook.cn/doc/designpattern/images/strategy-2.jpg</p>
 
-<h2>装饰者</h2>
+<h2 id="tocAnchor-1-1-3">装饰者</h2>
 
 <p>http://www.riabook.cn/doc/designpattern/images/decorator-3.jpg</p>
 
-<h2>工厂</h2>
+<h2 id="tocAnchor-1-1-4">工厂</h2>
 
 <p>http://qjg-wiki.googlecode.com/files/AbstractFactoryDP.jpg</p>
 
-<h2>单例</h2>
+<h2 id="tocAnchor-1-1-5">单例</h2>
 
-<pre><code class="java">public class Singleton {
+<pre>
+   <code class="java">public class Singleton {
     private static Singleton instance = new Singleton();
 
     private Singleton() {
@@ -164,9 +161,11 @@
 
     // 其它实作
 }
-</code></pre>
+</code>
+</pre>
 
-<pre><code class="java">public class Singleton {
+<pre>
+   <code class="java">public class Singleton {
     private static Singleton instance = null;
     private Singleton(){}
     public static Singleton getInstance() {
@@ -180,39 +179,40 @@
         return instance;
     }
 }
-</code></pre>
+</code>
+</pre>
 
 <p>http://qjg-wiki.googlecode.com/files/SingletonDP.jpg</p>
 
-<h2>命令</h2>
+<h2 id="tocAnchor-1-1-6">命令</h2>
 
 <p>http://www.riabook.cn/doc/designpattern/images/command-2.jpg</p>
 
-<h2>适配器</h2>
+<h2 id="tocAnchor-1-1-7">适配器</h2>
 
 <p>http://www.riabook.cn/doc/designpattern/images/adapter-2.jpg</p>
 
 <p>http://www.riabook.cn/doc/designpattern/images/adapter-4.jpg</p>
 
-<h2>模板</h2>
+<h2 id="tocAnchor-1-1-8">模板</h2>
 
 <p>http://www.riabook.cn/doc/designpattern/images/templateMethod-1.jpg</p>
 
-<h2>迭代器</h2>
+<h2 id="tocAnchor-1-1-9">迭代器</h2>
 
 <p>http://www.riabook.cn/doc/designpattern/images/iterator-2.jpg</p>
 
-<h2>状态</h2>
+<h2 id="tocAnchor-1-1-10">状态</h2>
 
 <p>http://www.riabook.cn/doc/designpattern/images/state-1.jpg</p>
 
-<h2>代理</h2>
+<h2 id="tocAnchor-1-1-11">代理</h2>
 
 <p>http://www.riabook.cn/doc/designpattern/images/proxy-2.jpg</p>
 
 <p>http://www.riabook.cn/doc/designpattern/images/proxy-3.jpg</p>
 
-<h1>数据结构</h1>
+<h1 id="tocAnchor-1-13">数据结构</h1>
 
 <ol>
 <li> 寻找公共祖先: <a href="http://www.cppblog.com/myjfm/archive/2011/05/12/146282.aspx">寻找最近公共祖先</a></li>
@@ -225,7 +225,7 @@
 <li> 语义网</li>
 <li> Lucence</li>
 <li> 字符串处理: 大小比较、最长公共子串、排序、Hash</li>
-<li> 给字符串s1、s2,在s1中找包含s2里所有字符的最小子串: &lt;编程之美>, http://topic.csdn.net/u/20101017/12/3b1dcc05-3ba0-4220-aca6-1775bff0f0b1.html</li>
+<li> 给字符串s1、s2,在s1中找包含s2里所有字符的最小子串: &lt;编程之美&gt;, http://topic.csdn.net/u/20101017/12/3b1dcc05-3ba0-4220-aca6-1775bff0f0b1.html</li>
 <li> 背包问题</li>
 <li> 二分搜索: <a href="http://blog.csdn.net/cxh342968816/article/details/6672537">递减偏移数组</a></li>
 <li> 栈与队列: <a href="http://daimajishu.iteye.com/blog/1091066">用两个栈实现一个队列的功能&amp;&amp;两个队列实现一个栈的功能</a></li>
@@ -234,16 +234,16 @@
 </ol>
 
 
-<h1>数据库</h1>
+<h1 id="tocAnchor-1-14">数据库</h1>
 
 <ol>
 <li> MySQL 调优、索引</li>
 </ol>
 
 
-<h1>语言相关</h1>
+<h1 id="tocAnchor-1-15">语言相关</h1>
 
-<h2>Java</h2>
+<h2 id="tocAnchor-1-15-1">Java</h2>
 
 <ol>
 <li> ArrayList, LinkedList, HashSet, HashMap, Vector, HashTable: http://hi.baidu.com/whufengchen/blog/item/7e9c59ffd2b7e00708244d48.html</li>
@@ -256,19 +256,22 @@
 
 <h3>Java IO</h3>
 
-<pre><code class="java">  BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File("abc"))));
+<pre>
+   <code class="java">  BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File("abc"))));
   reader.close();
   BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("bb"))));
   writer.close();
-</code></pre>
+</code>
+</pre>
 
-<h2>C/C++</h2>
+<h2 id="tocAnchor-1-15-2">C/C++</h2>
 
 <h3>二进制1的个数</h3>
 
 <p>主要是需要考虑各种类型，负数:</p>
 
-<pre><code class="java">template&lt;typename T&gt;
+<pre>
+   <code class="java">template&lt;typename T&gt;
 int countbits1(T x)
 {
   int count = 0;
@@ -278,9 +281,10 @@ int countbits1(T x)
   }
   return count;
 }
-</code></pre>
+</code>
+</pre>
 
-<h1>名词</h1>
+<h1 id="tocAnchor-1-18">名词</h1>
 
 <ol>
 <li> DOM: Document Object Model</li>
@@ -290,7 +294,7 @@ int countbits1(T x)
 </ol>
 
 
-<h1>操作系统</h1>
+<h1 id="tocAnchor-1-19">操作系统</h1>
 
 <ol>
 <li> 内存管理</li>
@@ -322,16 +326,16 @@ int countbits1(T x)
 </ol>
 
 
-<h1>硬件</h1>
+<h1 id="tocAnchor-1-20">硬件</h1>
 
 <ol>
 <li> 硬盘到四种接口: SATA(串口), SCSI，FC，SAS</li>
 </ol>
 
 
-<h1>专题</h1>
+<h1 id="tocAnchor-1-21">专题</h1>
 
-<h2>常见的海量数据处理方法</h2>
+<h2 id="tocAnchor-1-21-1">常见的海量数据处理方法</h2>
 
 <p>从思路上考虑，首先是普通内存空间是否可以存储。
 可以存储则可以考虑使用平衡树/Hash等进行处理，如果不行则需要利用检索的数据处理思路。
@@ -473,7 +477,7 @@ int countbits1(T x)
 
 <p>方案1：可以采用与最大子序列类似的思想来解决。如果我们确定了选择第i列和第j列之间的元素，那么在这个范围内，其实就是一个最大子序列问题。如何确定第i列和第j列可以词用暴搜的方法进行。</p>
 
-<h1>题库</h1>
+<h1 id="tocAnchor-1-23">题库</h1>
 
 <ul>
 <li><a href="http://www.wangxinxin.com/archives/html/2011/09-24-post_id_591.html">2012百度校园招聘笔试题（长春）通用RD-1技术研发</a></li>
@@ -521,8 +525,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <h4>文章目录</h4>
-      <div id='toc'></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">设计模式</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">观察者</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">策略</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">装饰者</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-1-4"><span class="tocnumber">1.4</span> <span class="toctext">工厂</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-1-5"><span class="tocnumber">1.5</span> <span class="toctext">单例</span></a></li><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-1-6"><span class="tocnumber">1.6</span> <span class="toctext">命令</span></a></li><li class="toc_level-2 toc_section-8"><a href="#tocAnchor-1-1-7"><span class="tocnumber">1.7</span> <span class="toctext">适配器</span></a></li><li class="toc_level-2 toc_section-9"><a href="#tocAnchor-1-1-8"><span class="tocnumber">1.8</span> <span class="toctext">模板</span></a></li><li class="toc_level-2 toc_section-10"><a href="#tocAnchor-1-1-9"><span class="tocnumber">1.9</span> <span class="toctext">迭代器</span></a></li><li class="toc_level-2 toc_section-11"><a href="#tocAnchor-1-1-10"><span class="tocnumber">1.10</span> <span class="toctext">状态</span></a></li><li class="toc_level-2 toc_section-12"><a href="#tocAnchor-1-1-11"><span class="tocnumber">1.11</span> <span class="toctext">代理</span></a></li></ul></li><li class="toc_level-1 toc_section-13"><a href="#tocAnchor-1-13"><span class="tocnumber">2</span> <span class="toctext">数据结构</span></a></li><li class="toc_level-1 toc_section-14"><a href="#tocAnchor-1-14"><span class="tocnumber">3</span> <span class="toctext">数据库</span></a></li><li class="toc_level-1 toc_section-15"><a href="#tocAnchor-1-15"><span class="tocnumber">4</span> <span class="toctext">语言相关</span></a><ul><li class="toc_level-2 toc_section-16"><a href="#tocAnchor-1-15-1"><span class="tocnumber">4.1</span> <span class="toctext">Java</span></a></li><li class="toc_level-2 toc_section-17"><a href="#tocAnchor-1-15-2"><span class="tocnumber">4.2</span> <span class="toctext">C/C++</span></a></li></ul></li><li class="toc_level-1 toc_section-18"><a href="#tocAnchor-1-18"><span class="tocnumber">5</span> <span class="toctext">名词</span></a></li><li class="toc_level-1 toc_section-19"><a href="#tocAnchor-1-19"><span class="tocnumber">6</span> <span class="toctext">操作系统</span></a></li><li class="toc_level-1 toc_section-20"><a href="#tocAnchor-1-20"><span class="tocnumber">7</span> <span class="toctext">硬件</span></a></li><li class="toc_level-1 toc_section-21"><a href="#tocAnchor-1-21"><span class="tocnumber">8</span> <span class="toctext">专题</span></a><ul><li class="toc_level-2 toc_section-22"><a href="#tocAnchor-1-21-1"><span class="tocnumber">8.1</span> <span class="toctext">常见的海量数据处理方法</span></a></li></ul></li><li class="toc_level-1 toc_section-23"><a href="#tocAnchor-1-23"><span class="tocnumber">9</span> <span class="toctext">题库</span></a></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
     <div class="date"><span>2011-09-22</span></div>
     

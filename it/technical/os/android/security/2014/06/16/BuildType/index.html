@@ -28,14 +28,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.3/jquery.min.js"></script>
-
-    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
-    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
-
     <!-- Le styles -->
     <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -131,7 +127,7 @@
 
 <div class="row">
   <div class="span8" id='main_content'>
-    <h1>ADB服务管理</h1>
+    <h1 id="tocAnchor-1-1">ADB服务管理</h1>
 
 <p>目前网络上有各种应用会通过adb通道对系统进行静默安装应用. 例如: <a href="http://www.huxiu.com/article/35648/1.html">App adb install</a>.</p>
 
@@ -153,11 +149,11 @@
 * 添加开发者模式进行管理
 * 临时关闭adb看效果: 在root下运行命令: <code>stop adbd</code></p>
 
-<h1>系统编译选项</h1>
+<h1 id="tocAnchor-1-2">系统编译选项</h1>
 
 <p>下面的讨论基于标准Android 4.4代码.</p>
 
-<h2>user/userdebug/eng</h2>
+<h2 id="tocAnchor-1-2-1">user/userdebug/eng</h2>
 
 <table>
 <thead>
@@ -195,13 +191,16 @@
 
 <p>与User版本相同,　添加adb服务</p>
 
-<h2>关键property分析</h2>
+<h2 id="tocAnchor-1-2-2">关键property分析</h2>
 
-<h3><code>ro.secure</code></h3>
+<h3>
+   <code>ro.secure</code>
+</h3>
 
 <h4>源代码涉及的修改</h4>
 
-<pre><code>./frameworks/base/services/java/com/android/server/wm/WindowManagerService.java:    private static final String SYSTEM_SECURE = "ro.secure";
+<pre>
+   <code>./frameworks/base/services/java/com/android/server/wm/WindowManagerService.java:    private static final String SYSTEM_SECURE = "ro.secure";
 ./frameworks/base/core/java/android/net/http/AndroidHttpClient.java:                // Never print auth token -- we used to check ro.secure=0 to
 ./bionic/libc/bionic/system_properties.c: * binary tree.  For instance, "ro.secure"="1" could be stored as follows:
 ./bionic/libc/bionic/system_properties.c: *                     v        v            v     +--------&gt;| ro.secure |
@@ -212,7 +211,8 @@
 ./system/core/adb/adb.c:   /* run adbd in secure mode if ro.secure is set and
 ./system/core/adb/adb.c:        property_get("ro.secure", value, "1");
 ./system/core/adb/adb.c:            // don't run as root if ro.secure is set...
-</code></pre>
+</code>
+</pre>
 
 <h4>具体作用总结</h4>
 
@@ -225,11 +225,14 @@
 </ul>
 
 
-<h3><code>ro.debuggable</code></h3>
+<h3>
+   <code>ro.debuggable</code>
+</h3>
 
 <h4>源代码涉及的修改</h4>
 
-<pre><code>./bootable/recovery/adb_install.cpp:    int len = property_get("ro.debuggable", value, NULL);
+<pre>
+   <code>./bootable/recovery/adb_install.cpp:    int len = property_get("ro.debuggable", value, NULL);
 ./bootable/recovery/etc/init.rc:on property:ro.debuggable=1
 ./build/core/build-system.html:        &lt;li&gt;&lt;code&gt;ro.debuggable=0&lt;/code&gt;
 ./build/core/build-system.html:        &lt;li&gt;&lt;code&gt;ro.debuggable=1&lt;/code&gt;
@@ -288,7 +291,8 @@
 ./system/core/libcutils/trace.c:    property_get("ro.debuggable", value, "0");
 ./system/core/libcutils/trace.c:// application-level tracing is allowed when the ro.debuggable system property
 ./system/core/rootdir/init.rc:on property:ro.debuggable=1
-</code></pre>
+</code>
+</pre>
 
 <h4>具体作用总结</h4>
 
@@ -359,16 +363,20 @@
 </ul>
 
 
-<h3><code>ro.kernel.android.checkjni</code></h3>
+<h3>
+   <code>ro.kernel.android.checkjni</code>
+</h3>
 
 <h4>源代码涉及的修改</h4>
 
-<pre><code>./frameworks/base/core/jni/AndroidRuntime.cpp:        property_get("ro.kernel.android.checkjni", propBuf, "");
+<pre>
+   <code>./frameworks/base/core/jni/AndroidRuntime.cpp:        property_get("ro.kernel.android.checkjni", propBuf, "");
 ./dalvik/docs/embedded-vm-control.html:first is &lt;code&gt;ro.kernel.android.checkjni&lt;/code&gt;.  This is set by the
 ./dalvik/docs/embedded-vm-control.html:of this overrides the value from &lt;code&gt;ro.kernel.android.checkjni&lt;/code&gt;.
 ./build/core/main.mk:  ADDITIONAL_BUILD_PROPERTIES += ro.kernel.android.checkjni=1
 ./build/core/build-system.html:        &lt;li&gt;&lt;code&gt;ro.kernel.android.checkjni=1&lt;/code&gt;
-</code></pre>
+</code>
+</pre>
 
 <h4>具体作用总结</h4>
 
@@ -453,8 +461,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <h4>文章目录</h4>
-      <div id='toc'></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">ADB服务管理</span></a></li><li class="toc_level-1 toc_section-2"><a href="#tocAnchor-1-2"><span class="tocnumber">2</span> <span class="toctext">系统编译选项</span></a><ul><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-2-1"><span class="tocnumber">2.1</span> <span class="toctext">user/userdebug/eng</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-2-2"><span class="tocnumber">2.2</span> <span class="toctext">关键property分析</span></a></li></ul></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
     <div class="date"><span>2014-06-16</span></div>
     

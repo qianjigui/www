@@ -28,14 +28,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.3/jquery.min.js"></script>
-
-    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
-    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
-
     <!-- Le styles -->
     <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -131,13 +127,14 @@
 
 <div class="row">
   <div class="span8" id='main_content'>
-    <h1>一个例子</h1>
+    <h1 id="tocAnchor-1-1">一个例子</h1>
 
 <p>利用development/samples/UiAutomator模块进行学习</p>
 
-<h2>中间产生的所有模块</h2>
+<h2 id="tocAnchor-1-1-1">中间产生的所有模块</h2>
 
-<pre><code class="shell">                    out/target/common/obj/JAVA_LIBRARIES/uiautomator.samples_intermediates/classes-full-debug.jar
+<pre>
+   <code class="shell">                    out/target/common/obj/JAVA_LIBRARIES/uiautomator.samples_intermediates/classes-full-debug.jar
                   out/target/common/obj/JAVA_LIBRARIES/uiautomator.samples_intermediates/classes-jarjar.jar
                 out/target/common/obj/JAVA_LIBRARIES/uiautomator.samples_intermediates/emma_out/lib/classes-jarjar.jar
               out/target/common/obj/JAVA_LIBRARIES/uiautomator.samples_intermediates/classes.jar
@@ -149,7 +146,8 @@
     out/target/product/maguro/system/framework/uiautomator.samples.jar
   uiautomator.samples
 all_modules
-</code></pre>
+</code>
+</pre>
 
 <p>从上面的log看,其主要的过程与<a href="/it/technical/os/Android/build/2014/01/03/APP/">APP</a>相同.
 主要区别是最后产生的是javalib.jar, 需要进行安装的是/system/framework/uiautomator.samples.jar</p>
@@ -175,7 +173,7 @@ all_modules
 </ul>
 
 
-<h2>过程分析</h2>
+<h2 id="tocAnchor-1-1-2">过程分析</h2>
 
 <h3>没有R.stamp</h3>
 
@@ -195,7 +193,7 @@ all_modules
 </ul>
 
 
-<p>现在看看,主要是java->classes->jarjar->emma->proguard</p>
+<p>现在看看,主要是java-&gt;classes-&gt;jarjar-&gt;emma-&gt;proguard</p>
 
 <h3>out/target/common/obj/JAVA_LIBRARIES/uiautomator.samples_intermediates/javalib.jar</h3>
 
@@ -213,11 +211,11 @@ all_modules
 </ol>
 
 
-<h1>编译脚本</h1>
+<h1 id="tocAnchor-1-4">编译脚本</h1>
 
 <p>整体过程与APP类似, 仅从main.mk出来后进入的是java_library.mk</p>
 
-<h2>Makefile 处理过程</h2>
+<h2 id="tocAnchor-1-4-1">Makefile 处理过程</h2>
 
 <ul>
 <li>Makefile
@@ -250,7 +248,7 @@ all_modules
 </ul>
 
 
-<h2>具体过程</h2>
+<h2 id="tocAnchor-1-4-2">具体过程</h2>
 
 <p>上下文与APP类似,主要关注java_library.mk</p>
 
@@ -293,15 +291,15 @@ all_modules
 </ul>
 
 
-<h1>编译相关API</h1>
+<h1 id="tocAnchor-1-7">编译相关API</h1>
 
-<h2>可以使用的工具</h2>
+<h2 id="tocAnchor-1-7-1">可以使用的工具</h2>
 
 <p>在这方面, 整个工具体系主要是java相关的.</p>
 
 <p>没有了签名,align过程.</p>
 
-<h2>Java主要API</h2>
+<h2 id="tocAnchor-1-7-2">Java主要API</h2>
 
 <h3>SRC</h3>
 
@@ -356,8 +354,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <h4>文章目录</h4>
-      <div id='toc'></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">一个例子</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">中间产生的所有模块</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">过程分析</span></a></li></ul></li><li class="toc_level-1 toc_section-4"><a href="#tocAnchor-1-4"><span class="tocnumber">2</span> <span class="toctext">编译脚本</span></a><ul><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-4-1"><span class="tocnumber">2.1</span> <span class="toctext">Makefile 处理过程</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-4-2"><span class="tocnumber">2.2</span> <span class="toctext">具体过程</span></a></li></ul></li><li class="toc_level-1 toc_section-7"><a href="#tocAnchor-1-7"><span class="tocnumber">3</span> <span class="toctext">编译相关API</span></a><ul><li class="toc_level-2 toc_section-8"><a href="#tocAnchor-1-7-1"><span class="tocnumber">3.1</span> <span class="toctext">可以使用的工具</span></a></li><li class="toc_level-2 toc_section-9"><a href="#tocAnchor-1-7-2"><span class="tocnumber">3.2</span> <span class="toctext">Java主要API</span></a></li></ul></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
     <div class="date"><span>2014-01-07</span></div>
     

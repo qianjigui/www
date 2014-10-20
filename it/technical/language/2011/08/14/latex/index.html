@@ -28,14 +28,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.3/jquery.min.js"></script>
-
-    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
-    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
-
     <!-- Le styles -->
     <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -131,15 +127,16 @@
 
 <div class="row">
   <div class="span8" id='main_content'>
-    <h1>Latex</h1>
+    <h1 id="tocAnchor-1-1">Latex</h1>
 
-<h2>目录控制</h2>
+<h2 id="tocAnchor-1-1-1">目录控制</h2>
 
 <h3>经典用例</h3>
 
 <p>充分利用自定义目录、标号和修正。</p>
 
-<pre><code class="latex">\documentclass[a4paper,jounral]{report}
+<pre>
+   <code class="latex">\documentclass[a4paper,jounral]{report}
 \usepackage{../paper/sty/dcuappendices}
 \input{../paper/src/config}
 \usepackage[top=\finalReporttoptextmargin, bottom=\finalReportbottomtextmargin, left=\finalReportinnersidemargin, right=\finalReportoutersidemargin]{geometry}
@@ -229,13 +226,15 @@
 \includepdf[pages=14-16]{../paper/output/main.pdf}
 
 \end{document}
-</code></pre>
+</code>
+</pre>
 
-<h2>页面布局</h2>
+<h2 id="tocAnchor-1-1-2">页面布局</h2>
 
 <h3>自定义布局</h3>
 
-<pre><code class="latex">\ProvidesPackage{dcuappendices}
+<pre>
+   <code class="latex">\ProvidesPackage{dcuappendices}
 
 %Set Header &amp; Footer
 \def\ps@ieeeheadings{
@@ -243,19 +242,23 @@
 \def\@evenhead{\mbox{}\scriptsize\MakeUppercase{\finalReportLeftheaderTitle} \hfil \thepage}%
 \def\@oddfoot{}%
 \def\@evenfoot{}}
-</code></pre>
+</code>
+</pre>
 
 <h3>页面边距设置</h3>
 
-<pre><code class="latex">\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
-</code></pre>
+<pre>
+   <code class="latex">\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+</code>
+</pre>
 
 <h3>强制figure,table进行放置停止float</h3>
 
 <p>Try the placeins package: it defines a \FloatBarrier command beyond which floats may not pass.
 A package option allows you to declare that floats may not pass a \section command, but you can place \FloatBarriers wherever you choose.</p>
 
-<pre><code class="latex">\usepackage[section]{placeins}
+<pre>
+   <code class="latex">\usepackage[section]{placeins}
 % Let the subsection can FloatBarrier
 \let \oldsubsection \subsection
 \renewcommand{\subsection}[2][]{
@@ -269,33 +272,40 @@ A package option allows you to declare that floats may not pass a \section comma
   \FloatBarrier
   \oldsubsubsection#1{#2}
 }
-</code></pre>
+</code>
+</pre>
 
 <h3>How do I vertically center the text on a page?</h3>
 
 <p>纵向居中:</p>
 
-<pre><code class="latex">\begin{document}
+<pre>
+   <code class="latex">\begin{document}
 %
 \vspace*{\fill}
 text
 \vspace*{\fill}
 %
 \end{document}
-</code></pre>
+</code>
+</pre>
 
-<h2>合并PDF</h2>
+<h2 id="tocAnchor-1-1-3">合并PDF</h2>
 
-<pre><code class="latex">\usepackage{pdfpages}
+<pre>
+   <code class="latex">\usepackage{pdfpages}
 \includepdf[pages=1-5]{../paper/output/main.pdf}
 \includepdf[pages=-]{../paper/output/main.pdf}
 \includepdf[pages=3-]{../paper/output/main.pdf}
 \includepdf[pages=13]{../paper/output/main.pdf}
-</code></pre>
+</code>
+</pre>
 
-<h2>字号字体</h2>
+<h2 id="tocAnchor-1-1-4">字号字体</h2>
 
-<p><a href="http://qianjigui.iteye.com/blog/841052">字体大小对照表</a></p>
+<p>
+   <a href="http://qianjigui.iteye.com/blog/841052">字体大小对照表</a>
+</p>
 
 <h3>标准文档类型中字体的绝对大小</h3>
 
@@ -483,11 +493,11 @@ text
 </table>
 
 
-<h2>Counter设置</h2>
+<h2 id="tocAnchor-1-1-5">Counter设置</h2>
 
 <p>http://www.personal.ceu.hu/tex/counters.htm</p>
 
-<h2>IEEE模板常见问题</h2>
+<h2 id="tocAnchor-1-1-6">IEEE模板常见问题</h2>
 
 <h3>IEEE模板的尾页如何平衡</h3>
 
@@ -537,8 +547,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <h4>文章目录</h4>
-      <div id='toc'></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Latex</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">目录控制</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">页面布局</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">合并PDF</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-1-4"><span class="tocnumber">1.4</span> <span class="toctext">字号字体</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-1-5"><span class="tocnumber">1.5</span> <span class="toctext">Counter设置</span></a></li><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-1-6"><span class="tocnumber">1.6</span> <span class="toctext">IEEE模板常见问题</span></a></li></ul></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
     <div class="date"><span>2011-08-14</span></div>
     

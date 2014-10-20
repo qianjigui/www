@@ -28,14 +28,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.3/jquery.min.js"></script>
-
-    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
-    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
-
     <!-- Le styles -->
     <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -166,7 +162,7 @@ Go语言的设计重点是: 解决软件工程中遇见的问题, 从工程上�
 </ul>
 
 
-<h1>Go语言介绍 第一部分</h1>
+<h1 id="tocAnchor-1-1">Go语言介绍 第一部分</h1>
 
 <p>If you read this blog for any amount of time you’ll know that I really like technology, specifically web development technologies. I’ve written about my experiences with Ruby on Rails, Batman, and a few curiosities along the way.</p>
 
@@ -192,7 +188,7 @@ Go语言的设计重点是: 解决软件工程中遇见的问题, 从工程上�
 通过文章阅读, 可以充分体会这门语言的美丽与精妙.
 让我们开始吧!</p>
 
-<h2>Go的不同之处</h2>
+<h2 id="tocAnchor-1-1-1">Go的不同之处</h2>
 
 <p>Go is not what you think it is. It is not Java, It is not Ruby. It is not trying to be a language theorist’s dream. Go is not about type hierarchies. It is not about object-oriented programming or functional programming. Honestly, it has little to recommend it if you’re looking for something fashionable with all the buzzwords attached.</p>
 
@@ -201,7 +197,8 @@ Go语言的设计重点是: 解决软件工程中遇见的问题, 从工程上�
 它不支持面对对象中的继承, 也不是一门面对对象/函数式语言.
 老实说, GO语言并不是一门大家希望寻找的有趣又时髦的语言.</p>
 
-<pre><code>        Go’s purpose is therefore not to do research into programming language design; it is to improve the working environment for its designers and their coworkers. Go is more about software engineering than programming language research. Or to rephrase, it is about language design in the service of software engineering.
+<pre>
+   <code>        Go’s purpose is therefore not to do research into programming language design; it is to improve the working environment for its designers and their coworkers. Go is more about software engineering than programming language research. Or to rephrase, it is about language design in the service of software engineering.
             Rob Pike Go at Google
 
     Go 语言并不是一门用于编程语言研究的语言, 而是一门便于开发与设计者用于改善现有工作环境中问题的编程语言.
@@ -209,7 +206,8 @@ Go语言的设计重点是: 解决软件工程中遇见的问题, 从工程上�
     换句话说, 就是Go语言是一门用于服务软件工程的语言.
 
             Rob Pike Go at Google
-</code></pre>
+</code>
+</pre>
 
 <p>But Go is awesome, and you can get a lot done with it…you just have to learn it first. It’s tempting to approach new languages from the mindset of another language, but that will be most unhelpful here. It’s the easiest course to take…map a keyword from one language to the keyword of another, like a big Rosetta stone, but you will get frustrated pretty quickly. So before you do that, let’s look at where Go came from.</p>
 
@@ -220,7 +218,7 @@ Go语言的设计重点是: 解决软件工程中遇见的问题, 从工程上�
 这样的话, 学习都很容易产生困惑.
 因此在你准备这样做之前, 请先整体了解下Go的设计理念.</p>
 
-<h2>Go的起源</h2>
+<h2 id="tocAnchor-1-1-2">Go的起源</h2>
 
 <p>Being from a Physics background, I think it helps to start with first principles, so all the derivations make sense. Stated another way, Go was designed to solve a particular problem and the more we understand that, the more various design decisions will make sense.</p>
 
@@ -237,7 +235,7 @@ Rob Pike, Ken Thompson, 和 Robert Griesemer 在研究了C++语言的发展变�
 
 <p>从这个原因, 我们将看到Go语言准备解决的具体问题.</p>
 
-<h2>问题一: 开发效率问题</h2>
+<h2 id="tocAnchor-1-1-3">问题一: 开发效率问题</h2>
 
 <p>The bane of compiled languages and the siren’s song of intepreted languages, slow builds are enough to drive anyone crazy. Once the build is slow enough, developer productivity goes out the window, as even simple changes can take forever to materialize. But optimizing for developer happiness (in the form of a fast dev cycle) generally has meant slow performance for the million or billion times that the code gets run in production. It’s a painful tradeoff.</p>
 
@@ -260,7 +258,8 @@ Rob Pike, Ken Thompson, 和 Robert Griesemer 在研究了C++语言的发展变�
 会导致编译期大量的IO操作, 这样就导致了编译期大量的时间浪费.
 目前这种设计: 在发现无效import时报错, 对于开发者是很好的帮助, 另一方面又可以优化编译时间.</p>
 
-<pre><code>    The construction of a single C++ binary at Google can open and read hundreds of individual header files tens of thousands of times. In 2007, build engineers at Google instrumented the compilation of a major Google binary. The file contained about two thousand files that, if simply concatenated together, totaled 4.2 megabytes. By the time the #includes had been expanded, over 8 gigabytes were being delivered to the input of the compiler, a blow-up of 2000 bytes for every C++ source byte.
+<pre>
+   <code>    The construction of a single C++ binary at Google can open and read hundreds of individual header files tens of thousands of times. In 2007, build engineers at Google instrumented the compilation of a major Google binary. The file contained about two thousand files that, if simply concatenated together, totaled 4.2 megabytes. By the time the #includes had been expanded, over 8 gigabytes were being delivered to the input of the compiler, a blow-up of 2000 bytes for every C++ source byte.
     Rob Pike Go at Google
 
     在google, 一个独立的C++二进制程序在构建过程中一般会引用读取数万个独立的头文件.
@@ -268,7 +267,8 @@ Rob Pike, Ken Thompson, 和 Robert Griesemer 在研究了C++语言的发展变�
     平均源代码的每byte就有近2000bytes的占用.
 
         Rob Pike Go at Google
-</code></pre>
+</code>
+</pre>
 
 <p>This is also connected to the decision to not declare implements explicitly for interfaces. If you have to type implements in all the spots that an interface is satisfied, that also means you have to include the “header” of the place where that interface is defined…once again, many more includes which would slow down the builds. Implicit satisfication of interfaces also results in more flexible code, which is itself more resilient to change, delaying interface ossification as long as possible (which is a good thing!).</p>
 
@@ -290,9 +290,10 @@ Rob Pike, Ken Thompson, 和 Robert Griesemer 在研究了C++语言的发展变�
 我认为Go语言的这个特性帮助程序员忽略很多错误.
 这也是Go语言的设计目标与初衷.</p>
 
-<h2>问题二: 现代化</h2>
+<h2 id="tocAnchor-1-1-4">问题二: 现代化</h2>
 
-<pre><code>    The computing landscape today is almost unrelated to the environment in which the languages being used, mostly C++, Java, and Python, had been created. The problems introduced by multicore processors, networked systems, massive computation clusters, and the web programming model were being worked around rather than addressed head-on.
+<pre>
+   <code>    The computing landscape today is almost unrelated to the environment in which the languages being used, mostly C++, Java, and Python, had been created. The problems introduced by multicore processors, networked systems, massive computation clusters, and the web programming model were being worked around rather than addressed head-on.
 
     Rob Pike Go at Google
 
@@ -300,7 +301,8 @@ Rob Pike, Ken Thompson, 和 Robert Griesemer 在研究了C++语言的发展变�
     目前的问题已经成为: 多核心, 网络系统, 大计算集群 与 Web开发编程模型, 而不再是原先的基于地址的简单编程.
 
     Rob Pike Go at Google
-</code></pre>
+</code>
+</pre>
 
 <p>C++ 1979. Python 1989. Java 1990. Ruby 1993. Let’s face it…that’s more than a few internet years. As a computer guy, I’m confident we could do our jobs with any sane language (having worked in Fortran77 for a short while, I can attest that you can build stuff with almost any tool), but the question of suitability of a language for a particular task should be considered.</p>
 
@@ -357,7 +359,7 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 
 <p>好了, 先讨论到这里, 关于Go语言的现代性, 作者会在后续的文章中详细谈到.</p>
 
-<h2>问题三: 复杂性</h2>
+<h2 id="tocAnchor-1-1-5">问题三: 复杂性</h2>
 
 <p>Finally, I think the Go designers wanted to keep the language simple (simple in the usual definition of simple).</p>
 
@@ -423,8 +425,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <h4>文章目录</h4>
-      <div id='toc'></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Go语言介绍 第一部分</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">Go的不同之处</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">Go的起源</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">问题一: 开发效率问题</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-1-4"><span class="tocnumber">1.4</span> <span class="toctext">问题二: 现代化</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-1-5"><span class="tocnumber">1.5</span> <span class="toctext">问题三: 复杂性</span></a></li></ul></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
     <div class="date"><span>2014-09-08</span></div>
     

@@ -28,14 +28,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.3/jquery.min.js"></script>
-
-    <script src="/assets/themes/twitter/toc/js/jquery.toc.js"></script>
-    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="all"></script>
-
     <!-- Le styles -->
     <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -131,9 +127,9 @@
 
 <div class="row">
   <div class="span8" id='main_content'>
-    <h1>GC</h1>
+    <h1 id="tocAnchor-1-1">GC</h1>
 
-<h2>标记清扫算法</h2>
+<h2 id="tocAnchor-1-1-1">标记清扫算法</h2>
 
 <h3>标记数据</h3>
 
@@ -241,7 +237,7 @@
 </ul>
 
 
-<h2>标记缩并</h2>
+<h2 id="tocAnchor-1-1-2">标记缩并</h2>
 
 <h3>碎片现象</h3>
 
@@ -313,9 +309,9 @@
 <h5>穿线方法</h5>
 
 <p>将指向同一个地址的指针利用链表（已有链表）串联起来，然后等新数据确定后再更新数据。
-1. A->P, B->P, C->P
+1. A-&gt;P, B-&gt;P, C-&gt;P
 1. P==Data
-1. P-> C->B->A==Data
+1. P-&gt; C-&gt;B-&gt;A==Data
 1. 在P更新地址后，在遍历链表更新数据。</p>
 
 <h6>Jonkers</h6>
@@ -403,7 +399,7 @@
 </ul>
 
 
-<h2>节点复制垃圾收集</h2>
+<h2 id="tocAnchor-1-1-3">节点复制垃圾收集</h2>
 
 <p>如果存活数据在整个堆中只占很小的一部分，那么节点复制技术就特别有吸引力。</p>
 
@@ -443,7 +439,7 @@
 
 <h3>双边收集(top&amp;bottom)</h3>
 
-<h2>分代垃圾收集</h2>
+<h2 id="tocAnchor-1-1-4">分代垃圾收集</h2>
 
 <p>分代的代提升策略：
 * 多个分代
@@ -481,7 +477,7 @@
 <a href="http://www.infoq.com/cn/news/2013/12/ruby21">Ruby2.1.0GC</a>
 其中有一些GC方面的分析技术与手段思路还是可以借见的.</p>
 
-<h2>渐进式和并发垃圾收集</h2>
+<h2 id="tocAnchor-1-1-5">渐进式和并发垃圾收集</h2>
 
 <p>主要是进行并发时的保护，主要是通过拦截器完成。</p>
 
@@ -589,8 +585,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <h4>文章目录</h4>
-      <div id='toc'></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">GC</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">标记清扫算法</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">标记缩并</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">节点复制垃圾收集</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-1-4"><span class="tocnumber">1.4</span> <span class="toctext">分代垃圾收集</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-1-5"><span class="tocnumber">1.5</span> <span class="toctext">渐进式和并发垃圾收集</span></a></li></ul></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
     <div class="date"><span>2012-08-18</span></div>
     
