@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-09-22
+lmtime: 2014-10-25
 category: it/technical/design
 title: "FileOrientedProgramming"
 tags:  DesignPattern IO
@@ -16,6 +16,98 @@ tags:  DesignPattern IO
 * io
 * filesystem API
   * http://en.wikipedia.org/wiki/File_system_API
+
+
+
+##Linux API##
+* http://book.douban.com/subject/1241402/
+* 整体层次
+  * RAID
+  * LVM
+  * Linux VFS
+  * FileSystem
+    * ext2
+    * JFS
+    * ReiserFS
+    * XFS
+* 主要功能
+  * 创建与删除文件
+    * 分配和取消存储媒体上的空间
+    * 资源的管理
+  * Read/Write
+  * Search
+  * Close
+  * mkdir
+  * ls dir
+  * rm file from dir
+* 为性能而生的缓冲区
+* 文件系统中的对象与API
+  * 文件
+    * struct fown_stuct
+    * struct file
+    * API
+      * llseek
+      * read
+      * write
+      * readdir
+      * poll
+      * ioctl
+      * mmap
+      * open
+      * flush
+      * release
+      * fsync
+      * fasync
+      * check_media_change
+      * revalidate
+      * lock
+  * 信息节点
+    * struct inode
+    * API
+      * default_file_ops
+      * create
+      * lookup
+      * link
+      * unlink
+      * symlink
+      * mkdir
+      * rmdir
+      * mknod
+      * rename
+      * readlink
+      * follow_link
+      * get_block
+      * readpage
+      * writepage
+      * flushpage
+  * 文件系统
+    * struct file_system_type
+    * API
+      * register_filesystem
+      * unregister_filesystem
+  * 名称/dentry
+    * struct qstr
+    * struct dentry
+    * API
+      * d_revalidate
+      * d_hash
+      * d_compare
+      * d_delete
+      * d_release
+      * d_iput
+* 主要的性能问题
+  * 目标
+    * 减少基本设备上的IO数量
+    * 将小型IO组合成大型IO
+    * 优化搜索模式, 减少等待磁盘搜索所花的时间
+    * 缓存尽可能多的数据, 以减少物理IO
+  * 事务体系
+    * 记录事务的开始
+    * 在更改数据之前记录将要更改的数据
+    * 从存储库中访问数据库记录
+    * 对数据的不同操作
+    * 在更改数据之后记录已经做了更改的数据
+    * 记录事务的结束
 
 
 
