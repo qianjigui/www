@@ -4,7 +4,7 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-10-23T11:29:32+08:00</updated>
+ <updated>2014-10-25T10:42:25+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
@@ -1019,6 +1019,164 @@ http://www.fortune688.com/SubPages/edu/Lesson3_step1.aspx …&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;http://en.wikipedia.org/wiki/File_system_API&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Linux API&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;http://book.douban.com/subject/1241402/&lt;/li&gt;
+&lt;li&gt;整体层次
+
+&lt;ul&gt;
+&lt;li&gt;RAID&lt;/li&gt;
+&lt;li&gt;LVM&lt;/li&gt;
+&lt;li&gt;Linux VFS&lt;/li&gt;
+&lt;li&gt;FileSystem
+
+&lt;ul&gt;
+&lt;li&gt;ext2&lt;/li&gt;
+&lt;li&gt;JFS&lt;/li&gt;
+&lt;li&gt;ReiserFS&lt;/li&gt;
+&lt;li&gt;XFS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;主要功能
+
+&lt;ul&gt;
+&lt;li&gt;创建与删除文件
+
+&lt;ul&gt;
+&lt;li&gt;分配和取消存储媒体上的空间&lt;/li&gt;
+&lt;li&gt;资源的管理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Read/Write&lt;/li&gt;
+&lt;li&gt;Search&lt;/li&gt;
+&lt;li&gt;Close&lt;/li&gt;
+&lt;li&gt;mkdir&lt;/li&gt;
+&lt;li&gt;ls dir&lt;/li&gt;
+&lt;li&gt;rm file from dir&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;为性能而生的缓冲区&lt;/li&gt;
+&lt;li&gt;文件系统中的对象与API
+
+&lt;ul&gt;
+&lt;li&gt;文件
+
+&lt;ul&gt;
+&lt;li&gt;struct fown_stuct&lt;/li&gt;
+&lt;li&gt;struct file&lt;/li&gt;
+&lt;li&gt;API
+
+&lt;ul&gt;
+&lt;li&gt;llseek&lt;/li&gt;
+&lt;li&gt;read&lt;/li&gt;
+&lt;li&gt;write&lt;/li&gt;
+&lt;li&gt;readdir&lt;/li&gt;
+&lt;li&gt;poll&lt;/li&gt;
+&lt;li&gt;ioctl&lt;/li&gt;
+&lt;li&gt;mmap&lt;/li&gt;
+&lt;li&gt;open&lt;/li&gt;
+&lt;li&gt;flush&lt;/li&gt;
+&lt;li&gt;release&lt;/li&gt;
+&lt;li&gt;fsync&lt;/li&gt;
+&lt;li&gt;fasync&lt;/li&gt;
+&lt;li&gt;check_media_change&lt;/li&gt;
+&lt;li&gt;revalidate&lt;/li&gt;
+&lt;li&gt;lock&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;信息节点
+
+&lt;ul&gt;
+&lt;li&gt;struct inode&lt;/li&gt;
+&lt;li&gt;API
+
+&lt;ul&gt;
+&lt;li&gt;default_file_ops&lt;/li&gt;
+&lt;li&gt;create&lt;/li&gt;
+&lt;li&gt;lookup&lt;/li&gt;
+&lt;li&gt;link&lt;/li&gt;
+&lt;li&gt;unlink&lt;/li&gt;
+&lt;li&gt;symlink&lt;/li&gt;
+&lt;li&gt;mkdir&lt;/li&gt;
+&lt;li&gt;rmdir&lt;/li&gt;
+&lt;li&gt;mknod&lt;/li&gt;
+&lt;li&gt;rename&lt;/li&gt;
+&lt;li&gt;readlink&lt;/li&gt;
+&lt;li&gt;follow_link&lt;/li&gt;
+&lt;li&gt;get_block&lt;/li&gt;
+&lt;li&gt;readpage&lt;/li&gt;
+&lt;li&gt;writepage&lt;/li&gt;
+&lt;li&gt;flushpage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;文件系统
+
+&lt;ul&gt;
+&lt;li&gt;struct file_system_type&lt;/li&gt;
+&lt;li&gt;API
+
+&lt;ul&gt;
+&lt;li&gt;register_filesystem&lt;/li&gt;
+&lt;li&gt;unregister_filesystem&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;名称/dentry
+
+&lt;ul&gt;
+&lt;li&gt;struct qstr&lt;/li&gt;
+&lt;li&gt;struct dentry&lt;/li&gt;
+&lt;li&gt;API
+
+&lt;ul&gt;
+&lt;li&gt;d_revalidate&lt;/li&gt;
+&lt;li&gt;d_hash&lt;/li&gt;
+&lt;li&gt;d_compare&lt;/li&gt;
+&lt;li&gt;d_delete&lt;/li&gt;
+&lt;li&gt;d_release&lt;/li&gt;
+&lt;li&gt;d_iput&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;主要的性能问题
+
+&lt;ul&gt;
+&lt;li&gt;目标
+
+&lt;ul&gt;
+&lt;li&gt;减少基本设备上的IO数量&lt;/li&gt;
+&lt;li&gt;将小型IO组合成大型IO&lt;/li&gt;
+&lt;li&gt;优化搜索模式, 减少等待磁盘搜索所花的时间&lt;/li&gt;
+&lt;li&gt;缓存尽可能多的数据, 以减少物理IO&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;事务体系
+
+&lt;ul&gt;
+&lt;li&gt;记录事务的开始&lt;/li&gt;
+&lt;li&gt;在更改数据之前记录将要更改的数据&lt;/li&gt;
+&lt;li&gt;从存储库中访问数据库记录&lt;/li&gt;
+&lt;li&gt;对数据的不同操作&lt;/li&gt;
+&lt;li&gt;在更改数据之后记录已经做了更改的数据&lt;/li&gt;
+&lt;li&gt;记录事务的结束&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -2478,6 +2636,44 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 
 &lt;ul&gt;
 &lt;li&gt;500m&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;椭圆机5min&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;13 整体练习(20141024晚上)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;跑步机10min&lt;/li&gt;
+&lt;li&gt;起立哑铃高举
+
+&lt;ul&gt;
+&lt;li&gt;10*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;卷腹+坐姿引体向上
+
+&lt;ul&gt;
+&lt;li&gt;10&lt;em&gt;2&lt;/em&gt;4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;坐姿宽握划船
+
+&lt;ul&gt;
+&lt;li&gt;10*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;划船机
+
+&lt;ul&gt;
+&lt;li&gt;500m&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;凳上俯卧撑+反屈伸
+
+&lt;ul&gt;
+&lt;li&gt;10&lt;em&gt;2&lt;/em&gt;4&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;椭圆机5min&lt;/li&gt;
