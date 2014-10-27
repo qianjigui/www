@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-10-25
+lmtime: 2014-10-27
 category: it/technical/design
 title: "FileOrientedProgramming"
 tags:  DesignPattern IO
@@ -152,3 +152,16 @@ tags:  DesignPattern IO
   * 共享磁盘文件系统
   * 特殊文件系统
   * 设备文件系统
+
+
+
+##泛化价值##
+* 由于系统体系结构的抽象
+  * 利用面对文件的编程扩展到面向IPC/信息通信与存储的基本方式上
+  * 所有针对通信/信息存储的方式均与文件API类似(数据库系统除外)
+  * 主要关注点
+    * 一般API接口
+    * 性能提升方法
+      * NIO
+      * 同步与异步
+      * 缓存
