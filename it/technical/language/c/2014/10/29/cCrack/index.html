@@ -3,7 +3,7 @@
 <html lang="cn" xmlns:wb="http://open.weibo.com/wb">
   <head>
     <meta charset="utf-8">
-    <title>Java 编译处理过程</title>
+    <title>C Crack</title>
     
     <meta name="author" content="王鹏程(WPC)">
 
@@ -11,13 +11,13 @@
     <meta property="wb:webmaster" content="632e6945a16c1527" />
 <!--必填-->
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/it/technical/language/java/2014/08/19/JavaCompileTransform" />
-<meta property="og:title" content="Java 编译处理过程" />
+<meta property="og:url" content="/it/technical/language/c/2014/10/29/cCrack" />
+<meta property="og:title" content="C Crack" />
 <meta property="og:description" content=" " />
 <!--选填-->
-<meta name="weibo:article:create_at" content="2014-08-19" />
+<meta name="weibo:article:create_at" content="2014-10-29" />
 
-<meta name="weibo:article:update_at" content="2014-09-04" />
+<meta name="weibo:article:update_at" content="2014-10-29" />
 
 <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
@@ -114,7 +114,7 @@
         
 <div class="page-header">
     <h1>
-        Java 编译处理过程
+        C Crack
         <small>
             
             2014 "码" 到成功 !
@@ -127,51 +127,21 @@
 
 <div class="row">
   <div class="span8" id='main_content'>
-    <h1 id="tocAnchor-1-1">预编译过程</h1>
+    <h1 id="tocAnchor-1-1">ELF 文件标准格式</h1>
 
-<h2 id="tocAnchor-1-1-1">方案</h2>
+<p>http://en.wikipedia.org/wiki/Executable_and_Linkable_Format</p>
 
-<ul>
-<li>现有方案: http://stackoverflow.com/questions/10483423/java-code-transform-at-compile-time
-
-<ul>
-<li>http://projectlombok.org/features/index.html</li>
-<li>http://hllvm.group.iteye.com/group/topic/38188</li>
-</ul>
-</li>
-<li>利用Java 标注进行处理
-
-<ul>
-<li>http://deors.wordpress.com/2011/09/26/annotation-types/</li>
-</ul>
-</li>
-<li>将编译工具链进行连接整合, 一步步完成程序的生成
-
-<ul>
-<li>利用GCC做预编译处理, 将C风格的宏进行处理, 将结果存储为JAVA</li>
-<li>再由javac完成后续编译</li>
-<li>存在的问题是: java就是在针对c的语言问题上, 提出了一些编译简化过程. 如果通过工具链整合, 又会引入坏味道</li>
-</ul>
-</li>
-</ul>
-
-
-<h2 id="tocAnchor-1-1-2">评估方法</h2>
-
-<ul>
-<li>工程化支持: 工具链, IDE的支持效果</li>
-</ul>
-
+<p>http://www.dwarfstd.org/doc/Debugging%20using%20DWARF.pdf</p>
 
     <hr>
     <div class="pagination">
       <ul>
       
-        <li class="prev"><a href="/it/technical/os/android/security/2014/06/16/BuildType" title="Android系统编译User/Eng等状态">&larr; 老的一篇</a></li>
+        <li class="prev"><a href="/it/technical/os/android/2014/10/29/appCrack" title="Android Crack 技术">&larr; 老的一篇</a></li>
       
         <li><a href="/archive.html">归档列表</a></li>
       
-        <li class="next"><a href="/it/technical/web/2014/08/22/RoR" title="Ruby on Rails 相关技术">新的一篇 &rarr;</a></li>
+        <li class="next"><a href="/it/technical/language/java/2014/10/29/javaCrack" title="Java Crack 技术">新的一篇 &rarr;</a></li>
       
       </ul>
     </div>
@@ -181,7 +151,7 @@
 
   
 <!-- Duoshuo Comment start -->
-<div class="ds-thread" data-thread-key="/it/technical/language/java/2014/08/19/JavaCompileTransform" data-title="Java 编译处理过程" data-url="http://www.5wpc.info/it/technical/language/java/2014/08/19/JavaCompileTransform/"></div>
+<div class="ds-thread" data-thread-key="/it/technical/language/c/2014/10/29/cCrack" data-title="C Crack" data-url="http://www.5wpc.info/it/technical/language/c/2014/10/29/cCrack/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"qianjigui"};
 (function() {
@@ -202,12 +172,12 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">预编译过程</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">方案</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">评估方法</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">ELF 文件标准格式</span></a></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
-    <div class="date"><span>2014-08-19</span></div>
+    <div class="date"><span>2014-10-29</span></div>
     
         <h4>最后修改@</h4>
-        <div class="date"><span>2014-09-04</span></div>
+        <div class="date"><span>2014-10-29</span></div>
     
 
   
@@ -219,9 +189,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
 
   
      
-    	<li><a href="/tags.html#JVM-ref">JVM <span>3</span></a></li>
-     
-    	<li><a href="/tags.html#Compile-ref">Compile <span>1</span></a></li>
+    	<li><a href="/tags.html#Crack-ref">Crack <span>4</span></a></li>
     
   
 
@@ -242,7 +210,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
     
       
       	
-      	<li><a href="/it/technical/language/java/2014/10/29/javaCrack">Java Crack 技术</a></li>
+      	<li class="active"><a href="/it/technical/language/c/2014/10/29/cCrack" class="active">C Crack</a></li>
       	
       
     
@@ -250,7 +218,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
     
       
       	
-      	<li class="active"><a href="/it/technical/language/java/2014/08/19/JavaCompileTransform" class="active">Java 编译处理过程</a></li>
+      	<li><a href="/it/technical/language/c/2014/01/28/CBestPractice">C 语言最佳实践</a></li>
       	
       
     
@@ -258,7 +226,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
     
       
       	
-      	<li><a href="/it/technical/language/java/2014/06/02/InnerClass">Java内部类的状态</a></li>
+      	<li><a href="/it/technical/language/c/2013/05/04/SigCatchAndDump">C语言发生问题产生log并crash dump</a></li>
       	
       
     
@@ -266,31 +234,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
     
       
       	
-      	<li><a href="/it/technical/language/java/2014/01/07/index.java">Java 技术学习列表</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/it/technical/language/java/2013/03/24/ThinkingInJavaFromVM">ThinkingInJavaFromVM</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/it/technical/language/java/2012/12/11/JavaHarmony">JavaHarmony</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/it/technical/language/java/2012/08/06/Annotation">Java 标注</a></li>
+      	<li><a href="/it/technical/language/c/2011/02/11/c">C语言</a></li>
       	
       
     

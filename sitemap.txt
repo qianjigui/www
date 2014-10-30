@@ -7,6 +7,11 @@ http://www.5wpc.info/search.html
 http://www.5wpc.info/sitemap.txt
 http://www.5wpc.info/tags.html
 
+http://www.5wpc.info/it/technical/softwareengineering/2014/10/30/TDD
+http://www.5wpc.info/it/technical/language/java/2014/10/29/javaCrack
+http://www.5wpc.info/it/technical/language/c/2014/10/29/cCrack
+http://www.5wpc.info/it/technical/os/android/2014/10/29/appCrack
+http://www.5wpc.info/it/technical/design/2014/10/29/Crack
 http://www.5wpc.info/it/technical/algorithm/2014/10/08/Cache
 http://www.5wpc.info/it/project/financialmanage/2014/09/30/StockUSA
 http://www.5wpc.info/it/career/business/2014/09/25/WirelessInternet2014DataReview
