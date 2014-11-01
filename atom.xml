@@ -4,7 +4,7 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-10-31T15:29:42+08:00</updated>
+ <updated>2014-11-01T20:22:49+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
@@ -888,6 +888,35 @@ public class OrderProcessorEasymockTest{
 &lt;li&gt;待测试对象的状态: 通过反射进行完整扫描&lt;/li&gt;
 &lt;li&gt;添加专用处理类&lt;/li&gt;
 &lt;/ul&gt;
+
+
+&lt;h1&gt;测试驱动数据访问&lt;/h1&gt;
+
+&lt;h2&gt;文件系统访问&lt;/h2&gt;
+
+&lt;p&gt;我们需要尽量避免访问文件系统, 使用java.io.Writer及java.io.Reader.
+毕竟大部分时间我们感兴趣的是文件内容, 不是文件本身, 使用streams完全可以胜任.&lt;/p&gt;
+
+&lt;h3&gt;提高文件访问的可测试性的实践&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;用接口隔离文件访问&lt;/li&gt;
+&lt;li&gt;使用流(stream)而非文件&lt;/li&gt;
+&lt;li&gt;使用自定义的文件对象
+
+&lt;ul&gt;
+&lt;li&gt;将文件内容和文件信息(元数据)关联起来&lt;/li&gt;
+&lt;li&gt;使用内存性的文件系统, 性能更快&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;使用专用的临时文件夹
+
+&lt;ul&gt;
+&lt;li&gt;将所有的测试数据放在一个文件夹, 便于统一地处理(创建与清理)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;测试前清理而非测试后&lt;/li&gt;
+&lt;/ol&gt;
 
 </content>
  </entry>
@@ -3781,6 +3810,79 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 
 &lt;ul&gt;
 &lt;li&gt;10*3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;14.1 上肢练习(20141031晚上)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;跑步机10min&lt;/li&gt;
+&lt;li&gt;俯卧撑
+
+&lt;ul&gt;
+&lt;li&gt;20*5&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;卷腹
+
+&lt;ul&gt;
+&lt;li&gt;30*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;抬腿
+
+&lt;ul&gt;
+&lt;li&gt;10*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;凳上反屈伸
+
+&lt;ul&gt;
+&lt;li&gt;10*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;14.2 上肢练习(20141101晚上)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;俯身提臀
+
+&lt;ul&gt;
+&lt;li&gt;10*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;仰卧起坐
+
+&lt;ul&gt;
+&lt;li&gt;25*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;俯立臂屈伸
+
+&lt;ul&gt;
+&lt;li&gt;12*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;宽距俯卧撑
+
+&lt;ul&gt;
+&lt;li&gt;12*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;俯卧撑哑铃划船
+
+&lt;ul&gt;
+&lt;li&gt;10*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;跑步机
+
+&lt;ul&gt;
+&lt;li&gt;3min&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
