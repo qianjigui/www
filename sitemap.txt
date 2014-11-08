@@ -7,6 +7,7 @@ http://www.5wpc.info/search.html
 http://www.5wpc.info/sitemap.txt
 http://www.5wpc.info/tags.html
 
+http://www.5wpc.info/it/project/car/2014/11/08/StudyCar
 http://www.5wpc.info/it/technical/os/android/2014/10/31/AOSP
 http://www.5wpc.info/it/technical/softwareengineering/2014/10/30/TDD
 http://www.5wpc.info/it/technical/language/java/2014/10/29/javaCrack

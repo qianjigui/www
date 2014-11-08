@@ -4,13 +4,139 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-11-03T23:06:18+08:00</updated>
+ <updated>2014-11-08T22:08:17+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
    <email>qianjigui@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>学车</title>
+   <link href="http://www.5wpc.info/it/project/car/2014/11/08/StudyCar"/>
+   <updated>2014-11-08T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/project/car/2014/11/08/StudyCar</id>
+   <content type="html">&lt;h1&gt;学车&lt;/h1&gt;
+
+&lt;h2&gt;报名&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;准备材料
+
+&lt;ul&gt;
+&lt;li&gt;暂住证
+
+&lt;ul&gt;
+&lt;li&gt;杭州办理方法
+
+&lt;ul&gt;
+&lt;li&gt;暂住协议原件复印件，身份证原件复印件，1寸照片2张&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;身份证&lt;/li&gt;
+&lt;li&gt;复印 正反面 1份&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;通过指定驾校预约报名&lt;/li&gt;
+&lt;li&gt;报名当天
+
+&lt;ul&gt;
+&lt;li&gt;驾校集合，排队出表2张，申请表与体检表&lt;/li&gt;
+&lt;li&gt;向管理机构(交管部门)
+
+&lt;ul&gt;
+&lt;li&gt;交体检费30元
+
+&lt;ul&gt;
+&lt;li&gt;排队体检&lt;/li&gt;
+&lt;li&gt;医生鉴定结果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;1000元
+
+&lt;ul&gt;
+&lt;li&gt;排队申请档案&lt;/li&gt;
+&lt;li&gt;排队报名领取教材光盘&lt;/li&gt;
+&lt;li&gt;排队交费&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;预约理论学习&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;理论学习与考试&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;理论学习完成后&lt;/li&gt;
+&lt;li&gt;找时间进行理论结业考试
+
+&lt;ul&gt;
+&lt;li&gt;河坊街33号，排队进入考场，需要检查身份证，合格后会收理论课上课卡&lt;/li&gt;
+&lt;li&gt;建议学习与使用 驾考宝典，先将顺序练习做会做完，再看书第一部分，再做模拟题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;理论结业考试通过后
+
+&lt;ul&gt;
+&lt;li&gt;预约科目1考试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;场内准备&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;科目2&lt;/li&gt;
+&lt;li&gt;预约模拟1&lt;/li&gt;
+&lt;li&gt;场地练习
+
+&lt;ul&gt;
+&lt;li&gt;20141108上午09:00-14:00
+
+&lt;ul&gt;
+&lt;li&gt;模拟方向盘练习
+
+&lt;ul&gt;
+&lt;li&gt;半圈&lt;/li&gt;
+&lt;li&gt;1圈&lt;/li&gt;
+&lt;li&gt;1圈半&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;前进与后退练习
+
+&lt;ul&gt;
+&lt;li&gt;熟悉离合器与刹车&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;绕圈练习
+
+&lt;ul&gt;
+&lt;li&gt;配合方向盘&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;主要步骤&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;经验 http://baike.baidu.com/link?url=5UMaiRqhJck3KxuPKa0gx_F90dJYNpn5No88zIgBP1K-0ixKBDP8FRBTLR_sSQLdBYTDRAKF0KxLuVor2nQeL_&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Android AOSP ROM开发</title>
@@ -2799,6 +2925,35 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 &lt;h2&gt;交易通道&lt;/h2&gt;
 
 &lt;ul&gt;
+&lt;li&gt;资金走向
+
+&lt;ul&gt;
+&lt;li&gt;添加独立银行账号用于向香港证券机构汇款
+
+&lt;ul&gt;
+&lt;li&gt;香港一卡通&lt;/li&gt;
+&lt;li&gt;购汇
+
+&lt;ul&gt;
+&lt;li&gt;自助购汇业务的交易时间为：工作日（8：30-22：00）；周六、日（8：30-17：20）；一般节假日（8：30-17：20）；春节和国庆七天长假系统不开放；每年的12月31日（8：30-17：20）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;汇款
+
+&lt;ul&gt;
+&lt;li&gt;http://www.cmbchina.com/cmbpb/v50/gb/pb/TransferHK.htm&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;选择证券机构
+
+&lt;ul&gt;
+&lt;li&gt;香港盈透&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;https://www.ibkr.com.cn/cn/main.php
 
 &lt;ul&gt;
@@ -2859,6 +3014,31 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 
 &lt;ul&gt;
 &lt;li&gt;将这些材料汇总用于个人学习&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;20141102理论学习
+
+&lt;ul&gt;
+&lt;li&gt;经过学习相关理财书籍,目前已经基本了解了股票中的一些概念
+
+&lt;ul&gt;
+&lt;li&gt;http://book.douban.com/doulist/13912649/
+
+&lt;ul&gt;
+&lt;li&gt;我最需要的理财常识书&lt;/li&gt;
+&lt;li&gt;从零开始学炒股&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;看懂财经新闻的第一本书&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;主要的建议是
+
+&lt;ul&gt;
+&lt;li&gt;专注投资,不是投机&lt;/li&gt;
+&lt;li&gt;常识看事,劳动致富&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -3935,6 +4115,100 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 &lt;li&gt;３６Ｌ&lt;em&gt;３+４０Ｌ&lt;/em&gt;１&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;15.1 上肢练习(20141105晚上)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;划船5min&lt;/li&gt;
+&lt;li&gt;椭圆机10min&lt;/li&gt;
+&lt;li&gt;坐姿宽握划船
+
+&lt;ul&gt;
+&lt;li&gt;10*4&lt;/li&gt;
+&lt;li&gt;背部&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;拉力器双臂下拉
+
+&lt;ul&gt;
+&lt;li&gt;10*4&lt;/li&gt;
+&lt;li&gt;胸部&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;锤式下拉
+
+&lt;ul&gt;
+&lt;li&gt;10*4
+
+&lt;ul&gt;
+&lt;li&gt;5*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;三头肌&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;反手引体向上
+
+&lt;ul&gt;
+&lt;li&gt;二头肌&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;注意保暖&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;16 上肢练习(20141107晚上)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;椭圆机10min&lt;/li&gt;
+&lt;li&gt;跑步机15min&lt;/li&gt;
+&lt;li&gt;引体向上
+
+&lt;ul&gt;
+&lt;li&gt;5*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;史密斯杠铃卧推+上斜哑铃卧推
+
+&lt;ul&gt;
+&lt;li&gt;(10+8)*5&lt;/li&gt;
+&lt;li&gt;0+5*4&lt;/li&gt;
+&lt;li&gt;15L&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;深蹲+哑铃划船+哑铃过头推举
+
+&lt;ul&gt;
+&lt;li&gt;10*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;背杠铃马步前进
+
+&lt;ul&gt;
+&lt;li&gt;1个来回&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;凳上反屈伸
+
+&lt;ul&gt;
+&lt;li&gt;20*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;俯卧撑
+
+&lt;ul&gt;
+&lt;li&gt;10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;靠墙深蹲
+
+&lt;ul&gt;
+&lt;li&gt;35s*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;拉伸&lt;/li&gt;
 &lt;/ul&gt;
 
 
