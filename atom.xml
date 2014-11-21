@@ -4,13 +4,383 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-11-21T17:30:59+08:00</updated>
+ <updated>2014-11-21T17:57:31+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
    <email>qianjigui@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>init 功能与运行分析</title>
+   <link href="http://www.5wpc.info/it/technical/os/android/init/2014/11/21/FirstProcessInit"/>
+   <updated>2014-11-21T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/technical/os/android/init/2014/11/21/FirstProcessInit</id>
+   <content type="html">&lt;h1&gt;Init 的主要作用&lt;/h1&gt;
+
+&lt;p&gt;本程序是Linux完成内核加载后的第一个进程, 主要进行linux
+级首个上下文的设置(linux属性体系), 基础服务的启动与状态
+管理(重新启动, 状态监视), 系统属性变化后的状态重置.&lt;/p&gt;
+
+&lt;h2&gt;涉及的框架&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;selinux
+
+&lt;ul&gt;
+&lt;li&gt;针对所有的安全隐患API进行备案与调用审计&lt;/li&gt;
+&lt;li&gt;只有特定应用在特定权限下, 才能运行特定API&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;业务数据存储的整体结构
+
+&lt;ul&gt;
+&lt;li&gt;属性数据存储: 基本的文本文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;提供的业务流程
+
+&lt;ul&gt;
+&lt;li&gt;运行结构&lt;/li&gt;
+&lt;li&gt;支持的命令&lt;/li&gt;
+&lt;li&gt;Service的状态维护&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;权限管理
+
+&lt;ul&gt;
+&lt;li&gt;socket 与 ctl&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;业务通信
+
+&lt;ul&gt;
+&lt;li&gt;linux下的通信机制: socket&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;rc文件的分析与处理流程
+
+&lt;ul&gt;
+&lt;li&gt;专用的文法与解析程序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h1&gt;主要业务流程&lt;/h1&gt;
+
+&lt;h2&gt;Init启动的前置条件&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;设备上电启动&lt;/li&gt;
+&lt;li&gt;uboot完成第一步引导并进行初始化(boot.img)
+
+&lt;ol&gt;
+&lt;li&gt;加载Ramdisk到内存(完成根文件系统的设置)&lt;/li&gt;
+&lt;li&gt;加载内核到内存(kernel)&lt;/li&gt;
+&lt;li&gt;引导到内核&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;内核完成硬件初始化工作与系统核心数据的初始化工作&lt;/li&gt;
+&lt;li&gt;内核完成工作后, 启动init程序&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;Init主要业务&lt;/h2&gt;
+
+&lt;h3&gt;下述为非charger状态&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;创建Android需要的根文件系统相关节点&lt;/li&gt;
+&lt;li&gt;init状态初始化
+
+&lt;ol&gt;
+&lt;li&gt;klog&lt;/li&gt;
+&lt;li&gt;property&lt;/li&gt;
+&lt;li&gt;内核启动过程相关状态保护
+
+&lt;ol&gt;
+&lt;li&gt;获取hardware名称&lt;/li&gt;
+&lt;li&gt;设置基础系统相关的属性
+
+&lt;ol&gt;
+&lt;li&gt;ro.serialno&lt;/li&gt;
+&lt;li&gt;ro.bootmode&lt;/li&gt;
+&lt;li&gt;ro.baseband&lt;/li&gt;
+&lt;li&gt;ro.bootloader&lt;/li&gt;
+&lt;li&gt;ro.hardware&lt;/li&gt;
+&lt;li&gt;ro.revision&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;selinux&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;(!charger)基本属性加载: PROP_PATH_RAMDISK_DEFAULT = /default.prop&lt;/li&gt;
+&lt;li&gt;加载Config
+
+&lt;ol&gt;
+&lt;li&gt;以init.rc为入口, 分析init内部指令&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Action 顺序加载(统一存放在action_queue)(O: 一个前置条件下的一组指令on xxx, A:具体的一个Action)
+
+&lt;ol&gt;
+&lt;li&gt;O:early-init&lt;/li&gt;
+&lt;li&gt;A:wait_for_coldboot_done&lt;/li&gt;
+&lt;li&gt;A:mix_hwrng_into_linux_rng&lt;/li&gt;
+&lt;li&gt;A:keychord_init&lt;/li&gt;
+&lt;li&gt;A:console_init&lt;/li&gt;
+&lt;li&gt;O:init&lt;/li&gt;
+&lt;li&gt;!charger:
+
+&lt;ol&gt;
+&lt;li&gt;O:early-fs&lt;/li&gt;
+&lt;li&gt;O:fs&lt;/li&gt;
+&lt;li&gt;O:post-fs&lt;/li&gt;
+&lt;li&gt;O:post-fs-data&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;A:mix_hwrng_into_linux_rng&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;A:property_service_init&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;加载属性数据&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;`c&quot;&gt; #define PROP_PATH_RAMDISK_DEFAULT  &quot;/default.prop&quot;
+ #define PROP_PATH_SYSTEM_BUILD     &quot;/system/build.prop&quot;
+ #define PROP_PATH_SYSTEM_DEFAULT   &quot;/system/default.prop&quot;
+ #define PROP_PATH_LOCAL_OVERRIDE   &quot;/data/local.prop&quot;
+ #define PROP_PATH_FACTORY          &quot;/factory/factory.prop&quot;
+ load_properties_from_file(PROP_PATH_SYSTEM_BUILD);     // /system/build.prop
+ load_properties_from_file(PROP_PATH_SYSTEM_DEFAULT);   // /system/default.prop
+ load_override_properties(); //PROP_PATH_LOCAL_OVERRIDE // /data/local.prop
+ load_persistent_properties();                          // /data/property/*
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt; A:signal_init&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt; A:check_startup&lt;/li&gt;
+&lt;li&gt; !charger:
+
+&lt;ol&gt;
+&lt;li&gt;O:early-boot&lt;/li&gt;
+&lt;li&gt;O:boot&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt; A:queue_property_triggers (properies条件触发的相关Action)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;Init 程序的内部数据组织结构&lt;/h2&gt;
+
+&lt;h3&gt;数据要求&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;//bionic/libc/include/sys/system_properties.h
+//Property key max length = 32 - 1(\0) = 31
+#define PROP_NAME_MAX   32
+//Property value max length = 92 - 1(\0) = 91
+#define PROP_VALUE_MAX  92
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;整体关系&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;
+action ---1---N---&amp;gt; commands
+
+service_list
+    |
+    `---+---&amp;gt; service1 ---&amp;gt; onrestart-action
+        |(linked list: slist )
+        +---&amp;gt; service2
+        :
+        :
+        :
+
+
+action_list
+    |
+    `---+---&amp;gt; action1
+        |(linked list: alist )
+        +---&amp;gt; action2
+        :
+        :
+        :
+
+action_queue
+    |
+    `---+---&amp;gt; action1
+        |(linked list: qlist )
+        +---&amp;gt; action2
+        :
+        :
+        :
+
+import_list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;加载顺序&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;一个文件加载完成后, 再次循环加载import 的文件(统一存储在service_list,action_list)
+
+&lt;ul&gt;
+&lt;li&gt;共用&lt;code&gt;service_list, action_list&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;按顺序组织相关action
+
+&lt;ul&gt;
+&lt;li&gt;存储在&lt;code&gt;action_queue&lt;/code&gt;中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;属性服务的结构&lt;/h2&gt;
+
+&lt;h3&gt;init自身启动时设置有效区间&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;property: name=value&lt;/li&gt;
+&lt;li&gt;如果不存在则直接添加(add(name,value))&lt;/li&gt;
+&lt;li&gt;如果存在
+
+&lt;ul&gt;
+&lt;li&gt;ro.xxx.xx 不允许修改(return -1)&lt;/li&gt;
+&lt;li&gt;其它则直接Update(update(name,value))&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;net.xxx == name
+
+&lt;ul&gt;
+&lt;li&gt;update(&#39;net.change&#39;,name)(name!=&#39;net.change&#39;)&lt;/li&gt;
+&lt;li&gt;return 0 (name==&#39;net.change&#39;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;persist.xxx == name
+
+&lt;ul&gt;
+&lt;li&gt;save value to persistent_data_area&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;触发 property 改变时的action进行调用&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h3&gt;通过系统接口进行property设置&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;通过socket的通道进行通信&lt;/li&gt;
+&lt;li&gt;针对ctl等控制类的数据,会检查完权限后, 进行服务的start/stop/restart 操作&lt;/li&gt;
+&lt;li&gt;针对其它property, 会有一个列表, 检查是否有权限进行设置&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;Android系统级对于property的设置&lt;/h3&gt;
+
+&lt;p&gt;与系统流程相关的主要property:
+* Android系统启动完成后,通知系统
+    * sys.boot_completed=1
+    * dev.bootcomplete=1
+* 系统重启与关机
+    * ro.runtime.firstboot=time
+    * ShutdownThread.REBOOT_SAFEMODE_PROPERTY
+    * sys.powerctl=shutdown/reboot,reason
+    * SHUTDOWN_ACTION_PROPERTY=reason
+    * REBOOT_SAFEMODE_PROPERTY
+* 系统环境
+    * user.language
+    * user.region
+    * persist.sys.language
+    * persist.sys.country
+    * persist.sys.localevar
+    * persist.sys.dalvik.vm.lib
+    * selinux.reload_policy
+    * persist.selinux.enforcing
+    * TIMEZONE_PROPERTY
+* 系统调试与开发
+    * ctl.start bugreport
+    * StrictMode.VISUAL_PROPERTY
+    * persist.sys.profiler_ms
+* 系统设备
+    * SYSTEM_PROP_DISABLE_CAMERA
+    * USB
+    * 网络
+        * net.hostname
+        * net.dns
+        * PROP_QTAGUID_ENABLED : 用于内核级网络流量统计
+        * GSM
+        * UICC
+        * SIM CARD
+        * net.ppp.reset-by-timeout
+        * CDMA
+        * SMS&lt;/p&gt;
+
+&lt;p&gt;Android 中的属性服务调用位置:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;shell&quot;&gt;./base/cmds/am/src/com/android/commands/am/Am.java:            SystemProperties.set(&quot;dalvik.vm.extra-opts&quot;, props);
+./base/services/java/com/android/server/DevicePolicyManagerService.java:                SystemProperties.set(SYSTEM_PROP_DISABLE_CAMERA, value);
+./base/services/java/com/android/server/am/ProcessList.java:            SystemProperties.set(&quot;sys.sysctl.extra_free_kbytes&quot;, Integer.toString(reserve));
+./base/services/java/com/android/server/am/ActivityManagerService.java:                SystemProperties.set(&quot;sys.boot_completed&quot;, &quot;1&quot;);
+./base/services/java/com/android/server/am/ActivityManagerService.java:                SystemProperties.set(&quot;dev.bootcomplete&quot;, &quot;1&quot;);
+./base/services/java/com/android/server/am/ActivityManagerService.java:        SystemProperties.set(&quot;ctl.start&quot;, &quot;bugreport&quot;);
+./base/services/java/com/android/server/am/ActivityManagerService.java:        SystemProperties.set(Settings.Global.DEVELOPMENT_FORCE_RTL, forceRtl ? &quot;1&quot;:&quot;0&quot;);
+./base/services/java/com/android/server/am/ActivityManagerService.java:            SystemProperties.set(&quot;user.language&quot;, l.getLanguage());
+./base/services/java/com/android/server/am/ActivityManagerService.java:            SystemProperties.set(&quot;user.region&quot;, l.getCountry());
+./base/services/java/com/android/server/am/ActivityManagerService.java:            SystemProperties.set(&quot;persist.sys.language&quot;, l.getLanguage());
+./base/services/java/com/android/server/am/ActivityManagerService.java:            SystemProperties.set(&quot;persist.sys.country&quot;, l.getCountry());
+./base/services/java/com/android/server/am/ActivityManagerService.java:            SystemProperties.set(&quot;persist.sys.localevar&quot;, l.getVariant());
+./base/services/java/com/android/server/wm/WindowManagerService.java:        SystemProperties.set(StrictMode.VISUAL_PROPERTY, value);
+./base/services/java/com/android/server/wm/WindowManagerService.java:                SystemProperties.set(ShutdownThread.REBOOT_SAFEMODE_PROPERTY, &quot;&quot;);
+./base/services/java/com/android/server/BootReceiver.java:            SystemProperties.set(&quot;ro.runtime.firstboot&quot;, now);
+./base/services/java/com/android/server/usb/UsbDeviceManager.java:                    SystemProperties.set(&quot;sys.usb.config&quot;, mDefaultFunctions);
+./base/services/java/com/android/server/usb/UsbDeviceManager.java:                    SystemProperties.set(&quot;persist.service.adb.enable&quot;, &quot;&quot;);
+./base/services/java/com/android/server/usb/UsbDeviceManager.java:            SystemProperties.set(&quot;sys.usb.config&quot;, config);
+./base/services/java/com/android/server/usb/UsbDeviceManager.java:                    SystemProperties.set(&quot;persist.sys.usb.config&quot;, functions);
+./base/services/java/com/android/server/usb/UsbDeviceManager.java:                        SystemProperties.set(&quot;persist.sys.usb.config&quot;, mDefaultFunctions);
+./base/services/java/com/android/server/SystemServer.java:        SystemProperties.set(&quot;persist.sys.dalvik.vm.lib&quot;,
+./base/services/java/com/android/server/power/PowerManagerService.java:        SystemProperties.set(&quot;sys.powerctl&quot;, &quot;shutdown&quot;);
+./base/services/java/com/android/server/power/PowerManagerService.java:        SystemProperties.set(&quot;sys.powerctl&quot;, &quot;reboot,&quot; + reason);
+./base/services/java/com/android/server/power/ShutdownThread.java:            SystemProperties.set(SHUTDOWN_ACTION_PROPERTY, reason);
+./base/services/java/com/android/server/power/ShutdownThread.java:            SystemProperties.set(REBOOT_SAFEMODE_PROPERTY, &quot;1&quot;);
+./base/services/java/com/android/server/ConnectivityService.java:                SystemProperties.set(&quot;net.hostname&quot;, name);
+./base/services/java/com/android/server/ConnectivityService.java:                SystemProperties.set(key, value); //net.dns
+./base/services/java/com/android/server/ConnectivityService.java:                SystemProperties.set(key, &quot;&quot;);    //net.dns
+./base/services/java/com/android/server/NetworkManagementService.java:        SystemProperties.set(PROP_QTAGUID_ENABLED, mBandwidthControlEnabled ? &quot;1&quot; : &quot;0&quot;);
+./base/services/java/com/android/server/SamplingProfilerService.java:            SystemProperties.set(&quot;persist.sys.profiler_ms&quot;, samplingProfilerMs.toString());
+./base/services/java/com/android/server/updates/SELinuxPolicyInstallReceiver.java:        SystemProperties.set(&quot;selinux.reload_policy&quot;, &quot;1&quot;);
+./base/services/java/com/android/server/updates/SELinuxPolicyInstallReceiver.java:            SystemProperties.set(&quot;persist.selinux.enforcing&quot;, mode);
+./base/services/java/com/android/server/AlarmManagerService.java:                    SystemProperties.set(TIMEZONE_PROPERTY, zone.getID());
+./opt/telephony/src/java/com/android/internal/telephony/gsm/GSMPhone.java:        SystemProperties.set(TelephonyProperties.CURRENT_ACTIVE_PHONE,
+./opt/telephony/src/java/com/android/internal/telephony/gsm/GsmServiceStateTracker.java:                SystemProperties.set(&quot;gsm.nitz.time&quot;, String.valueOf(c.getTimeInMillis()));
+./opt/telephony/src/java/com/android/internal/telephony/uicc/RuimRecords.java:            SystemProperties.set(PROPERTY_ICC_OPERATOR_ALPHA, mSpn);
+./opt/telephony/src/java/com/android/internal/telephony/uicc/RuimRecords.java:            SystemProperties.set(PROPERTY_ICC_OPERATOR_NUMERIC, operator);
+./opt/telephony/src/java/com/android/internal/telephony/uicc/RuimRecords.java:            SystemProperties.set(PROPERTY_ICC_OPERATOR_ISO_COUNTRY,
+./opt/telephony/src/java/com/android/internal/telephony/uicc/SIMRecords.java:        SystemProperties.set(PROPERTY_ICC_OPERATOR_NUMERIC, null);
+./opt/telephony/src/java/com/android/internal/telephony/uicc/SIMRecords.java:        SystemProperties.set(PROPERTY_ICC_OPERATOR_ALPHA, null);
+./opt/telephony/src/java/com/android/internal/telephony/uicc/SIMRecords.java:        SystemProperties.set(PROPERTY_ICC_OPERATOR_ISO_COUNTRY, null);
+./opt/telephony/src/java/com/android/internal/telephony/uicc/SIMRecords.java:            SystemProperties.set(PROPERTY_ICC_OPERATOR_NUMERIC, operator);
+./opt/telephony/src/java/com/android/internal/telephony/uicc/SIMRecords.java:            SystemProperties.set(PROPERTY_ICC_OPERATOR_ISO_COUNTRY,
+./opt/telephony/src/java/com/android/internal/telephony/uicc/SIMRecords.java:                    SystemProperties.set(PROPERTY_ICC_OPERATOR_ALPHA, mSpn);
+./opt/telephony/src/java/com/android/internal/telephony/uicc/SIMRecords.java:                    SystemProperties.set(PROPERTY_ICC_OPERATOR_ALPHA, mSpn);
+./opt/telephony/src/java/com/android/internal/telephony/uicc/SIMRecords.java:                    SystemProperties.set(PROPERTY_ICC_OPERATOR_ALPHA, mSpn);
+./opt/telephony/src/java/com/android/internal/telephony/uicc/IccCardProxy.java:            SystemProperties.set(PROPERTY_SIM_STATE, mExternalState.toString());
+./opt/telephony/src/java/com/android/internal/telephony/dataconnection/DcTracker.java:        SystemProperties.set(&quot;net.ppp.reset-by-timeout&quot;, String.valueOf(reset+1));
+./opt/telephony/src/java/com/android/internal/telephony/dataconnection/DcTracker.java:                    SystemProperties.set(PUPPET_MASTER_RADIO_STRESS_TEST, &quot;true&quot;);
+./opt/telephony/src/java/com/android/internal/telephony/dataconnection/DcTracker.java:                    SystemProperties.set(PUPPET_MASTER_RADIO_STRESS_TEST, &quot;false&quot;);
+./opt/telephony/src/java/com/android/internal/telephony/dataconnection/DcTracker.java:            SystemProperties.set(PUPPET_MASTER_RADIO_STRESS_TEST, &quot;false&quot;);
+./opt/telephony/src/java/com/android/internal/telephony/dataconnection/DcTrackerBase.java:                SystemProperties.set(RADIO_RESET_PROPERTY, &quot;true&quot;);
+./opt/telephony/src/java/com/android/internal/telephony/cdma/SmsMessage.java:        SystemProperties.set(TelephonyProperties.PROPERTY_CDMA_MSG_ID, nextMsgId);
+./opt/telephony/src/java/com/android/internal/telephony/cdma/CDMAPhone.java:        SystemProperties.set(TelephonyProperties.CURRENT_ACTIVE_PHONE,
+./opt/telephony/src/java/com/android/internal/telephony/cdma/CdmaServiceStateTracker.java:                SystemProperties.set(&quot;gsm.nitz.time&quot;, String.valueOf(c.getTimeInMillis()));
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+ </entry>
  
  <entry>
    <title>学车</title>
