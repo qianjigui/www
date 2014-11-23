@@ -397,43 +397,71 @@ import_list
 
 <h3>Android系统级对于property的设置</h3>
 
-<p>与系统流程相关的主要property:
-* Android系统启动完成后,通知系统
-    * sys.boot_completed=1
-    * dev.bootcomplete=1
-* 系统重启与关机
-    * ro.runtime.firstboot=time
-    * ShutdownThread.REBOOT_SAFEMODE_PROPERTY
-    * sys.powerctl=shutdown/reboot,reason
-    * SHUTDOWN_ACTION_PROPERTY=reason
-    * REBOOT_SAFEMODE_PROPERTY
-* 系统环境
-    * user.language
-    * user.region
-    * persist.sys.language
-    * persist.sys.country
-    * persist.sys.localevar
-    * persist.sys.dalvik.vm.lib
-    * selinux.reload_policy
-    * persist.selinux.enforcing
-    * TIMEZONE_PROPERTY
-* 系统调试与开发
-    * ctl.start bugreport
-    * StrictMode.VISUAL_PROPERTY
-    * persist.sys.profiler_ms
-* 系统设备
-    * SYSTEM_PROP_DISABLE_CAMERA
-    * USB
-    * 网络
-        * net.hostname
-        * net.dns
-        * PROP_QTAGUID_ENABLED : 用于内核级网络流量统计
-        * GSM
-        * UICC
-        * SIM CARD
-        * net.ppp.reset-by-timeout
-        * CDMA
-        * SMS</p>
+<p>与系统流程相关的主要property:</p>
+
+<ul>
+<li>Android系统启动完成后,通知系统
+
+<ul>
+<li>sys.boot_completed=1</li>
+<li>dev.bootcomplete=1</li>
+</ul>
+</li>
+<li>系统重启与关机
+
+<ul>
+<li>ro.runtime.firstboot=time</li>
+<li>ShutdownThread.REBOOT_SAFEMODE_PROPERTY</li>
+<li>sys.powerctl=shutdown/reboot,reason</li>
+<li>SHUTDOWN_ACTION_PROPERTY=reason</li>
+<li>REBOOT_SAFEMODE_PROPERTY</li>
+</ul>
+</li>
+<li>系统环境
+
+<ul>
+<li>user.language</li>
+<li>user.region</li>
+<li>persist.sys.language</li>
+<li>persist.sys.country</li>
+<li>persist.sys.localevar</li>
+<li>persist.sys.dalvik.vm.lib</li>
+<li>selinux.reload_policy</li>
+<li>persist.selinux.enforcing</li>
+<li>TIMEZONE_PROPERTY</li>
+</ul>
+</li>
+<li>系统调试与开发
+
+<ul>
+<li>ctl.start bugreport</li>
+<li>StrictMode.VISUAL_PROPERTY</li>
+<li>persist.sys.profiler_ms</li>
+</ul>
+</li>
+<li>系统设备
+
+<ul>
+<li>SYSTEM_PROP_DISABLE_CAMERA</li>
+<li>USB</li>
+<li>网络
+
+<ul>
+<li>net.hostname</li>
+<li>net.dns</li>
+<li>PROP_QTAGUID_ENABLED : 用于内核级网络流量统计</li>
+<li>GSM</li>
+<li>UICC</li>
+<li>SIM CARD</li>
+<li>net.ppp.reset-by-timeout</li>
+<li>CDMA</li>
+<li>SMS</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
 
 <p>Android 中的属性服务调用位置:</p>
 

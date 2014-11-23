@@ -4,7 +4,7 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-11-23T17:45:36+08:00</updated>
+ <updated>2014-11-23T17:56:39+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
@@ -665,9 +665,9 @@ end
 &lt;h2&gt;作用域门&lt;/h2&gt;
 
 &lt;p&gt;Scope Gate
-用class、module或def关键字来隔离作用域。
-&lt;code&gt;
-a=1
+用class、module或def关键字来隔离作用域。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a=1
 defined? a #&amp;lt;图&amp;gt;&quot;local-variable&quot;
 module MyModule
 b = 1
@@ -689,7 +689,7 @@ joe = Person.new do |p|
 p.name = &#39;Joe&#39;
 p.surname = &#39;Smith&#39;
 end
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;共享作用域&lt;/h2&gt;
 
@@ -1501,43 +1501,71 @@ import_list
 
 &lt;h3&gt;Android系统级对于property的设置&lt;/h3&gt;
 
-&lt;p&gt;与系统流程相关的主要property:
-* Android系统启动完成后,通知系统
-    * sys.boot_completed=1
-    * dev.bootcomplete=1
-* 系统重启与关机
-    * ro.runtime.firstboot=time
-    * ShutdownThread.REBOOT_SAFEMODE_PROPERTY
-    * sys.powerctl=shutdown/reboot,reason
-    * SHUTDOWN_ACTION_PROPERTY=reason
-    * REBOOT_SAFEMODE_PROPERTY
-* 系统环境
-    * user.language
-    * user.region
-    * persist.sys.language
-    * persist.sys.country
-    * persist.sys.localevar
-    * persist.sys.dalvik.vm.lib
-    * selinux.reload_policy
-    * persist.selinux.enforcing
-    * TIMEZONE_PROPERTY
-* 系统调试与开发
-    * ctl.start bugreport
-    * StrictMode.VISUAL_PROPERTY
-    * persist.sys.profiler_ms
-* 系统设备
-    * SYSTEM_PROP_DISABLE_CAMERA
-    * USB
-    * 网络
-        * net.hostname
-        * net.dns
-        * PROP_QTAGUID_ENABLED : 用于内核级网络流量统计
-        * GSM
-        * UICC
-        * SIM CARD
-        * net.ppp.reset-by-timeout
-        * CDMA
-        * SMS&lt;/p&gt;
+&lt;p&gt;与系统流程相关的主要property:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Android系统启动完成后,通知系统
+
+&lt;ul&gt;
+&lt;li&gt;sys.boot_completed=1&lt;/li&gt;
+&lt;li&gt;dev.bootcomplete=1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;系统重启与关机
+
+&lt;ul&gt;
+&lt;li&gt;ro.runtime.firstboot=time&lt;/li&gt;
+&lt;li&gt;ShutdownThread.REBOOT_SAFEMODE_PROPERTY&lt;/li&gt;
+&lt;li&gt;sys.powerctl=shutdown/reboot,reason&lt;/li&gt;
+&lt;li&gt;SHUTDOWN_ACTION_PROPERTY=reason&lt;/li&gt;
+&lt;li&gt;REBOOT_SAFEMODE_PROPERTY&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;系统环境
+
+&lt;ul&gt;
+&lt;li&gt;user.language&lt;/li&gt;
+&lt;li&gt;user.region&lt;/li&gt;
+&lt;li&gt;persist.sys.language&lt;/li&gt;
+&lt;li&gt;persist.sys.country&lt;/li&gt;
+&lt;li&gt;persist.sys.localevar&lt;/li&gt;
+&lt;li&gt;persist.sys.dalvik.vm.lib&lt;/li&gt;
+&lt;li&gt;selinux.reload_policy&lt;/li&gt;
+&lt;li&gt;persist.selinux.enforcing&lt;/li&gt;
+&lt;li&gt;TIMEZONE_PROPERTY&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;系统调试与开发
+
+&lt;ul&gt;
+&lt;li&gt;ctl.start bugreport&lt;/li&gt;
+&lt;li&gt;StrictMode.VISUAL_PROPERTY&lt;/li&gt;
+&lt;li&gt;persist.sys.profiler_ms&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;系统设备
+
+&lt;ul&gt;
+&lt;li&gt;SYSTEM_PROP_DISABLE_CAMERA&lt;/li&gt;
+&lt;li&gt;USB&lt;/li&gt;
+&lt;li&gt;网络
+
+&lt;ul&gt;
+&lt;li&gt;net.hostname&lt;/li&gt;
+&lt;li&gt;net.dns&lt;/li&gt;
+&lt;li&gt;PROP_QTAGUID_ENABLED : 用于内核级网络流量统计&lt;/li&gt;
+&lt;li&gt;GSM&lt;/li&gt;
+&lt;li&gt;UICC&lt;/li&gt;
+&lt;li&gt;SIM CARD&lt;/li&gt;
+&lt;li&gt;net.ppp.reset-by-timeout&lt;/li&gt;
+&lt;li&gt;CDMA&lt;/li&gt;
+&lt;li&gt;SMS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
 
 &lt;p&gt;Android 中的属性服务调用位置:&lt;/p&gt;
 
