@@ -7,6 +7,9 @@ http://www.5wpc.info/search.html
 http://www.5wpc.info/sitemap.txt
 http://www.5wpc.info/tags.html
 
+http://www.5wpc.info/it/technical/language/ruby/2014/11/23/MetaProgramming
+http://www.5wpc.info/it/technical/language/ruby/2014/11/22/BestPractice
+http://www.5wpc.info/it/project/financialmanage/2014/11/22/BasicThoughts
 http://www.5wpc.info/it/technical/os/android/init/2014/11/21/FirstProcessInit
 http://www.5wpc.info/it/project/car/2014/11/08/StudyCar
 http://www.5wpc.info/it/technical/os/android/2014/10/31/AOSP

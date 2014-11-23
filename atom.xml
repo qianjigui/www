@@ -4,13 +4,1231 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-11-21T17:57:31+08:00</updated>
+ <updated>2014-11-23T17:45:36+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
    <email>qianjigui@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Ruby 元编程</title>
+   <link href="http://www.5wpc.info/it/technical/language/ruby/2014/11/23/MetaProgramming"/>
+   <updated>2014-11-23T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/technical/language/ruby/2014/11/23/MetaProgramming</id>
+   <content type="html">&lt;p&gt;Ruby元编程 【意】Paolo Perrotta&lt;/p&gt;
+
+&lt;h1&gt;Meta Programming&lt;/h1&gt;
+
+&lt;h2&gt;对象模型&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ruby的class关键字更像是一个作用域操作符而不是类型声明语句。它的确可以创建一个还不存在的类，不过也可以把这看成是一种副作用。对于class关键字，其核心任务是把你带到类的上下文中，让你可以在其中定义方法。&lt;/li&gt;
+&lt;li&gt;与Java这样的静态语言不一样，Ruby中对象的类和它的实例变量没有关系，当给实例变量赋值时，它们就生成了。因此，对同一个类，你可以创建具有不同实例变量的对象。&lt;/li&gt;
+&lt;li&gt;类自身也是对象&lt;/li&gt;
+&lt;li&gt;所有常量像文件系统一样组织成树形结构。其中模块（还有类）像目录，而常量则像文件。跟文件系统一样，只要不在同一个目录下，不同文件的文件名可以相同，甚至可以像文件系统一样通过路径方式来引用一个常量。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;对象系统&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;什么是对象？对象无非就是一组实例变量外加一个指向其类的引用。对象的方法并不存在于对象本身，而是存在于对象的类中。在类中，这些方法被称为类的实例方法。&lt;/li&gt;
+&lt;li&gt;什么是类？类无非就是一个对象（Class类的一个实例）外加一组实例方法和一个对其超类的引用。Class类是Module类的子类，因此一个类也是一个模块。&lt;/li&gt;
+&lt;li&gt;跟任何其他对象一样，类有自己的方法（比如new()方法），这些是Class类的实例方法。跟其他对象一样，类必须通过引用进行访问。你已经使用常量引用过它们：这就是类的名字。&lt;/li&gt;
+&lt;li&gt;为了查找一个方法，Ruby首先在接收者的类中查找，然后一层层地在祖先链中查找，直到找到这个方法为止。&lt;/li&gt;
+&lt;li&gt;当你在一个类（甚至可以是另外一个模块）中包含（include）一个模块时，Ruby耍了些小花招。Ruby创建了一个封装该模块的匿名类，并把这个匿名类插入到祖先链中，其在链中的位置正好包含在它的类上方&lt;/li&gt;
+&lt;li&gt;这些“封装（wrapper）”类叫做包含类（include class），有时也叫做代理类（proxy class）。包含类是Ruby的一个秘密，superclass()方法会假装它们根本不存在，而且你也一般不能通过正常的Ruby代码访问它们。&lt;/li&gt;
+&lt;li&gt;当开始运行Ruby程序时，Ruby解释器会创建一个名为main的对象作为当前对象。这个对象有时被称为顶级上下文（top level context），这个名字的由来是因为这时处在调用堆栈的顶层：这时要么还没有调用任何方法，要么调用的所有方法都已经返回了。&lt;/li&gt;
+&lt;li&gt;私有方法服从一个简单的规则：不能明确指定一个接收者来调用一个私有方法&lt;/li&gt;
+&lt;li&gt;私有方法是由两条规则一起控制的：第一条，如果调用方法的接收者不是你自己，则必须明确指明一个接收者；第二条，私有方法只能被隐含接收者调用。把这两条规则糅合在一起，你会发现只能在自身中调用一个私有方法。你可以把这个糅合后的规则称为“私有规则”。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;对象模型小结&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;对象由一组实例变量和一个类的引用组成。&lt;/li&gt;
+&lt;li&gt;对象的方法存在于对象所属的类中（从类的角度看，它们叫做实例方法）。&lt;/li&gt;
+&lt;li&gt;类本身是Class类的对象。类的名字不过是一个常量而已。&lt;/li&gt;
+&lt;li&gt;Class类是Module的子类。一个模块基本上是由一组方法组成的包。类除了具有模块的特性之外，还可以被实例化（通过new()方法）及被组织为层次结构（通过它的superclass()方法）。&lt;/li&gt;
+&lt;li&gt;常量像文件系统一样，是按照树形结构组织的。其中模块和类的名字扮演目录的角色，其他普通的常量则扮演文件的角色。&lt;/li&gt;
+&lt;li&gt;每个类都有一个祖先链，这个链从自己所属的类开始，向上直到BasicObject类结束。&lt;/li&gt;
+&lt;li&gt;当调用一个方法时，Ruby首先向右一步来到接收者所属的类，然后一直向上查找祖先链，直到找到该方法，或者到达链的顶端为止。&lt;/li&gt;
+&lt;li&gt;每当类包含一个模块时，该模块会被插入到祖先链中，位置在该类的正上方。&lt;/li&gt;
+&lt;li&gt;当调用一个方法时，接收者会扮演self的角色。&lt;/li&gt;
+&lt;li&gt;当定义一个模块（或者类）时，该模块扮演self的角色。&lt;/li&gt;
+&lt;li&gt;实例变量永远都被认定为self的实例变量。&lt;/li&gt;
+&lt;li&gt;任何没有明确指定接收者的方法调用，都当成是调用self的方法。&lt;/li&gt;
+&lt;li&gt;注: ruby的统一化思想，self很关键。理清楚上下文，可以更好的使用。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;2.5 关于method_missing()方法的更多内容&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;第一种方法依赖于动态方法和动态派发：&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;methods/computer/more_dynamic.rb
+class Computer
+def initialize(computer_id, data_source)
+@id = computer_id
+@data_source = data_source
+data_source.methods.grep(/^get_(.*)_info$/) { Computer.define_component $1 }
+end
+
+def self.define_component(name)
+define_method(name) {
+info = @data_source.send &quot;get_#{name}_info&quot;, @id
+price = @data_source.send &quot;get_#{name}_price&quot;, @id
+result = &quot;#{name.capitalize}: #{info} ($#{price})&quot;
+return &quot; * #{result}&quot; if price &amp;gt;= 100
+result
+}
+end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;第二种方法使用了动态代理及白板技术：&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;methods/computer/final.rb
+class Computer
+instance_methods.each do |m|
+undef_method m unless m.to_s =~ /^__|method_missing|respond_to?/
+end
+def initialize(computer_id, data_source)
+@id = computer_id
+@data_source = data_source
+  2014-11-07 08:44:34
+end
+
+def method_missing(name, *args)
+super if !respond_to?(name)
+info = @data_source.send(&quot;get_#{name}_info&quot;, args[0])
+price = @data_source.send(&quot;get_#{name}_price&quot;, args[0])
+result = &quot;#{name.to_s.capitalize}: #{info} ($#{price})&quot;
+return &quot; * #{result}&quot; if price &amp;gt;= 100
+result
+end
+
+def respond_to?(method)
+@data_source.respond_to?(&quot;get_#{method}_info&quot;) || super
+end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;ensure&lt;/code&gt;语句都会调用&lt;code&gt;resource&lt;/code&gt;的&lt;code&gt;dispose()&lt;/code&gt;方法来释放它。
+
+&lt;ul&gt;
+&lt;li&gt;注: 主要再学习下整个异常体系，何时是捕获。该处表现的是finally效果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h3&gt;作用域门&lt;/h3&gt;
+
+&lt;p&gt;准确地说，程序会在三个地方关闭前一个作用域，同时打开一个新的作用域：
+* 类定义。
+* 模块定义。
+* 方法。&lt;/p&gt;
+
+&lt;p&gt;只要程序进入类或模块及方法的定义，就会发生作用域切换。这三个边界分别用class、module和def关键字作为标志。每一个关键字都充当了一个作用域门（Scope Gate）。&lt;/p&gt;
+
+&lt;p&gt;每个Ruby作用域包含一组绑定，并且不同的作用域之间被作用域门分隔开来：class、module和def。如果要让一两个绑定穿越作用域门，那么可以用方法调用来代替作用域门：用一个闭包获取当前的绑定，并把这个闭包传递给该方法。你可以使用Class.new()方法代替class，使用Module.new代替module，以及使用Module#define_method()代替def。这就形成了一个扁平作用域，它是闭包中的一个基本概念。如果在一个扁平作用域中定义了多个方法，则这些方法可以用一个作用域门进行保护，并共享绑定，这种技术称为共享作用域。&lt;/p&gt;
+
+&lt;h3&gt;代码片段&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;可调用对象是可以执行的代码片段，而且它们有自己的作用域。可调用对象可以有以下几种方式。&lt;/li&gt;
+&lt;li&gt;块（虽然它们不是真正的“对象”，但是它们是“可调用的”）：在定义它们的作用域中执行。&lt;/li&gt;
+&lt;li&gt;proc：Proc类的对象，跟块一样，它们也在定义自身的作用域中执行。&lt;/li&gt;
+&lt;li&gt;lambda：也是Proc类的对象，但是它跟普通的proc有细微的区别。它跟块和proc一样都是闭包，因此也在定义自身的作用域中执行。&lt;/li&gt;
+&lt;li&gt;方法：绑定于对象，在所绑定对象的作用域中执行。它们也可以与这个作用域解除绑定，再重新绑定到另一个对象的作用域上。&lt;/li&gt;
+&lt;li&gt;不同种类的可调用对象有细微的区别。在方法和lambda中，return语句从可调用对象中返回。在块和proc中，return语句从定义可调用对象的原始上下文中返回。另外，不同的可调用对象对传入参数数目不符有不同的反应。其中方法处理方式最严格，lambda同样严格（它与方法相比，在某些极端情况下略为宽松），而proc和块则要宽松一些。&lt;/li&gt;
+&lt;li&gt;尽管有这些区别，还是可以将一种可调用对象转换为另外一种可调用对象的，实现这样功能的方法包括Proc.new()方法、Method#to_proc()方法和&amp;amp;操作符。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;4.1 类定义揭秘&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;如果希望在类中存储一个变量，那么除了类实例变量，还可以使用以@@开头的类变量（class variable）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  class C
+  @@v = 1
+  end
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;类变量与类实例变量不同，它们可以被子类或类的实例所使用（在这个意义上，它们更像是Java的静态成员。）。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  class D &amp;lt; C
+  def my_method; @@v; end
+  end
+  D.new.my_method # 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;不幸的是，类变量有一个很不好的怪癖。下面是一个例子：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  @@v = 1
+  class MyClass
+  @@v = 2
+  end
+  @@v # 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;得到这样的结果是因为类变量并不真正属于类 ——它们属于类体系结构。由于@@v定义于main的上下文，它属于main的类Object……所以也属于Object的所有后代。MyClass继承自Object，因此它也共享了这个类变量。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;从技术上讲，尽管这种行为可以理解，但它还是很容易把你绊倒。因为可能会遇到上面所示的意外事件，现在绝大多数Ruby主义者都避免使用类变量，而尽量使用类实例变量。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;instance_eval&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;instance_eval()&lt;/code&gt;方法的标准含义是：“我想修改self。”&lt;/p&gt;
+
+&lt;h3&gt;eigenclass&lt;/h3&gt;
+
+&lt;p&gt;如果把eigenclass、普通类和模块放到一起，Ruby对象模型可以总结为7条规则：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;只有一种对象——要么是普通对象，要么是模块。&lt;/li&gt;
+&lt;li&gt;只有一种模块——可以是普通模块、类、eigenclass或代理类。&lt;/li&gt;
+&lt;li&gt;只有一个方法，它存在于一种模块中——通常是类中。&lt;/li&gt;
+&lt;li&gt;每个对象（包括类）都有自己的“真正的类”——要么是普通类，要么是eigenclass。&lt;/li&gt;
+&lt;li&gt;除了BasicObject类（在Ruby 1.8中是Object类）无超类外，每个类有且只有一个超类。这意味着从任何类只有一条向上直到BasicObject的祖先链。&lt;/li&gt;
+&lt;li&gt;一个对象的eigenclass的超类是这个对象的类；一个类的eigenclass的超类是这个类的超类的eigenclass（试着把这个绕口令重复三遍，加快速度！然后回头看看图4.5，你会发现这句话是有道理的。）。&lt;/li&gt;
+&lt;li&gt;当调用一个方法，Ruby先向“右”迈一步进入接收者真正的类，然后向“上”进入祖先链。这就是Ruby查找方法的全部内容。&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h3&gt;4.5 小测验：模块的麻烦&lt;/h3&gt;
+
+&lt;p&gt;当类包含模块时，它获得的是该模块的实例方法——而不是类方法。类方法存在于模块的eigenclass中，依然无法触碰。&lt;/p&gt;
+
+&lt;h3&gt;5.7 钩子方法&lt;/h3&gt;
+
+&lt;p&gt;这种技术是前面两种法术——类扩展和钩子方法——的结合。可以把这种技术称为类扩展混入（Class Extension Mixin）。
+现在应该回顾使用这种法术的步骤：
+1. 定义一个模块，姑且叫做MyMixin。
+2. 在MyMixin中定义一个内部模块（通常把它叫做ClassMethods），并给它定义一些方法。这些方法最终会成为类方法。
+3. 覆写MyMixin#included()方法来用ClassMethods扩展包含者（使用extend()方法）。&lt;/p&gt;
+
+&lt;h3&gt;5.8 小测验：校验过的属性（第五步）&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;module CheckedAttributes
+    def self.included(base)
+        base.extend ClassMethods
+    end
+
+    module ClassMethods
+        def attr_checked(attribute, &amp;amp;validation)
+            define_method &quot;#{attribute}=&quot; do |value|
+                raise &#39;Invalid attribute&#39; unless validation.call(value)
+                instance_variable_set(&quot;@#{attribute}&quot;, value)
+            end
+
+            define_method attribute do
+                instance_variable_get &quot;@#{attribute}&quot;
+            end
+        end
+    end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1&gt;第6章 尾声&lt;/h1&gt;
+
+&lt;p&gt;大师烦了。“虽然你够聪明，小子，”大师说道，“但是你有足够的智慧去忘掉所学的东西么？根本没有什么元编程，只有编程而已。走吧，让我继续平静地沉思。”
+通过增加代码的内部复杂性，库就可以更容易为客户端所使用。&lt;/p&gt;
+
+&lt;h1&gt;Ruby法术&lt;/h1&gt;
+
+&lt;h2&gt;数组参数 Argument Array&lt;/h2&gt;
+
+&lt;p&gt;把一组参数压入到一个数组中。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def my_method(*args)
+args.map{|arg|arg.reverse}
+end
+my_method(&#39;abc&#39;,&#39;xyz&#39;,&#39;123&#39;)#&amp;lt;图&amp;gt;[&quot;cba&quot;,&quot;zyx&quot;,&quot;321&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;环绕别名&lt;/h2&gt;
+
+&lt;p&gt;Around Alias
+从一个重新定义的方法中调用原始的、被重命名的版本。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class String
+alias :old_reverse:reverse
+def reverse
+&quot;x#{old_reverse}x&quot;
+end
+end
+&quot;abc&quot;.reverse#&amp;lt;图&amp;gt;&quot;xcbax&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;白板&lt;/h2&gt;
+
+&lt;p&gt;Blank Slate
+移除一个对象中的所有方法，以便把它们转换成幽灵方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+def method_missing(name,*args)
+&quot;a Ghost Method&quot;
+end
+end
+obj=C.new
+obj.to_s#&amp;lt;图&amp;gt;&quot;#&amp;lt;C:0x357258&amp;gt;&quot;
+class C
+instance_methods.each do|m|
+undef_methodm unless m.to_s=~/method_missing|respond_to?|^/
+end
+end
+obj.to_s#&amp;lt;图&amp;gt;&quot;a Ghost Method&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;类扩展&lt;/h2&gt;
+
+&lt;p&gt;Class Extension
+通过向类的eigenclass中混入模块来定义类方法（是对象扩展的一个特例）。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C;end
+module M
+def my_method
+&#39;aclass method&#39;
+end
+end
+class&amp;lt;&amp;lt;C
+include M
+end
+C.my_method#&amp;lt;图&amp;gt;&quot;a class method&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;类扩展混入&lt;/h2&gt;
+
+&lt;p&gt;Class Extension Mixin
+使一个模块可以通过钩子方法扩展它的包含者。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module M
+def self.included(base)
+base.extend(ClassMethods)
+end
+module ClassMethods
+def my_method
+&#39;a class method&#39;
+end
+end
+end
+class C
+include M
+end
+C.my_method#&amp;lt;图&amp;gt;&quot;a class method&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;类实例变量&lt;/h2&gt;
+
+&lt;p&gt;Class Instance Variable
+在一个Class对象的实例变量中存储类级别的状态。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+@my_class_instance_variable=&quot;some value&quot;
+def self.class_attribute
+@my_class_instance_variable
+end
+end
+C.class_attribute#&amp;lt;图&amp;gt;&quot;some value&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;类宏&lt;/h2&gt;
+
+&lt;p&gt;Class Macro
+在类定义中使用一个类方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C;end
+class&amp;lt;&amp;lt;C
+def my_macro(arg)
+&quot;my_macro(#{arg}) called&quot;
+end
+end
+class C
+my_macro:x#&amp;lt;图&amp;gt;&quot;my_macro(x) called&quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;洁净室&lt;/h2&gt;
+
+&lt;p&gt;Clean Room
+使用对象作为执行块的上下文环境。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class CleanRoom
+def a_useful_method(x);x*2;end
+end
+CleanRoom.new.instance_eval{a_useful_method(3)} #&amp;lt;图&amp;gt;6
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;代码处理器&lt;/h2&gt;
+
+&lt;p&gt;Code Processor
+处理从外部获得的字符串代码。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;File.readlines(&quot;a_file_containing_lines_of_ruby.txt&quot;).each do|line|
+puts&quot;#{line.chomp}=&amp;lt;图&amp;gt;#{eval(line)}&quot;
+end
+#&amp;gt;&amp;gt;1+1=&amp;lt;图&amp;gt;2
+#&amp;gt;&amp;gt;3*2=&amp;lt;图&amp;gt;6
+#&amp;gt;&amp;gt;Math.log10(100)=&amp;lt;图&amp;gt;2.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;上下文探针&lt;/h2&gt;
+
+&lt;p&gt;Context Probe
+执行块来获取对象上下文中的信息。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+def initialize
+@x=&quot;a private instance variable&quot;
+end
+end
+obj=C.new
+obj.instance_eval{@x}#&amp;lt;图&amp;gt;&quot;a private instance variable&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;延迟执行&lt;/h2&gt;
+
+&lt;p&gt;Deferred Evaluation
+在proc或lambda中存储一段代码及其上下文，用于以后执行。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+def store(&amp;amp;block)
+@my_code_capsule=block
+end
+def execute
+@my_code_capsule.call
+end
+end
+obj=C.new
+obj.store{$X=1}
+$X=0
+obj.execute
+$X#&amp;lt;图&amp;gt;1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;动态派发&lt;/h2&gt;
+
+&lt;p&gt;Dynamic Dispatch
+在运行时决定调用哪个方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;method_to_call=:reverse
+obj=&quot;abc&quot;
+obj.send(method_to_call)#&amp;lt;图&amp;gt;&quot;cba&quot;
+  2014-11-21 22:12:09
+动态方法
+Dynamic Method
+在运行时才决定如何定义一个方法。
+class C
+end
+C.class_eval do
+define_method:my_method do
+&quot;a dynamic method&quot;
+end
+end
+obj=C.new
+obj.my_method#&amp;lt;图&amp;gt;&quot;a dynamic method&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;动态代理&lt;/h2&gt;
+
+&lt;p&gt;Dynamic Proxy
+把不能对应某个方法名的消息转发给另外一个对象。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyDynamicProxy
+def initialize(target)
+@target=target
+end
+def method missing(name,*args,&amp;amp;block)
+&quot;result:#{@target.send(name,*args,&amp;amp;block)}&quot;
+end
+end
+obj=MyDynamicProxy.new(&quot;a string&quot;)
+obj.reverse#&amp;lt;图&amp;gt;&quot;result: gnirts a&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;扁平作用域&lt;/h2&gt;
+
+&lt;p&gt;Flat Scope
+使用闭包在两个作用域之间共享变量。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+def an_attribute
+@attr
+end
+end
+obj=C.new
+a_variable=100
+#flatscope:
+obj.instance_eval do
+@attr=a_variable
+end
+obj.an_attribute#&amp;lt;图&amp;gt;100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;幽灵方法&lt;/h2&gt;
+
+&lt;p&gt;Ghost Method
+响应一个没有关联方法的消息。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+def method_missing(name,*args)
+name.to_s.reverse
+end
+end
+obj=C.new
+obj.my_ghost_method #&amp;lt;图&amp;gt;&quot;dohtem_tsohg_ym&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;钩子方法&lt;/h2&gt;
+
+&lt;p&gt;Hook Method
+通过覆写某个特殊方法来截获对象模型事件。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$INHERITORS=[]
+class C
+def self.inherited(subclass)
+$INHERITORS&amp;lt;&amp;lt;subclass
+end
+end
+class D&amp;lt;C
+end
+class E&amp;lt;C
+end
+class F&amp;lt;E
+end
+$INHERITORS #&amp;lt;图&amp;gt;[D,E,F]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;内核方法&lt;/h2&gt;
+
+&lt;p&gt;Kernel Method
+在Kernel模块中定义一个方法，使之对所有对象都可用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module Kernel
+def a_method
+&quot;a kernel method&quot;
+end
+end
+a_method#&amp;lt;图&amp;gt;&quot;a kernel method&quot;
+  2014-11-21 22:13:03
+惰性实例变量
+Lazy Instance Variable
+当第一次访问一个实例变量时才对之进行初始化。
+class C
+def attribute
+@attribute=@attribute||&quot;some value&quot;
+end
+end
+obj=C.new
+obj.attribute#&amp;lt;图&amp;gt;&quot;some value&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;拟态方法&lt;/h2&gt;
+
+&lt;p&gt;Mimic Method
+把一个方法伪装成另外一种语言构件。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def BaseClass(name)
+name==&quot;string&quot; ? String : Object
+end
+class C&amp;lt;BaseClass &quot;string&quot; #一个看起来像类的方法
+attr_accessor :an_attribute #一个看起来像关键字的方法
+end
+obj=C.new
+obj.an_attribute=1 #一个看起来像属性的方法
+  2014-11-21 22:13:27
+猴子打补丁
+Monkeypatch
+修改已有类的特性。
+&quot;abc&quot;.reverse #&amp;lt;图&amp;gt;&quot;cba&quot;
+class String
+def reverse
+&quot;override&quot;
+end
+end
+&quot;abc&quot;.reverse #&amp;lt;图&amp;gt;&quot;override&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;有名参数&lt;/h2&gt;
+
+&lt;p&gt;Named Arguments
+把方法参数收集到一个哈希表中，以便通过名字访问。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def my_method(args)
+args[:arg2]
+end
+my_method(:arg1&amp;lt;图&amp;gt;&quot;A&quot;,:arg2&amp;lt;图&amp;gt;&quot;B&quot;,:arg3&amp;lt;图&amp;gt;&quot;C&quot;) #&amp;lt;图&amp;gt;&quot;B&quot;
+  2014-11-21 22:13:37
+命名空间
+Namespace
+在一个模块中定义常量，以防止命名冲突。
+module MyNamespace
+class Array
+def to_s
+&quot;myclass&quot;
+end
+end
+end
+Array.new #&amp;lt;图&amp;gt;[]
+MyNamespace::Array.new#&amp;lt;图&amp;gt;my class
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;空指针保护&lt;/h2&gt;
+
+&lt;p&gt;Nil Guard
+用“或”操作符覆写一个空引用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;x=nil
+y=x ||&quot;a value&quot; # &amp;lt;图&amp;gt;&quot;a value&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;对象扩展&lt;/h2&gt;
+
+&lt;p&gt;Object Extension
+通过给一个对象的eigenclass混入模块来定义单件方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;obj=Object.new
+module M
+def my_method
+&#39;a singleton method&#39;
+end
+end
+class&amp;lt;&amp;lt;obj
+include M
+end
+obj.my_method#&amp;lt;图&amp;gt;&quot;a singleton method&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;打开类&lt;/h2&gt;
+
+&lt;p&gt;Open Class
+修改已有的类。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class String
+def my_string_method
+&quot;my method&quot;
+end
+end
+&quot;abc&quot;.my_string_method#&amp;lt;图&amp;gt;&quot;my method&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;模式派发&lt;/h2&gt;
+
+&lt;p&gt;Pattern Dispatch
+根据名字来选择需要调用的方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$x=0
+class C
+def my_first_method
+$x +=1
+end
+def my_second_method
+$x +=2
+end
+end
+obj=C.new
+obj.methods.each do |m|
+obj.send(m) if m.to_s=~/^my_/
+end
+$x # &amp;lt;图&amp;gt; 3
+  2014-11-21 22:14:17
+沙盒
+Sandbox
+在一个安全的环境中执行未授信的代码。
+def sandbox(&amp;amp;code)
+proc {
+$SAFE = 2
+yield
+}.call
+end
+begin
+sandbox{File.delete &#39;a_file&#39;}
+rescue Exception&amp;lt;图&amp;gt;ex
+ex #&amp;lt;图&amp;gt;#&amp;lt;SecurityError:Insecure operation &#39;delete&#39; at level 2&amp;gt;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;作用域门&lt;/h2&gt;
+
+&lt;p&gt;Scope Gate
+用class、module或def关键字来隔离作用域。
+&lt;code&gt;
+a=1
+defined? a #&amp;lt;图&amp;gt;&quot;local-variable&quot;
+module MyModule
+b = 1
+defined? a#&amp;lt;图&amp;gt;nil
+defined? b#&amp;lt;图&amp;gt;&quot;local-variable&quot;
+end
+defined? a #&amp;lt;图&amp;gt;&quot;local-variable&quot;
+defined? b #&amp;lt;图&amp;gt;nil
+  2014-11-21 22:14:32
+Self Yield
+把self传给当前块。
+class Person
+attr_accessor :name, :surname
+def initialize
+yield self
+end
+end
+joe = Person.new do |p|
+p.name = &#39;Joe&#39;
+p.surname = &#39;Smith&#39;
+end
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;共享作用域&lt;/h2&gt;
+
+&lt;p&gt;Shared Scope
+在同一个扁平作用域的多个上下文中共享变量。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;lambda {
+shared = 10
+self.class.class_eval do
+define_method: counter do
+shared
+end
+define_method :down do
+shared -= 1
+end
+end
+}.call
+Counter #&amp;lt;图&amp;gt;10
+3.times {down}
+Counter #&amp;lt;图&amp;gt;7
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;单件方法&lt;/h2&gt;
+
+&lt;p&gt;Singleton Method
+在一个对象上定义一个方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;obj = &quot;abc&quot;
+class &amp;lt;&amp;lt; obj
+def my_singleton_method
+&quot;x&quot;
+end
+end
+obj.my_singleton_method # &amp;lt;图&amp;gt; &quot;x&quot;
+  2014-11-21 22:15:02
+代码字符串
+String of Code
+执行一段表示Ruby代码的字符串。
+my_string_of_code=&quot;1+1&quot;
+eval(my_string_of_code)#&amp;lt;图&amp;gt;2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;符号到Proc&lt;/h2&gt;
+
+&lt;p&gt;Symbol To Proc
+把一个符号转换为调用单个方法的代码块。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[1, 2, 3, 4].map(&amp;amp;:even?) # &amp;lt;图&amp;gt; [false, true, false, true]
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Ruby 最佳实践读书笔记</title>
+   <link href="http://www.5wpc.info/it/technical/language/ruby/2014/11/22/BestPractice"/>
+   <updated>2014-11-22T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/technical/language/ruby/2014/11/22/BestPractice</id>
+   <content type="html">&lt;h1&gt;开发模式&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TDD&lt;/li&gt;
+&lt;li&gt;BDD: spec http://www.infoq.com/cn/articles/Spec-Flow&lt;/li&gt;
+&lt;li&gt;Mock,Stub&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h1&gt;文本处理&lt;/h1&gt;
+
+&lt;h2&gt;Line-Based File Processing with State Tracking&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;主要问题：分析有结构的数据文件，主要是分section&lt;/li&gt;
+&lt;li&gt;利用状态机原理进行分类处理,利用beginning/end markers for a section&lt;/li&gt;
+&lt;li&gt;利用栈结构进行状态保存（特别是nested sections）&lt;/li&gt;
+&lt;li&gt;保存整体数据状态Context&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;容错处理要完善，目前建议skip&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  case section
+  when [xxx,xxx]
+     process
+  when [xxx,xxx]
+     process
+  else
+     process
+  end
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;正则表达式&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;关键概念: 正则表达式的主要特性.http://qianjigui.iteye.com/blog/1390067
+
+&lt;ul&gt;
+&lt;li&gt;Anchors&lt;/li&gt;
+&lt;li&gt;Caution, quantifier&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;File API&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pathname Ruby 1.9&lt;/li&gt;
+&lt;li&gt;FileUtils&lt;/li&gt;
+&lt;li&gt;tempfile&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;tempfile&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;require &#39;tempfile&#39;
+a = Tempfile
+a.close  (delete @ GC a)
+a.close! (delete immediately)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Advanced Line Processing&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Enumerator: foreach, each&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  f=File.open
+  f.each
+  f.lineno
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Atomic Saves: Don&#39;t waste old file, and use tempfile then mv to it&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h1&gt;Function Programming&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;http://qianjigui.iteye.com/blog/1997358&lt;/li&gt;
+&lt;li&gt;主要涉及基本的lamba操作,不过对其它特性支持并不好.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h1&gt;API&lt;/h1&gt;
+
+&lt;h2&gt;pp 相关库&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env ruby
+#
+# Pretty-Printer for Ruby Objects
+require &#39;pp&#39;
+friends = [
+    { first_name: &#39;Emily&#39;, last_name: &#39;Laskin&#39;},
+    { first_name: &#39;Nick&#39;,  last_name: &#39;Mauro&#39;},
+    { first_name: &#39;Mark&#39;,  last_name: &#39;Maxwell&#39;}
+]
+
+me = {first_name: &#39;Gregory&#39;, last_name: &#39;Brown&#39;, friends: friends}
+
+p me
+puts &#39;--------------&#39;
+pp me
+
+class Person
+    def initialize(fn,ln,friends)
+        @fn,@ln,@frs = fn,ln,friends
+    end
+
+    # You can rewrite pretty_print
+    def pretty_print(printer)
+        printer.text &amp;lt;&amp;lt;-END
+            Person &amp;lt;#{object_id}&amp;gt;:
+                Name: #@fn #@ln
+                Friends:
+        END
+        @frs.each do |f|
+            printer.text &amp;lt;&amp;lt;-END
+                    #{f[:first_name] } #{f[:last_name]}
+            END
+        end
+    end
+end
+
+person = Person.new(&#39;Gregory&#39;,&#39;Brown&#39;,friends)
+puts &#39;=========================&#39;
+pp person
+
+=begin
+Output:
+{:first_name=&amp;gt;&quot;Gregory&quot;, :last_name=&amp;gt;&quot;Brown&quot;, :friends=&amp;gt;[{:first_name=&amp;gt;&quot;Emily&quot;, :last_name=&amp;gt;&quot;Laskin&quot;}, {:first_name=&amp;gt;&quot;Nick&quot;, :last_name=&amp;gt;&quot;Mauro&quot;}, {:first_name=&amp;gt;&quot;Mark&quot;, :last_name=&amp;gt;&quot;Maxwell&quot;}]}
+-----------
+---
+{:first_name=&amp;gt;&quot;Gregory&quot;,
+ :last_name=&amp;gt;&quot;Brown&quot;,
+ :friends=&amp;gt;
+  [{:first_name=&amp;gt;&quot;Emily&quot;, :last_name=&amp;gt;&quot;Laskin&quot;},
+   {:first_name=&amp;gt;&quot;Nick&quot;, :last_name=&amp;gt;&quot;Mauro&quot;},
+   {:first_name=&amp;gt;&quot;Mark&quot;, :last_name=&amp;gt;&quot;Maxwell&quot;}]}
+=========================
+            Person &amp;lt;540731910&amp;gt;:
+                Name: Gregory Brown
+                Friends:
+                    Emily Laskin
+                    Nick Mauro
+                    Mark Maxwell
+=end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;注意直接使用open，返回值是StringIO&lt;/h2&gt;
+
+&lt;h2&gt;Working with HTTP and FTP&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;require &#39;open-uri&#39;
+
+a = open(&#39;http://www.ruby-lang.org/en/LICENSE.txt&#39;)
+pp a
+=begin
+&amp;lt;StringIO:0x002b1836406a90
+ @base_uri=
+  #&amp;lt;URI::HTTP:0x002b1836406f68 URL:http://www.ruby-lang.org/en/about/license.txt&amp;gt;,
+ @meta=
+  {&quot;content-type&quot;=&amp;gt;&quot;text/plain&quot;,
+   &quot;last-modified&quot;=&amp;gt;&quot;Tue, 31 Dec 2013 12:28:20 GMT&quot;,
+   &quot;server&quot;=&amp;gt;&quot;thin 1.6.1 codename Death Proof&quot;,
+   &quot;content-length&quot;=&amp;gt;&quot;2504&quot;,
+   &quot;connection&quot;=&amp;gt;&quot;keep-alive&quot;},
+ @status=[&quot;200&quot;, &quot;OK&quot;]&amp;gt;
+=end
+# Here, you can use StringIO for saving data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;时间处理，词法分析，HASH加密，数学处理，cvs,json,模板生成&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;    #Working with Dates and Times(date)
+    puts &#39;date&#39;
+    pp Date.today
+
+    #Lexical Parsing with Regular Expressions(strscan)
+    puts &#39;strscan&#39;
+    require &#39;strscan&#39;
+    s = StringScanner.new(&#39;This is an example string&#39;)
+    s.eos?               # -&amp;gt; false
+
+    p s.scan(/\w+/)      # -&amp;gt; &quot;This&quot;
+    p s.scan(/\w+/)      # -&amp;gt; nil
+    p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
+    p s.scan(/\s+/)      # -&amp;gt; nil
+    p s.scan(/\w+/)      # -&amp;gt; &quot;is&quot;
+    s.eos?               # -&amp;gt; false
+
+    p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
+    p s.scan(/\w+/)      # -&amp;gt; &quot;an&quot;
+    p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
+    p s.scan(/\w+/)      # -&amp;gt; &quot;example&quot;
+    p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
+    p s.scan(/\w+/)      # -&amp;gt; &quot;string&quot;
+    s.eos?               # -&amp;gt; true
+
+    p s.scan(/\s+/)      # -&amp;gt; nil
+    p s.scan(/\w+/)      # -&amp;gt; nil
+
+    #Cryptographic Hash Functions (digest)
+
+    puts &#39;digest&#39;
+
+    require &#39;digest/md5&#39;
+
+    pp Digest::MD5.hexdigest(File.binread(__FILE__))
+
+    require &#39;digest/sha2&#39;
+    pp Digest::SHA256.hexdigest(File.binread(__FILE__))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Mathematical Ruby Scripts(mathn)&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;    puts &#39;mathn&#39;
+    require &#39;mathn&#39;
+    pp Math.sqrt(-1)
+    pp 1/2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;cvs,json,erb&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;include : mixes in specified module methods as instance methods in the target class&lt;/li&gt;
+&lt;li&gt;extend : mixes in specified module methods as class methods in the target class&lt;/li&gt;
+&lt;li&gt;include: Invokes Module.append_features on each parameter in reverse order.
+
+&lt;ul&gt;
+&lt;li&gt; this module is included in another, Ruby calls append_features in this module, passing it the receiving module in mod. Ruby’s default implementation is to add the constants, methods, and module variables of this module to mod if this module has not already been added to mod or one of its ancestors.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;extend: Adds to obj the instance methods from each module given as a parameter.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>理财基本思维</title>
+   <link href="http://www.5wpc.info/it/project/financialmanage/2014/11/22/BasicThoughts"/>
+   <updated>2014-11-22T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/project/financialmanage/2014/11/22/BasicThoughts</id>
+   <content type="html">&lt;h1&gt;&amp;lt;我最需要的理财常识书&gt; 读书笔记&lt;/h1&gt;
+
+&lt;h2&gt;理财不仅是一种行为，更是一种态度&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;让短期的流动资金成为你的长期投资:
+
+&lt;ul&gt;
+&lt;li&gt;我们必须接受的一个重要理财观念是：用长期平稳的心态进行理财得到的收益往往比用浮躁而焦虑的心态得到的收益更高。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;你不计较生活，生活就会来计较你——算算你的生活成本有多少:
+
+&lt;ul&gt;
+&lt;li&gt;机会成本对我们每个人来说都是非常重要的，只有充分地考虑到机会成本后，才能让我们的选择更加明智。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;对沉没成本的处理，关系你的一生:
+
+&lt;ul&gt;
+&lt;li&gt;如果你沉浮股海，发现自己买的股票背离了市场的方向，产生了亏损，就必须马上停止买进或者持有，毅然放弃，不能有任何延误，不要存在任何的侥幸心理。&lt;/li&gt;
+&lt;li&gt;但在我们实际理财的过程中，必须要培养出面对沉没成本勇敢舍弃的气概来，因为，沉没成本本身就是鸡肋。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;信用卡让你离富翁梦越来越远
+
+&lt;ul&gt;
+&lt;li&gt;首先告诉自己，绝对不能用信用卡提现。&lt;/li&gt;
+&lt;li&gt;绝对不能刷爆信用卡&lt;/li&gt;
+&lt;li&gt;坚决不能只还最低还款额，或者到期有未还欠款，这也是使用信用卡时一定要坚持做到的。&lt;/li&gt;
+&lt;li&gt;刷信用卡可以，但是多向银行交一分钱，则绝对不可以！只要你能坚守这些底线，摆脱“卡奴”形象，让信用卡变成自己的工具，甚至是变成自己的“奴隶”，是完全可以做到的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;只要会投资，今天的钱比明天的钱更值钱
+
+&lt;ul&gt;
+&lt;li&gt;相对于消费来说，钱基本上是在不停地贬值的。或者换句话说，相对于货币来说，物总是在不停升值的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;花钱也要花得有技术含量
+
+&lt;ul&gt;
+&lt;li&gt;花钱消费第一是买用途，第二考虑心理的舒适度。为了小便宜而选择有质量问题的产品，必然会影响心情。其实，从今天开始，为自己树立一个消费理念：你要买的东西是否用得着？是否真的用得着？你在说服自己“这个在家里来人的时候可以拿出来用”的时候，是否能追加一个问题：家里一年来几次客人？&lt;/li&gt;
+&lt;li&gt;只要你能够记住消费的两个原则——用途和使用频率，你就会慢慢变成一个会花钱的精明人了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;银行也可能忽悠你——理财产品陷阱大公开
+
+&lt;ul&gt;
+&lt;li&gt;我们不能一味地追求更高的收益率，还要对其承担的风险进行评估&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;想要日子过得好，就要避开理财误区
+
+&lt;ul&gt;
+&lt;li&gt;最容易闯入的理财误区——为了财而理财。&lt;/li&gt;
+&lt;li&gt;准确地说，我们应该树立正确的理财观念——为幸福而理财！&lt;/li&gt;
+&lt;li&gt;知道方向错误的时候，停下来就等于前进！&lt;/li&gt;
+&lt;li&gt;理财永远都是在调整自己的幸福结构&lt;/li&gt;
+&lt;li&gt;另一个经常被人闯入的理财误区是——容易盲从，没有主见。&lt;/li&gt;
+&lt;li&gt;投资理财，一定要记住三个“自”：自主决策、自担风险、自享收益。如果听从了别人的建议，跟随别人去投资，即使吃亏也不能怪别人。&lt;/li&gt;
+&lt;li&gt;股票主要追求的是高收益，同时也伴随着高风险，所以千万不能把股票当作一种存钱手段；定期存款是保障存款的安全性；活期或短期存款是保证资金的流动性；而保险则更侧重于保障。我们平时购买理财产品时，一定要分清主次，分清侧重。&lt;/li&gt;
+&lt;li&gt;妄想一夜暴富，是很多人投资理财的又一个大误区。&lt;/li&gt;
+&lt;li&gt;事实上，一个合理的家庭固定资产比例，60%左右是最合适的，&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;第二章 年轻人投资什么，都不如投资自己&lt;/h2&gt;
+
+&lt;p&gt;对于毕业不久事业还没有进入稳定轨道的年轻人来说，投资自己是最重要的理财模式。只有把钱花在自己身上，才能让自己获得各方面的提升。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;什么都会贬值，能力不会
+
+&lt;ul&gt;
+&lt;li&gt;“大半的人在二十岁或三十岁上就死了：一过这个年龄，他们只变了自己的影子；以后的生命不过是用来模仿自己，把以前真正有人味儿的时代所说的、所做的、所想的、所喜欢的，一天天地重复，而且重复的方式越来越机械，越来越脱腔走板。”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;把工资条变成你的理财小帮手
+
+&lt;ul&gt;
+&lt;li&gt;第一份增加对身体的投资，让身体始终健康；第二份增加对社交的投资，扩大人脉；第三份用来投资学习，增强你的自信心；第四份用来旅游，扩大你的见闻；第五份用来投资未来，增加你的收益。&lt;/li&gt;
+&lt;li&gt;25岁之前的年轻人，刚走上社会，还没有结婚组建家庭的压力，这个时候，最重要的是提升自己，将大部分收入用在教育、培训方面；&lt;/li&gt;
+&lt;li&gt;25—30岁的年轻人，大多处于结婚阶段，压力比较大，每个月需要的支出比较多，但一定要将自己的工资主要集中在固定资产方面，房子够首付就马上出手；车的话，如果是像北京这样交通拥堵的城市，用车的时间成本和其他成本（比如天价停车费）相对较高，能不买就不买。特别奉劝那种有类似于“周末和朋友可以有个车出去游玩”这种无效利用率的幼稚想法，或者“咱同学谁谁谁都买车了，咱也买”这种盲目攀比的低级想法的年轻人，还是打消买车念头的比较好。买个车，交通拥堵，只周末开两天，而一周七天都在时刻贬值，除非是个傻子才这样做。还不如把这些钱连同剩余部分，做一个长期存款，既能减少风险，又能保证每个月的支出；&lt;/li&gt;
+&lt;li&gt;对于30—35岁的人，收入有所增加，房贷每个月不变，即使有小孩也还小，压力不大，可以将多余的收入投入到股票等风险较大但收益也较大的项目上；&lt;/li&gt;
+&lt;li&gt;而35—50岁的人，最大的压力来自子女教育。金钱&lt;/li&gt;
+&lt;li&gt;压力比较大，不过一般这个阶段的人收入也处于较高水平，可以考虑债券，能保证基本的收益，也不至于有太大的风险；&lt;/li&gt;
+&lt;li&gt;50—60岁阶段的人，一般没有了子女教育的问题，有较多的收入，面临的最大压力来自退休后的生活，这时候可以将收入用来买保险以及国债等安全系数比较高的投资产品；&lt;/li&gt;
+&lt;li&gt;对于60岁以上的老年人，收入减少，只剩下退休金，最重要的就是要保证资金的安全性，最好将所有存款放在银行，而对于股票这种高风险的投资就尽量不要碰。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;想要一本万利，那就投资人脉吧
+
+&lt;ul&gt;
+&lt;li&gt;朋友关系是需要维护的，我相信，每个人即使精力再旺盛，能够维持的所谓的“铁哥们儿”也超不出10个。而我们把朋友视为一种投资，也需要选择出真正能帮助自己的那几个做长期投资，而不是泛泛地与很多人交往。&lt;/li&gt;
+&lt;li&gt;也许，投资朋，能帮你；但是，投资友，他能发现你！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;第三章 事业是理财的基础&lt;/h2&gt;
+
+&lt;p&gt;善待我们的事业不仅是我们赖以生存的基础，更是理财的第一基础。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;工作，也是自我累积的过程
+
+&lt;ul&gt;
+&lt;li&gt;其实每个人的工作都是琐碎的，即使那些不用朝九晚五生活的创业者，也必须面对工作中琐碎的小事。不过，正是这些琐碎的小事，让我们学会了很多东西，不断提升着我们的人力资本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;面子是浮云，底子才是真
+
+&lt;ul&gt;
+&lt;li&gt;再小的行当，能干得风生水起也是很不容易的，关键是找准自己的强项。所谓“兴趣是幌子，面子是浮云”，能打好财富的底子，让自己积累财富才是最应该考虑的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;掌握了这些，高薪不是那么难&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;敬业是一种长线理财，可以让你变得不可替代，薪水自然能得到提高。&lt;/li&gt;
+&lt;li&gt;掌握技能不仅仅是为了薪水，得到锻炼的机会比薪水更重要，只有在得到机会之后，才能充分发挥自己的才能，才可以让人看到你的优势，从而获得更高的薪水。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;讨价还价的乐趣，让你欲罢不能&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;第一个技巧，基本让步法则。
+
+&lt;ul&gt;
+&lt;li&gt;举个例子，你要买一件商品，第一口出的价格是150元，但是对方报的价格是400元，而双方都能接受的价格是300元。那你应该怎么样还价呢？简单的有三种方法：（1）150到200再到250，最后给对方300；（2）150到240再到280，最后给对方300；（3）先出150，然后170，&lt;/li&gt;
+&lt;li&gt;再到200，最后是300。方法一是每次都松口50元，直到300元就再不松口了，这只会让对方觉得你还能再松口50元，他是不会同意的。最蠢的是方法三，它只会让对方期待我们更大的让步。正确的是方法二，要先松后紧，这样才能让对方感觉到我们给出的价格是逐步接近底线的，每一次让步都让对方觉得我们损失惨重。另外，在让步时也要把握节奏，让的次数要尽量少，保持两三次让步就行，让步的速度要慢，理由就是：如果让步的次数过多，让得过快，就会让对方觉得我们的心理价位还有余地。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第二个技巧，学会角色扮演。
+
+&lt;ul&gt;
+&lt;li&gt;在商务谈判中，有一套非常复杂的角色系统：比如谁扮演黑脸，不给对方好态度，坚持自己这方的观点；谁扮演白脸，适时地强调，保持良好关系。再大一点的谈判还要有强硬派、清道夫等各种角色。当然，对大多数人来说，讨价还价虽然是一种谈判，但通常“我方”只有你一个人。这时候，这个人就要学会角色间的转换，该赔笑脸的时候，就要有一些脸部肌肉的活动；该发怒的时候，也得让对方感到震慑力。但是千万要注意，不要带任何个人色彩地进行讨价还价，你的笑脸和怒容只是为了能更省钱地买到东西，不要到最后自己真的开始发怒了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第三个技巧，学一点“推拿”。
+
+&lt;ul&gt;
+&lt;li&gt;为了坚持自己的立场，有时候必须要虚拟出一个“上司”。比如，讨价还价进入到了一个僵局，你可以跟对方说，你这个价格我能接受，但是我要是跟我爱人说是用这个价格买到的，她会发怒的。然后，你可以装腔作势地给爱人打个电话，回来告诉对方，这个价格没法接受。把问题推给更多的人，让对方无从下手，有时候也是讨价还价中惯用的一招。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第四个技巧，学会“配套”。
+
+&lt;ul&gt;
+&lt;li&gt;“配套”，就是把很多东西一起捆绑起来，比如6元钱一个勺子，对方不肯卖，你就答应他出7元钱买下这个勺子，不过要搭上一个只卖1元钱的小碗。配套的原则说起来就是：绝对不作没有条件的让步。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;第五章 房子的“钱世”与“金生”&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;租房或者买房，先看看自己处于人生哪个阶段
+
+&lt;ul&gt;
+&lt;li&gt;第一个误区，等到房价降到最低时再买。&lt;/li&gt;
+&lt;li&gt;第二个误区是“无房不成家”。&lt;/li&gt;
+&lt;li&gt;第三个误区，尽量压低购房开支，最好车房一起到位。&lt;/li&gt;
+&lt;li&gt;第四个误区，有人觉得租房是纯支出，甚至是给房东&lt;/li&gt;
+&lt;li&gt;还贷款，最终自己一无所有。
+
+&lt;ul&gt;
+&lt;li&gt;对于那些刚工作没多久，想要结婚的“刚需”买房者，如果现在有一部分的首付，那就要毫不犹豫地购置第一套房产，不过前提是要保证自己的收入能满足月供的要求。这时，购房者可以选择“以收入定面积”的方法来决定购买什么样的房产。具体可以这么办：先选定想要购房的区域，确定下来自己要买单价多少的房子。然后再确定下来自己能承担的月均还款额，一般以不超过三分之一为宜。在已经知道月均还款额和首付的情况下，可以很容易倒推计算出能贷款的额度。将贷款总额和首付加起来就是自己能买的房产的最高价格了。这时，就完全可以确定出房子的面积。按这个方法，就能到市场上“按图索骥”，找到自己想要买的房子了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;你是买婚房，不是买“昏房”
+
+&lt;ul&gt;
+&lt;li&gt;第一，切忌过于精挑细算。&lt;/li&gt;
+&lt;li&gt;第二，要根据经济状况进行选购。&lt;/li&gt;
+&lt;li&gt;第三，要考虑到交通状况。&lt;/li&gt;
+&lt;li&gt;第四，切忌过于看重附赠价值，而忽略房子本身。&lt;/li&gt;
+&lt;li&gt;第五，考虑治安状况。&lt;/li&gt;
+&lt;li&gt;第六，要考虑到以后的变化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;第六章 做个计划“生余族”&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;投资的几大靠谱理念
+
+&lt;ul&gt;
+&lt;li&gt;一、储蓄和投资同时进行&lt;/li&gt;
+&lt;li&gt;二、负债投资也是财富&lt;/li&gt;
+&lt;li&gt;三、时刻遵循价值投资，策略理财&lt;/li&gt;
+&lt;li&gt;四、赚钱、赚钱，千万不能赔钱&lt;/li&gt;
+&lt;li&gt;五、把鸡蛋放在多个篮子里&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;别拿误区当知识
+
+&lt;ul&gt;
+&lt;li&gt;价格越低就会觉得越好，这是一个最大的投资理财误区。&lt;/li&gt;
+&lt;li&gt;投资者经常面临的第二个误区比较尴尬，那就是勇于输钱却不敢赚钱。这是在无形中发生的，而投资者往往对此一无所知。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;鸡蛋放在不同的篮子里
+
+&lt;ul&gt;
+&lt;li&gt;第一，“现金流”控制得当，避险准备到位。&lt;/li&gt;
+&lt;li&gt;第二，老黄把钱投入到多个市场，利用不同市场的不同周期和特点，及时调整投资策略。&lt;/li&gt;
+&lt;li&gt;第三，老黄在把所有资产放到不同的市场上时，可以做到“高不赌、低不慌”。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;“投机”和“偷鸡”差不多
+
+&lt;ul&gt;
+&lt;li&gt;千万不可以借钱进行投资。这是我们投资股票、基金、期货的最低限度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;保险，投资的是未来的“万一”
+
+&lt;ul&gt;
+&lt;li&gt;27—35岁，由于面临着结婚、买房、生育、抚育子女的责任，家庭支出比较大，同时对于年轻父母来说这时候的责任也比较重大，所以可以选择稍低的保费支出，将万能险账户中的保障部分最大化，减少投资部分。&lt;/li&gt;
+&lt;li&gt;35—48岁，孩子处于中小学阶段，支出较低且平稳，而父母此时的事业处于上升期，收入逐渐增加，经济状况转好，保费支出可以增加，以此来增加保单的价值。&lt;/li&gt;
+&lt;li&gt;48—52岁，孩子上大学，正是缺钱的时候，家庭支出增加，可以减少保费及保障支出。&lt;/li&gt;
+&lt;li&gt;52—60岁，孩子大学毕业，有了自己的工作，经济上不再需要父母的支持。这时，两人的事业进入收获期，往往收入也能有所提高，可以考虑增加保费，积累保单的价值，为养老作好准备。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>init 功能与运行分析</title>
@@ -4847,6 +6065,49 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 &lt;li&gt;核心力量不足&lt;/li&gt;
 &lt;li&gt;平时锻炼不足&lt;/li&gt;
 &lt;li&gt;注重全身力量与协调&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;18.1 上肢与肩部练习(20141121晚上)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;跑步10min&lt;/li&gt;
+&lt;li&gt;二头肌引体向上
+
+&lt;ul&gt;
+&lt;li&gt;4*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;重力器上推
+
+&lt;ul&gt;
+&lt;li&gt;5*8&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;重力器斜板托臂弯举
+
+&lt;ul&gt;
+&lt;li&gt;5*8&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;宽式蝴蝶夹胸
+
+&lt;ul&gt;
+&lt;li&gt;4*10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;重力器引体向上
+
+&lt;ul&gt;
+&lt;li&gt;5*8&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;坐姿宽握划船
+
+&lt;ul&gt;
+&lt;li&gt;4*8&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
