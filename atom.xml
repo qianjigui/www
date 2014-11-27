@@ -4,7 +4,7 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2014-11-23T17:56:39+08:00</updated>
+ <updated>2014-11-27T18:12:52+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
@@ -72,23 +72,24 @@
 &lt;/ol&gt;
 
 
-&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;methods/computer/more_dynamic.rb
-class Computer
-def initialize(computer_id, data_source)
-@id = computer_id
-@data_source = data_source
-data_source.methods.grep(/^get_(.*)_info$/) { Computer.define_component $1 }
-end
+&lt;pre&gt;&lt;code&gt;#methods/computer/more_dynamic.rb
 
-def self.define_component(name)
-define_method(name) {
-info = @data_source.send &quot;get_#{name}_info&quot;, @id
-price = @data_source.send &quot;get_#{name}_price&quot;, @id
-result = &quot;#{name.capitalize}: #{info} ($#{price})&quot;
-return &quot; * #{result}&quot; if price &amp;gt;= 100
-result
-}
-end
+class Computer
+    def initialize(computer_id, data_source)
+        @id = computer_id
+        @data_source = data_source
+        data_source.methods.grep(/^get_(.*)_info$/) { Computer.define_component $1 }
+    end
+
+    def self.define_component(name)
+        define_method(name) {
+            info = @data_source.send &quot;get_#{name}_info&quot;, @id
+            price = @data_source.send &quot;get_#{name}_price&quot;, @id
+            result = &quot;#{name.capitalize}: #{info} ($#{price})&quot;
+            return &quot; * #{result}&quot; if price &amp;gt;= 100
+            result
+        }
+    end
 end
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -97,29 +98,29 @@ end
 &lt;/ol&gt;
 
 
-&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;methods/computer/final.rb
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;# methods/computer/final.rb
+
 class Computer
-instance_methods.each do |m|
-undef_method m unless m.to_s =~ /^__|method_missing|respond_to?/
-end
-def initialize(computer_id, data_source)
-@id = computer_id
-@data_source = data_source
-  2014-11-07 08:44:34
-end
+    instance_methods.each do |m|
+        undef_method m unless m.to_s =~ /^__|method_missing|respond_to?/
+    end
+    def initialize(computer_id, data_source)
+        @id = computer_id
+        @data_source = data_source
+    end
 
-def method_missing(name, *args)
-super if !respond_to?(name)
-info = @data_source.send(&quot;get_#{name}_info&quot;, args[0])
-price = @data_source.send(&quot;get_#{name}_price&quot;, args[0])
-result = &quot;#{name.to_s.capitalize}: #{info} ($#{price})&quot;
-return &quot; * #{result}&quot; if price &amp;gt;= 100
-result
-end
+    def method_missing(name, *args)
+        super if !respond_to?(name)
+        info = @data_source.send(&quot;get_#{name}_info&quot;, args[0])
+        price = @data_source.send(&quot;get_#{name}_price&quot;, args[0])
+        result = &quot;#{name.to_s.capitalize}: #{info} ($#{price})&quot;
+        return &quot; * #{result}&quot; if price &amp;gt;= 100
+        result
+    end
 
-def respond_to?(method)
-@data_source.respond_to?(&quot;get_#{method}_info&quot;) || super
-end
+    def respond_to?(method)
+        @data_source.respond_to?(&quot;get_#{method}_info&quot;) || super
+    end
 end
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -163,13 +164,13 @@ end
 &lt;li&gt;&lt;p&gt;如果希望在类中存储一个变量，那么除了类实例变量，还可以使用以@@开头的类变量（class variable）：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;  class C
-  @@v = 1
+      @@v = 1
   end
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;类变量与类实例变量不同，它们可以被子类或类的实例所使用（在这个意义上，它们更像是Java的静态成员。）。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;  class D &amp;lt; C
-  def my_method; @@v; end
+      def my_method; @@v; end
   end
   D.new.my_method # 1
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
@@ -177,7 +178,7 @@ end
 
 &lt;pre&gt;&lt;code&gt;  @@v = 1
   class MyClass
-  @@v = 2
+      @@v = 2
   end
   @@v # 2
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
@@ -223,7 +224,8 @@ end
 
 &lt;h3&gt;5.8 小测验：校验过的属性（第五步）&lt;/h3&gt;
 
-&lt;pre&gt;&lt;code&gt;module CheckedAttributes
+&lt;pre&gt;&lt;code&gt;
+module CheckedAttributes
     def self.included(base)
         base.extend ClassMethods
     end
@@ -254,10 +256,11 @@ end
 
 &lt;p&gt;把一组参数压入到一个数组中。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;def my_method(*args)
-args.map{|arg|arg.reverse}
+&lt;pre&gt;&lt;code&gt;
+def my_method(*args)
+    args.map{|arg|arg.reverse}
 end
-my_method(&#39;abc&#39;,&#39;xyz&#39;,&#39;123&#39;)#&amp;lt;图&amp;gt;[&quot;cba&quot;,&quot;zyx&quot;,&quot;321&quot;]
+my_method(&#39;abc&#39;,&#39;xyz&#39;,&#39;123&#39;)#=&amp;gt;[&quot;cba&quot;,&quot;zyx&quot;,&quot;321&quot;]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;环绕别名&lt;/h2&gt;
@@ -265,13 +268,14 @@ my_method(&#39;abc&#39;,&#39;xyz&#39;,&#39;123&#39;)#&amp;lt;图&amp;gt;[&quot;c
 &lt;p&gt;Around Alias
 从一个重新定义的方法中调用原始的、被重命名的版本。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class String
-alias :old_reverse:reverse
-def reverse
-&quot;x#{old_reverse}x&quot;
+&lt;pre&gt;&lt;code&gt;
+class String
+    alias :old_reverse:reverse
+    def reverse
+        &quot;x#{old_reverse}x&quot;
+    end
 end
-end
-&quot;abc&quot;.reverse#&amp;lt;图&amp;gt;&quot;xcbax&quot;
+&quot;abc&quot;.reverse#=&amp;gt;&quot;xcbax&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;白板&lt;/h2&gt;
@@ -279,19 +283,20 @@ end
 &lt;p&gt;Blank Slate
 移除一个对象中的所有方法，以便把它们转换成幽灵方法。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class C
-def method_missing(name,*args)
-&quot;a Ghost Method&quot;
-end
+&lt;pre&gt;&lt;code&gt;
+class C
+    def method_missing(name,*args)
+        &quot;a Ghost Method&quot;
+    end
 end
 obj=C.new
-obj.to_s#&amp;lt;图&amp;gt;&quot;#&amp;lt;C:0x357258&amp;gt;&quot;
+obj.to_s#=&amp;gt;&quot;#&amp;lt;C:0x357258&amp;gt;&quot;
 class C
-instance_methods.each do|m|
-undef_methodm unless m.to_s=~/method_missing|respond_to?|^/
+    instance_methods.each do|m|
+        undef_methodm unless m.to_s=~/method_missing|respond_to?|^/
+    end
 end
-end
-obj.to_s#&amp;lt;图&amp;gt;&quot;a Ghost Method&quot;
+obj.to_s#=&amp;gt;&quot;a Ghost Method&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;类扩展&lt;/h2&gt;
@@ -299,16 +304,17 @@ obj.to_s#&amp;lt;图&amp;gt;&quot;a Ghost Method&quot;
 &lt;p&gt;Class Extension
 通过向类的eigenclass中混入模块来定义类方法（是对象扩展的一个特例）。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class C;end
+&lt;pre&gt;&lt;code&gt;
+class C;end
 module M
-def my_method
-&#39;aclass method&#39;
-end
+    def my_method
+        &#39;aclass method&#39;
+    end
 end
 class&amp;lt;&amp;lt;C
-include M
+    include M
 end
-C.my_method#&amp;lt;图&amp;gt;&quot;a class method&quot;
+C.my_method#=&amp;gt;&quot;a class method&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;类扩展混入&lt;/h2&gt;
@@ -316,20 +322,21 @@ C.my_method#&amp;lt;图&amp;gt;&quot;a class method&quot;
 &lt;p&gt;Class Extension Mixin
 使一个模块可以通过钩子方法扩展它的包含者。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;module M
-def self.included(base)
-base.extend(ClassMethods)
-end
-module ClassMethods
-def my_method
-&#39;a class method&#39;
-end
-end
+&lt;pre&gt;&lt;code&gt;
+module M
+    def self.included(base)
+        base.extend(ClassMethods)
+    end
+    module ClassMethods
+        def my_method
+            &#39;a class method&#39;
+        end
+    end
 end
 class C
-include M
+    include M
 end
-C.my_method#&amp;lt;图&amp;gt;&quot;a class method&quot;
+C.my_method#=&amp;gt;&quot;a class method&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;类实例变量&lt;/h2&gt;
@@ -337,13 +344,14 @@ C.my_method#&amp;lt;图&amp;gt;&quot;a class method&quot;
 &lt;p&gt;Class Instance Variable
 在一个Class对象的实例变量中存储类级别的状态。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class C
-@my_class_instance_variable=&quot;some value&quot;
-def self.class_attribute
-@my_class_instance_variable
+&lt;pre&gt;&lt;code&gt;
+class C
+    @my_class_instance_variable=&quot;some value&quot;
+    def self.class_attribute
+        @my_class_instance_variable
+    end
 end
-end
-C.class_attribute#&amp;lt;图&amp;gt;&quot;some value&quot;
+C.class_attribute#=&amp;gt;&quot;some value&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;类宏&lt;/h2&gt;
@@ -351,14 +359,15 @@ C.class_attribute#&amp;lt;图&amp;gt;&quot;some value&quot;
 &lt;p&gt;Class Macro
 在类定义中使用一个类方法。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class C;end
+&lt;pre&gt;&lt;code&gt;
+class C;end
 class&amp;lt;&amp;lt;C
-def my_macro(arg)
-&quot;my_macro(#{arg}) called&quot;
-end
+    def my_macro(arg)
+        &quot;my_macro(#{arg}) called&quot;
+    end
 end
 class C
-my_macro:x#&amp;lt;图&amp;gt;&quot;my_macro(x) called&quot;
+    my_macro:x#=&amp;gt;&quot;my_macro(x) called&quot;
 end
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -367,10 +376,11 @@ end
 &lt;p&gt;Clean Room
 使用对象作为执行块的上下文环境。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class CleanRoom
-def a_useful_method(x);x*2;end
+&lt;pre&gt;&lt;code&gt;
+class CleanRoom
+    def a_useful_method(x);x*2;end
 end
-CleanRoom.new.instance_eval{a_useful_method(3)} #&amp;lt;图&amp;gt;6
+CleanRoom.new.instance_eval{a_useful_method(3)} #=&amp;gt;6
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;代码处理器&lt;/h2&gt;
@@ -378,12 +388,13 @@ CleanRoom.new.instance_eval{a_useful_method(3)} #&amp;lt;图&amp;gt;6
 &lt;p&gt;Code Processor
 处理从外部获得的字符串代码。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;File.readlines(&quot;a_file_containing_lines_of_ruby.txt&quot;).each do|line|
-puts&quot;#{line.chomp}=&amp;lt;图&amp;gt;#{eval(line)}&quot;
+&lt;pre&gt;&lt;code&gt;
+File.readlines(&quot;a_file_containing_lines_of_ruby.txt&quot;).each do|line|
+    puts&quot;#{line.chomp}==&amp;gt;#{eval(line)}&quot;
 end
-#&amp;gt;&amp;gt;1+1=&amp;lt;图&amp;gt;2
-#&amp;gt;&amp;gt;3*2=&amp;lt;图&amp;gt;6
-#&amp;gt;&amp;gt;Math.log10(100)=&amp;lt;图&amp;gt;2.0
+#&amp;gt;&amp;gt;1+1==&amp;gt;2
+#&amp;gt;&amp;gt;3*2==&amp;gt;6
+#&amp;gt;&amp;gt;Math.log10(100)==&amp;gt;2.0
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;上下文探针&lt;/h2&gt;
@@ -391,13 +402,14 @@ end
 &lt;p&gt;Context Probe
 执行块来获取对象上下文中的信息。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class C
-def initialize
-@x=&quot;a private instance variable&quot;
-end
+&lt;pre&gt;&lt;code&gt;
+class C
+    def initialize
+        @x=&quot;a private instance variable&quot;
+    end
 end
 obj=C.new
-obj.instance_eval{@x}#&amp;lt;图&amp;gt;&quot;a private instance variable&quot;
+obj.instance_eval{@x}#=&amp;gt;&quot;a private instance variable&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;延迟执行&lt;/h2&gt;
@@ -405,19 +417,20 @@ obj.instance_eval{@x}#&amp;lt;图&amp;gt;&quot;a private instance variable&quot;
 &lt;p&gt;Deferred Evaluation
 在proc或lambda中存储一段代码及其上下文，用于以后执行。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class C
-def store(&amp;amp;block)
-@my_code_capsule=block
-end
-def execute
-@my_code_capsule.call
-end
+&lt;pre&gt;&lt;code&gt;
+class C
+    def store(&amp;amp;block)
+        @my_code_capsule=block
+    end
+    def execute
+        @my_code_capsule.call
+    end
 end
 obj=C.new
 obj.store{$X=1}
 $X=0
 obj.execute
-$X#&amp;lt;图&amp;gt;1
+$X#=&amp;gt;1
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;动态派发&lt;/h2&gt;
@@ -425,22 +438,27 @@ $X#&amp;lt;图&amp;gt;1
 &lt;p&gt;Dynamic Dispatch
 在运行时决定调用哪个方法。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;method_to_call=:reverse
+&lt;pre&gt;&lt;code&gt;
+method_to_call=:reverse
 obj=&quot;abc&quot;
-obj.send(method_to_call)#&amp;lt;图&amp;gt;&quot;cba&quot;
-  2014-11-21 22:12:09
-动态方法
-Dynamic Method
-在运行时才决定如何定义一个方法。
+obj.send(method_to_call)#=&amp;gt;&quot;cba&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;动态方法&lt;/h2&gt;
+
+&lt;p&gt;Dynamic Method
+在运行时才决定如何定义一个方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
 class C
 end
 C.class_eval do
-define_method:my_method do
-&quot;a dynamic method&quot;
-end
+    define_method:my_method do
+        &quot;a dynamic method&quot;
+    end
 end
 obj=C.new
-obj.my_method#&amp;lt;图&amp;gt;&quot;a dynamic method&quot;
+obj.my_method#=&amp;gt;&quot;a dynamic method&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;动态代理&lt;/h2&gt;
@@ -448,16 +466,17 @@ obj.my_method#&amp;lt;图&amp;gt;&quot;a dynamic method&quot;
 &lt;p&gt;Dynamic Proxy
 把不能对应某个方法名的消息转发给另外一个对象。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class MyDynamicProxy
-def initialize(target)
-@target=target
-end
-def method missing(name,*args,&amp;amp;block)
-&quot;result:#{@target.send(name,*args,&amp;amp;block)}&quot;
-end
+&lt;pre&gt;&lt;code&gt;
+class MyDynamicProxy
+    def initialize(target)
+        @target=target
+    end
+    def method missing(name,*args,&amp;amp;block)
+        &quot;result:#{@target.send(name,*args,&amp;amp;block)}&quot;
+    end
 end
 obj=MyDynamicProxy.new(&quot;a string&quot;)
-obj.reverse#&amp;lt;图&amp;gt;&quot;result: gnirts a&quot;
+obj.reverse#=&amp;gt;&quot;result: gnirts a&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;扁平作用域&lt;/h2&gt;
@@ -465,18 +484,19 @@ obj.reverse#&amp;lt;图&amp;gt;&quot;result: gnirts a&quot;
 &lt;p&gt;Flat Scope
 使用闭包在两个作用域之间共享变量。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class C
-def an_attribute
-@attr
-end
+&lt;pre&gt;&lt;code&gt;
+class C
+    def an_attribute
+        @attr
+    end
 end
 obj=C.new
 a_variable=100
 #flatscope:
 obj.instance_eval do
-@attr=a_variable
+    @attr=a_variable
 end
-obj.an_attribute#&amp;lt;图&amp;gt;100
+obj.an_attribute#=&amp;gt;100
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;幽灵方法&lt;/h2&gt;
@@ -484,13 +504,14 @@ obj.an_attribute#&amp;lt;图&amp;gt;100
 &lt;p&gt;Ghost Method
 响应一个没有关联方法的消息。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class C
-def method_missing(name,*args)
-name.to_s.reverse
-end
+&lt;pre&gt;&lt;code&gt;
+class C
+    def method_missing(name,*args)
+        name.to_s.reverse
+    end
 end
 obj=C.new
-obj.my_ghost_method #&amp;lt;图&amp;gt;&quot;dohtem_tsohg_ym&quot;
+obj.my_ghost_method #=&amp;gt;&quot;dohtem_tsohg_ym&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;钩子方法&lt;/h2&gt;
@@ -498,11 +519,12 @@ obj.my_ghost_method #&amp;lt;图&amp;gt;&quot;dohtem_tsohg_ym&quot;
 &lt;p&gt;Hook Method
 通过覆写某个特殊方法来截获对象模型事件。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$INHERITORS=[]
+&lt;pre&gt;&lt;code&gt;
+$INHERITORS=[]
 class C
-def self.inherited(subclass)
-$INHERITORS&amp;lt;&amp;lt;subclass
-end
+    def self.inherited(subclass)
+        $INHERITORS&amp;lt;&amp;lt;subclass
+    end
 end
 class D&amp;lt;C
 end
@@ -510,7 +532,7 @@ class E&amp;lt;C
 end
 class F&amp;lt;E
 end
-$INHERITORS #&amp;lt;图&amp;gt;[D,E,F]
+$INHERITORS #=&amp;gt;[D,E,F]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;内核方法&lt;/h2&gt;
@@ -518,23 +540,28 @@ $INHERITORS #&amp;lt;图&amp;gt;[D,E,F]
 &lt;p&gt;Kernel Method
 在Kernel模块中定义一个方法，使之对所有对象都可用。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;module Kernel
-def a_method
-&quot;a kernel method&quot;
+&lt;pre&gt;&lt;code&gt;
+module Kernel
+    def a_method
+        &quot;a kernel method&quot;
+    end
 end
-end
-a_method#&amp;lt;图&amp;gt;&quot;a kernel method&quot;
-  2014-11-21 22:13:03
-惰性实例变量
-Lazy Instance Variable
-当第一次访问一个实例变量时才对之进行初始化。
+a_method#=&amp;gt;&quot;a kernel method&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;惰性实例变量&lt;/h2&gt;
+
+&lt;p&gt;Lazy Instance Variable
+当第一次访问一个实例变量时才对之进行初始化。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
 class C
-def attribute
-@attribute=@attribute||&quot;some value&quot;
-end
+    def attribute
+        @attribute=@attribute||&quot;some value&quot;
+    end
 end
 obj=C.new
-obj.attribute#&amp;lt;图&amp;gt;&quot;some value&quot;
+obj.attribute#=&amp;gt;&quot;some value&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;拟态方法&lt;/h2&gt;
@@ -542,25 +569,30 @@ obj.attribute#&amp;lt;图&amp;gt;&quot;some value&quot;
 &lt;p&gt;Mimic Method
 把一个方法伪装成另外一种语言构件。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;def BaseClass(name)
-name==&quot;string&quot; ? String : Object
+&lt;pre&gt;&lt;code&gt;
+def BaseClass(name)
+    name==&quot;string&quot; ? String : Object
 end
 class C&amp;lt;BaseClass &quot;string&quot; #一个看起来像类的方法
-attr_accessor :an_attribute #一个看起来像关键字的方法
+    attr_accessor :an_attribute #一个看起来像关键字的方法
 end
 obj=C.new
 obj.an_attribute=1 #一个看起来像属性的方法
-  2014-11-21 22:13:27
-猴子打补丁
-Monkeypatch
-修改已有类的特性。
-&quot;abc&quot;.reverse #&amp;lt;图&amp;gt;&quot;cba&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;猴子打补丁&lt;/h2&gt;
+
+&lt;p&gt;Monkeypatch
+修改已有类的特性。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+&quot;abc&quot;.reverse #=&amp;gt;&quot;cba&quot;
 class String
-def reverse
-&quot;override&quot;
+    def reverse
+        &quot;override&quot;
+    end
 end
-end
-&quot;abc&quot;.reverse #&amp;lt;图&amp;gt;&quot;override&quot;
+&quot;abc&quot;.reverse #=&amp;gt;&quot;override&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;有名参数&lt;/h2&gt;
@@ -568,23 +600,28 @@ end
 &lt;p&gt;Named Arguments
 把方法参数收集到一个哈希表中，以便通过名字访问。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;def my_method(args)
-args[:arg2]
+&lt;pre&gt;&lt;code&gt;
+def my_method(args)
+    args[:arg2]
 end
-my_method(:arg1&amp;lt;图&amp;gt;&quot;A&quot;,:arg2&amp;lt;图&amp;gt;&quot;B&quot;,:arg3&amp;lt;图&amp;gt;&quot;C&quot;) #&amp;lt;图&amp;gt;&quot;B&quot;
-  2014-11-21 22:13:37
-命名空间
-Namespace
-在一个模块中定义常量，以防止命名冲突。
+my_method(:arg1=&amp;gt;&quot;A&quot;,:arg2=&amp;gt;&quot;B&quot;,:arg3=&amp;gt;&quot;C&quot;) #=&amp;gt;&quot;B&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;命名空间&lt;/h2&gt;
+
+&lt;p&gt;Namespace
+在一个模块中定义常量，以防止命名冲突。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
 module MyNamespace
-class Array
-def to_s
-&quot;myclass&quot;
+    class Array
+        def to_s
+            &quot;myclass&quot;
+        end
+    end
 end
-end
-end
-Array.new #&amp;lt;图&amp;gt;[]
-MyNamespace::Array.new#&amp;lt;图&amp;gt;my class
+Array.new #=&amp;gt;[]
+MyNamespace::Array.new#=&amp;gt;my class
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;空指针保护&lt;/h2&gt;
@@ -593,7 +630,7 @@ MyNamespace::Array.new#&amp;lt;图&amp;gt;my class
 用“或”操作符覆写一个空引用。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;x=nil
-y=x ||&quot;a value&quot; # &amp;lt;图&amp;gt;&quot;a value&quot;
+y=x ||&quot;a value&quot; # =&amp;gt;&quot;a value&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;对象扩展&lt;/h2&gt;
@@ -603,14 +640,14 @@ y=x ||&quot;a value&quot; # &amp;lt;图&amp;gt;&quot;a value&quot;
 
 &lt;pre&gt;&lt;code&gt;obj=Object.new
 module M
-def my_method
-&#39;a singleton method&#39;
-end
+    def my_method
+        &#39;a singleton method&#39;
+    end
 end
 class&amp;lt;&amp;lt;obj
-include M
+    include M
 end
-obj.my_method#&amp;lt;图&amp;gt;&quot;a singleton method&quot;
+obj.my_method#=&amp;gt;&quot;a singleton method&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;打开类&lt;/h2&gt;
@@ -619,11 +656,11 @@ obj.my_method#&amp;lt;图&amp;gt;&quot;a singleton method&quot;
 修改已有的类。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;class String
-def my_string_method
-&quot;my method&quot;
+    def my_string_method
+        &quot;my method&quot;
+    end
 end
-end
-&quot;abc&quot;.my_string_method#&amp;lt;图&amp;gt;&quot;my method&quot;
+&quot;abc&quot;.my_string_method#=&amp;gt;&quot;my method&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;模式派发&lt;/h2&gt;
@@ -631,34 +668,39 @@ end
 &lt;p&gt;Pattern Dispatch
 根据名字来选择需要调用的方法。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$x=0
+&lt;pre&gt;&lt;code&gt;
+$x=0
 class C
-def my_first_method
-$x +=1
-end
-def my_second_method
-$x +=2
-end
+    def my_first_method
+        $x +=1
+    end
+    def my_second_method
+        $x +=2
+    end
 end
 obj=C.new
 obj.methods.each do |m|
-obj.send(m) if m.to_s=~/^my_/
+    obj.send(m) if m.to_s=~/^my_/
 end
-$x # &amp;lt;图&amp;gt; 3
-  2014-11-21 22:14:17
-沙盒
-Sandbox
-在一个安全的环境中执行未授信的代码。
+$x # =&amp;gt; 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;沙盒&lt;/h2&gt;
+
+&lt;p&gt;Sandbox
+在一个安全的环境中执行未授信的代码。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
 def sandbox(&amp;amp;code)
-proc {
-$SAFE = 2
-yield
-}.call
+    proc {
+        $SAFE = 2
+        yield
+    }.call
 end
 begin
-sandbox{File.delete &#39;a_file&#39;}
-rescue Exception&amp;lt;图&amp;gt;ex
-ex #&amp;lt;图&amp;gt;#&amp;lt;SecurityError:Insecure operation &#39;delete&#39; at level 2&amp;gt;
+    sandbox{File.delete &#39;a_file&#39;}
+rescue Exception=&amp;gt;ex
+    ex #=&amp;gt;#&amp;lt;SecurityError:Insecure operation &#39;delete&#39; at level 2&amp;gt;
 end
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -667,27 +709,32 @@ end
 &lt;p&gt;Scope Gate
 用class、module或def关键字来隔离作用域。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;a=1
-defined? a #&amp;lt;图&amp;gt;&quot;local-variable&quot;
+&lt;pre&gt;&lt;code&gt;
+a=1
+defined? a #=&amp;gt;&quot;local-variable&quot;
 module MyModule
-b = 1
-defined? a#&amp;lt;图&amp;gt;nil
-defined? b#&amp;lt;图&amp;gt;&quot;local-variable&quot;
+    b = 1
+    defined? a#=&amp;gt;nil
+    defined? b#=&amp;gt;&quot;local-variable&quot;
 end
-defined? a #&amp;lt;图&amp;gt;&quot;local-variable&quot;
-defined? b #&amp;lt;图&amp;gt;nil
-  2014-11-21 22:14:32
-Self Yield
-把self传给当前块。
+defined? a #=&amp;gt;&quot;local-variable&quot;
+defined? b #=&amp;gt;nil
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Self Yield&lt;/h2&gt;
+
+&lt;p&gt;把self传给当前块。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
 class Person
-attr_accessor :name, :surname
-def initialize
-yield self
-end
+    attr_accessor :name, :surname
+    def initialize
+        yield self
+    end
 end
 joe = Person.new do |p|
-p.name = &#39;Joe&#39;
-p.surname = &#39;Smith&#39;
+    p.name = &#39;Joe&#39;
+    p.surname = &#39;Smith&#39;
 end
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -696,20 +743,21 @@ end
 &lt;p&gt;Shared Scope
 在同一个扁平作用域的多个上下文中共享变量。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;lambda {
-shared = 10
-self.class.class_eval do
-define_method: counter do
-shared
-end
-define_method :down do
-shared -= 1
-end
-end
+&lt;pre&gt;&lt;code&gt;
+lambda {
+    shared = 10
+    self.class.class_eval do
+        define_method: counter do
+            shared
+        end
+        define_method :down do
+            shared -= 1
+        end
+    end
 }.call
-Counter #&amp;lt;图&amp;gt;10
+Counter #=&amp;gt;10
 3.times {down}
-Counter #&amp;lt;图&amp;gt;7
+Counter #=&amp;gt;7
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;单件方法&lt;/h2&gt;
@@ -717,19 +765,24 @@ Counter #&amp;lt;图&amp;gt;7
 &lt;p&gt;Singleton Method
 在一个对象上定义一个方法。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;obj = &quot;abc&quot;
+&lt;pre&gt;&lt;code&gt;
+obj = &quot;abc&quot;
 class &amp;lt;&amp;lt; obj
-def my_singleton_method
-&quot;x&quot;
+    def my_singleton_method
+        &quot;x&quot;
+    end
 end
-end
-obj.my_singleton_method # &amp;lt;图&amp;gt; &quot;x&quot;
-  2014-11-21 22:15:02
-代码字符串
-String of Code
-执行一段表示Ruby代码的字符串。
+obj.my_singleton_method # =&amp;gt; &quot;x&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;代码字符串&lt;/h2&gt;
+
+&lt;p&gt;String of Code
+执行一段表示Ruby代码的字符串。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
 my_string_of_code=&quot;1+1&quot;
-eval(my_string_of_code)#&amp;lt;图&amp;gt;2
+eval(my_string_of_code)#=&amp;gt;2
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;符号到Proc&lt;/h2&gt;
@@ -737,7 +790,8 @@ eval(my_string_of_code)#&amp;lt;图&amp;gt;2
 &lt;p&gt;Symbol To Proc
 把一个符号转换为调用单个方法的代码块。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;[1, 2, 3, 4].map(&amp;amp;:even?) # &amp;lt;图&amp;gt; [false, true, false, true]
+&lt;pre&gt;&lt;code&gt;
+[1, 2, 3, 4].map(&amp;amp;:even?) # =&amp;gt; [false, true, false, true]
 &lt;/code&gt;&lt;/pre&gt;
 </content>
  </entry>
@@ -803,7 +857,8 @@ eval(my_string_of_code)#&amp;lt;图&amp;gt;2
 
 &lt;h3&gt;tempfile&lt;/h3&gt;
 
-&lt;pre&gt;&lt;code&gt;require &#39;tempfile&#39;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;
+require &#39;tempfile&#39;
 a = Tempfile
 a.close  (delete @ GC a)
 a.close! (delete immediately)
@@ -834,7 +889,8 @@ a.close! (delete immediately)
 
 &lt;h2&gt;pp 相关库&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;#!/usr/bin/env ruby
+&lt;pre&gt;&lt;code&gt;
+#!/usr/bin/env ruby
 #
 # Pretty-Printer for Ruby Objects
 require &#39;pp&#39;
@@ -899,7 +955,8 @@ Output:
 
 &lt;h2&gt;Working with HTTP and FTP&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;require &#39;open-uri&#39;
+&lt;pre&gt;&lt;code&gt;
+require &#39;open-uri&#39;
 
 a = open(&#39;http://www.ruby-lang.org/en/LICENSE.txt&#39;)
 pp a
@@ -920,68 +977,56 @@ pp a
 
 &lt;h2&gt;时间处理，词法分析，HASH加密，数学处理，cvs,json,模板生成&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;    #Working with Dates and Times(date)
-    puts &#39;date&#39;
-    pp Date.today
+&lt;pre&gt;&lt;code&gt;
+#Working with Dates and Times(date)
+puts &#39;date&#39;
+pp Date.today
 
-    #Lexical Parsing with Regular Expressions(strscan)
-    puts &#39;strscan&#39;
-    require &#39;strscan&#39;
-    s = StringScanner.new(&#39;This is an example string&#39;)
-    s.eos?               # -&amp;gt; false
+#Lexical Parsing with Regular Expressions(strscan)
+puts &#39;strscan&#39;
+require &#39;strscan&#39;
+s = StringScanner.new(&#39;This is an example string&#39;)
+s.eos?               # -&amp;gt; false
 
-    p s.scan(/\w+/)      # -&amp;gt; &quot;This&quot;
-    p s.scan(/\w+/)      # -&amp;gt; nil
-    p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
-    p s.scan(/\s+/)      # -&amp;gt; nil
-    p s.scan(/\w+/)      # -&amp;gt; &quot;is&quot;
-    s.eos?               # -&amp;gt; false
+p s.scan(/\w+/)      # -&amp;gt; &quot;This&quot;
+p s.scan(/\w+/)      # -&amp;gt; nil
+p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
+p s.scan(/\s+/)      # -&amp;gt; nil
+p s.scan(/\w+/)      # -&amp;gt; &quot;is&quot;
+s.eos?               # -&amp;gt; false
 
-    p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
-    p s.scan(/\w+/)      # -&amp;gt; &quot;an&quot;
-    p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
-    p s.scan(/\w+/)      # -&amp;gt; &quot;example&quot;
-    p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
-    p s.scan(/\w+/)      # -&amp;gt; &quot;string&quot;
-    s.eos?               # -&amp;gt; true
+p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
+p s.scan(/\w+/)      # -&amp;gt; &quot;an&quot;
+p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
+p s.scan(/\w+/)      # -&amp;gt; &quot;example&quot;
+p s.scan(/\s+/)      # -&amp;gt; &quot; &quot;
+p s.scan(/\w+/)      # -&amp;gt; &quot;string&quot;
+s.eos?               # -&amp;gt; true
 
-    p s.scan(/\s+/)      # -&amp;gt; nil
-    p s.scan(/\w+/)      # -&amp;gt; nil
+p s.scan(/\s+/)      # -&amp;gt; nil
+p s.scan(/\w+/)      # -&amp;gt; nil
 
-    #Cryptographic Hash Functions (digest)
+#Cryptographic Hash Functions (digest)
 
-    puts &#39;digest&#39;
+puts &#39;digest&#39;
 
-    require &#39;digest/md5&#39;
+require &#39;digest/md5&#39;
 
-    pp Digest::MD5.hexdigest(File.binread(__FILE__))
+pp Digest::MD5.hexdigest(File.binread(__FILE__))
 
-    require &#39;digest/sha2&#39;
-    pp Digest::SHA256.hexdigest(File.binread(__FILE__))
+require &#39;digest/sha2&#39;
+pp Digest::SHA256.hexdigest(File.binread(__FILE__))
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;Mathematical Ruby Scripts(mathn)&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;    puts &#39;mathn&#39;
-    require &#39;mathn&#39;
-    pp Math.sqrt(-1)
-    pp 1/2
+&lt;pre&gt;&lt;code&gt;puts &#39;mathn&#39;
+require &#39;mathn&#39;
+pp Math.sqrt(-1)
+pp 1/2
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;cvs,json,erb&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;include : mixes in specified module methods as instance methods in the target class&lt;/li&gt;
-&lt;li&gt;extend : mixes in specified module methods as class methods in the target class&lt;/li&gt;
-&lt;li&gt;include: Invokes Module.append_features on each parameter in reverse order.
-
-&lt;ul&gt;
-&lt;li&gt; this module is included in another, Ruby calls append_features in this module, passing it the receiving module in mod. Ruby’s default implementation is to add the constants, methods, and module variables of this module to mod if this module has not already been added to mod or one of its ancestors.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;extend: Adds to obj the instance methods from each module given as a parameter.&lt;/li&gt;
-&lt;/ul&gt;
-
 </content>
  </entry>
  
@@ -6136,6 +6181,138 @@ Go语言在这方面的设计就更容易让开发者理解, 你可以像串行�
 
 &lt;ul&gt;
 &lt;li&gt;4*8&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;19 全身练习(20141124晚上)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;热身
+
+&lt;ul&gt;
+&lt;li&gt;跳绳100&lt;/li&gt;
+&lt;li&gt;弓字步2个来回
+
+&lt;ul&gt;
+&lt;li&gt;2*15m&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;肩部练习
+
+&lt;ul&gt;
+&lt;li&gt;立卧撑&lt;/li&gt;
+&lt;li&gt;杠铃直拉&lt;/li&gt;
+&lt;li&gt;4*(10+10)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;手臂练习
+
+&lt;ul&gt;
+&lt;li&gt;引体向上&lt;/li&gt;
+&lt;li&gt;双杠臂屈伸&lt;/li&gt;
+&lt;li&gt;4*(8+8)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;全身
+
+&lt;ul&gt;
+&lt;li&gt;靠墙静蹲&lt;/li&gt;
+&lt;li&gt;哑铃上拉
+
+&lt;ul&gt;
+&lt;li&gt;上拉到肩部水平&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;4*12&lt;/li&gt;
+&lt;li&gt;4*30s&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;拉伸
+
+&lt;ul&gt;
+&lt;li&gt;弹力带全身拉&lt;/li&gt;
+&lt;li&gt;臀部上提&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;椭圆机
+
+&lt;ul&gt;
+&lt;li&gt;10min&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Review
+
+&lt;ul&gt;
+&lt;li&gt;手臂练习时, 汗出的很多&lt;/li&gt;
+&lt;li&gt;自己需要下决心在没有力气时发力&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;19.1 上肢练习(20141126晚上)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;跑步
+
+&lt;ul&gt;
+&lt;li&gt;10min&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;手臂练习
+
+&lt;ul&gt;
+&lt;li&gt;引体向上&lt;/li&gt;
+&lt;li&gt;双杠臂屈伸&lt;/li&gt;
+&lt;li&gt;4*(10+8)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;上体
+
+&lt;ul&gt;
+&lt;li&gt;胸部
+
+&lt;ul&gt;
+&lt;li&gt;重力器下拉
+
+&lt;ul&gt;
+&lt;li&gt;4*10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;背部
+
+&lt;ul&gt;
+&lt;li&gt;宽距坐姿划船
+
+&lt;ul&gt;
+&lt;li&gt;4*10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;肩部
+
+&lt;ul&gt;
+&lt;li&gt;垂式下拉
+
+&lt;ul&gt;
+&lt;li&gt;4*10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;重力器推举
+
+&lt;ul&gt;
+&lt;li&gt;5*10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;

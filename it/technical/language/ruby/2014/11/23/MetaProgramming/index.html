@@ -17,7 +17,7 @@
 <!--选填-->
 <meta name="weibo:article:create_at" content="2014-11-23" />
 
-<meta name="weibo:article:update_at" content="2014-11-23" />
+<meta name="weibo:article:update_at" content="2014-11-27" />
 
 <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
@@ -183,23 +183,24 @@
 
 
 <pre>
-   <code class="ruby">methods/computer/more_dynamic.rb
-class Computer
-def initialize(computer_id, data_source)
-@id = computer_id
-@data_source = data_source
-data_source.methods.grep(/^get_(.*)_info$/) { Computer.define_component $1 }
-end
+   <code>#methods/computer/more_dynamic.rb
 
-def self.define_component(name)
-define_method(name) {
-info = @data_source.send "get_#{name}_info", @id
-price = @data_source.send "get_#{name}_price", @id
-result = "#{name.capitalize}: #{info} ($#{price})"
-return " * #{result}" if price &gt;= 100
-result
-}
-end
+class Computer
+    def initialize(computer_id, data_source)
+        @id = computer_id
+        @data_source = data_source
+        data_source.methods.grep(/^get_(.*)_info$/) { Computer.define_component $1 }
+    end
+
+    def self.define_component(name)
+        define_method(name) {
+            info = @data_source.send "get_#{name}_info", @id
+            price = @data_source.send "get_#{name}_price", @id
+            result = "#{name.capitalize}: #{info} ($#{price})"
+            return " * #{result}" if price &gt;= 100
+            result
+        }
+    end
 end
 </code>
 </pre>
@@ -210,29 +211,29 @@ end
 
 
 <pre>
-   <code class="ruby">methods/computer/final.rb
+   <code class="ruby"># methods/computer/final.rb
+
 class Computer
-instance_methods.each do |m|
-undef_method m unless m.to_s =~ /^__|method_missing|respond_to?/
-end
-def initialize(computer_id, data_source)
-@id = computer_id
-@data_source = data_source
-  2014-11-07 08:44:34
-end
+    instance_methods.each do |m|
+        undef_method m unless m.to_s =~ /^__|method_missing|respond_to?/
+    end
+    def initialize(computer_id, data_source)
+        @id = computer_id
+        @data_source = data_source
+    end
 
-def method_missing(name, *args)
-super if !respond_to?(name)
-info = @data_source.send("get_#{name}_info", args[0])
-price = @data_source.send("get_#{name}_price", args[0])
-result = "#{name.to_s.capitalize}: #{info} ($#{price})"
-return " * #{result}" if price &gt;= 100
-result
-end
+    def method_missing(name, *args)
+        super if !respond_to?(name)
+        info = @data_source.send("get_#{name}_info", args[0])
+        price = @data_source.send("get_#{name}_price", args[0])
+        result = "#{name.to_s.capitalize}: #{info} ($#{price})"
+        return " * #{result}" if price &gt;= 100
+        result
+    end
 
-def respond_to?(method)
-@data_source.respond_to?("get_#{method}_info") || super
-end
+    def respond_to?(method)
+        @data_source.respond_to?("get_#{method}_info") || super
+    end
 end
 </code>
 </pre>
@@ -277,13 +278,13 @@ end
 <li><p>如果希望在类中存储一个变量，那么除了类实例变量，还可以使用以@@开头的类变量（class variable）：</p>
 
 <pre><code>  class C
-  @@v = 1
+      @@v = 1
   end
 </code></pre></li>
 <li><p>类变量与类实例变量不同，它们可以被子类或类的实例所使用（在这个意义上，它们更像是Java的静态成员。）。</p>
 
 <pre><code>  class D &lt; C
-  def my_method; @@v; end
+      def my_method; @@v; end
   end
   D.new.my_method # 1
 </code></pre></li>
@@ -291,7 +292,7 @@ end
 
 <pre><code>  @@v = 1
   class MyClass
-  @@v = 2
+      @@v = 2
   end
   @@v # 2
 </code></pre></li>
@@ -338,7 +339,8 @@ end
 <h3>5.8 小测验：校验过的属性（第五步）</h3>
 
 <pre>
-   <code>module CheckedAttributes
+   <code>
+module CheckedAttributes
     def self.included(base)
         base.extend ClassMethods
     end
@@ -371,10 +373,11 @@ end
 <p>把一组参数压入到一个数组中。</p>
 
 <pre>
-   <code>def my_method(*args)
-args.map{|arg|arg.reverse}
+   <code>
+def my_method(*args)
+    args.map{|arg|arg.reverse}
 end
-my_method('abc','xyz','123')#&lt;图&gt;["cba","zyx","321"]
+my_method('abc','xyz','123')#=&gt;["cba","zyx","321"]
 </code>
 </pre>
 
@@ -384,13 +387,14 @@ my_method('abc','xyz','123')#&lt;图&gt;["cba","zyx","321"]
 从一个重新定义的方法中调用原始的、被重命名的版本。</p>
 
 <pre>
-   <code>class String
-alias :old_reverse:reverse
-def reverse
-"x#{old_reverse}x"
+   <code>
+class String
+    alias :old_reverse:reverse
+    def reverse
+        "x#{old_reverse}x"
+    end
 end
-end
-"abc".reverse#&lt;图&gt;"xcbax"
+"abc".reverse#=&gt;"xcbax"
 </code>
 </pre>
 
@@ -400,19 +404,20 @@ end
 移除一个对象中的所有方法，以便把它们转换成幽灵方法。</p>
 
 <pre>
-   <code>class C
-def method_missing(name,*args)
-"a Ghost Method"
-end
+   <code>
+class C
+    def method_missing(name,*args)
+        "a Ghost Method"
+    end
 end
 obj=C.new
-obj.to_s#&lt;图&gt;"#&lt;C:0x357258&gt;"
+obj.to_s#=&gt;"#&lt;C:0x357258&gt;"
 class C
-instance_methods.each do|m|
-undef_methodm unless m.to_s=~/method_missing|respond_to?|^/
+    instance_methods.each do|m|
+        undef_methodm unless m.to_s=~/method_missing|respond_to?|^/
+    end
 end
-end
-obj.to_s#&lt;图&gt;"a Ghost Method"
+obj.to_s#=&gt;"a Ghost Method"
 </code>
 </pre>
 
@@ -422,16 +427,17 @@ obj.to_s#&lt;图&gt;"a Ghost Method"
 通过向类的eigenclass中混入模块来定义类方法（是对象扩展的一个特例）。</p>
 
 <pre>
-   <code>class C;end
+   <code>
+class C;end
 module M
-def my_method
-'aclass method'
-end
+    def my_method
+        'aclass method'
+    end
 end
 class&lt;&lt;C
-include M
+    include M
 end
-C.my_method#&lt;图&gt;"a class method"
+C.my_method#=&gt;"a class method"
 </code>
 </pre>
 
@@ -441,20 +447,21 @@ C.my_method#&lt;图&gt;"a class method"
 使一个模块可以通过钩子方法扩展它的包含者。</p>
 
 <pre>
-   <code>module M
-def self.included(base)
-base.extend(ClassMethods)
-end
-module ClassMethods
-def my_method
-'a class method'
-end
-end
+   <code>
+module M
+    def self.included(base)
+        base.extend(ClassMethods)
+    end
+    module ClassMethods
+        def my_method
+            'a class method'
+        end
+    end
 end
 class C
-include M
+    include M
 end
-C.my_method#&lt;图&gt;"a class method"
+C.my_method#=&gt;"a class method"
 </code>
 </pre>
 
@@ -464,13 +471,14 @@ C.my_method#&lt;图&gt;"a class method"
 在一个Class对象的实例变量中存储类级别的状态。</p>
 
 <pre>
-   <code>class C
-@my_class_instance_variable="some value"
-def self.class_attribute
-@my_class_instance_variable
+   <code>
+class C
+    @my_class_instance_variable="some value"
+    def self.class_attribute
+        @my_class_instance_variable
+    end
 end
-end
-C.class_attribute#&lt;图&gt;"some value"
+C.class_attribute#=&gt;"some value"
 </code>
 </pre>
 
@@ -480,14 +488,15 @@ C.class_attribute#&lt;图&gt;"some value"
 在类定义中使用一个类方法。</p>
 
 <pre>
-   <code>class C;end
+   <code>
+class C;end
 class&lt;&lt;C
-def my_macro(arg)
-"my_macro(#{arg}) called"
-end
+    def my_macro(arg)
+        "my_macro(#{arg}) called"
+    end
 end
 class C
-my_macro:x#&lt;图&gt;"my_macro(x) called"
+    my_macro:x#=&gt;"my_macro(x) called"
 end
 </code>
 </pre>
@@ -498,10 +507,11 @@ end
 使用对象作为执行块的上下文环境。</p>
 
 <pre>
-   <code>class CleanRoom
-def a_useful_method(x);x*2;end
+   <code>
+class CleanRoom
+    def a_useful_method(x);x*2;end
 end
-CleanRoom.new.instance_eval{a_useful_method(3)} #&lt;图&gt;6
+CleanRoom.new.instance_eval{a_useful_method(3)} #=&gt;6
 </code>
 </pre>
 
@@ -511,12 +521,13 @@ CleanRoom.new.instance_eval{a_useful_method(3)} #&lt;图&gt;6
 处理从外部获得的字符串代码。</p>
 
 <pre>
-   <code>File.readlines("a_file_containing_lines_of_ruby.txt").each do|line|
-puts"#{line.chomp}=&lt;图&gt;#{eval(line)}"
+   <code>
+File.readlines("a_file_containing_lines_of_ruby.txt").each do|line|
+    puts"#{line.chomp}==&gt;#{eval(line)}"
 end
-#&gt;&gt;1+1=&lt;图&gt;2
-#&gt;&gt;3*2=&lt;图&gt;6
-#&gt;&gt;Math.log10(100)=&lt;图&gt;2.0
+#&gt;&gt;1+1==&gt;2
+#&gt;&gt;3*2==&gt;6
+#&gt;&gt;Math.log10(100)==&gt;2.0
 </code>
 </pre>
 
@@ -526,13 +537,14 @@ end
 执行块来获取对象上下文中的信息。</p>
 
 <pre>
-   <code>class C
-def initialize
-@x="a private instance variable"
-end
+   <code>
+class C
+    def initialize
+        @x="a private instance variable"
+    end
 end
 obj=C.new
-obj.instance_eval{@x}#&lt;图&gt;"a private instance variable"
+obj.instance_eval{@x}#=&gt;"a private instance variable"
 </code>
 </pre>
 
@@ -542,19 +554,20 @@ obj.instance_eval{@x}#&lt;图&gt;"a private instance variable"
 在proc或lambda中存储一段代码及其上下文，用于以后执行。</p>
 
 <pre>
-   <code>class C
-def store(&amp;block)
-@my_code_capsule=block
-end
-def execute
-@my_code_capsule.call
-end
+   <code>
+class C
+    def store(&amp;block)
+        @my_code_capsule=block
+    end
+    def execute
+        @my_code_capsule.call
+    end
 end
 obj=C.new
 obj.store{$X=1}
 $X=0
 obj.execute
-$X#&lt;图&gt;1
+$X#=&gt;1
 </code>
 </pre>
 
@@ -564,92 +577,103 @@ $X#&lt;图&gt;1
 在运行时决定调用哪个方法。</p>
 
 <pre>
-   <code>method_to_call=:reverse
+   <code>
+method_to_call=:reverse
 obj="abc"
-obj.send(method_to_call)#&lt;图&gt;"cba"
-  2014-11-21 22:12:09
-动态方法
-Dynamic Method
-在运行时才决定如何定义一个方法。
-class C
-end
-C.class_eval do
-define_method:my_method do
-"a dynamic method"
-end
-end
-obj=C.new
-obj.my_method#&lt;图&gt;"a dynamic method"
+obj.send(method_to_call)#=&gt;"cba"
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-13">动态代理</h2>
+<h2 id="tocAnchor-1-5-13">动态方法</h2>
+
+<p>Dynamic Method
+在运行时才决定如何定义一个方法。</p>
+
+<pre>
+   <code>
+class C
+end
+C.class_eval do
+    define_method:my_method do
+        "a dynamic method"
+    end
+end
+obj=C.new
+obj.my_method#=&gt;"a dynamic method"
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-5-14">动态代理</h2>
 
 <p>Dynamic Proxy
 把不能对应某个方法名的消息转发给另外一个对象。</p>
 
 <pre>
-   <code>class MyDynamicProxy
-def initialize(target)
-@target=target
-end
-def method missing(name,*args,&amp;block)
-"result:#{@target.send(name,*args,&amp;block)}"
-end
+   <code>
+class MyDynamicProxy
+    def initialize(target)
+        @target=target
+    end
+    def method missing(name,*args,&amp;block)
+        "result:#{@target.send(name,*args,&amp;block)}"
+    end
 end
 obj=MyDynamicProxy.new("a string")
-obj.reverse#&lt;图&gt;"result: gnirts a"
+obj.reverse#=&gt;"result: gnirts a"
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-14">扁平作用域</h2>
+<h2 id="tocAnchor-1-5-15">扁平作用域</h2>
 
 <p>Flat Scope
 使用闭包在两个作用域之间共享变量。</p>
 
 <pre>
-   <code>class C
-def an_attribute
-@attr
-end
+   <code>
+class C
+    def an_attribute
+        @attr
+    end
 end
 obj=C.new
 a_variable=100
 #flatscope:
 obj.instance_eval do
-@attr=a_variable
+    @attr=a_variable
 end
-obj.an_attribute#&lt;图&gt;100
+obj.an_attribute#=&gt;100
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-15">幽灵方法</h2>
+<h2 id="tocAnchor-1-5-16">幽灵方法</h2>
 
 <p>Ghost Method
 响应一个没有关联方法的消息。</p>
 
 <pre>
-   <code>class C
-def method_missing(name,*args)
-name.to_s.reverse
-end
+   <code>
+class C
+    def method_missing(name,*args)
+        name.to_s.reverse
+    end
 end
 obj=C.new
-obj.my_ghost_method #&lt;图&gt;"dohtem_tsohg_ym"
+obj.my_ghost_method #=&gt;"dohtem_tsohg_ym"
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-16">钩子方法</h2>
+<h2 id="tocAnchor-1-5-17">钩子方法</h2>
 
 <p>Hook Method
 通过覆写某个特殊方法来截获对象模型事件。</p>
 
 <pre>
-   <code>$INHERITORS=[]
+   <code>
+$INHERITORS=[]
 class C
-def self.inherited(subclass)
-$INHERITORS&lt;&lt;subclass
-end
+    def self.inherited(subclass)
+        $INHERITORS&lt;&lt;subclass
+    end
 end
 class D&lt;C
 end
@@ -657,102 +681,123 @@ class E&lt;C
 end
 class F&lt;E
 end
-$INHERITORS #&lt;图&gt;[D,E,F]
+$INHERITORS #=&gt;[D,E,F]
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-17">内核方法</h2>
+<h2 id="tocAnchor-1-5-18">内核方法</h2>
 
 <p>Kernel Method
 在Kernel模块中定义一个方法，使之对所有对象都可用。</p>
 
 <pre>
-   <code>module Kernel
-def a_method
-"a kernel method"
+   <code>
+module Kernel
+    def a_method
+        "a kernel method"
+    end
 end
-end
-a_method#&lt;图&gt;"a kernel method"
-  2014-11-21 22:13:03
-惰性实例变量
-Lazy Instance Variable
-当第一次访问一个实例变量时才对之进行初始化。
-class C
-def attribute
-@attribute=@attribute||"some value"
-end
-end
-obj=C.new
-obj.attribute#&lt;图&gt;"some value"
+a_method#=&gt;"a kernel method"
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-18">拟态方法</h2>
+<h2 id="tocAnchor-1-5-19">惰性实例变量</h2>
+
+<p>Lazy Instance Variable
+当第一次访问一个实例变量时才对之进行初始化。</p>
+
+<pre>
+   <code>
+class C
+    def attribute
+        @attribute=@attribute||"some value"
+    end
+end
+obj=C.new
+obj.attribute#=&gt;"some value"
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-5-20">拟态方法</h2>
 
 <p>Mimic Method
 把一个方法伪装成另外一种语言构件。</p>
 
 <pre>
-   <code>def BaseClass(name)
-name=="string" ? String : Object
+   <code>
+def BaseClass(name)
+    name=="string" ? String : Object
 end
 class C&lt;BaseClass "string" #一个看起来像类的方法
-attr_accessor :an_attribute #一个看起来像关键字的方法
+    attr_accessor :an_attribute #一个看起来像关键字的方法
 end
 obj=C.new
 obj.an_attribute=1 #一个看起来像属性的方法
-  2014-11-21 22:13:27
-猴子打补丁
-Monkeypatch
-修改已有类的特性。
-"abc".reverse #&lt;图&gt;"cba"
-class String
-def reverse
-"override"
-end
-end
-"abc".reverse #&lt;图&gt;"override"
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-19">有名参数</h2>
+<h2 id="tocAnchor-1-5-21">猴子打补丁</h2>
+
+<p>Monkeypatch
+修改已有类的特性。</p>
+
+<pre>
+   <code>
+"abc".reverse #=&gt;"cba"
+class String
+    def reverse
+        "override"
+    end
+end
+"abc".reverse #=&gt;"override"
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-5-22">有名参数</h2>
 
 <p>Named Arguments
 把方法参数收集到一个哈希表中，以便通过名字访问。</p>
 
 <pre>
-   <code>def my_method(args)
-args[:arg2]
+   <code>
+def my_method(args)
+    args[:arg2]
 end
-my_method(:arg1&lt;图&gt;"A",:arg2&lt;图&gt;"B",:arg3&lt;图&gt;"C") #&lt;图&gt;"B"
-  2014-11-21 22:13:37
-命名空间
-Namespace
-在一个模块中定义常量，以防止命名冲突。
-module MyNamespace
-class Array
-def to_s
-"myclass"
-end
-end
-end
-Array.new #&lt;图&gt;[]
-MyNamespace::Array.new#&lt;图&gt;my class
+my_method(:arg1=&gt;"A",:arg2=&gt;"B",:arg3=&gt;"C") #=&gt;"B"
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-20">空指针保护</h2>
+<h2 id="tocAnchor-1-5-23">命名空间</h2>
+
+<p>Namespace
+在一个模块中定义常量，以防止命名冲突。</p>
+
+<pre>
+   <code>
+module MyNamespace
+    class Array
+        def to_s
+            "myclass"
+        end
+    end
+end
+Array.new #=&gt;[]
+MyNamespace::Array.new#=&gt;my class
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-5-24">空指针保护</h2>
 
 <p>Nil Guard
 用“或”操作符覆写一个空引用。</p>
 
 <pre>
    <code>x=nil
-y=x ||"a value" # &lt;图&gt;"a value"
+y=x ||"a value" # =&gt;"a value"
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-21">对象扩展</h2>
+<h2 id="tocAnchor-1-5-25">对象扩展</h2>
 
 <p>Object Extension
 通过给一个对象的eigenclass混入模块来定义单件方法。</p>
@@ -760,153 +805,176 @@ y=x ||"a value" # &lt;图&gt;"a value"
 <pre>
    <code>obj=Object.new
 module M
-def my_method
-'a singleton method'
-end
+    def my_method
+        'a singleton method'
+    end
 end
 class&lt;&lt;obj
-include M
+    include M
 end
-obj.my_method#&lt;图&gt;"a singleton method"
+obj.my_method#=&gt;"a singleton method"
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-22">打开类</h2>
+<h2 id="tocAnchor-1-5-26">打开类</h2>
 
 <p>Open Class
 修改已有的类。</p>
 
 <pre>
    <code>class String
-def my_string_method
-"my method"
+    def my_string_method
+        "my method"
+    end
 end
-end
-"abc".my_string_method#&lt;图&gt;"my method"
+"abc".my_string_method#=&gt;"my method"
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-23">模式派发</h2>
+<h2 id="tocAnchor-1-5-27">模式派发</h2>
 
 <p>Pattern Dispatch
 根据名字来选择需要调用的方法。</p>
 
 <pre>
-   <code>$x=0
+   <code>
+$x=0
 class C
-def my_first_method
-$x +=1
-end
-def my_second_method
-$x +=2
-end
+    def my_first_method
+        $x +=1
+    end
+    def my_second_method
+        $x +=2
+    end
 end
 obj=C.new
 obj.methods.each do |m|
-obj.send(m) if m.to_s=~/^my_/
+    obj.send(m) if m.to_s=~/^my_/
 end
-$x # &lt;图&gt; 3
-  2014-11-21 22:14:17
-沙盒
-Sandbox
-在一个安全的环境中执行未授信的代码。
+$x # =&gt; 3
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-5-28">沙盒</h2>
+
+<p>Sandbox
+在一个安全的环境中执行未授信的代码。</p>
+
+<pre>
+   <code>
 def sandbox(&amp;code)
-proc {
-$SAFE = 2
-yield
-}.call
+    proc {
+        $SAFE = 2
+        yield
+    }.call
 end
 begin
-sandbox{File.delete 'a_file'}
-rescue Exception&lt;图&gt;ex
-ex #&lt;图&gt;#&lt;SecurityError:Insecure operation 'delete' at level 2&gt;
+    sandbox{File.delete 'a_file'}
+rescue Exception=&gt;ex
+    ex #=&gt;#&lt;SecurityError:Insecure operation 'delete' at level 2&gt;
 end
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-24">作用域门</h2>
+<h2 id="tocAnchor-1-5-29">作用域门</h2>
 
 <p>Scope Gate
 用class、module或def关键字来隔离作用域。</p>
 
 <pre>
-   <code>a=1
-defined? a #&lt;图&gt;"local-variable"
+   <code>
+a=1
+defined? a #=&gt;"local-variable"
 module MyModule
-b = 1
-defined? a#&lt;图&gt;nil
-defined? b#&lt;图&gt;"local-variable"
+    b = 1
+    defined? a#=&gt;nil
+    defined? b#=&gt;"local-variable"
 end
-defined? a #&lt;图&gt;"local-variable"
-defined? b #&lt;图&gt;nil
-  2014-11-21 22:14:32
-Self Yield
-把self传给当前块。
+defined? a #=&gt;"local-variable"
+defined? b #=&gt;nil
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-5-30">Self Yield</h2>
+
+<p>把self传给当前块。</p>
+
+<pre>
+   <code>
 class Person
-attr_accessor :name, :surname
-def initialize
-yield self
-end
+    attr_accessor :name, :surname
+    def initialize
+        yield self
+    end
 end
 joe = Person.new do |p|
-p.name = 'Joe'
-p.surname = 'Smith'
+    p.name = 'Joe'
+    p.surname = 'Smith'
 end
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-25">共享作用域</h2>
+<h2 id="tocAnchor-1-5-31">共享作用域</h2>
 
 <p>Shared Scope
 在同一个扁平作用域的多个上下文中共享变量。</p>
 
 <pre>
-   <code>lambda {
-shared = 10
-self.class.class_eval do
-define_method: counter do
-shared
-end
-define_method :down do
-shared -= 1
-end
-end
+   <code>
+lambda {
+    shared = 10
+    self.class.class_eval do
+        define_method: counter do
+            shared
+        end
+        define_method :down do
+            shared -= 1
+        end
+    end
 }.call
-Counter #&lt;图&gt;10
+Counter #=&gt;10
 3.times {down}
-Counter #&lt;图&gt;7
+Counter #=&gt;7
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-26">单件方法</h2>
+<h2 id="tocAnchor-1-5-32">单件方法</h2>
 
 <p>Singleton Method
 在一个对象上定义一个方法。</p>
 
 <pre>
-   <code>obj = "abc"
+   <code>
+obj = "abc"
 class &lt;&lt; obj
-def my_singleton_method
-"x"
+    def my_singleton_method
+        "x"
+    end
 end
-end
-obj.my_singleton_method # &lt;图&gt; "x"
-  2014-11-21 22:15:02
-代码字符串
-String of Code
-执行一段表示Ruby代码的字符串。
-my_string_of_code="1+1"
-eval(my_string_of_code)#&lt;图&gt;2
+obj.my_singleton_method # =&gt; "x"
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-5-27">符号到Proc</h2>
+<h2 id="tocAnchor-1-5-33">代码字符串</h2>
+
+<p>String of Code
+执行一段表示Ruby代码的字符串。</p>
+
+<pre>
+   <code>
+my_string_of_code="1+1"
+eval(my_string_of_code)#=&gt;2
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-5-34">符号到Proc</h2>
 
 <p>Symbol To Proc
 把一个符号转换为调用单个方法的代码块。</p>
 
 <pre>
-   <code>[1, 2, 3, 4].map(&amp;:even?) # &lt;图&gt; [false, true, false, true]
+   <code>
+[1, 2, 3, 4].map(&amp;:even?) # =&gt; [false, true, false, true]
 </code>
 </pre>
 
@@ -949,12 +1017,12 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Meta Programming</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">对象模型</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">4.1 类定义揭秘</span></a></li></ul></li><li class="toc_level-1 toc_section-4"><a href="#tocAnchor-1-4"><span class="tocnumber">2</span> <span class="toctext">第6章 尾声</span></a></li><li class="toc_level-1 toc_section-5"><a href="#tocAnchor-1-5"><span class="tocnumber">3</span> <span class="toctext">Ruby法术</span></a><ul><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-5-1"><span class="tocnumber">3.1</span> <span class="toctext">数组参数 Argument Array</span></a></li><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-5-2"><span class="tocnumber">3.2</span> <span class="toctext">环绕别名</span></a></li><li class="toc_level-2 toc_section-8"><a href="#tocAnchor-1-5-3"><span class="tocnumber">3.3</span> <span class="toctext">白板</span></a></li><li class="toc_level-2 toc_section-9"><a href="#tocAnchor-1-5-4"><span class="tocnumber">3.4</span> <span class="toctext">类扩展</span></a></li><li class="toc_level-2 toc_section-10"><a href="#tocAnchor-1-5-5"><span class="tocnumber">3.5</span> <span class="toctext">类扩展混入</span></a></li><li class="toc_level-2 toc_section-11"><a href="#tocAnchor-1-5-6"><span class="tocnumber">3.6</span> <span class="toctext">类实例变量</span></a></li><li class="toc_level-2 toc_section-12"><a href="#tocAnchor-1-5-7"><span class="tocnumber">3.7</span> <span class="toctext">类宏</span></a></li><li class="toc_level-2 toc_section-13"><a href="#tocAnchor-1-5-8"><span class="tocnumber">3.8</span> <span class="toctext">洁净室</span></a></li><li class="toc_level-2 toc_section-14"><a href="#tocAnchor-1-5-9"><span class="tocnumber">3.9</span> <span class="toctext">代码处理器</span></a></li><li class="toc_level-2 toc_section-15"><a href="#tocAnchor-1-5-10"><span class="tocnumber">3.10</span> <span class="toctext">上下文探针</span></a></li><li class="toc_level-2 toc_section-16"><a href="#tocAnchor-1-5-11"><span class="tocnumber">3.11</span> <span class="toctext">延迟执行</span></a></li><li class="toc_level-2 toc_section-17"><a href="#tocAnchor-1-5-12"><span class="tocnumber">3.12</span> <span class="toctext">动态派发</span></a></li><li class="toc_level-2 toc_section-18"><a href="#tocAnchor-1-5-13"><span class="tocnumber">3.13</span> <span class="toctext">动态代理</span></a></li><li class="toc_level-2 toc_section-19"><a href="#tocAnchor-1-5-14"><span class="tocnumber">3.14</span> <span class="toctext">扁平作用域</span></a></li><li class="toc_level-2 toc_section-20"><a href="#tocAnchor-1-5-15"><span class="tocnumber">3.15</span> <span class="toctext">幽灵方法</span></a></li><li class="toc_level-2 toc_section-21"><a href="#tocAnchor-1-5-16"><span class="tocnumber">3.16</span> <span class="toctext">钩子方法</span></a></li><li class="toc_level-2 toc_section-22"><a href="#tocAnchor-1-5-17"><span class="tocnumber">3.17</span> <span class="toctext">内核方法</span></a></li><li class="toc_level-2 toc_section-23"><a href="#tocAnchor-1-5-18"><span class="tocnumber">3.18</span> <span class="toctext">拟态方法</span></a></li><li class="toc_level-2 toc_section-24"><a href="#tocAnchor-1-5-19"><span class="tocnumber">3.19</span> <span class="toctext">有名参数</span></a></li><li class="toc_level-2 toc_section-25"><a href="#tocAnchor-1-5-20"><span class="tocnumber">3.20</span> <span class="toctext">空指针保护</span></a></li><li class="toc_level-2 toc_section-26"><a href="#tocAnchor-1-5-21"><span class="tocnumber">3.21</span> <span class="toctext">对象扩展</span></a></li><li class="toc_level-2 toc_section-27"><a href="#tocAnchor-1-5-22"><span class="tocnumber">3.22</span> <span class="toctext">打开类</span></a></li><li class="toc_level-2 toc_section-28"><a href="#tocAnchor-1-5-23"><span class="tocnumber">3.23</span> <span class="toctext">模式派发</span></a></li><li class="toc_level-2 toc_section-29"><a href="#tocAnchor-1-5-24"><span class="tocnumber">3.24</span> <span class="toctext">作用域门</span></a></li><li class="toc_level-2 toc_section-30"><a href="#tocAnchor-1-5-25"><span class="tocnumber">3.25</span> <span class="toctext">共享作用域</span></a></li><li class="toc_level-2 toc_section-31"><a href="#tocAnchor-1-5-26"><span class="tocnumber">3.26</span> <span class="toctext">单件方法</span></a></li><li class="toc_level-2 toc_section-32"><a href="#tocAnchor-1-5-27"><span class="tocnumber">3.27</span> <span class="toctext">符号到Proc</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Meta Programming</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">对象模型</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">4.1 类定义揭秘</span></a></li></ul></li><li class="toc_level-1 toc_section-4"><a href="#tocAnchor-1-4"><span class="tocnumber">2</span> <span class="toctext">第6章 尾声</span></a></li><li class="toc_level-1 toc_section-5"><a href="#tocAnchor-1-5"><span class="tocnumber">3</span> <span class="toctext">Ruby法术</span></a><ul><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-5-1"><span class="tocnumber">3.1</span> <span class="toctext">数组参数 Argument Array</span></a></li><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-5-2"><span class="tocnumber">3.2</span> <span class="toctext">环绕别名</span></a></li><li class="toc_level-2 toc_section-8"><a href="#tocAnchor-1-5-3"><span class="tocnumber">3.3</span> <span class="toctext">白板</span></a></li><li class="toc_level-2 toc_section-9"><a href="#tocAnchor-1-5-4"><span class="tocnumber">3.4</span> <span class="toctext">类扩展</span></a></li><li class="toc_level-2 toc_section-10"><a href="#tocAnchor-1-5-5"><span class="tocnumber">3.5</span> <span class="toctext">类扩展混入</span></a></li><li class="toc_level-2 toc_section-11"><a href="#tocAnchor-1-5-6"><span class="tocnumber">3.6</span> <span class="toctext">类实例变量</span></a></li><li class="toc_level-2 toc_section-12"><a href="#tocAnchor-1-5-7"><span class="tocnumber">3.7</span> <span class="toctext">类宏</span></a></li><li class="toc_level-2 toc_section-13"><a href="#tocAnchor-1-5-8"><span class="tocnumber">3.8</span> <span class="toctext">洁净室</span></a></li><li class="toc_level-2 toc_section-14"><a href="#tocAnchor-1-5-9"><span class="tocnumber">3.9</span> <span class="toctext">代码处理器</span></a></li><li class="toc_level-2 toc_section-15"><a href="#tocAnchor-1-5-10"><span class="tocnumber">3.10</span> <span class="toctext">上下文探针</span></a></li><li class="toc_level-2 toc_section-16"><a href="#tocAnchor-1-5-11"><span class="tocnumber">3.11</span> <span class="toctext">延迟执行</span></a></li><li class="toc_level-2 toc_section-17"><a href="#tocAnchor-1-5-12"><span class="tocnumber">3.12</span> <span class="toctext">动态派发</span></a></li><li class="toc_level-2 toc_section-18"><a href="#tocAnchor-1-5-13"><span class="tocnumber">3.13</span> <span class="toctext">动态方法</span></a></li><li class="toc_level-2 toc_section-19"><a href="#tocAnchor-1-5-14"><span class="tocnumber">3.14</span> <span class="toctext">动态代理</span></a></li><li class="toc_level-2 toc_section-20"><a href="#tocAnchor-1-5-15"><span class="tocnumber">3.15</span> <span class="toctext">扁平作用域</span></a></li><li class="toc_level-2 toc_section-21"><a href="#tocAnchor-1-5-16"><span class="tocnumber">3.16</span> <span class="toctext">幽灵方法</span></a></li><li class="toc_level-2 toc_section-22"><a href="#tocAnchor-1-5-17"><span class="tocnumber">3.17</span> <span class="toctext">钩子方法</span></a></li><li class="toc_level-2 toc_section-23"><a href="#tocAnchor-1-5-18"><span class="tocnumber">3.18</span> <span class="toctext">内核方法</span></a></li><li class="toc_level-2 toc_section-24"><a href="#tocAnchor-1-5-19"><span class="tocnumber">3.19</span> <span class="toctext">惰性实例变量</span></a></li><li class="toc_level-2 toc_section-25"><a href="#tocAnchor-1-5-20"><span class="tocnumber">3.20</span> <span class="toctext">拟态方法</span></a></li><li class="toc_level-2 toc_section-26"><a href="#tocAnchor-1-5-21"><span class="tocnumber">3.21</span> <span class="toctext">猴子打补丁</span></a></li><li class="toc_level-2 toc_section-27"><a href="#tocAnchor-1-5-22"><span class="tocnumber">3.22</span> <span class="toctext">有名参数</span></a></li><li class="toc_level-2 toc_section-28"><a href="#tocAnchor-1-5-23"><span class="tocnumber">3.23</span> <span class="toctext">命名空间</span></a></li><li class="toc_level-2 toc_section-29"><a href="#tocAnchor-1-5-24"><span class="tocnumber">3.24</span> <span class="toctext">空指针保护</span></a></li><li class="toc_level-2 toc_section-30"><a href="#tocAnchor-1-5-25"><span class="tocnumber">3.25</span> <span class="toctext">对象扩展</span></a></li><li class="toc_level-2 toc_section-31"><a href="#tocAnchor-1-5-26"><span class="tocnumber">3.26</span> <span class="toctext">打开类</span></a></li><li class="toc_level-2 toc_section-32"><a href="#tocAnchor-1-5-27"><span class="tocnumber">3.27</span> <span class="toctext">模式派发</span></a></li><li class="toc_level-2 toc_section-33"><a href="#tocAnchor-1-5-28"><span class="tocnumber">3.28</span> <span class="toctext">沙盒</span></a></li><li class="toc_level-2 toc_section-34"><a href="#tocAnchor-1-5-29"><span class="tocnumber">3.29</span> <span class="toctext">作用域门</span></a></li><li class="toc_level-2 toc_section-35"><a href="#tocAnchor-1-5-30"><span class="tocnumber">3.30</span> <span class="toctext">Self Yield</span></a></li><li class="toc_level-2 toc_section-36"><a href="#tocAnchor-1-5-31"><span class="tocnumber">3.31</span> <span class="toctext">共享作用域</span></a></li><li class="toc_level-2 toc_section-37"><a href="#tocAnchor-1-5-32"><span class="tocnumber">3.32</span> <span class="toctext">单件方法</span></a></li><li class="toc_level-2 toc_section-38"><a href="#tocAnchor-1-5-33"><span class="tocnumber">3.33</span> <span class="toctext">代码字符串</span></a></li><li class="toc_level-2 toc_section-39"><a href="#tocAnchor-1-5-34"><span class="tocnumber">3.34</span> <span class="toctext">符号到Proc</span></a></li></ul></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
     <div class="date"><span>2014-11-23</span></div>
     
         <h4>最后修改@</h4>
-        <div class="date"><span>2014-11-23</span></div>
+        <div class="date"><span>2014-11-27</span></div>
     
 
   

@@ -17,7 +17,7 @@
 <!--选填-->
 <meta name="weibo:article:create_at" content="2014-11-22" />
 
-<meta name="weibo:article:update_at" content="2014-11-22" />
+<meta name="weibo:article:update_at" content="2014-11-27" />
 
 <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
@@ -184,7 +184,8 @@
 <h3>tempfile</h3>
 
 <pre>
-   <code>require 'tempfile'
+   <code class="ruby">
+require 'tempfile'
 a = Tempfile
 a.close  (delete @ GC a)
 a.close! (delete immediately)
@@ -217,7 +218,8 @@ a.close! (delete immediately)
 <h2 id="tocAnchor-1-8-1">pp 相关库</h2>
 
 <pre>
-   <code>#!/usr/bin/env ruby
+   <code>
+#!/usr/bin/env ruby
 #
 # Pretty-Printer for Ruby Objects
 require 'pp'
@@ -284,7 +286,8 @@ Output:
 <h2 id="tocAnchor-1-8-3">Working with HTTP and FTP</h2>
 
 <pre>
-   <code>require 'open-uri'
+   <code>
+require 'open-uri'
 
 a = open('http://www.ruby-lang.org/en/LICENSE.txt')
 pp a
@@ -307,71 +310,59 @@ pp a
 <h2 id="tocAnchor-1-8-4">时间处理，词法分析，HASH加密，数学处理，cvs,json,模板生成</h2>
 
 <pre>
-   <code>    #Working with Dates and Times(date)
-    puts 'date'
-    pp Date.today
+   <code>
+#Working with Dates and Times(date)
+puts 'date'
+pp Date.today
 
-    #Lexical Parsing with Regular Expressions(strscan)
-    puts 'strscan'
-    require 'strscan'
-    s = StringScanner.new('This is an example string')
-    s.eos?               # -&gt; false
+#Lexical Parsing with Regular Expressions(strscan)
+puts 'strscan'
+require 'strscan'
+s = StringScanner.new('This is an example string')
+s.eos?               # -&gt; false
 
-    p s.scan(/\w+/)      # -&gt; "This"
-    p s.scan(/\w+/)      # -&gt; nil
-    p s.scan(/\s+/)      # -&gt; " "
-    p s.scan(/\s+/)      # -&gt; nil
-    p s.scan(/\w+/)      # -&gt; "is"
-    s.eos?               # -&gt; false
+p s.scan(/\w+/)      # -&gt; "This"
+p s.scan(/\w+/)      # -&gt; nil
+p s.scan(/\s+/)      # -&gt; " "
+p s.scan(/\s+/)      # -&gt; nil
+p s.scan(/\w+/)      # -&gt; "is"
+s.eos?               # -&gt; false
 
-    p s.scan(/\s+/)      # -&gt; " "
-    p s.scan(/\w+/)      # -&gt; "an"
-    p s.scan(/\s+/)      # -&gt; " "
-    p s.scan(/\w+/)      # -&gt; "example"
-    p s.scan(/\s+/)      # -&gt; " "
-    p s.scan(/\w+/)      # -&gt; "string"
-    s.eos?               # -&gt; true
+p s.scan(/\s+/)      # -&gt; " "
+p s.scan(/\w+/)      # -&gt; "an"
+p s.scan(/\s+/)      # -&gt; " "
+p s.scan(/\w+/)      # -&gt; "example"
+p s.scan(/\s+/)      # -&gt; " "
+p s.scan(/\w+/)      # -&gt; "string"
+s.eos?               # -&gt; true
 
-    p s.scan(/\s+/)      # -&gt; nil
-    p s.scan(/\w+/)      # -&gt; nil
+p s.scan(/\s+/)      # -&gt; nil
+p s.scan(/\w+/)      # -&gt; nil
 
-    #Cryptographic Hash Functions (digest)
+#Cryptographic Hash Functions (digest)
 
-    puts 'digest'
+puts 'digest'
 
-    require 'digest/md5'
+require 'digest/md5'
 
-    pp Digest::MD5.hexdigest(File.binread(__FILE__))
+pp Digest::MD5.hexdigest(File.binread(__FILE__))
 
-    require 'digest/sha2'
-    pp Digest::SHA256.hexdigest(File.binread(__FILE__))
+require 'digest/sha2'
+pp Digest::SHA256.hexdigest(File.binread(__FILE__))
 </code>
 </pre>
 
 <h2 id="tocAnchor-1-8-5">Mathematical Ruby Scripts(mathn)</h2>
 
 <pre>
-   <code>    puts 'mathn'
-    require 'mathn'
-    pp Math.sqrt(-1)
-    pp 1/2
+   <code>puts 'mathn'
+require 'mathn'
+pp Math.sqrt(-1)
+pp 1/2
 </code>
 </pre>
 
 <h2 id="tocAnchor-1-8-6">cvs,json,erb</h2>
-
-<ul>
-<li>include : mixes in specified module methods as instance methods in the target class</li>
-<li>extend : mixes in specified module methods as class methods in the target class</li>
-<li>include: Invokes Module.append_features on each parameter in reverse order.
-
-<ul>
-<li> this module is included in another, Ruby calls append_features in this module, passing it the receiving module in mod. Ruby’s default implementation is to add the constants, methods, and module variables of this module to mod if this module has not already been added to mod or one of its ancestors.</li>
-</ul>
-</li>
-<li>extend: Adds to obj the instance methods from each module given as a parameter.</li>
-</ul>
-
 
     <hr>
     <div class="pagination">
@@ -417,7 +408,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
     <div class="date"><span>2014-11-22</span></div>
     
         <h4>最后修改@</h4>
-        <div class="date"><span>2014-11-22</span></div>
+        <div class="date"><span>2014-11-27</span></div>
     
 
   
