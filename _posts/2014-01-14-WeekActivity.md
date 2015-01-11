@@ -1,10 +1,10 @@
 ---
 layout: post
-lmtime: 2014-01-14
+lmtime: 2015-01-11
 category: it/living/life
 title: 周末活动收集与落实
 tagline: 让周末更有趣
-tags: Review
+tags: 
 
 ---
 
