@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-11-21
+lmtime: 2014-11-23
 category: it/technical/os/Android/init
 title:  init 功能与运行分析
 tags:
