@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-10-27
+lmtime: 2015-09-08
 category: it/technical/design
 title: "FileOrientedProgramming"
 tags:  DesignPattern IO
@@ -155,6 +155,21 @@ tags:  DesignPattern IO
 
 
 
+##Archive##
+* zip/tar/7z等文件多
+* 部分保存了文件系统的元数据信息
+  * filepath/name
+* rsync实现的复杂
+  * 由于文件系统的差异性, 在进行sync时, 需要有足够的说明
+    * soft link
+    * devices
+    * file permission
+    * owner/group
+  * 隐藏文件的处理
+    * ruby默认不同步hidden file
+
+
+
 ##泛化价值##
 * 由于系统体系结构的抽象
   * 利用面对文件的编程扩展到面向IPC/信息通信与存储的基本方式上
@@ -165,3 +180,37 @@ tags:  DesignPattern IO
       * NIO
       * 同步与异步
       * 缓存
+* 编程注意点
+  * https://en.wikipedia.org/wiki/Comparison_of_file_systems
+  * 存在性
+    * 父文件夹不存在, 文件无法创建
+    * 具体限制点
+      * 文件名长度与格式
+      * 文件全路径长度与格式
+      * 单个文件大小
+      * 单个分区大小
+  * 元数据
+    * NTFS/fat文件系统不支持
+      * soft link
+      * file permission
+      * owner/group
+    * Owner
+    * Permission
+      * file mode POSIX
+      * access control
+    * timestamp
+      * Access
+      * Create
+      * Modify
+  * 功能性
+    * link
+      * Hard
+      * soft
+    * 日志
+      * meta
+      * data
+    * 大小写
+    * 加密
+  * 特殊点
+    * softlink
+    * hidden file
