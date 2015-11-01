@@ -7,6 +7,7 @@ http://www.5wpc.info/search.html
 http://www.5wpc.info/sitemap.txt
 http://www.5wpc.info/tags.html
 
+http://www.5wpc.info/it/living/selfmanagement/2015/11/01/DropUnifyGTDTools
 http://www.5wpc.info/it/living/selfmanagement/2015/10/26/GTDBook_1
 http://www.5wpc.info/it/technical/language/go/2015/10/25/GoMobile
 http://www.5wpc.info/it/living/selfmanagement/2015/10/25/GTD_Review20151013

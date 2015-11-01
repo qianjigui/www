@@ -4,13 +4,77 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2015-10-26T21:04:29+08:00</updated>
+ <updated>2015-11-01T12:53:13+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
    <email>qianjigui@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>放弃大一统的任务管理体系</title>
+   <link href="http://www.5wpc.info/it/living/selfmanagement/2015/11/01/DropUnifyGTDTools"/>
+   <updated>2015-11-01T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/living/selfmanagement/2015/11/01/DropUnifyGTDTools</id>
+   <content type="html">&lt;p&gt;从开始接触时间管理, 到个人知识库建立, 再到目前的GTD实践.&lt;/p&gt;
+
+&lt;p&gt;工具与任务管理方式也发生了变化:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;2008.01-2010.10 Google类产品为核心的第一代个人事务管理体系(日历+Task). 由于是学生阶段, 事情相对少, 个人需要投入精力的地方也只是学习与维持生存. 解决了记录问题.&lt;/li&gt;
+&lt;li&gt;2010.11-2015.03 进入工作与体系化个人管理后的多维度管理: 日历+Task+freemind, 由freemind进行关注点收集与整理, 再通过Google类产品将任务分发到每天等各个阶段. 解决了统一关注与整理问题.&lt;/li&gt;
+&lt;li&gt;2015.03-2015.06 引入多标注的一体化管理平台: doit.im, 由doit.im完成收集整理与跟踪, 由于丰富的维度(目标,项目,标签,情境,时间), 基本可以管理涉及的各个方面. 解决了多维度多平台问题, 并突出了任务的本质——实现目标.&lt;/li&gt;
+&lt;li&gt;2015.07-2015.10中旬 在上述基础上的细化管理系统: doit.im + 领域管理(通过excel等工具对技术项目进行管理与信息同步).
+
+&lt;ol&gt;
+&lt;li&gt;在这个阶段, 我们发现已经从对自我的管理向对团队管理上过渡, doit.im 无法解决协作与数据私密性问题. 开始时, 简单引入了git进行同步, 然后将doit中的数据进行再拆分与记录. 数据重复不同步&lt;/li&gt;
+&lt;li&gt;Excel/Number等工具无法在线预览, 历史不容易查看.&lt;/li&gt;
+&lt;li&gt;对于复杂协同的项目, 信息共享查看, 任务分配与跟踪, 技术细节与任务关联等需求, 通用的doit.im产品无法解决.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;2015.10中旬——今 在进一步学习&amp;lt;搞定1&gt;等资料后, 个人还是需要因地制宜, 找到最符合一类事务的处理与跟进工具
+
+&lt;ol&gt;
+&lt;li&gt;doit.im 通用平台
+
+&lt;ul&gt;
+&lt;li&gt;针对生活, 简单工作事务等&lt;/li&gt;
+&lt;li&gt;收集篮&lt;/li&gt;
+&lt;li&gt;项目单&lt;/li&gt;
+&lt;li&gt;目标单&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;github/gitlab 协同软件开发平台
+
+&lt;ul&gt;
+&lt;li&gt;解决了开发中的关键协同问题: 在线,实时,关联,明确.&lt;/li&gt;
+&lt;li&gt;解决了项目中的要素: 里程碑, 问题(request,bug), 指派&lt;/li&gt;
+&lt;li&gt;数据的私密&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;根据情况引入有效的管理平台
+
+&lt;ul&gt;
+&lt;li&gt;doit.im 作为 “总” 收集篮&lt;/li&gt;
+&lt;li&gt;在整理与组织阶段, 将 上述的材料分发到各系统&lt;/li&gt;
+&lt;li&gt;由于领域与具体问题不同, 我们不能希望一个系统可以解决所有问题, 要拥抱多样化. 不需要纠结一个具体系统的平台通用性不足, 随处可查性不足(例如gitlab确实在我们工作时才涉及) 等通用功能问题, 也可以算是一种特定的执行情境吧.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;突出缓存思维: 在一段时间, 主要处理的工作与Context其实是有限的, 及时清理与明确某个阶段的Context, 分支定界争取突破. 根据这个Context, 优化:
+
+&lt;ul&gt;
+&lt;li&gt;Workflow&lt;/li&gt;
+&lt;li&gt;Keywords&lt;/li&gt;
+&lt;li&gt;Tools&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>GTD_1搞定</title>
@@ -367,6 +431,337 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;第二部分 远离压力, 提高效率&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;第4章 准备工作: 确定时间空间和工具
+
+&lt;ul&gt;
+&lt;li&gt;时间
+
+&lt;ul&gt;
+&lt;li&gt;长时间思考自己涉及的方方面面, 从收集到最后&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;空间
+
+&lt;ul&gt;
+&lt;li&gt;工作区
+
+&lt;ul&gt;
+&lt;li&gt;办公点&lt;/li&gt;
+&lt;li&gt;家中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;工具
+
+&lt;ul&gt;
+&lt;li&gt;记录工具
+
+&lt;ul&gt;
+&lt;li&gt;笔&lt;/li&gt;
+&lt;li&gt;电脑&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;标记工具
+
+&lt;ul&gt;
+&lt;li&gt;标记笔&lt;/li&gt;
+&lt;li&gt;标签&lt;/li&gt;
+&lt;li&gt;情境&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;归档工具
+
+&lt;ul&gt;
+&lt;li&gt;文件夹&lt;/li&gt;
+&lt;li&gt;目录&lt;/li&gt;
+&lt;li&gt;要素
+
+&lt;ul&gt;
+&lt;li&gt;伸手可及&lt;/li&gt;
+&lt;li&gt;按字母排序&lt;/li&gt;
+&lt;li&gt;有足够的空间存放&lt;/li&gt;
+&lt;li&gt;保证有空白区域, 便于及时使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;程序员
+
+&lt;ul&gt;
+&lt;li&gt;工具
+
+&lt;ul&gt;
+&lt;li&gt;收集
+
+&lt;ul&gt;
+&lt;li&gt;A4纸张&lt;/li&gt;
+&lt;li&gt;doit.im
+
+&lt;ul&gt;
+&lt;li&gt;Inbox&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Email
+
+&lt;ul&gt;
+&lt;li&gt;待办事务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;gitlab
+
+&lt;ul&gt;
+&lt;li&gt;Issue&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;bugzilla
+
+&lt;ul&gt;
+&lt;li&gt;bug&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;gerrit
+
+&lt;ul&gt;
+&lt;li&gt;review&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;标记组织整理
+
+&lt;ul&gt;
+&lt;li&gt;笔&lt;/li&gt;
+&lt;li&gt;电子标签&lt;/li&gt;
+&lt;li&gt;情境
+
+&lt;ul&gt;
+&lt;li&gt;家&lt;/li&gt;
+&lt;li&gt;电话&lt;/li&gt;
+&lt;li&gt;小区&lt;/li&gt;
+&lt;li&gt;超市&lt;/li&gt;
+&lt;li&gt;工作&lt;/li&gt;
+&lt;li&gt;工作休息&lt;/li&gt;
+&lt;li&gt;食堂&lt;/li&gt;
+&lt;li&gt;会议&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;回顾
+
+&lt;ul&gt;
+&lt;li&gt;电子笔记本&lt;/li&gt;
+&lt;li&gt;Wiki&lt;/li&gt;
+&lt;li&gt;WorkGit&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;时间片断&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第5章 收集阶段: 收拢材料
+
+&lt;ul&gt;
+&lt;li&gt;预备
+
+&lt;ul&gt;
+&lt;li&gt;一定要在你彻底完成所有的收集工作之后, 再开始对这些材料进行处理
+
+&lt;ul&gt;
+&lt;li&gt;有助于你认识到到自己面对的工作量&lt;/li&gt;
+&lt;li&gt;清楚&quot;终点&quot;在哪里&lt;/li&gt;
+&lt;li&gt;为了防止后续阶段的心神不宁&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;开始
+
+&lt;ul&gt;
+&lt;li&gt;外在的收集范围
+
+&lt;ul&gt;
+&lt;li&gt;生活&lt;/li&gt;
+&lt;li&gt;工作&lt;/li&gt;
+&lt;li&gt;学习&lt;/li&gt;
+&lt;li&gt;娱乐&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;内在
+
+&lt;ul&gt;
+&lt;li&gt;内心渴望&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;程序员
+
+&lt;ul&gt;
+&lt;li&gt;可以用专用产品, 也可以使用通用产品在处理阶段再导入专用产品
+
+&lt;ul&gt;
+&lt;li&gt;gitlab&lt;/li&gt;
+&lt;li&gt;github&lt;/li&gt;
+&lt;li&gt;bugzilla&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第6章 处理阶段: 清空工作篮
+
+&lt;ul&gt;
+&lt;li&gt;识别你收集到的每样东西,确定它是什么, 意味着什么, 需要采取什么样的行动&lt;/li&gt;
+&lt;li&gt;方法指导
+
+&lt;ul&gt;
+&lt;li&gt;不分优先级的顺序处理&lt;/li&gt;
+&lt;li&gt;一次一事&lt;/li&gt;
+&lt;li&gt;不要把事务再放回工作篮&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;关键问题: &quot;下一步行动是什么&quot;
+
+&lt;ul&gt;
+&lt;li&gt;不需要付诸行动
+
+&lt;ul&gt;
+&lt;li&gt;垃圾
+
+&lt;ul&gt;
+&lt;li&gt;Drop&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;待酝酿的事务
+
+&lt;ul&gt;
+&lt;li&gt;目前没有什么可做的,也许今后会有用&lt;/li&gt;
+&lt;li&gt;Do
+
+&lt;ul&gt;
+&lt;li&gt;&quot;将来/也许&quot;清单&lt;/li&gt;
+&lt;li&gt;日程表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;参考资料
+
+&lt;ul&gt;
+&lt;li&gt;对某些项目和主题具有潜在的价值&lt;/li&gt;
+&lt;li&gt;加入归档系统
+
+&lt;ul&gt;
+&lt;li&gt;归档系统
+
+&lt;ul&gt;
+&lt;li&gt;方便使用
+
+&lt;ul&gt;
+&lt;li&gt;少于60秒&lt;/li&gt;
+&lt;li&gt;乐于使用&lt;/li&gt;
+&lt;li&gt;就在手边&lt;/li&gt;
+&lt;li&gt;一般性归档&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;空间大&lt;/li&gt;
+&lt;li&gt;便于检索&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;程序员
+
+&lt;ul&gt;
+&lt;li&gt;一般性归档
+
+&lt;ul&gt;
+&lt;li&gt;生活事宜
+
+&lt;ul&gt;
+&lt;li&gt;生活&lt;/li&gt;
+&lt;li&gt;学习&lt;/li&gt;
+&lt;li&gt;娱乐&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Evernote&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;行动
+
+&lt;ul&gt;
+&lt;li&gt;如何制定任务
+
+&lt;ul&gt;
+&lt;li&gt;来源于上述的材料&lt;/li&gt;
+&lt;li&gt;来源于项目/目标的具体事宜&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;如何制定项目&lt;/li&gt;
+&lt;li&gt;如何制定目标&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;第三部分 三个关键原则&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;第11章 养成收集的习惯
+
+&lt;ul&gt;
+&lt;li&gt;给人带来的好处
+
+&lt;ul&gt;
+&lt;li&gt;焦虑和内疚并不是因为承担了太多工作,而是由于撕毁了与自己的约定&lt;/li&gt;
+&lt;li&gt;如何减少消极情绪
+
+&lt;ul&gt;
+&lt;li&gt;不签订协议
+
+&lt;ul&gt;
+&lt;li&gt;学会说不&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;完成协议&lt;/li&gt;
+&lt;li&gt;重新商定协议&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;不再担心遗忘, 会减少焦虑&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;将一切分散精力的行为, 放入收集篮
+
+&lt;ul&gt;
+&lt;li&gt;哪怕是微乎其微的协议, 也需要将其纳入&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
