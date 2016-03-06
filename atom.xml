@@ -4,13 +4,72 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2015-11-01T12:53:13+08:00</updated>
+ <updated>2016-03-06T12:47:03+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
    <email>qianjigui@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Ruby Http 基础库学习</title>
+   <link href="http://www.5wpc.info/it/technical/language/ruby/2016/03/06/HttpNet"/>
+   <updated>2016-03-06T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/technical/language/ruby/2016/03/06/HttpNet</id>
+   <content type="html">&lt;h1&gt;网络http请相关学习&lt;/h1&gt;
+
+&lt;h2&gt;基础方法&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;URI&lt;/li&gt;
+&lt;li&gt;产生连接&lt;/li&gt;
+&lt;li&gt;连接内部进行请求&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;pre&gt;&lt;code&gt;require &#39;uri&#39;
+require &#39;net/http&#39;
+uri = URI(&#39;http://example.com/some_path?query=string&#39;)
+
+Net::HTTP.start(uri.host, uri.port) do |http|
+  request = Net::HTTP::Get.new uri
+
+  response = http.request request # Net::HTTPResponse object
+
+  request = Net::HTTP::Put.new uri
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;服务端&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;require &#39;webrick&#39;
+include WEBrick
+port=8080
+puts &quot;Starting server: http://#{Socket.gethostname}:#{port}&quot;
+server = HTTPServer.new(:Port=&amp;gt;port,:DocumentRoot=&amp;gt;Dir::pwd )
+trap(&quot;INT&quot;){ server.shutdown }
+server.start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;常见问题&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;代理&lt;/li&gt;
+&lt;li&gt;multimeta 表单&lt;/li&gt;
+&lt;li&gt;Auth&lt;/li&gt;
+&lt;li&gt;stream IO&lt;/li&gt;
+&lt;li&gt;性能
+
+&lt;ul&gt;
+&lt;li&gt;http/sql 连接池技术&lt;/li&gt;
+&lt;li&gt;HTTP KeepAlive&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>放弃大一统的任务管理体系</title>
@@ -692,6 +751,63 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;需要采取行动
+
+&lt;ul&gt;
+&lt;li&gt;具体行动是什么?&lt;/li&gt;
+&lt;li&gt;可执行的具体行动
+
+&lt;ul&gt;
+&lt;li&gt;针对决定?
+
+&lt;ul&gt;
+&lt;li&gt;找出那些能够帮助你作出&quot;决定&quot;的具体行动&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;确定了下一步行动
+
+&lt;ul&gt;
+&lt;li&gt;立刻执行
+
+&lt;ul&gt;
+&lt;li&gt;两分钟原则&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;委派他人
+
+&lt;ul&gt;
+&lt;li&gt;恰当的方式
+
+&lt;ul&gt;
+&lt;li&gt;邮件&lt;/li&gt;
+&lt;li&gt;字条&lt;/li&gt;
+&lt;li&gt;留言&lt;/li&gt;
+&lt;li&gt;添加日程, 会面时探讨&lt;/li&gt;
+&lt;li&gt;直接对话&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;跟踪委派他人的处理的工作
+
+&lt;ul&gt;
+&lt;li&gt;添加在&quot;等待&quot;分类&lt;/li&gt;
+&lt;li&gt;有时间限制的, 添加在&quot;日程表&quot;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;推迟执行
+
+&lt;ul&gt;
+&lt;li&gt;添加在&quot;悬而未决&quot;分类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;明确手中的目标&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;程序员
@@ -723,6 +839,150 @@
 &lt;/li&gt;
 &lt;li&gt;如何制定项目&lt;/li&gt;
 &lt;li&gt;如何制定目标&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第7章 组织整理:建立好清单
+
+&lt;ul&gt;
+&lt;li&gt;基本分类
+
+&lt;ul&gt;
+&lt;li&gt;7大类
+
+&lt;ul&gt;
+&lt;li&gt;项目清单&lt;/li&gt;
+&lt;li&gt;项目的辅助资料&lt;/li&gt;
+&lt;li&gt;记录在日程表中的行动和信息&lt;/li&gt;
+&lt;li&gt;&quot;下一步行动&quot;清单&lt;/li&gt;
+&lt;li&gt;&quot;等待&quot;清单&lt;/li&gt;
+&lt;li&gt;参考资料&lt;/li&gt;
+&lt;li&gt;&quot;将来/也许&quot;清单&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;明确其中的界线&lt;/li&gt;
+&lt;li&gt;你需要的仅仅是清单和文件夹
+
+&lt;ul&gt;
+&lt;li&gt;TODO List&lt;/li&gt;
+&lt;li&gt;项目相关资料/参考资料&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;组织整理行动提示信息
+
+&lt;ul&gt;
+&lt;li&gt;日程表
+
+&lt;ul&gt;
+&lt;li&gt;对执行时间有刚性要求的&lt;/li&gt;
+&lt;li&gt;非刚性要求的,添加在&quot;将来/也许/等待&quot;清单&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第8章 检查回顾: 保障系统的有效运行
+
+&lt;ul&gt;
+&lt;li&gt;要回顾哪部分的内容?在什么时候进行?
+
+&lt;ul&gt;
+&lt;li&gt;首先看一看你的日程表&lt;/li&gt;
+&lt;li&gt;然后看一看你的行动清单&lt;/li&gt;
+&lt;li&gt;根据情景选择恰当的回顾内容&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;更新你的系统
+
+&lt;ul&gt;
+&lt;li&gt;每周回顾
+
+&lt;ul&gt;
+&lt;li&gt;收集散落的纸片&lt;/li&gt;
+&lt;li&gt;整理笔记&lt;/li&gt;
+&lt;li&gt;过往的日程&lt;/li&gt;
+&lt;li&gt;即将到来的日程&lt;/li&gt;
+&lt;li&gt;清空大脑&lt;/li&gt;
+&lt;li&gt;回顾&quot;项目&quot;清单(包括目标和愿景)&lt;/li&gt;
+&lt;li&gt;回顾&quot;下一步行动&quot;清单&lt;/li&gt;
+&lt;li&gt;回顾&quot;等待&quot;清单&lt;/li&gt;
+&lt;li&gt;回顾相关的核查清单&lt;/li&gt;
+&lt;li&gt;回顾&quot;将来/也许&quot;清单&lt;/li&gt;
+&lt;li&gt;回顾&quot;悬而未决&quot;事务和辅助资料&lt;/li&gt;
+&lt;li&gt;收集你的奇思怪想和新奇点子&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;大局的回顾&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第9章 执行阶段: 选择最合适的行动
+
+&lt;ul&gt;
+&lt;li&gt;确定某个时刻具体行动的&quot;四标准法&quot;
+
+&lt;ul&gt;
+&lt;li&gt;情境&lt;/li&gt;
+&lt;li&gt;有多少时间&lt;/li&gt;
+&lt;li&gt;有多少精力&lt;/li&gt;
+&lt;li&gt;重要性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;评估每日工作的&quot;三分类法&quot;
+
+&lt;ul&gt;
+&lt;li&gt;执行事先安排好的工作&lt;/li&gt;
+&lt;li&gt;处理突发事件&lt;/li&gt;
+&lt;li&gt;安排自己的工作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;总体检视工作的&quot;六层次法&quot;
+
+&lt;ul&gt;
+&lt;li&gt;人生&lt;/li&gt;
+&lt;li&gt;3-5年的展望&lt;/li&gt;
+&lt;li&gt;1-2年的目标&lt;/li&gt;
+&lt;li&gt;责任范围&lt;/li&gt;
+&lt;li&gt;当前的项目/目标&lt;/li&gt;
+&lt;li&gt;目前的行动&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第10章 学会控制项目
+
+&lt;ul&gt;
+&lt;li&gt;我们需要更多的非正式计划
+
+&lt;ul&gt;
+&lt;li&gt;你建立起的系统以及运用的技巧, 应该能够帮助你更频繁更轻松更深层次地思考你面对的项目和情况.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;哪些项目需要你进行计划
+
+&lt;ul&gt;
+&lt;li&gt;除了下一步行动以外, 还有其他需要确认和安排的方面&lt;/li&gt;
+&lt;li&gt;想法会突然冒出来, 很可能不是在工作场所和工作时间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;项目计划也需要确定下一步行动
+
+&lt;ul&gt;
+&lt;li&gt;典型的计划步骤
+
+&lt;ul&gt;
+&lt;li&gt;头脑风暴&lt;/li&gt;
+&lt;li&gt;组织整理&lt;/li&gt;
+&lt;li&gt;召开会议&lt;/li&gt;
+&lt;li&gt;收集信息&lt;/li&gt;
+&lt;li&gt;随时产生的想法&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -766,6 +1026,8 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;第12章 确定&quot;下一步行动&quot;&lt;/li&gt;
+&lt;li&gt;第13章 学会关注结果&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>

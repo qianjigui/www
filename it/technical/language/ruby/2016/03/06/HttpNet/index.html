@@ -3,7 +3,7 @@
 <html lang="cn" xmlns:wb="http://open.weibo.com/wb">
   <head>
     <meta charset="utf-8">
-    <title>Ruby 编程技巧</title>
+    <title>Ruby Http 基础库学习</title>
     
     <meta name="author" content="王鹏程(WPC)">
 
@@ -11,13 +11,13 @@
     <meta property="wb:webmaster" content="632e6945a16c1527" />
 <!--必填-->
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/it/technical/language/ruby/2011/02/10/index.ruby" />
-<meta property="og:title" content="Ruby 编程技巧" />
+<meta property="og:url" content="/it/technical/language/ruby/2016/03/06/HttpNet" />
+<meta property="og:title" content="Ruby Http 基础库学习" />
 <meta property="og:description" content=" " />
 <!--选填-->
-<meta name="weibo:article:create_at" content="2011-02-10" />
+<meta name="weibo:article:create_at" content="2016-03-06" />
 
-<meta name="weibo:article:update_at" content="2014-08-27" />
+<meta name="weibo:article:update_at" content="2016-03-06" />
 
 <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
@@ -114,7 +114,7 @@
         
 <div class="page-header">
     <h1>
-        Ruby 编程技巧
+        Ruby Http 基础库学习
         <small>
             
             2014 "码" 到成功 !
@@ -127,66 +127,71 @@
 
 <div class="row">
   <div class="span8" id='main_content'>
-    <h1 id="tocAnchor-1-1">文件定位</h1>
+    <h1 id="tocAnchor-1-1">网络http请相关学习</h1>
 
-<h2 id="tocAnchor-1-1-1">文件名</h2>
+<h2 id="tocAnchor-1-1-1">基础方法</h2>
 
-<h3>自己在哪里</h3>
+<ol>
+<li>URI</li>
+<li>产生连接</li>
+<li>连接内部进行请求</li>
+</ol>
+
 
 <pre>
-   <code class="ruby">  File.expand_path(__FILE__) #所在文件的完整路径，不过如果被link后是不准确的
-  File.dirname(filename)     #目录
-  File.basename(filename)    #去掉目录的文件名
+   <code>require 'uri'
+require 'net/http'
+uri = URI('http://example.com/some_path?query=string')
+
+Net::HTTP.start(uri.host, uri.port) do |http|
+  request = Net::HTTP::Get.new uri
+
+  response = http.request request # Net::HTTPResponse object
+
+  request = Net::HTTP::Put.new uri
+end
 </code>
 </pre>
 
-<h3>ls</h3>
-
-<p>函数</p>
+<h3>服务端</h3>
 
 <pre>
-   <code class="ruby">  Dir[path_pattern] =&gt; 返回符合路径模式的所有文件以及文件夹
+   <code>require 'webrick'
+include WEBrick
+port=8080
+puts "Starting server: http://#{Socket.gethostname}:#{port}"
+server = HTTPServer.new(:Port=&gt;port,:DocumentRoot=&gt;Dir::pwd )
+trap("INT"){ server.shutdown }
+server.start
 </code>
 </pre>
 
-<p>模式</p>
+<h2 id="tocAnchor-1-1-2">常见问题</h2>
 
-<pre>
-   <code class="ruby">  src+'/**/**'+suffix #src目录下递归所有带有suffix后缀的文件以及文件夹
-  src+'/**/'+dir+'/**' #src目录下递归所有处在名为dir文件夹下(如果最后一级是dir，前面没有dir，那么是不被匹配的)的文件以及文件夹
-</code>
-</pre>
-
-<h2 id="tocAnchor-1-1-2">ERB</h2>
-
-<pre>
-   <code class="ruby"> require 'erb'
- template = File.read(tmp_path)
- template = ERB.new(template)
- File.open(file_path,'w')do |nf|
-   nf.puts template.result(binding)
- end
-</code>
-</pre>
-
-<h1 id="tocAnchor-1-4">其它参考</h1>
+<ol>
+<li>代理</li>
+<li>multimeta 表单</li>
+<li>Auth</li>
+<li>stream IO</li>
+<li>性能
 
 <ul>
-<li><a href="/it/technical/language/ruby/2011/02/19/ruby265methods/">Ruby常用265技巧</a></li>
-<li><a href="http://blog.chinaunix.net/topic/ruby/">Ruby技术讨论</a></li>
-<li><a href="/it/technical/language/ruby/2014/01/15/Regular/">Ruby 正则表达式</a></li>
+<li>http/sql 连接池技术</li>
+<li>HTTP KeepAlive</li>
 </ul>
+</li>
+</ol>
 
 
     <hr>
     <div class="pagination">
       <ul>
       
-        <li class="prev"><a href="/it/project/mywiki/2011/02/10/index" title="我的个人Wiki项目">&larr; 老的一篇</a></li>
+        <li class="prev"><a href="/it/living/selfmanagement/2015/11/01/DropUnifyGTDTools" title="放弃大一统的任务管理体系">&larr; 老的一篇</a></li>
       
         <li><a href="/archive.html">归档列表</a></li>
       
-        <li class="next"><a href="/it/career/business/2011/02/11/business" title="商业">新的一篇 &rarr;</a></li>
+        <li class="next disabled"><a>新的一篇 &rarr;</a>
       
       </ul>
     </div>
@@ -196,7 +201,7 @@
 
   
 <!-- Duoshuo Comment start -->
-<div class="ds-thread" data-thread-key="/it/technical/language/ruby/2011/02/10/index.ruby" data-title="Ruby 编程技巧" data-url="http://www.5wpc.info/it/technical/language/ruby/2011/02/10/index.ruby/"></div>
+<div class="ds-thread" data-thread-key="/it/technical/language/ruby/2016/03/06/HttpNet" data-title="Ruby Http 基础库学习" data-url="http://www.5wpc.info/it/technical/language/ruby/2016/03/06/HttpNet/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"qianjigui"};
 (function() {
@@ -217,12 +222,12 @@ var duoshuoQuery = {short_name:"qianjigui"};
   </div>
   
   <div class="span4">
-    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">文件定位</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">文件名</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">ERB</span></a></li></ul></li><li class="toc_level-1 toc_section-4"><a href="#tocAnchor-1-4"><span class="tocnumber">2</span> <span class="toctext">其它参考</span></a></li></ul></td></tr></tbody></table></div>
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">网络http请相关学习</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">基础方法</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">常见问题</span></a></li></ul></li></ul></td></tr></tbody></table></div>
     <h4>创建@</h4>
-    <div class="date"><span>2011-02-10</span></div>
+    <div class="date"><span>2016-03-06</span></div>
     
         <h4>最后修改@</h4>
-        <div class="date"><span>2014-08-27</span></div>
+        <div class="date"><span>2016-03-06</span></div>
     
 
   
@@ -234,7 +239,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
 
   
      
-    	<li><a href="/tags.html#Index-ref">Index <span>6</span></a></li>
+    	<li><a href="/tags.html#HTTP-ref">HTTP <span>1</span></a></li>
     
   
 
@@ -255,7 +260,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
     
       
       	
-      	<li><a href="/it/technical/language/ruby/2016/03/06/HttpNet">Ruby Http 基础库学习</a></li>
+      	<li class="active"><a href="/it/technical/language/ruby/2016/03/06/HttpNet" class="active">Ruby Http 基础库学习</a></li>
       	
       
     
@@ -343,7 +348,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
     
       
       	
-      	<li class="active"><a href="/it/technical/language/ruby/2011/02/10/index.ruby" class="active">Ruby 编程技巧</a></li>
+      	<li><a href="/it/technical/language/ruby/2011/02/10/index.ruby">Ruby 编程技巧</a></li>
       	
       
     
