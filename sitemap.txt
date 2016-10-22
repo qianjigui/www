@@ -7,6 +7,7 @@ http://www.5wpc.info/search.html
 http://www.5wpc.info/sitemap.txt
 http://www.5wpc.info/tags.html
 
+http://www.5wpc.info/it/technical/os/android/init/2016/10/22/InitProperyService
 http://www.5wpc.info/it/technical/language/ruby/2016/03/06/HttpNet
 http://www.5wpc.info/it/living/selfmanagement/2015/11/01/DropUnifyGTDTools
 http://www.5wpc.info/it/living/selfmanagement/2015/10/26/GTDBook_1

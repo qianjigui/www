@@ -4,13 +4,319 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2016-03-06T12:47:03+08:00</updated>
+ <updated>2016-10-23T00:02:04+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
    <email>qianjigui@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>基于init属性体系的系统开发实践</title>
+   <link href="http://www.5wpc.info/it/technical/os/android/init/2016/10/22/InitProperyService"/>
+   <updated>2016-10-22T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/technical/os/android/init/2016/10/22/InitProperyService</id>
+   <content type="html">&lt;h1&gt;问题&lt;/h1&gt;
+
+&lt;p&gt;在Android系统开发中, 如何通过类似Linux init的属性服务进行native 程序的开关与数据存储?
+在Android定制的Linux 服务程序中, 又有哪些生命周期的要求与数据存储的限制?&lt;/p&gt;
+
+&lt;p&gt;在Linux系统中, 首先被启动的是存放在boot-image中的init进程.
+该进程在初始化时, 会建立一个通过epoll进行进程间通信的属性管理服务, 然后进行init配置的加载与基础属性数据的加载.
+本文主要讨论这个属性管理服务.&lt;/p&gt;
+
+&lt;h1&gt;Hello world&lt;/h1&gt;
+
+&lt;p&gt;通过简单的adb接入系统之后, 可以通过&lt;code&gt;getprop&lt;/code&gt;与&lt;code&gt;setprop&lt;/code&gt;进行数据的读写.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#adb shell
+shell@maguro:/ $ getprop ro.build.version.release
+4.3
+shell@maguro:/ $ setprop ro.debug.helloworld true
+shell@maguro:/ $ getprop ro.debug.helloworld
+true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;具体的API的说明:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;getprop [key]&lt;/code&gt;: 获取指定key的属性值，如果不带参数，显示系统所有的属性值&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;setprop [key] [value]&lt;/code&gt;: 设置指定key的属性值&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;watchprops&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h1&gt;具体服务使用分析&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;下述分析基于代码AOSP4.4&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2&gt;属性的限制&lt;/h2&gt;
+
+&lt;p&gt;让我们做一些边界测试(大数据), 看看这些API的限制在哪里.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#adb shell
+shell@maguro:/ $ setprop ro.debug.helloworld.12345678901 true
+shell@maguro:/ $ getprop ro.debug.helloworld.12345678901
+true
+shell@maguro:/ $ setprop ro.debug.helloworld.123456789012 true
+could not set property
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;部分属性&lt;code&gt;ro.debug.helloworld.123456789012&lt;/code&gt;, 没有设置成功.
+与各种程序API一样, 对于参数也有明确的限制:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;[key]&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Naming命名要求&lt;code&gt;is_legal_property_name(msg.name, strlen(msg.name))&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1&amp;lt;=总长度&amp;lt;=31&lt;/li&gt;
+&lt;li&gt;开头与结尾不能是&lt;code&gt;.&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;不能有连续的&lt;code&gt;.&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;字符组成: &lt;code&gt;[a-zA-Z0-9\_\-\.]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Permissions权限要求
+
+&lt;ul&gt;
+&lt;li&gt;服务控制类(以&lt;code&gt;ctl.&lt;/code&gt;开头的key) &lt;code&gt;check_control_perms&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;system/root 用户有权&lt;/li&gt;
+&lt;li&gt;该服务的用户/用户组有权&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;数据类&lt;code&gt;check_perms(msg.name, cr.uid, cr.gid, source_ctx)&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;不同开头的属性需要具有如下的用户权限要求&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  { &quot;net.rmnet0.&quot;,      AID_RADIO,    0 },
+  { &quot;net.gprs.&quot;,        AID_RADIO,    0 },
+  { &quot;net.ppp&quot;,          AID_RADIO,    0 },
+  { &quot;net.qmi&quot;,          AID_RADIO,    0 },
+  { &quot;net.lte&quot;,          AID_RADIO,    0 },
+  { &quot;net.cdma&quot;,         AID_RADIO,    0 },
+  { &quot;ril.&quot;,             AID_RADIO,    0 },
+  { &quot;gsm.&quot;,             AID_RADIO,    0 },
+  { &quot;persist.radio&quot;,    AID_RADIO,    0 },
+  { &quot;net.dns&quot;,          AID_RADIO,    0 },
+  { &quot;sys.usb.config&quot;,   AID_RADIO,    0 },
+  { &quot;net.&quot;,             AID_SYSTEM,   0 },
+  { &quot;dev.&quot;,             AID_SYSTEM,   0 },
+  { &quot;runtime.&quot;,         AID_SYSTEM,   0 },
+  { &quot;hw.&quot;,              AID_SYSTEM,   0 },
+  { &quot;sys.&quot;,             AID_SYSTEM,   0 },
+  { &quot;sys.powerctl&quot;,     AID_SHELL,    0 },
+  { &quot;service.&quot;,         AID_SYSTEM,   0 },
+  { &quot;wlan.&quot;,            AID_SYSTEM,   0 },
+  { &quot;bluetooth.&quot;,       AID_BLUETOOTH,   0 },
+  { &quot;dhcp.&quot;,            AID_SYSTEM,   0 },
+  { &quot;dhcp.&quot;,            AID_DHCP,     0 },
+  { &quot;debug.&quot;,           AID_SYSTEM,   0 },
+  { &quot;debug.&quot;,           AID_SHELL,    0 },
+  { &quot;log.&quot;,             AID_SHELL,    0 },
+  { &quot;service.adb.root&quot;, AID_SHELL,    0 },
+  { &quot;service.adb.tcp.port&quot;, AID_SHELL,    0 },
+  { &quot;persist.sys.&quot;,     AID_SYSTEM,   0 },
+  { &quot;persist.service.&quot;, AID_SYSTEM,   0 },
+  { &quot;persist.security.&quot;, AID_SYSTEM,   0 },
+  { &quot;persist.service.bdroid.&quot;, AID_BLUETOOTH,   0 },
+  { &quot;selinux.&quot;         , AID_SYSTEM,   0 },
+  { NULL, 0, 0 } 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;[value]&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Naming命名要求: 总长度&amp;lt;=91&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  public class SystemProperties
+  {
+    public static final int PROP_NAME_MAX = 31;
+    public static final int PROP_VALUE_MAX = 91;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;更多的权限要求: 增加了selinux后, 所有的操作还需要进行selinux的检查&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;特殊属性的功能&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;ro.*&lt;/code&gt; 只能被设置一次, 如果该属性已经存在, 后续设置无效. ReadOnly&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;net.*&lt;/code&gt; 网络属性被认为会触发DNS变更, 后续会再调用一个&lt;code&gt;net.change&lt;/code&gt;的属性设置&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;persist.*&lt;/code&gt; 持久化的属性, 会在flash中保存一份&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;selinux.reload_policy&lt;/code&gt; 重新加载selinux policy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctl.*&lt;/code&gt; 对具体的init服务进行控制: &lt;code&gt;stop/start/restart&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;这些具体的init服务名称以&lt;code&gt;init.svc.&lt;/code&gt;开头&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  shell@maguro:/ $ getprop | grep svc
+  [init.svc.adbd]: [running]
+  [init.svc.bootanim]: [stopped]
+  [init.svc.debuggerd]: [running]
+  [init.svc.drm]: [running]
+  [init.svc.fRom]: [stopped]
+  [init.svc.installd]: [running]
+  [init.svc.keystore]: [running]
+  [init.svc.media]: [running]
+  [init.svc.netd]: [running]
+  [init.svc.p2p_supplicant]: [running]
+  [init.svc.pvrsrvctl]: [stopped]
+  [init.svc.ril-daemon]: [running]
+  [init.svc.sdcard]: [running]
+  [init.svc.servicemanager]: [running]
+  [init.svc.setup_fs]: [stopped]
+  [init.svc.smc_pa_wvdrm]: [stopped]
+  [init.svc.surfaceflinger]: [running]
+  [init.svc.tf_daemon]: [running]
+  [init.svc.ueventd]: [running]
+  [init.svc.vold]: [running]
+  [init.svc.zygote]: [running]
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;具体操作方法: &lt;code&gt;setprop ctl.zygote restart&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;属性变更与系统依赖&lt;/h2&gt;
+
+&lt;p&gt;属性发生变更(添加, 重置), 会触发调用&lt;code&gt;propery_changed&lt;/code&gt;.
+此时, init进程会检查rc配置中&lt;code&gt;on properties&lt;/code&gt;吻合的数据, 进行后续调用操作.&lt;/p&gt;
+
+&lt;h1&gt;服务提供方式分析&lt;/h1&gt;
+
+&lt;h2&gt;Native 层&lt;/h2&gt;
+
+&lt;h3&gt;Demo&lt;/h3&gt;
+
+&lt;p&gt;具体使用方法:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    #include &amp;lt;cutils/properties.h&amp;gt;
+
+    //frameworks/native/services/surfaceflinger/SurfaceFlinger.cpp
+    void SurfaceFlinger::bootFinished()
+    {
+        const nsecs_t now = systemTime();
+        const nsecs_t duration = now - mBootTime;
+        ALOGI(&quot;Boot is finished (%ld ms)&quot;, long(ns2ms(duration)) );
+        mBootFinished = true;
+
+            // wait patiently for the window manager death
+        const String16 name(&quot;window&quot;);
+        sp&amp;lt;IBinder&amp;gt; window(defaultServiceManager()-&amp;gt;getService(name));
+        if (window != 0) {
+            window-&amp;gt;linkToDeath(static_cast&amp;lt;IBinder::DeathRecipient*&amp;gt;(this));
+        }
+
+        // stop boot animation
+        // formerly we would just kill the process, but we now ask it to exit so it
+        // can choose where to stop the animation.
+        property_set(&quot;service.bootanim.exit&quot;, &quot;1&quot;);
+    }
+
+
+    // frameworks/base/cmds/bootanimation/BootAnimation.cpp
+    #define EXIT_PROP_NAME &quot;service.bootanim.exit&quot;
+
+    void BootAnimation::checkExit() {
+        // Allow surface flinger to gracefully request shutdown
+        char value[PROPERTY_VALUE_MAX];
+        property_get(EXIT_PROP_NAME, value, &quot;0&quot;);
+        int exitnow = atoi(value);
+        if (exitnow) {
+            requestExit();
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在这个使用场景中, surfaceflinger 通过 property 告诉 bootanimation 进行退出操作.
+bootanimation通过 &lt;strong&gt;轮询的方式&lt;/strong&gt; 查看property的数据, 最终判定是否退出.&lt;/p&gt;
+
+&lt;h3&gt;接口特性&lt;/h3&gt;
+
+&lt;p&gt;接口存在位置: &lt;code&gt;system/core/include/cutils/properties.h&lt;/code&gt;
+在源代码中有多种实现方式:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;libc的接口: &lt;code&gt;HAVE_LIBC_SYSTEM_PROPERTIES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;property server 通信 &lt;code&gt;HAVE_SYSTEM_PROPERTY_SERVER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;SUPER-cheesy place-holder implementation for Win32&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;通过编译调试发现, 最终使用的是 &lt;code&gt;No. 1&lt;/code&gt; libc方式 &lt;code&gt;#include &amp;lt;sys/_system_properties.h&amp;gt;&lt;/code&gt;.
+具体实现在&lt;code&gt;bionic/libc/bionic/system_properties.c&lt;/code&gt;中.&lt;/p&gt;
+
+&lt;p&gt;完整数据是存储在共享内存中, 各进程通过&lt;code&gt;mmap&lt;/code&gt;的方式进行 &lt;strong&gt;读取READ&lt;/strong&gt;.
+但进行set时, 是通过与init-property-server进行socket通信完成的, 这里是 &lt;strong&gt;同步操作&lt;/strong&gt; , 通过轮询检查poll端口状态的方式来确保调用完成.&lt;/p&gt;
+
+&lt;p&gt;在相关实现中, 我们发现其还提供了&lt;code&gt;update/add&lt;/code&gt;等接口, 是否同样可以调用, 以逃脱权限的限制?
+由于是通过Shared memory方式实现的, init是一号进程, 会创建并设置这块共享内存的读写权限(0444),
+最终只有init具有写权限, 其它程序只有读权限.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    //init:
+    init_property_area
+        //libc
+        __system_property_area_init
+        map_prop_area_rw //mmap时具有READ&amp;amp;WRITE权限
+
+    //other process
+    //libc
+    __libc_init_common
+        __system_properties_init
+        map_prop_area
+            如果没有共享内存区域, 则通过 get_fd_from_env 进行查找, 具体是通过环境变量ANDROID_PROPERTY_WORKSPACE
+            这个环境变量由init程序进行设置, 这样就解决了是init服务程序创建的属性服务空间.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Java SDK 层&lt;/h2&gt;
+
+&lt;p&gt;参见具体实现: &lt;code&gt;frameworks/base/core/java/android/os/SystemProperties.java&lt;/code&gt;.
+其关键调用进入了&lt;code&gt;native_set/native_get&lt;/code&gt;等JNI接口中, 实际实现是&lt;code&gt;frameworks/base/core/jni/android_os_SystemProperties.cpp&lt;/code&gt;其最后是与native接口一样, 依赖于cutils中的实现.&lt;/p&gt;
+
+&lt;h2&gt;数据存储细节&lt;/h2&gt;
+
+&lt;p&gt;如代码中描述实际存储使用的是一个混合二叉树, 其占内存的总大小是: &lt;code&gt;PA_SIZE=128*1024&lt;/code&gt;.
+其中每次申请一个新的property占用空间: &lt;code&gt;prop_info(92+4=98)+namelen(31)=130&lt;/code&gt;, 最保守估算可以申请 &lt;strong&gt;1024&lt;/strong&gt; 个property.&lt;/p&gt;
+
+&lt;h1&gt;总结&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;属性系统存储规格:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;1&amp;lt;=len(key)&amp;lt;=31&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1&amp;lt;=len(value)&amp;lt;=91&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;man properties &amp;lt;= 1024&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;后续再考虑存储相关特性时, 关注可存储空间大小&lt;/li&gt;
+&lt;li&gt;系统虽小, 但通过共享内存兼顾了读取的速度, 通过服务代理管理了权限与唯一性, 通过socket+epoll的方式又使得接口效率得到提高.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h1&gt;参考资料&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;http://blog.csdn.net/new_abc/article/details/8020558&lt;/li&gt;
+&lt;li&gt;http://blog.csdn.net/new_abc/article/details/8022555&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Ruby Http 基础库学习</title>
