@@ -3,7 +3,7 @@ layout: post
 lmtime: 2014-01-01
 category: it/technical/algorithm
 title: "算法与数据结构小结"
-tags: Datastructure
+tags: DataStructure
 
 ---
 
