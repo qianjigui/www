@@ -4,13 +4,63 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2016-10-23T00:02:04+08:00</updated>
+ <updated>2018-04-12T00:04:04+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(WPC)</name>
    <email>qianjigui@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Java 数据类型间的强制转换</title>
+   <link href="http://www.5wpc.info/it/technical/language/java/2018/04/12/BasicTypeCasting"/>
+   <updated>2018-04-12T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/technical/language/java/2018/04/12/BasicTypeCasting</id>
+   <content type="html">&lt;h1&gt;数据类型的强制转换&lt;/h1&gt;
+
+&lt;h2&gt;byte 与 integer&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;//Java
+byte b = (byte)0xC8;
+int v1 = b;       // v1 is -56 (0xFFFFFFC8)
+int v2 = b &amp;amp; 0xFF // v2 is 200 (0x000000C8)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;//Golang
+b := (byte)(0xC8)
+var v1,v2 int
+v1 = int(b)        //200
+v2 = 0xFF &amp;amp; int(b) //200
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;核心原因:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;在语言定义时, java中byte &lt;code&gt;[-128,127]&lt;/code&gt; , 在进行强制类型转换时会将高位与最近的低位相同后补齐&lt;/li&gt;
+&lt;li&gt;golang中byte &lt;code&gt;[0, 255]&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>排序</title>
+   <link href="http://www.5wpc.info/it/technical/algorithm/2018/04/11/Sort"/>
+   <updated>2018-04-11T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/technical/algorithm/2018/04/11/Sort</id>
+   <content type="html">&lt;p&gt;今天交流技术问题,在线进行了一个编程练习. 主要是讨论排序问题的.
+目前在市面上主要的排序使用,基本是直接使用语言库中的排序方法.
+那在各个语言库中, 主要都使用了什么排序呢?&lt;/p&gt;
+
+&lt;p&gt;java中
+c标准库中
+python/ruby中
+go中&lt;/p&gt;
+
+&lt;p&gt;看着很高深的一个方案: 桶排序https://blog.csdn.net/ii1245712564/article/details/45869623&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>基于init属性体系的系统开发实践</title>
