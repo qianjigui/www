@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>排序</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/algorithm/2018/04/11/Sort" />
+<meta property="og:title" content="排序" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2018-04-11" />
+
+<meta name="weibo:article:update_at" content="2018-04-11" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        排序
+        <small>
+            
+            2016 程序"猿"码代中
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <p>今天交流技术问题,在线进行了一个编程练习. 主要是讨论排序问题的.
+目前在市面上主要的排序使用,基本是直接使用语言库中的排序方法.
+那在各个语言库中, 主要都使用了什么排序呢?</p>
+
+<p>java中
+c标准库中
+python/ruby中
+go中</p>
+
+<p>看着很高深的一个方案: 桶排序https://blog.csdn.net/ii1245712564/article/details/45869623</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/technical/os/android/init/2016/10/22/InitProperyService" title="基于init属性体系的系统开发实践">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/language/java/2018/04/12/BasicTypeCasting" title="Java 数据类型间的强制转换">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/algorithm/2018/04/11/Sort" data-title="排序" data-url="http://www.5wpc.info/it/technical/algorithm/2018/04/11/Sort/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    
+    <h4>创建@</h4>
+    <div class="date"><span>2018-04-11</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2018-04-11</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#DataStructure-ref">DataStructure <span>4</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/algorithm/2018/04/11/Sort" class="active">排序</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/algorithm/2014/10/08/Cache">缓存技术Cache</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/algorithm/2012/07/15/HashTable">散列表</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/algorithm/2011/10/08/DataStructuresLinks">数据结构</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/algorithm/2011/09/15/DataStructures">算法与数据结构小结</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

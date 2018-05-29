@@ -1,0 +1,498 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>测试驱动开发</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/softwareengineering/2014/10/30/TDD" />
+<meta property="og:title" content="测试驱动开发" />
+<meta property="og:description" content="通过开发模式来保证开发质量与效率 " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2014-10-30" />
+
+<meta name="weibo:article:update_at" content="2014-11-01" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        测试驱动开发
+        <small>
+            
+            通过开发模式来保证开发质量与效率
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <p>本文主要是<a href="http://book.douban.com/subject/5326182/" title="测试驱动开发的艺术">测试驱动开发的艺术</a>的读书笔记.</p>
+
+<h1 id="tocAnchor-1-1">综述</h1>
+
+<h2 id="tocAnchor-1-1-1">正确地做事</h2>
+
+<p>开发的主要流程:</p>
+
+<ol>
+<li>测试</li>
+<li>编码</li>
+<li>重构</li>
+</ol>
+
+
+<p>上述过程结合增量式开发模式, 以更好地保证应用需求变化.</p>
+
+<h2 id="tocAnchor-1-1-2">主要工具</h2>
+
+<ul>
+<li>单元测试框架 xUnit</li>
+<li>结合持续集成及构建</li>
+<li>引入静态与动态代码质量分析工具:
+
+<ul>
+<li>PMD</li>
+<li>checkstyle</li>
+<li>findbug</li>
+<li>lint</li>
+<li>代码覆盖率分析</li>
+</ul>
+</li>
+</ul>
+
+
+<h1 id="tocAnchor-1-4">TDD 的概念与模式</h1>
+
+<h2 id="tocAnchor-1-4-1">如何编写及通过测试</h2>
+
+<h3>编写测试</h3>
+
+<h4>测试选择技巧</h4>
+
+<ul>
+<li>深入细节与整体考虑
+
+<ul>
+<li>细节优先(深度优先): 便于发现关键技术点</li>
+<li>整体优先(宽度优先): 便于验证整体架构</li>
+</ul>
+</li>
+<li>探索未知与轻车熟路
+
+<ul>
+<li>优先编写不确定因素少的测试</li>
+</ul>
+</li>
+<li>最大限度地获取价值与摘取现成果实
+
+<ul>
+<li>优先测试基本功能再处理边界问题</li>
+</ul>
+</li>
+<li>走通基本功能路径与行处理出错情况
+
+<ul>
+<li>先保证基本路径</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>实现技巧</h4>
+
+<ul>
+<li>伪实现</li>
+<li>三角法</li>
+<li>简单地实现</li>
+</ul>
+
+
+<h4>测试驱动的基本准则</h4>
+
+<ul>
+<li>绝不路过重构</li>
+<li>尽快变绿</li>
+<li>犯错后减慢速度</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-4-2">重要的测试概念</h2>
+
+<ul>
+<li>夹具(fixtures)是测试的上下文
+
+<ul>
+<li>测试过程中的状态维护体</li>
+</ul>
+</li>
+<li>用测试替身(mock)替换依赖
+
+<ul>
+<li>测试基本形式就是方法调用: 构造需要的参数, 调用, 再检查返回的结果; 替身在这里主要用于构造参数</li>
+</ul>
+</li>
+<li>基于状态与基于交互的测试不同
+
+<ul>
+<li><p>基于状态的测试利用对象内部状态来验证运行结果的正确性</p>
+
+<pre><code>  @Test
+  public void listShouldNotBeEmptyAfterAddingSomethingToIt() throws Exception {
+      List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+      assertTrue(list.isEmpty());
+      list.add("Something");
+      assertFalse(list.isEmpty());
+  }
+</code></pre></li>
+<li><p>基于交互的测试主要关注整个调用的过程</p>
+
+<ul>
+<li>由于涉及完整的交互, 我们就需要单独构建与其交互的对象实例, 这时就需要使用动态模拟对象库(dynamic mock objects library): EasyMock, jMock</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-4-3">测试替身</h2>
+
+<p>用于是用于模拟真实的对象,</p>
+
+<ul>
+<li>测试桩: 给定接口最简单的实现, 主要是硬编码数据</li>
+<li>伪实现</li>
+<li>模拟对象: 可以完成对象构建, 状态模拟与过程录制</li>
+</ul>
+
+
+<pre>
+   <code class="java">import static org.easymock.classextension.EasyMock.*;
+import static org.juni.Assert.*;
+import org.junit.*;
+
+public class OrderProcessorEasymockTest{
+    @Test
+    public void testOrderProcessorWithEasyMock() throws Exception {
+        //为测试准备普通对象和数据
+        float initialBalance = 100.0f;
+        float listPrice = 30.0f;
+        float discount = 10.0f;
+        float expectedBalance = 
+            initialBalance - (listPrice*(1-discount/100));
+        Customer customer = new Customer(initialBalance);
+        Product product = new Product("TDD in action", listPrice);
+
+        //模拟对象 创建过程
+        //通过模拟对象创建动态模拟过程中的相关假对象
+        PricingService mock = createMock(PricingService.class);
+        //BDD模式,调用输入与期望输出, 后期统一对状态进行测试
+        expect(mock.getDiscountPercentage(customer, product).addReturn(discount));
+
+        replay(mock);//进入播放模式
+
+        //待测对象 中间利用模拟对象完成部分交互
+        //测试OrderProcessor
+        OrderProcessor processor = new OrderProcessor();
+        processor.setPricingService(mock);//注入依赖
+        processor.process(new Order(customer, product));//正常调用过程
+
+        assertEquals(expectedBalance, customer.getBalance(), 0.001f);
+        verify(mock);//验证输入输出
+
+    }
+}
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-4-4">提高设计的可测试性的准则</h2>
+
+<ul>
+<li>多使用组合而不是继承</li>
+<li>不要使用static 关键字以及单例模式</li>
+<li>隔离依赖</li>
+<li>注入依赖</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-4-5">测试的主要模式</h2>
+
+<h3>单元测试</h3>
+
+<ul>
+<li>断言模式: 状态的基本测试</li>
+<li>防卫模式: 在获取到测试用数据后先验证数据本身</li>
+<li>差值断言</li>
+<li>自定义断言</li>
+<li>交互断言</li>
+</ul>
+
+
+<h3>夹具</h3>
+
+<ul>
+<li>参数化创建方法
+
+<ul>
+<li>基本对象不要硬编码</li>
+</ul>
+</li>
+<li>对象生产
+
+<ul>
+<li>工厂模式</li>
+</ul>
+</li>
+<li>自动清理
+
+<ul>
+<li>测试前清理测试现场</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>测试过程</h3>
+
+<ul>
+<li>参数化</li>
+<li>自分流</li>
+<li>测试内部数据共享: 利用闭包/内部类进行数据分享</li>
+<li>待测试对象的状态: 通过反射进行完整扫描</li>
+<li>添加专用处理类</li>
+</ul>
+
+
+<h1 id="tocAnchor-1-10">测试驱动数据访问</h1>
+
+<h2 id="tocAnchor-1-10-1">文件系统访问</h2>
+
+<p>我们需要尽量避免访问文件系统, 使用java.io.Writer及java.io.Reader.
+毕竟大部分时间我们感兴趣的是文件内容, 不是文件本身, 使用streams完全可以胜任.</p>
+
+<h3>提高文件访问的可测试性的实践</h3>
+
+<ol>
+<li>用接口隔离文件访问</li>
+<li>使用流(stream)而非文件</li>
+<li>使用自定义的文件对象
+
+<ul>
+<li>将文件内容和文件信息(元数据)关联起来</li>
+<li>使用内存性的文件系统, 性能更快</li>
+</ul>
+</li>
+<li>使用专用的临时文件夹
+
+<ul>
+<li>将所有的测试数据放在一个文件夹, 便于统一地处理(创建与清理)</li>
+</ul>
+</li>
+<li>测试前清理而非测试后</li>
+</ol>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/technical/language/java/2014/10/29/javaCrack" title="Java Crack 技术">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/os/android/2014/10/31/AOSP" title="Android AOSP ROM开发">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/softwareengineering/2014/10/30/TDD" data-title="测试驱动开发" data-url="http://www.5wpc.info/it/technical/softwareengineering/2014/10/30/TDD/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">综述</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">正确地做事</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">主要工具</span></a></li></ul></li><li class="toc_level-1 toc_section-4"><a href="#tocAnchor-1-4"><span class="tocnumber">2</span> <span class="toctext">TDD 的概念与模式</span></a><ul><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-4-1"><span class="tocnumber">2.1</span> <span class="toctext">如何编写及通过测试</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-4-2"><span class="tocnumber">2.2</span> <span class="toctext">重要的测试概念</span></a></li><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-4-3"><span class="tocnumber">2.3</span> <span class="toctext">测试替身</span></a></li><li class="toc_level-2 toc_section-8"><a href="#tocAnchor-1-4-4"><span class="tocnumber">2.4</span> <span class="toctext">提高设计的可测试性的准则</span></a></li><li class="toc_level-2 toc_section-9"><a href="#tocAnchor-1-4-5"><span class="tocnumber">2.5</span> <span class="toctext">测试的主要模式</span></a></li></ul></li><li class="toc_level-1 toc_section-10"><a href="#tocAnchor-1-10"><span class="tocnumber">3</span> <span class="toctext">测试驱动数据访问</span></a><ul><li class="toc_level-2 toc_section-11"><a href="#tocAnchor-1-10-1"><span class="tocnumber">3.1</span> <span class="toctext">文件系统访问</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2014-10-30</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-11-01</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#TDD-ref">TDD <span>2</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

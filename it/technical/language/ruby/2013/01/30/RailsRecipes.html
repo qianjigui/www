@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Reading Note for Rails Recipes</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/language/ruby/2013/01/30/RailsRecipes" />
+<meta property="og:title" content="Reading Note for Rails Recipes" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2013-01-30" />
+
+<meta name="weibo:article:update_at" content="2014-01-20" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Reading Note for Rails Recipes
+        <small>
+            
+            2016 程序"猿"码代中
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <p>对于目录的翻译整理，方便以后查阅。</p>
+
+<h1 id="tocAnchor-1-1">Introduction</h1>
+
+<ol>
+<li>What Makes a Good Recipe Book?</li>
+<li>Who’s It For?</li>
+<li>Rails Version</li>
+<li>Resources</li>
+<li>Acknowledgments</li>
+<li>Tags and Thumbtabs</li>
+</ol>
+
+
+<h1 id="tocAnchor-1-2">Part I—User Interface Recipes</h1>
+
+<ol>
+<li>In-Place Form Editing
+   原地Ajax表单编辑</li>
+<li>Making Your Own JavaScript Helper
+   制作方便自己使用的JS生成方法</li>
+<li>Live Preview
+   实时编辑查看结果显示</li>
+<li>Live Search
+   实时搜索结果显示</li>
+<li>Creating a Drag-and-Drop Sortable List
+   创建可以拖动的排序列表</li>
+<li>Update Multiple Page Elements With One Ajax Request
+   通过一个Ajax请求更新多个页面的元素</li>
+<li>Lightning-Fast JavaScript Auto-completion
+   快速的JS自动补全</li>
+<li>Cheap and Easy Theme Support
+   页面主题变更支持</li>
+<li>Use Ajax To Trim Fat, Static Pages
+   利用Ajax修剪复杂的页面</li>
+<li>Smart Pluralization
+   通过工具实现I18N</li>
+<li>Debugging Ajax
+   调试Ajax</li>
+<li>Creating a Custom Form Builder
+   自定义表单生成</li>
+<li>Make Pretty Graphs
+   生成漂亮的图像</li>
+</ol>
+
+
+<h1 id="tocAnchor-1-3">Part II—Database Recipes</h1>
+
+<ol>
+<li>Rails Without A Database
+   不用DB</li>
+<li>Connecting to Multiple Databases
+   同时连接使用过个DB</li>
+<li>Integrating with Legacy Databases
+   集成废弃的DB</li>
+<li>DRY Up Your Database Configuration
+   做通用的DB配置</li>
+<li>Self-referential Many-to-Many Relationships
+   Model自身的多对多关系实现</li>
+<li>Tagging
+   文本数据打Tag</li>
+<li>Versioning Your ActiveRecord Models
+   版本控制用户编辑的数据Model(类似于草稿)</li>
+<li>Convert an Existing Application to Migrations
+   对存在的应用做迁移</li>
+<li>Many to Many Relationships Where the Relationship Itself Has Data
+   多对多关系中，关系表中存在私有数据</li>
+<li>Polymorphic Associations - has_many :whatevers
+   一对多关系中同时对应多个Model</li>
+<li>Adding Behavior to Your ActiveRecord Associations
+   在关联中添加行为，方便在关联获取时添加搜索条件约束</li>
+<li>Dynamic Database Config
+   动态DB配置:类似于ERB</li>
+<li>Use ActiveRecord Outside of Rails
+   将ActiveRecord模型抽取出来单独使用</li>
+<li>Perform Calculations on Yor Model Data
+   检测Model的性能</li>
+<li>DRY Up Your ActiveRecord Code With Scoping
+   使Scoping不重复</li>
+<li>Make Dumb Data Smart with composed_of
+   将一个复杂的对象映射到DB表中的一个表项</li>
+<li>Safely Use Models in Migrations
+   在Model迁移中注意一致性</li>
+</ol>
+
+
+<h1 id="tocAnchor-1-4">Part III—Controller Recipes</h1>
+
+<ol>
+<li>Authentication
+   验证</li>
+<li>Role-Based Authorization
+   基于规则的验证</li>
+<li>Cleaning Up Controllers with Postback Actions
+   去掉冗余的action</li>
+<li>Keep An Eye On Your Session Expiry
+   注意session有效期</li>
+<li>Rendering Comma Separated Values From Your Actions
+   将返回数据格式化:Json, xml, cvs</li>
+<li>Make your URLs Meaningful (and pretty)
+   使URL有意义</li>
+<li>Stub Out Authentication
+   将验证作为过滤器的一部分</li>
+<li>Convert Your Sessions To ActiveRecord
+   将session放入DB</li>
+<li>Write Code That Writes Code
+   制作代码生成器</li>
+<li>Manage a Static Site With Rails
+   利用Rails管理静态网站</li>
+</ol>
+
+
+<h1 id="tocAnchor-1-5">Part IV—Testing Recipes</h1>
+
+<ol>
+<li>Creating Dynamic Test Fixtures
+   制作动态测试数据</li>
+<li>Extracting Test Fixtures From Live Data
+   从实际数据中抽取测试数据</li>
+<li>Testing Across Multiple Controllers
+   测试多请求访问</li>
+<li>Write Tests for Your Helpers
+   为辅助方法做测试</li>
+</ol>
+
+
+<h1 id="tocAnchor-1-6">Part V—Big Picture Recipes</h1>
+
+<ol>
+<li>Automating Development With Your Own Generators
+   制作自己的生成器</li>
+<li>Continuous Integration
+   持续集成</li>
+<li>Getting Notified of Unhandled Exceptions
+   捕获异常</li>
+<li>Creating Your Own Rake Tasks
+   制作自己的Rake任务</li>
+<li>Dealing With Time-zones
+   解决时区问题</li>
+<li>Living On The Edge (of Rails Development)
+   跟紧各种更新</li>
+<li>Syndicate Your Site With RSS
+   将数据RSS化</li>
+<li>Making Your Own Rails Plugins
+   制作自己的插件</li>
+<li>Secret URLs
+   带有验证信息的URL,需要在URL携带身份信息的处理方法</li>
+<li>Quickly Inspect Your Sessions’ Contents
+   访问本地的session保护</li>
+<li>Sharing Models Between Your Applications
+   通过链接等方式共享Model</li>
+<li>Generate Documentation For Your Application
+   利用Rdoc</li>
+<li>Processing Uploaded Images
+   处理上传的图片</li>
+<li>Easily Group Lists of Things
+   对List做处理的API</li>
+<li>Keeping Track of Who Did What
+   对信息做标注，记录操作用户</li>
+<li>Distributing Your Application As One Directory Tree
+   利用目录树机制实现应用的分布式</li>
+<li>Adding Support for Localization
+   L10N</li>
+<li>The Console Is Your Friend
+   充分利用Console</li>
+<li>Automatically Save a Draft of a Form
+   自动表单保存</li>
+<li>Validating Non-ActiveRecord Objects
+   对非ActiveRecord对象做验证</li>
+<li>Easy HTML Whitelists
+   对HTML敏感字符做过滤</li>
+<li>Adding Simple Web Services To Your Actions
+   添加WebServices到Action</li>
+</ol>
+
+
+<h1 id="tocAnchor-1-7">Part VI—E-Mail Recipes</h1>
+
+<ol>
+<li>Send Gracefully Degrading Rich-Content Emails
+   发送富文本邮件(例如颜色什么的)</li>
+<li>Testing Incoming Email
+   检查收到的邮件</li>
+<li>Sending Email With Attachments
+   发送带有附件的邮件</li>
+<li>Handling Bounced Email
+   搜集邮件失败信息的反馈邮件</li>
+</ol>
+
+
+<h1 id="tocAnchor-1-8">Part VII—Appendix</h1>
+
+<ol>
+<li>Resources
+
+<ol>
+<li>Bibliography</li>
+<li>Source Code</li>
+</ol>
+</li>
+</ol>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/technical/language/erlang/2013/01/30/ProgrammingErlang" title="Programming Eralng">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/design/memory/2013/02/23/SmallMemorySoftwarePatternsForSystemWithLimitedMemory" title="SmallMemorySoftwarePatternsForSystemWithLimitedMemory">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/language/ruby/2013/01/30/RailsRecipes" data-title="Reading Note for Rails Recipes" data-url="http://www.5wpc.info/it/technical/language/ruby/2013/01/30/RailsRecipes/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li><li class="toc_level-1 toc_section-2"><a href="#tocAnchor-1-2"><span class="tocnumber">2</span> <span class="toctext">Part I—User Interface Recipes</span></a></li><li class="toc_level-1 toc_section-3"><a href="#tocAnchor-1-3"><span class="tocnumber">3</span> <span class="toctext">Part II—Database Recipes</span></a></li><li class="toc_level-1 toc_section-4"><a href="#tocAnchor-1-4"><span class="tocnumber">4</span> <span class="toctext">Part III—Controller Recipes</span></a></li><li class="toc_level-1 toc_section-5"><a href="#tocAnchor-1-5"><span class="tocnumber">5</span> <span class="toctext">Part IV—Testing Recipes</span></a></li><li class="toc_level-1 toc_section-6"><a href="#tocAnchor-1-6"><span class="tocnumber">6</span> <span class="toctext">Part V—Big Picture Recipes</span></a></li><li class="toc_level-1 toc_section-7"><a href="#tocAnchor-1-7"><span class="tocnumber">7</span> <span class="toctext">Part VI—E-Mail Recipes</span></a></li><li class="toc_level-1 toc_section-8"><a href="#tocAnchor-1-8"><span class="tocnumber">8</span> <span class="toctext">Part VII—Appendix</span></a></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2013-01-30</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-20</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Rails-ref">Rails <span>3</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2016/03/06/HttpNet">Ruby Http 基础库学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/23/MetaProgramming">Ruby 元编程</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/22/BestPractice">Ruby 最佳实践读书笔记</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/09/03/Closure">Ruby 中的闭包</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/20/TextProcessing">Ruby文本处理相关实践</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/20/TDD">Ruby开发模式学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/15/Regular">Ruby 正则表达式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/language/ruby/2013/01/30/RailsRecipes" class="active">Reading Note for Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/AdvancedRailsRecipes">Reading Note for Advanced Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2012/09/23/RubyAuthorThinking">RubyAuthorThinking</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/19/ruby265methods">Ruby 编程技巧--265式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/10/index.ruby">Ruby 编程技巧</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

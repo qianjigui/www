@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>散列表</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/algorithm/2012/07/15/HashTable" />
+<meta property="og:title" content="散列表" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2012-07-15" />
+
+<meta name="weibo:article:update_at" content="2014-01-01" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        散列表
+        <small>
+            
+            2016 程序"猿"码代中
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">散列表</h1>
+
+<h2 id="tocAnchor-1-1-1">数据组织方法</h2>
+
+<p>
+   <a href="http://blog.chinaunix.net/uid-26822401-id-3169705.html">算法导论散列表笔记</a>
+</p>
+
+<pre>
+   <code>* 直接寻址法:避免碰撞的方法:链接法
+* 全域散列
+    * 开放寻址法(将数据存放在线性结构上,譬如数组.在合适的时侯进行扩容):
+        * 一次探测(线性探测): h(k, i) = (h'(k) + i) mod m, i = 0, 1, ..., m-1
+        * 二次探测: h(k, i) = (h'(k) + c1*i + c2*i^2) mod m
+        * 双重探测: h(k, i) = (h1(k) + i*h2(k)) mod m
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-1-2">Hash函数</h2>
+
+<h3>字符串</h3>
+
+<p>
+   <a href="http://www.byvoid.com/blog/string-hash-compare/">各种字符串hash函数比较</a>
+</p>
+
+<h4>BKDRH</h4>
+
+<pre>
+   <code class="c">//BKDR Hash Function
+unsigned int BKDRHash(char *str)
+{
+    unsigned int seed = 131; // 31 131 1313 13131 131313 etc..
+    unsigned int hash = 0;
+
+    while (*str){
+        hash = hash * seed + (*str++);
+    }
+
+    return (hash &amp; 0x7FFFFFFF);
+}
+</code>
+</pre>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/living/selfmanagement/2012/07/09/TimeManagement" title="时间管理">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/language/2012/07/24/DataRepresentation" title="信息的表示和处理">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/algorithm/2012/07/15/HashTable" data-title="散列表" data-url="http://www.5wpc.info/it/technical/algorithm/2012/07/15/HashTable/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">散列表</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">数据组织方法</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">Hash函数</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2012-07-15</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-01</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#DataStructure-ref">DataStructure <span>4</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/algorithm/2018/04/11/Sort">排序</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/algorithm/2014/10/08/Cache">缓存技术Cache</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/algorithm/2012/07/15/HashTable" class="active">散列表</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/algorithm/2011/10/08/DataStructuresLinks">数据结构</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/algorithm/2011/09/15/DataStructures">算法与数据结构小结</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

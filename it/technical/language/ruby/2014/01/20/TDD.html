@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Ruby开发模式学习</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/language/ruby/2014/01/20/TDD" />
+<meta property="og:title" content="Ruby开发模式学习" />
+<meta property="og:description" content="通过开发模式来保证开发质量与效率 " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2014-01-20" />
+
+<meta name="weibo:article:update_at" content="2014-08-22" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Ruby开发模式学习
+        <small>
+            
+            通过开发模式来保证开发质量与效率
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">整体介绍</h1>
+
+<p>在敏捷开发的过程中,</p>
+
+<p>BDD要解决的一个关键问题是提升问题领域人员和解决方案领域人员之间的交流。
+BDD的目的是为了创建并发展一个这两个领域之间相互理解的公共区域，创建一种公共语言，一种普及的语言（正如领域驱动设计中所定义的那样）。</p>
+
+<h2 id="tocAnchor-1-1-1">测试/行为驱动开发技术栈</h2>
+
+<ul>
+<li><a href="http://cukes.info/">cucumber</a></li>
+<li><a href="http://rspec.info/">RSpec</a></li>
+<li>nUnit
+
+<ul>
+<li>Mock &amp; Stubs 用于测试数据的生成</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-2">BDD</h2>
+
+<ul>
+<li>Spec</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-3">TDD</h2>
+
+<ul>
+<li>nUnit</li>
+</ul>
+
+
+<h1 id="tocAnchor-1-5">相关使用的问题总结</h1>
+
+<h2 id="tocAnchor-1-5-1">RSPEC</h2>
+
+<h3>development database to test database</h3>
+
+<p>添加一个第三方支持:</p>
+
+<pre>
+   <code>    gem 'db_fixtures_dump'
+</code>
+</pre>
+
+<p>在需要的环境中, 运行 <code>rake db:fixtures:dump RAILS_ENV=development</code></p>
+
+<p>不过这些数据输出的yml文件有个问题,会在每个单项前添加yml文档开始标记<code>---</code>, 导致后面的数据无法解析.
+目前需要再通过脚本清理掉.</p>
+
+<p>目前主流的测试对象生成方法, 已经转向factory_girl,
+如果需要通过yml+fixtures的方式, 请注意所有的加载方法都只能在 <code>it</code> 语句生效.</p>
+
+<pre>
+   <code>    fixtures :post
+
+    it 'load post' do
+        post(:a)
+    end
+</code>
+</pre>
+
+<h3>Rspec error: Diff is not a module</h3>
+
+<p>主要是由于 rspec 会通过反射进行所有 ActiveModel 的加载与查找,
+其实现方法则是通过文件的require, 而rspec依赖的包中有文件名称与diff.rb相同, 从而导致
+无法加载用户自己定义的 diff.rb</p>
+
+<p>解决方法:</p>
+
+<ul>
+<li>在设计时, 不要用diff 名称</li>
+<li><p>在spec中, 先行加载 diff.rb</p>
+
+<pre><code>  # spec/rails_helper.rb
+  # This file is copied to spec/ when you run 'rails generate rspec:install'
+  ENV["RAILS_ENV"] ||= 'test'
+  require 'spec_helper'
+  require File.expand_path("../../config/environment", __FILE__)
+  #### Add this line Begin
+  Dir[Rails.root.join("app/models/diff.rb")].each { |f| require f }
+  #### End
+  require 'rspec/rails'
+</code></pre></li>
+</ul>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/technical/continuousintegration/2014/01/16/git" title="git常用技巧">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/language/ruby/2014/01/20/TextProcessing" title="Ruby文本处理相关实践">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/language/ruby/2014/01/20/TDD" data-title="Ruby开发模式学习" data-url="http://www.5wpc.info/it/technical/language/ruby/2014/01/20/TDD/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">整体介绍</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">测试/行为驱动开发技术栈</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">BDD</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">TDD</span></a></li></ul></li><li class="toc_level-1 toc_section-5"><a href="#tocAnchor-1-5"><span class="tocnumber">2</span> <span class="toctext">相关使用的问题总结</span></a><ul><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-5-1"><span class="tocnumber">2.1</span> <span class="toctext">RSPEC</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2014-01-20</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-08-22</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#TDD-ref">TDD <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#BDD-ref">BDD <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2016/03/06/HttpNet">Ruby Http 基础库学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/23/MetaProgramming">Ruby 元编程</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/22/BestPractice">Ruby 最佳实践读书笔记</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/09/03/Closure">Ruby 中的闭包</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/20/TextProcessing">Ruby文本处理相关实践</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/language/ruby/2014/01/20/TDD" class="active">Ruby开发模式学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/15/Regular">Ruby 正则表达式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/RailsRecipes">Reading Note for Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/AdvancedRailsRecipes">Reading Note for Advanced Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2012/09/23/RubyAuthorThinking">RubyAuthorThinking</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/19/ruby265methods">Ruby 编程技巧--265式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/10/index.ruby">Ruby 编程技巧</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

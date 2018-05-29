@@ -1,0 +1,1250 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Ruby 正则表达式</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/language/ruby/2014/01/15/Regular" />
+<meta property="og:title" content="Ruby 正则表达式" />
+<meta property="og:description" content="让正则表达式来优化字符串处理 " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2014-01-15" />
+
+<meta name="weibo:article:update_at" content="2014-01-16" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Ruby 正则表达式
+        <small>
+            
+            让正则表达式来优化字符串处理
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <p>
+   <em>声明: 下列内容基于ruby 2.0.0p247 (2013-06-27) [x86_64-linux]</em>
+</p>
+
+<h1 id="tocAnchor-1-1">一堆小例子</h1>
+
+<h2 id="tocAnchor-1-1-1">基本使用</h2>
+
+<pre>
+   <code class="ruby">/hay/ =~ 'haystack'   #=&gt; 0
+%r[y].match('haystack') #=&gt; #&lt;MatchData "y"&gt;
+</code>
+</pre>
+
+<h1 id="tocAnchor-1-3">主要概念</h1>
+
+<h2 id="tocAnchor-1-3-1">New a object</h2>
+
+<pre>
+   <code class="ruby"># matching check
+=~
+
+# MatchData
+obj=regexpObject.match(stringobj)
+
+# Regexp class
+r1 = Regexp.new('^a-z+:\s+\w+') #=&gt; /^a-z+:\s+\w+/
+r2 = Regexp.new('cat', true)     #=&gt; /cat/i
+r3 = Regexp.new(r2)              #=&gt; /cat/i
+r4 = Regexp.new('dog', Regexp::EXTENDED | Regexp::IGNORECASE) #=&gt; /dog/ix
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-3-2">字符组 Character Classes</h2>
+
+<h3>通用表示</h3>
+
+<table>
+<thead>
+<tr>
+<th> 符号 </th>
+<th> English </th>
+<th> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>/./</code></td>
+<td>  Any character except a newline. </td>
+<td> 除新行外的所有字符             </td>
+</tr>
+<tr>
+<td> <code>/./m</code> </td>
+<td> Any character (the m modifier enables multiline mode) </td>
+<td> 带多行支持后,表示所有字符  </td>
+</tr>
+<tr>
+<td> <code>/\w/</code> </td>
+<td> A word character (<code>[a-zA-Z0-9_]</code>) </td>
+<td>    </td>
+</tr>
+<tr>
+<td> <code>/\W/</code> </td>
+<td> A non-word character (<code>[^a-zA-Z0-9_]</code>). Please take a look at Bug #4044 if using /\W/ with the /i modifier. </td>
+<td>              </td>
+</tr>
+<tr>
+<td> <code>/\d/</code> </td>
+<td> A digit character (<code>[0-9]</code>) </td>
+<td>              </td>
+</tr>
+<tr>
+<td> <code>/\D/</code> </td>
+<td> A non-digit character (<code>[^0-9]</code>) </td>
+<td>              </td>
+</tr>
+<tr>
+<td> <code>/\h/</code> </td>
+<td> A hexdigit character (<code>[0-9a-fA-F]</code>) </td>
+<td>              </td>
+</tr>
+<tr>
+<td> <code>/\H/</code> </td>
+<td> A non-hexdigit character (<code>[^0-9a-fA-F]</code>) </td>
+<td>              </td>
+</tr>
+<tr>
+<td> <code>/\s/</code> </td>
+<td> A whitespace character: /<code>[ \t\r\n\f]</code>/ </td>
+<td>              </td>
+</tr>
+<tr>
+<td> <code>/\S/</code> </td>
+<td> A non-whitespace character: /<code>[^ \t\r\n\f]</code>/ </td>
+<td>              </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>POSIX</h3>
+
+<table>
+<thead>
+<tr>
+<th> 符号 </th>
+<th> English </th>
+<th> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>/[[:alnum:]]/</code></td>
+<td>  Alphabetic and numeric character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:alpha:]]/</code></td>
+<td>  Alphabetic character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:blank:]]/</code></td>
+<td>  Space or tab </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:cntrl:]]/</code></td>
+<td>  Control character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:digit:]]/</code></td>
+<td>  Digit </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:graph:]]/</code></td>
+<td>  Non-blank character (excludes spaces, control characters, and similar) </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:lower:]]/</code></td>
+<td>  Lowercase alphabetical character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:print:]]/</code></td>
+<td>  Like <code>[:graph:]</code>, but includes the space character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:punct:]]/</code></td>
+<td>  Punctuation character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:space:]]/</code></td>
+<td>  Whitespace character (<code>[:blank:]</code>, newline, carriage return, etc.) </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:upper:]]/</code></td>
+<td>  Uppercase alphabetical </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:xdigit:]]/</code></td>
+<td>  Digit allowed in a hexadecimal number (i.e., 0-9a-fA-F) </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>non-POSIX</h3>
+
+<table>
+<thead>
+<tr>
+<th> 符号 </th>
+<th> English </th>
+<th> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>/[[:word:]]/</code></td>
+<td>  A character in one of the following Unicode general categories Letter, Mark, Number, Connector_Punctuation </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/[[:ascii:]]/</code></td>
+<td>  A character in the ASCII character set </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>扩展字符集合 Character Properties</h3>
+
+<table>
+<thead>
+<tr>
+<th> 符号 </th>
+<th> English </th>
+<th> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>/\p{Alnum}/</code> </td>
+<td> Alphabetic and numeric character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Alpha}/</code> </td>
+<td> Alphabetic character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Blank}/</code> </td>
+<td> Space or tab </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Cntrl}/</code> </td>
+<td> Control character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Digit}/</code> </td>
+<td> Digit </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Graph}/</code> </td>
+<td> Non-blank character (excludes spaces, control characters, and similar) </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Lower}/</code> </td>
+<td> Lowercase alphabetical character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Print}/</code> </td>
+<td> Like \p{Graph}, but includes the space character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Punct}/</code> </td>
+<td> Punctuation character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Space}/</code> </td>
+<td> Whitespace character ([:blank:], newline, carriage return, etc.) </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Upper}/</code> </td>
+<td> Uppercase alphabetical </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{XDigit}/</code> </td>
+<td> Digit allowed in a hexadecimal number (i.e., 0-9a-fA-F) </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Word}/</code> </td>
+<td> A member of one of the following Unicode general category Letter, Mark, Number, Connector_Punctuation </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{ASCII}/</code> </td>
+<td> A character in the ASCII character set </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Any}/</code> </td>
+<td> Any Unicode character (including unassigned characters) </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Assigned}/</code> </td>
+<td> An assigned character </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{L}/</code> </td>
+<td> 'Letter' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Ll}/</code> </td>
+<td> 'Letter: Lowercase' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Lm}/</code> </td>
+<td> 'Letter: Mark' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Lo}/</code> </td>
+<td> 'Letter: Other' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Lt}/</code> </td>
+<td> 'Letter: Titlecase' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Lu}/</code> </td>
+<td> 'Letter: Uppercase </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Lo}/</code> </td>
+<td> 'Letter: Other' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{M}/</code> </td>
+<td> 'Mark' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Mn}/</code> </td>
+<td> 'Mark: Nonspacing' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Mc}/</code> </td>
+<td> 'Mark: Spacing Combining' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Me}/</code> </td>
+<td> 'Mark: Enclosing' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{N}/</code> </td>
+<td> 'Number' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Nd}/</code> </td>
+<td> 'Number: Decimal Digit' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Nl}/</code> </td>
+<td> 'Number: Letter' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{No}/</code> </td>
+<td> 'Number: Other' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{P}/</code> </td>
+<td> 'Punctuation' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Pc}/</code> </td>
+<td> 'Punctuation: Connector' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Pd}/</code> </td>
+<td> 'Punctuation: Dash' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Ps}/</code> </td>
+<td> 'Punctuation: Open' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Pe}/</code> </td>
+<td> 'Punctuation: Close' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Pi}/</code> </td>
+<td> 'Punctuation: Initial Quote' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Pf}/</code> </td>
+<td> 'Punctuation: Final Quote' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Po}/</code> </td>
+<td> 'Punctuation: Other' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{S}/</code> </td>
+<td> 'Symbol' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Sm}/</code> </td>
+<td> 'Symbol: Math' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Sc}/</code> </td>
+<td> 'Symbol: Currency' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Sc}/</code> </td>
+<td> 'Symbol: Currency' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Sk}/</code> </td>
+<td> 'Symbol: Modifier' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{So}/</code> </td>
+<td> 'Symbol: Other' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Z}/</code> </td>
+<td> 'Separator' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Zs}/</code> </td>
+<td> 'Separator: Space' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Zl}/</code> </td>
+<td> 'Separator: Line' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Zp}/</code> </td>
+<td> 'Separator: Paragraph' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{C}/</code> </td>
+<td> 'Other' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Cc}/</code> </td>
+<td> 'Other: Control' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Cf}/</code> </td>
+<td> 'Other: Format' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Cn}/</code> </td>
+<td> 'Other: Not Assigned' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Co}/</code> </td>
+<td> 'Other: Private Use' </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/\p{Cs}/</code> </td>
+<td> 'Other: Surrogate' </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+
+
+<pre>
+   <code class="shell">Lastly, `\p{}` matches a character’s Unicode script. The following scripts are supported: Arabic, Armenian, Balinese, Bengali, Bopomofo, Braille, Buginese, Buhid, Canadian_Aboriginal, Carian, Cham, Cherokee, Common, Coptic, Cuneiform, Cypriot, Cyrillic, Deseret, Devanagari, Ethiopic, Georgian, Glagolitic, Gothic, Greek, Gujarati, Gurmukhi, Han, Hangul, Hanunoo, Hebrew, Hiragana, Inherited, Kannada, Katakana, Kayah_Li, Kharoshthi, Khmer, Lao, Latin, Lepcha, Limbu, Linear_B, Lycian, Lydian, Malayalam, Mongolian, Myanmar, New_Tai_Lue, Nko, Ogham, Ol_Chiki, Old_Italic, Old_Persian, Oriya, Osmanya, Phags_Pa, Phoenician, Rejang, Runic, Saurashtra, Shavian, Sinhala, Sundanese, Syloti_Nagri, Syriac, Tagalog, Tagbanwa, Tai_Le, Tamil, Telugu, Thaana, Thai, Tibetan, Tifinagh, Ugaritic, Vai, and Yi.
+</code>
+</pre>
+
+<p>对于其它字符的支持:</p>
+
+<pre>
+   <code class="ruby">/\p{Arabic}/.match("\u06E9") #=&gt; #&lt;MatchData "\u06E9"&gt;
+/\p{^Ll}/.match("A") #=&gt; #&lt;MatchData "A"&gt;
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-3-3">复用 Repetition</h2>
+
+<h3>结构/量词</h3>
+
+<table>
+<thead>
+<tr>
+<th> 符号/量词 </th>
+<th> English </th>
+<th> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> * </td>
+<td> Zero or more times </td>
+<td> </td>
+</tr>
+<tr>
+<td> + </td>
+<td> One or more times </td>
+<td> </td>
+</tr>
+<tr>
+<td> ? </td>
+<td> Zero or one times (optional) </td>
+<td> </td>
+</tr>
+<tr>
+<td> {n} </td>
+<td> Exactly n times </td>
+<td> </td>
+</tr>
+<tr>
+<td> {n,} </td>
+<td> n or more times </td>
+<td> </td>
+</tr>
+<tr>
+<td> {,m} </td>
+<td> m or less times </td>
+<td> </td>
+</tr>
+<tr>
+<td> {n,m} </td>
+<td> At least n and at most m times </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>模式</h3>
+
+<ul>
+<li>默认为贪婪型, 最多成功匹配</li>
+<li>非贪婪/懒惰型, 最少<em>成功</em>匹配
+
+<ul>
+<li>量词后面添加<code>?</code></li>
+<li>涉及量词: <code>* + {n,}</code></li>
+</ul>
+</li>
+</ul>
+
+
+<pre>
+   <code class="ruby">/&lt;(.+)&gt;/.match("&lt;a&gt;&lt;b&gt;") # =&gt; #&lt;MatchData "&lt;a&gt;&lt;b&gt;" 1:"a&gt;&lt;b"&gt;
+/&lt;(.+?)&gt;/.match("&lt;a&gt;&lt;b&gt;") # =&gt; #&lt;MatchData "&lt;a&gt;" 1:"a"&gt;
+/&lt;(.+?)&gt;/.match("&lt;abc&gt;&lt;b&gt;") # =&gt; #&lt;MatchData "&lt;abc&gt;" 1:"abc"&gt;
+/&lt;(.{1,}?)&gt;/.match("&lt;abc&gt;&lt;b&gt;") # =&gt; #&lt;MatchData "&lt;abc&gt;" 1:"abc"&gt;
+/&lt;(.{1,})&gt;/.match("&lt;abc&gt;&lt;b&gt;") # =&gt; #&lt;MatchData "&lt;abc&gt;&lt;b&gt;" 1:"abc&gt;&lt;b"&gt;
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-3-4">分组 Grouping</h2>
+
+<p>分组应该算是对上面东西的结构化.
+从分组到归类,又是引用.</p>
+
+<h3>捕捉/获取 Capturing</h3>
+
+<p>主要涉及两种操作: 捕捉与引用</p>
+
+<pre>
+   <code class="ruby">/(?&lt;vowel&gt;[aeiou]).\k&lt;vowel&gt;.\k&lt;vowel&gt;/.match('ototomy')
+    #=&gt; #&lt;MatchData "ototo" vowel:"o"&gt;
+</code>
+</pre>
+
+<h4>捕捉</h4>
+
+<p>以<code>()</code>包含的一个Regular串是一个捕捉组, 从前到后依次为1,2,3,......</p>
+
+<p>有名字的组,以如下模式进行包含</p>
+
+<pre>
+   <code class="ruby">(?&lt;name&gt;)
+# or
+(?'name')
+</code>
+</pre>
+
+<h4>原子分组/捕捉</h4>
+
+<p>通过<code>(?&gt;pat)</code>定义的分组是原子分组.</p>
+
+<pre>
+   <code>在正则表达式的底层实现中, 通过原子分组, 可以取消匹配过程中的回溯.
+</code>
+</pre>
+
+<pre>
+   <code class="ruby">/"(.*)"/.match('"Quote"')     #=&gt; #&lt;MatchData "\"Quote\"" 1:"Quote"&gt;
+/"(?&gt;.*)"/.match('"Quote"') #=&gt; nil
+# 失败原因: .* 由于贪婪的原则, 匹配了", 后续正则式中的"无法再进行匹配, 导致出错.
+# 上面的成功是产生的回溯.
+</code>
+</pre>
+
+<h4>取消捕捉</h4>
+
+<pre>
+   <code class="ruby">(?:regular)
+</code>
+</pre>
+
+<h4>引用</h4>
+
+<p>直接可以使用<code>\1,\2,\k&lt;name&gt;</code>等进行引用</p>
+
+<pre>
+   <code class="ruby">\1
+# with name
+\k&lt;name&gt;
+</code>
+</pre>
+
+<h4>有名变量化</h4>
+
+<p>如果正则表达式在<code>=~</code><em>左侧</em>, 会按名字产生局部变量.</p>
+
+<pre>
+   <code class="ruby">dollars = 'abc'
+/\$(?&lt;dollars&gt;\d+)\.(?&lt;cents&gt;\d+)/ =~ "$3.67" #=&gt; 0
+dollars #=&gt; "3"
+</code>
+</pre>
+
+<p>
+   <em>注意局部变量会被修改</em>
+</p>
+
+<pre>
+   <code class="ruby">/[aeiou]\w{2}/.match("Caenorhabditis elegans") #=&gt; #&lt;MatchData "aen"&gt;
+/([aeiou]\w){2}/.match("Caenorhabditis elegans")
+    #=&gt; #&lt;MatchData "enor" 1:"or"&gt;
+/I(n)ves(ti)ga\2ons/.match("Investigations")
+    #=&gt; #&lt;MatchData "Investigations" 1:"n" 2:"ti"&gt;
+/I(?:n)ves(ti)ga\1ons/.match("Investigations")
+    #=&gt; #&lt;MatchData "Investigations" 1:"ti"&gt;
+</code>
+</pre>
+
+<h3>分组共用 子表达式共用 Subexpression Calls</h3>
+
+<p>通过<code>\g&lt;name&gt;</code>进行表达式的复用</p>
+
+<pre>
+   <code class="ruby">/\A(?&lt;paren&gt;\(\g&lt;paren&gt;*\))*\z/ .match '' # =&gt; #&lt;MatchData "" paren:nil&gt;
+
+/\A(?&lt;paren&gt;\(\g&lt;paren&gt;*\))*\z/ .match '()' # =&gt; #&lt;MatchData "()" paren:"()"&gt;
+
+/\A(?&lt;paren&gt;\(\g&lt;paren&gt;*\))*\z/ .match '(())' # =&gt; #&lt;MatchData "(())" paren:"(())"&gt;
+# ^1 字符串开始
+#      ^2 Regular(paren)实际内容是 ()
+#           ^3 实际字符 (
+#                 ^4 复用Regular(paren)
+#                      ^7 多个Regular(paren)
+#                       ^^8 实际字符 )
+#                           ^10 字符串结束
+</code>
+</pre>
+
+<h4>组内数据多选一 Alternation</h4>
+
+<p>通过<code>|</code>分割多个Regular</p>
+
+<pre>
+   <code class="ruby">/\w(and|or)\w/.match("Feliformia") #=&gt; #&lt;MatchData "form" 1:"or"&gt;
+/\w(and|or)\w/.match("furandi")    #=&gt; #&lt;MatchData "randi" 1:"and"&gt;
+/\w(and|or)\w/.match("dissemblance") #=&gt; nil
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-3-5">锚点Anchors</h2>
+
+<p>用于后续正则表达式的<em>定位</em>, <em>不</em>参加匹配内容</p>
+
+<table>
+<thead>
+<tr>
+<th> 符号 </th>
+<th> English </th>
+<th> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>^</code> </td>
+<td> Matches beginning of line </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>$</code> </td>
+<td> Matches end of line </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>\A</code> </td>
+<td> Matches beginning of string. </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>\Z</code> </td>
+<td> Matches end of string. If string ends with a newline, it matches just before newline </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>\z</code> </td>
+<td> Matches end of string </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>\G</code> </td>
+<td> Matches point where last match finished </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>\b</code> </td>
+<td> Matches word boundaries when outside brackets; backspace (0x08) when inside brackets </td>
+<td> 单词分割符 </td>
+</tr>
+<tr>
+<td> <code>\B</code> </td>
+<td> Matches non-word boundaries </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>(?=pat)</code> </td>
+<td> Positive lookahead assertion: ensures that the following characters match pat, but doesn't include those characters in the matched text </td>
+<td> 零宽度正预测先行断言 </td>
+</tr>
+<tr>
+<td> <code>(?!pat)</code> </td>
+<td> Negative lookahead assertion: ensures that the following characters do not match pat, but doesn't include those characters in the matched text </td>
+<td> 零宽度负预测先行断言 </td>
+</tr>
+<tr>
+<td> <code>(?&lt;=pat)</code> </td>
+<td> Positive lookbehind assertion: ensures that the preceding characters match pat, but doesn't include those characters in the matched text </td>
+<td> 零宽度正回顾后发断言 </td>
+</tr>
+<tr>
+<td> <code>(?&lt;!pat)</code> </td>
+<td> Negative lookbehind assertion: ensures that the preceding characters do not match pat, but doesn't include those characters in the matched text </td>
+<td> 零宽度负回顾后发断言 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>其中涉及断言机制, 具体名称可以再参见<a href="http://richardustc.github.io/blog/2013/06/assertion-in-regular-expression/">正则表达式断言</a>.</p>
+
+<p>下面以零宽度正预测先行断言为例子,看看效果:</p>
+
+<pre>
+   <code class="ruby">/(\w+)(?=abc)/.match 'defabcdef' # =&gt; #&lt;MatchData "def" 1:"def"&gt;
+#      ^ 用于定位
+#                        ^ 发现abc
+#                     ^^^ (\w+) 的匹配, 位于指定位置前的数据
+/(?=abc)(\w+)/.match 'defabcdef' # =&gt; #&lt;MatchData "abcdef" 1:"abcdef"&gt;
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-3-6">整体配置</h2>
+
+<table>
+<thead>
+<tr>
+<th> 符号 </th>
+<th> English </th>
+<th> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>/pat/i</code> </td>
+<td> Ignore case </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/pat/m</code> </td>
+<td> Treat a newline as a character matched by . </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/pat/x</code> </td>
+<td> Ignore whitespace and comments in the pattern </td>
+<td> 通过这个参数,可以在正则表达式中写注释了</td>
+</tr>
+<tr>
+<td> <code>/pat/o</code> </td>
+<td> Perform #{} interpolation only once </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+
+
+<pre>
+   <code class="ruby">float_pat = /\A
+    [[:digit:]]+ # 1 or more digits before the decimal point
+    (\.          # Decimal point
+        [[:digit:]]+ # 1 or more digits after the decimal point
+    )? # The decimal point and following digits are optional
+\Z/x
+float_pat.match('3.14') #=&gt; #&lt;MatchData "3.14" 1:".14"&gt;
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-3-7">编码 Encoding</h2>
+
+<table>
+<thead>
+<tr>
+<th> 符号 </th>
+<th> English </th>
+<th> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>/pat/u</code> </td>
+<td> UTF-8  </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/pat/e</code> </td>
+<td> EUC-JP  </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/pat/s</code> </td>
+<td> Windows-31J  </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>/pat/n</code> </td>
+<td> ASCII-8BIT  </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2 id="tocAnchor-1-3-8">Ruby 特色的全局变量</h2>
+
+<table>
+<thead>
+<tr>
+<th> 符号 </th>
+<th> English </th>
+<th> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>$~</code> </td>
+<td> is equivalent to ::last_match; </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>$&amp;</code> </td>
+<td> contains the complete matched text; </td>
+<td> </td>
+</tr>
+<tr>
+<td> $`</td>
+<td> contains string before match; </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>$'</code> </td>
+<td> contains string after match; </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>$1, $2 and so</code> </td>
+<td> on contain text matching first, second, etc capture group; </td>
+<td> </td>
+</tr>
+<tr>
+<td> <code>$+</code> </td>
+<td> contains last capture group. </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h1 id="tocAnchor-1-12">参考资料</h1>
+
+<ul>
+<li><a href="http://www.ruby-doc.org/core-2.1.0/Regexp.html">Ruby Regular RDoc</a></li>
+<li><a href="http://blog.chinaunix.net/uid-298861-id-3144205.html">Ruby 正则表达式官方文档翻译参照</a></li>
+</ul>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/living/life/2014/01/14/WeekActivity" title="周末活动收集与落实">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/continuousintegration/2014/01/16/compare" title="系统变更比对方法">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/language/ruby/2014/01/15/Regular" data-title="Ruby 正则表达式" data-url="http://www.5wpc.info/it/technical/language/ruby/2014/01/15/Regular/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">一堆小例子</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">基本使用</span></a></li></ul></li><li class="toc_level-1 toc_section-3"><a href="#tocAnchor-1-3"><span class="tocnumber">2</span> <span class="toctext">主要概念</span></a><ul><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-3-1"><span class="tocnumber">2.1</span> <span class="toctext">New a object</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-3-2"><span class="tocnumber">2.2</span> <span class="toctext">字符组 Character Classes</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-3-3"><span class="tocnumber">2.3</span> <span class="toctext">复用 Repetition</span></a></li><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-3-4"><span class="tocnumber">2.4</span> <span class="toctext">分组 Grouping</span></a></li><li class="toc_level-2 toc_section-8"><a href="#tocAnchor-1-3-5"><span class="tocnumber">2.5</span> <span class="toctext">锚点Anchors</span></a></li><li class="toc_level-2 toc_section-9"><a href="#tocAnchor-1-3-6"><span class="tocnumber">2.6</span> <span class="toctext">整体配置</span></a></li><li class="toc_level-2 toc_section-10"><a href="#tocAnchor-1-3-7"><span class="tocnumber">2.7</span> <span class="toctext">编码 Encoding</span></a></li><li class="toc_level-2 toc_section-11"><a href="#tocAnchor-1-3-8"><span class="tocnumber">2.8</span> <span class="toctext">Ruby 特色的全局变量</span></a></li></ul></li><li class="toc_level-1 toc_section-12"><a href="#tocAnchor-1-12"><span class="tocnumber">3</span> <span class="toctext">参考资料</span></a></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2014-01-15</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-16</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Regular-ref">Regular <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2016/03/06/HttpNet">Ruby Http 基础库学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/23/MetaProgramming">Ruby 元编程</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/22/BestPractice">Ruby 最佳实践读书笔记</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/09/03/Closure">Ruby 中的闭包</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/20/TextProcessing">Ruby文本处理相关实践</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/20/TDD">Ruby开发模式学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/language/ruby/2014/01/15/Regular" class="active">Ruby 正则表达式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/RailsRecipes">Reading Note for Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/AdvancedRailsRecipes">Reading Note for Advanced Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2012/09/23/RubyAuthorThinking">RubyAuthorThinking</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/19/ruby265methods">Ruby 编程技巧--265式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/10/index.ruby">Ruby 编程技巧</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

@@ -1,12 +1,16 @@
 
-http://www.5wpc.info/archive.html
+http://www.5wpc.info/archive
 http://www.5wpc.info/atom.xml
-http://www.5wpc.info/categories.html
-http://www.5wpc.info/index.html
-http://www.5wpc.info/search.html
+http://www.5wpc.info/categories
+http://www.5wpc.info/
+http://www.5wpc.info/search
 http://www.5wpc.info/sitemap.txt
-http://www.5wpc.info/tags.html
+http://www.5wpc.info/tags
 
+http://www.5wpc.info/it/technical/debug/2018/05/29/GDB_LLDB
+http://www.5wpc.info/it/technical/language/c/2018/05/25/pthread
+http://www.5wpc.info/it/technical/os/android/2018/05/25/SystemCustomDevelopment
+http://www.5wpc.info/it/technical/continuousintegration/2018/05/09/Jenkins
 http://www.5wpc.info/it/technical/language/java/2018/04/12/BasicTypeCasting
 http://www.5wpc.info/it/technical/algorithm/2018/04/11/Sort
 http://www.5wpc.info/it/technical/os/android/init/2016/10/22/InitProperyService
@@ -66,8 +70,8 @@ http://www.5wpc.info/it/living/interest/travel/2014/01/11/2014
 http://www.5wpc.info/it/technical/os/android/build/2014/01/08/base_rules
 http://www.5wpc.info/it/technical/os/android/build/2014/01/07/static_java_library
 http://www.5wpc.info/it/technical/os/android/build/2014/01/07/java
-http://www.5wpc.info/it/technical/language/java/2014/01/07/index.java
 http://www.5wpc.info/it/technical/os/android/2014/01/07/index
+http://www.5wpc.info/it/technical/language/java/2014/01/07/index.java
 http://www.5wpc.info/it/technical/os/android/build/2014/01/07/Java_library
 http://www.5wpc.info/it/living/sport/2014/01/07/HealthKeep
 http://www.5wpc.info/it/living/selfmanagement/2014/01/07/EQ
@@ -153,8 +157,8 @@ http://www.5wpc.info/src/2011/02/13/Todo
 http://www.5wpc.info/it/career/manage/2011/02/12/ReadMPragmaticProjectManagement
 http://www.5wpc.info/it/career/manage/2011/02/12/ReadHowtoBeLeaders
 http://www.5wpc.info/it/technical/pcmanage/2011/02/11/linux
-http://www.5wpc.info/it/living/life/2011/02/11/index.livinglife
 http://www.5wpc.info/it/career/manage/2011/02/11/index
+http://www.5wpc.info/it/living/life/2011/02/11/index.livinglife
 http://www.5wpc.info/it/living/life/2011/02/11/howtoread
 http://www.5wpc.info/it/career/coder/2011/02/11/coder
 http://www.5wpc.info/it/technical/language/c/2011/02/11/c

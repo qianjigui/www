@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>信息的表示和处理</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/language/2012/07/24/DataRepresentation" />
+<meta property="og:title" content="信息的表示和处理" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2012-07-24" />
+
+<meta name="weibo:article:update_at" content="2018-05-29" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        信息的表示和处理
+        <small>
+            
+            2016 程序"猿"码代中
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">信息的表示和存储</h1>
+
+<h2 id="tocAnchor-1-1-1">数据存储</h2>
+
+<h3>数据长短</h3>
+
+<h3>寻址和直接顺序</h3>
+
+<p>表示数据0x12345678,数据中0x12为数据最高位:
+* 大端:</p>
+
+<table>
+<thead>
+<tr>
+<th>  地址 </th>
+<th>  0x100</th>
+<th>  0x101</th>
+<th>  0x102</th>
+<th>  0x103 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>  数据 </td>
+<td>   12  </td>
+<td>   34  </td>
+<td>   56  </td>
+<td>   78   </td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>小端:</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th>  地址 </th>
+<th>  0x100</th>
+<th>  0x101</th>
+<th>  0x102</th>
+<th>  0x103 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>  数据 </td>
+<td>   78  </td>
+<td>   56  </td>
+<td>   34  </td>
+<td>   12   </td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>如何通过各种语言在二进制数据中进行加载与解析</h4>
+
+<p>一个常见的问题是：在一个二进制数据传输环境中，我们如何进行一些二进制的数据块传输与加载？</p>
+
+<p>常见的一个头部: | MAGIC(4bytes) | Length(4bytes) | Data |</p>
+
+<p>使用各种语言进行有效的加载？</p>
+
+<ul>
+<li>Java</li>
+<li>C</li>
+<li>Ruby</li>
+<li>Golang</li>
+</ul>
+
+
+<p>详细用例见: https://github.com/qianjigui/sample-code-dataloader</p>
+
+<h3>C中的移位运算</h3>
+
+<ul>
+<li>左移(0xff&lt;&lt;8=0xff0)</li>
+<li>右移(0xff000000&gt;&gt;8):
+
+<ul>
+<li>无符号数据(unsigned int/long): 逻辑右移(=0x 0f f0 00 00)</li>
+<li>符号数据(int/long): 算术(左端补最高有效位的拷贝)右移(=0x ff f0 00 00)</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>整数表示</h3>
+
+<p>在C语言中,主要有有符号数字和无符号数字标示。
+现做如下规约:
+* B:binary(位表示)
+* U:unsigned(无符号表示)
+* T:有符号表示
+* 负数为二进制补码表示</p>
+
+<p>数据组织:
+| 位        |  w-1 |  w-2 |  ...... |  3 |  2 |  1 |  0 |
+|------|------|------|------|------|------|------|------|
+| 数据(=0/1)|  x,,w-1,, |  x,,w-2,, |  ...... |  x,,3,, |  x,,2,, |  x,,1,, |  x,,0,, |</p>
+
+<p>结果:
+* B2U,,w,,(<em>x</em>) = sum(i:0..(w-1)){x,,i,,2<sup>i</sup>^}
+* B2T,,w,,(<em>x</em>) = -x,,w-1,,2<sup>w</sup>-1^ + sum(i:0..(w-2)){x,,i,,2<sup>i</sup>^}
+* T2U,,w,,(<em>x</em>) , 原则是基本的位表示保持不变 = B2U,,w,,(T2B,,w,,(<em>x</em>)) = x,,w-1,,2<sup>w</sup>^ + <em>x</em> = <em>x</em> + 2<sup>w</sup>^ (x &lt; 0), x (x&gt;=0)
+* 对于含有符号和无符号的一个比较运算时，C会隐含地将有符号强制转换为无符号数。这种方法对于标准的算术运算来说并没有差异，但是对于像&lt;&gt;的关系运算存在问题:</p>
+
+<table>
+<thead>
+<tr>
+<th>  0==0U </th>
+<th>    1   </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>  -1 is smaller than 0  </td>
+<td>    1   </td>
+</tr>
+<tr>
+<td>  -1 is smaller than 0U </td>
+<td>    <em>0</em> </td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>扩展一个数字的位:
+
+<ul>
+<li>无符号数字转换为一个更大的数据类型，在头部补0--<em>零扩展</em></li>
+<li>将一个二进制补码数字转换成更大的数据类型，采用<em>符号扩展</em>--头部添加最高有效位的值</li>
+</ul>
+</li>
+<li>截断数字:
+
+<ul>
+<li>[x,,w-1,, , x,,w-2,, , ... , x,,2,, , x,,1,, , x,,0,,] ＝截断只剩K位=&gt; [x,,k-1,, , x,,k-2,, , ... , x,,2,, , x,,1,, , x,,0,,]</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-2">浮点数据表示</h2>
+
+<p>
+   <a href="http://www.cnblogs.com/FlyingBread/archive/2009/02/15/660206.html">浮点数表示和基本运算</a>
+</p>
+
+<h2 id="tocAnchor-1-1-3">基于数据位的操作</h2>
+
+<p><a href="http://graphics.stanford.edu/~seander/bithacks.html">Bit Twiddling Hacks</a> :
+    * 基于最高位的符号数判断</p>
+
+<pre>
+   <code class="c">int v;
+int sign;
+sign = v &gt;&gt; (sizeof(int)*CHAR_BIT-1);//v&gt;&gt;31
+</code>
+</pre>
+
+<pre>
+   <code>* 判断符号位是否相同
+</code>
+</pre>
+
+<pre>
+   <code class="c">int x,y;
+bool f = ((x^y)&lt;0);
+</code>
+</pre>
+
+<h3>不需要跳转</h3>
+
+<ul>
+<li>语句处理绝对值</li>
+</ul>
+
+
+<pre>
+   <code class="c ">int v;
+unsigned int r;
+int const mask = v &gt;&gt; sizeof(int)*CHAR_BIT - 1;
+r = (v+mask) ^ mask;
+r = (v^mask) - mask;
+</code>
+</pre>
+
+<ul>
+<li>计算两个数的较大者/较小者</li>
+</ul>
+
+
+<pre>
+   <code class="c ">int x;
+int y;
+int r;
+r = y^((x^y)&amp;-(x&lt;y));//min(x,y)
+r = x^((x^y)&amp;-(x&lt;y));//max(x,y)
+
+r = y + ((x - y) &amp; ((x - y) &gt;&gt; (sizeof(int) * CHAR_BIT - 1))); // min(x, y)
+r = x - ((x - y) &amp; ((x - y) &gt;&gt; (sizeof(int) * CHAR_BIT - 1))); // max(x, y)
+</code>
+</pre>
+
+<ul>
+<li>判断一个数是否为2的幂</li>
+</ul>
+
+
+<pre>
+   <code class="c ">unsigned int v;
+bool f;
+f = (v&amp;(v-1))==0;//v==0时有问题，0不是2的幂次
+f = v &amp;&amp; !(v &amp; (v - 1));
+</code>
+</pre>
+
+<ul>
+<li>位标识处理</li>
+</ul>
+
+
+<pre>
+   <code class="c ">bool f;         // conditional flag
+unsigned int m; // the bit mask
+unsigned int w; // the word to modify:  if (f) w |= m; else w &amp;= ~m;
+
+w ^= (-f ^ w) &amp; m;
+</code>
+</pre>
+
+<ul>
+<li>统计1-bit的个数</li>
+</ul>
+
+
+<pre>
+   <code class="c ">unsigned int v; // count the number of bits set in v
+unsigned int c; // c accumulates the total bits set in v
+for (c = 0; v; c++)
+{
+  v &amp;= v - 1; // clear the least significant bit set
+}
+</code>
+</pre>
+
+<ul>
+<li>数据交换</li>
+</ul>
+
+
+<pre>
+   <code class="c ">#define SWAP(a, b) (((a) ^= (b)), ((b) ^= (a)), ((a) ^= (b)))
+</code>
+</pre>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/technical/algorithm/2012/07/15/HashTable" title="散列表">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/language/java/2012/08/06/Annotation" title="Java 标注">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/language/2012/07/24/DataRepresentation" data-title="信息的表示和处理" data-url="http://www.5wpc.info/it/technical/language/2012/07/24/DataRepresentation/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">信息的表示和存储</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">数据存储</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">浮点数据表示</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">基于数据位的操作</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2012-07-24</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2018-05-29</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#ComputerSystem-ref">ComputerSystem <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/2013/01/15/JavaScript">JavaScript</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/language/2012/07/24/DataRepresentation" class="active">信息的表示和处理</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/2011/08/14/latex">Latex使用知识</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

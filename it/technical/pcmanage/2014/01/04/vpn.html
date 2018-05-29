@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Ubuntu 10.04 安装 VPN</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/pcmanage/2014/01/04/vpn" />
+<meta property="og:title" content="Ubuntu 10.04 安装 VPN" />
+<meta property="og:description" content="安全才能回家 :-) " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2014-01-04" />
+
+<meta name="weibo:article:update_at" content="2014-01-04" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Ubuntu 10.04 安装 VPN
+        <small>
+            
+            安全才能回家 :-)
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">企业 Cisco VPN 安装与配置使用</h1>
+
+<h2 id="tocAnchor-1-1-1">基本步骤</h2>
+
+<p>整体分为多步：</p>
+
+<ol>
+<li>在企业中申请VPN</li>
+<li>安装Cisco VPN客户端，本文针对Cisco AnyConnect VPN</li>
+<li><p><em>重启系统</em></p>
+
+<p> 开始调试了半天, 最后发现需要重新启动系统. 估计是涉及到驱动程序了需要重新load</p></li>
+<li><p>添加VPN</p></li>
+<li>配置VPN</li>
+<li>点击连接，输入username&amp;password
+
+<ul>
+<li>添加特定IP的路由</li>
+</ul>
+</li>
+<li>Connect &amp; Use</li>
+</ol>
+
+
+<h2 id="tocAnchor-1-1-2">具体使用</h2>
+
+<p>建议使用命令模式, 这样可以通过不同设备有选择性的访问网络.</p>
+
+<h3>图示</h3>
+
+<p><img src="http://pic.yupoo.com/qianjigui/Dr6AnrCz/medish.jpg" alt="Install APP" />
+<img src="http://pic.yupoo.com/qianjigui/Dr6yOOGr/medish.jpg" alt="Create VPN" />
+<img src="http://pic.yupoo.com/qianjigui/Dr6AnTj9/medish.jpg" alt="Setup VPN" />
+<img src="http://pic.yupoo.com/qianjigui/Dr6Ao37w/medish.jpg" alt="Connect" /></p>
+
+<h3>命令行模式</h3>
+
+<pre>
+   <code class="shell"># Connect to server by openconnect
+sudo openconnect -u xxxx.xxx vpn.xxx-inc.com
+
+# In other terminal
+
+# list the network interface
+ifconfig
+
+# Add route for ip connect
+#    route: connect to 10.x.x.x with tun0 device
+sudo route add -net 10.0.0.0 netmask 255.0.0.0 dev tun0
+</code>
+</pre>
+
+<h1 id="tocAnchor-1-4">P2P VPN</h1>
+
+<p>Ubuntu <a href="http://ubuntuforums.org/showthread.php?p=7002673">需要设置个把属性</a>:
+需要让PPTP拒绝EAP验证，而这个设置在VPN设置栏中没有。
+需要通过手工进行处理:</p>
+
+<ol>
+<li>打开gconf-editor</li>
+<li>进入到 /system/networking/connections</li>
+<li>查看并找到VPN文件夹</li>
+<li>添加新的键值</li>
+<li>Name: refuse-eap</li>
+<li>Type: string</li>
+<li>Value: yes</li>
+<li>保存、退出并重新连接</li>
+</ol>
+
+
+<p>日志信息，从错误到成功:</p>
+
+<pre>
+   <code class="bash">pppd[5094]: pppd 2.4.5 started by root, uid 0
+pppd[5094]: Using interface ppp0
+pppd[5094]: Connect: ppp0 &lt;--&gt; /dev/pts/2
+pppd[5094]: LCP terminated by peer (WM--^Al^@&lt;M-Mt^@^@^CM-")
+pppd[5094]: Connection terminated.
+pppd[5094]: Modem hangup
+pppd[5094]: Exit.
+pppd[5238]: Plugin /usr/lib/pppd/2.4.5//nm-pptp-pppd-plugin.so loaded.
+pppd[5238]: pppd 2.4.5 started by root, uid 0
+pppd[5238]: Using interface ppp0
+pppd[5238]: Connect: ppp0 &lt;--&gt; /dev/pts/2
+pppd[5238]: LCP: timeout sending Config-Requests
+pppd[5238]: Connection terminated.
+pppd[5238]: Modem hangup
+pppd[5238]: Exit.
+pppd[5427]: Plugin /usr/lib/pppd/2.4.5//nm-pptp-pppd-plugin.so loaded.
+pppd[5427]: pppd 2.4.5 started by root, uid 0
+pppd[5427]: Using interface ppp0
+pppd[5427]: Connect: ppp0 &lt;--&gt; /dev/pts/2
+pppd[5427]: CHAP authentication succeeded
+kernel: [20287.732748] PPP BSD Compression module registered
+kernel: [20287.768881] PPP Deflate Compression module registered
+pppd[5427]: local  IP address 172.0.0.18
+pppd[5427]: remote IP address 172.0.0.1
+pppd[5427]: primary   DNS address 20x.1x5.xxx.xxx
+pppd[5427]: secondary DNS address 20x.1x5.xxx.xxx
+</code>
+</pre>
+
+<p>另外就是如果前端有个不怎么给力的路由器，请设置DMZ主机为后端VPN使用的PC机。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/living/sport/2014/01/04/slim" title="减肥">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/living/selfmanagement/2014/01/07/EQ" title="个人情商管理">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/pcmanage/2014/01/04/vpn" data-title="Ubuntu 10.04 安装 VPN" data-url="http://www.5wpc.info/it/technical/pcmanage/2014/01/04/vpn/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">企业 Cisco VPN 安装与配置使用</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">基本步骤</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">具体使用</span></a></li></ul></li><li class="toc_level-1 toc_section-4"><a href="#tocAnchor-1-4"><span class="tocnumber">2</span> <span class="toctext">P2P VPN</span></a></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2014-01-04</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-04</span></div>
+    
+
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/pcmanage/2014/02/21/mail-client">邮件客户端配置</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/pcmanage/2014/01/04/vpn" class="active">Ubuntu 10.04 安装 VPN</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/pcmanage/2011/02/11/linux">Linux/Ubuntu 使用知识</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

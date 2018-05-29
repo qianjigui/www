@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Go 语言在mobile上的开发</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/language/go/2015/10/25/GoMobile" />
+<meta property="og:title" content="Go 语言在mobile上的开发" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2015-10-25" />
+
+<meta name="weibo:article:update_at" content="2015-10-25" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Go 语言在mobile上的开发
+        <small>
+            
+            2016 程序"猿"码代中
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">Android Go execute file的生成示例</h1>
+
+<p>在gomobile项目中, 可以通过简单的环境配置(go 1.5, gomobile)与gomobile build指令, 形成含有
+<code>go-shared-library</code>的apk文件. 参见文档<a href="https://github.com/golang/go/wiki/Mobile">Golang Mobile</a>.</p>
+
+<p>下列出现问题使用的gomobile版本: <code>gomobile version +ef84e05 Thu Sep 17 03:25:18 2015 +0000 (android); androidSDK=/android-sdk-linux/platforms/android-21</code>.
+环境编译时的注意点:</p>
+
+<ul>
+<li><p>无法下载gomobile包, 可能是本地机器无法访问golang.rog相关网络(例如GFW的限制). 可以通过具有访问权限的下载好, 然后在开发环境机上放置.</p>
+
+<pre><code>  GOPATH=$(pwd) go get golang.org/x/mobile/cmd/gomobile
+  package golang.org/x/mobile/cmd/gomobile: unrecognized import path "golang.org/x/mobile/cmd/gomobile"
+</code></pre></li>
+<li><p><code>go init</code> 后移动目录, 发现无法编译. 如果移动了gomobile目录, 请重新go init进行环境设置. 主要是由于目前版本的gomobile依赖了大量外部绝对路径的资源: Android NDK等编译工具.</p>
+
+<pre><code>  # runtime/cgo
+  Assembler messages:
+  Fatal error: invalid -march= option: `armv5te'
+  make: *** [xxxx] Error 2`
+</code></pre></li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-1">具体示例</h2>
+
+<p>代码结构与运行结果:</p>
+
+<pre>
+   <code>± % tree .
+.
+├── Makefile
+├── bin
+│   └── android_arm
+│       └── example.com
+└── src
+    └── example.com
+        └── main.go
+
+4 directories, 3 files
+± % adb root
+± % adb push bin/android_arm/example.com /data/
+± % adb shell
+5486 KB/s (1955572 bytes in 0.348s)
+root@maguro:/ # /data/
+anr/            bugreports      jni/            property/       system/        
+app-asec/       cloader         local/          radio/          tombstones/    
+app-lib/        dalvik-cache/   lost+found/     rescue          user/          
+app-private/    data/           main            resource-cache/ 
+app/            dontpanic/      media/          security/       
+armm            drm/            mediadrm/       smc/            
+backup/         example.com     misc/           ssh/            
+root@maguro:/ # /data/example.com                                              
+2015/09/21 07:37:36 Hello Android!
+root@maguro:/ # exit
+</code>
+</pre>
+
+<p>源代码<code>src/example.com/main.go</code>:</p>
+
+<pre>
+   <code>package main
+
+import (
+    "log"
+)
+
+func main() {
+    log.Println("Hello Android!")
+}
+</code>
+</pre>
+
+<p>编译脚本<code>Makefile</code>:</p>
+
+<pre>
+   <code>GOMOBILE:=$(HOME)/gomobile
+GOMOBILE_NDK:=$(GOMOBILE)/pkg/gomobile/android-ndk-r10e/arm/bin
+
+all:
+    GOPATH=$(shell pwd) GOOS=android GOARCH=arm GOARM=7 CC=$(GOMOBILE_NDK)/arm-linux-androideabi-gcc CXX=$(GOMOBILE_NDK)/arm-linux-androideabi-g++ CGO_ENABLED=1 go install -a -pkgdir=$(GOMOBILE)/pkg_android_arm ./...
+</code>
+</pre>
+
+<p>上述事例的关键部分:</p>
+
+<ol>
+<li>由<code>go init</code>时生成了Android系统使用的所有pkg包, 并下载了Android NDK相关交叉编译工具</li>
+<li>编译时, go 编译器需要指定 <code>GOOS, GOARCH, CGO_ENABLED, CC,CXX, -pkgdir</code> 关联工具与资源</li>
+</ol>
+
+
+<h2 id="tocAnchor-1-1-2">其它方法</h2>
+
+<p>直接生成 <code>GOOS=linux GOARCH=arm</code> 的目标程序.
+但网络中的<code>domain lookup</code>会出现问题.</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/living/selfmanagement/2015/10/25/GTD_Review20151013" title="GTD个人提升">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/living/selfmanagement/2015/10/26/GTDBook_1" title="GTD_1搞定">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/language/go/2015/10/25/GoMobile" data-title="Go 语言在mobile上的开发" data-url="http://www.5wpc.info/it/technical/language/go/2015/10/25/GoMobile/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Android Go execute file的生成示例</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">具体示例</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">其它方法</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2015-10-25</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2015-10-25</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Gomobile-ref">Gomobile <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/language/go/2015/10/25/GoMobile" class="active">Go 语言在mobile上的开发</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/go/2014/09/19/GoPackageBuiltin">GoPackageBuiltin</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/go/2014/09/09/packages">Go 语言 Package 学习计划</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/go/2014/09/08/introduction_to_golang">Go 语言介绍 第一部分</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

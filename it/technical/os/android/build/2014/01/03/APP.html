@@ -1,0 +1,1277 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Android APP 模块编译过程学习</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/os/android/build/2014/01/03/APP" />
+<meta property="og:title" content="Android APP 模块编译过程学习" />
+<meta property="og:description" content="将Makefile打造成OOP " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2014-01-03" />
+
+<meta name="weibo:article:update_at" content="2014-01-08" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Android APP 模块编译过程学习
+        <small>
+            
+            将Makefile打造成OOP
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">学习环境</h1>
+
+<p>Android: android-4.2.2_r1.2</p>
+
+<h1 id="tocAnchor-1-2">一个例子</h1>
+
+<h2 id="tocAnchor-1-2-1">模块编译并明确需要分析的过程</h2>
+
+<ol>
+<li>以下是进入一个已经编译完成的项目, 项目环境要求:
+
+<ul>
+<li>PLATFORM_VERSION_CODENAME=REL</li>
+<li>PLATFORM_VERSION=4.2.2</li>
+<li>TARGET_PRODUCT=full_maguro</li>
+<li>TARGET_BUILD_VARIANT=userdebug</li>
+<li>TARGET_BUILD_TYPE=release</li>
+<li>TARGET_BUILD_APPS=</li>
+<li>TARGET_ARCH=arm</li>
+<li>TARGET_ARCH_VARIANT=armv7-a-neon</li>
+<li>HOST_ARCH=x86</li>
+<li>HOST_OS=linux</li>
+<li>HOST_OS_EXTRA=Linux-3.0.0-32-server-x86_64-with-Ubuntu-11.10-oneiric</li>
+<li>HOST_BUILD_TYPE=release</li>
+<li>BUILD_ID=JDQ39E</li>
+<li>OUT_DIR=out</li>
+</ul>
+
+
+<p> 其中,请注意需要使用userdebug版本,这样整个编译流程可以完全覆盖.</p></li>
+<li><p>进入我们需要进行编译的模块</p>
+
+<pre><code class="` shell"> # Go to root
+ croot
+ # Go to Calculator which is a common module
+ cd packages/apps/Calculator
+</code></pre></li>
+<li><p>删除我们不关心的模块编译过程</p>
+
+<pre><code class="` diff"> diff --git a/Android.mk b/Android.mk
+ index 90f5b5f..79b62a6 100644
+ --- a/Android.mk
+ +++ b/Android.mk
+ @@ -28,12 +28,3 @@ LOCAL_SDK_VERSION := current
+  LOCAL_PACKAGE_NAME := Calculator
+
+  include $(BUILD_PACKAGE)
+ -##################################################
+ -include $(CLEAR_VARS)
+ -
+ -LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := libarity:arity-2.1.2.jar
+ -
+ -include $(BUILD_MULTI_PREBUILT)
+ -
+ -# Use the folloing include to make our test apk.
+ -include $(call all-makefiles-under,$(LOCAL_PATH))
+</code></pre></li>
+<li><p>动态编译,获取中间结果</p>
+
+<pre><code class="` shell"> mm -B --debug=b | tee basicdebug.log
+ grep target basicdebug.log | grep Successfully
+       Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp'.
+                   Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar'.
+                 Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar'.
+               Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar'.
+             Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/classes.jar'.
+           Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar'.
+         Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex'.
+       Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex'.
+     Successfully remade target file `out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk'.
+       Successfully remade target file `out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt'.
+     Successfully remade target file `out/target/product/maguro/system/app/Calculator.apk'.
+   Successfully remade target file `Calculator'.
+ Successfully remade target file `all_modules'.
+</code></pre>
+
+<p> 从中,我们可以看到整个Calculator模块的编译涉及这些中间模块:</p>
+
+<ul>
+<li>out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/classes.jar</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex</li>
+<li>out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk</li>
+<li>out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt</li>
+<li>out/target/product/maguro/system/app/Calculator.apk</li>
+<li>Calculator</li>
+<li>all_modules</li>
+</ul>
+</li>
+</ol>
+
+
+<h2 id="tocAnchor-1-2-2">过程分析</h2>
+
+<p>首先我们同样通过make系统动态获取编译的命令:</p>
+
+<pre>
+   <code>mm -B --debug=b -n | tee compilecmds.log
+</code>
+</pre>
+
+<p>下面我们一个个分析各过程.</p>
+
+<h3>out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp</h3>
+
+<p>通过aapt工具生成R.java,并cp成R.stamp</p>
+
+<pre>
+   <code class="shell"># 将资源进行编号,ID化
+echo "target R.java/Manifest.java: Calculator (out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp)"
+# rm old R.stamp
+rm -f out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp
+mkdir -p out/target/common/obj/APPS/Calculator_intermediates/src
+mkdir -p out/target/common/obj/APPS/Calculator_intermediates/
+# aapt for generating R.java, 注意生成了R.java
+out/host/linux-x86/bin/aapt package -z -m  -J out/target/common/obj/APPS/Calculator_intermediates/src -M packages/apps/Calculator/AndroidManifest.xml -P out/target/common/obj/APPS/Calculator_intermediates/public_resources.xml -S packages/apps/Calculator/res  -I out/target/common/obj/APPS/framework-res_intermediates/package-export.apk -G out/target/common/obj/APPS/Calculator_intermediates/proguard_options --min-sdk-version 17 --target-sdk-version 17 --version-code 17 --version-name 4.2.2-eng.pengcheng.wang.20140103.172137--
+# copy all Manifest.java to out/target/common/R/
+for GENERATED_MANIFEST_FILE in `find out/target/common/obj/APPS/Calculator_intermediates/src \
+&gt;---&gt;---&gt;---&gt;---&gt;----name Manifest.java 2&gt; /dev/null`; do \
+&gt;---&gt;---dir=`awk '/package/{gsub(/\./,"/",$2);gsub(/;/,"",$2);print $2;exit}' $GENERATED_MANIFEST_FILE`; \
+&gt;---&gt;---mkdir -p out/target/common/R/$dir; \
+&gt;---&gt;---out/host/linux-x86/bin/acp -fp $GENERATED_MANIFEST_FILE out/target/common/R/$dir; \
+&gt;---done;
+# copy all R.java to out/target/common/R/
+#          copy R.java to R.stamp
+for GENERATED_R_FILE in `find out/target/common/obj/APPS/Calculator_intermediates/src \
+&gt;---&gt;---&gt;---&gt;---&gt;----name R.java 2&gt; /dev/null`; do \
+&gt;---&gt;---dir=`awk '/package/{gsub(/\./,"/",$2);gsub(/;/,"",$2);print $2;exit}' $GENERATED_R_FILE`; \
+&gt;---&gt;---mkdir -p out/target/common/R/$dir; \
+&gt;---&gt;---out/host/linux-x86/bin/acp -fp $GENERATED_R_FILE out/target/common/R/$dir \
+&gt;---&gt;---&gt;---|| exit 31; \
+&gt;---&gt;---out/host/linux-x86/bin/acp -fp $GENERATED_R_FILE out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp || exit 32; \
+&gt;---done; \
+
+      Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp'.
+</code>
+</pre>
+
+<h3>out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar</h3>
+
+<p>基于R.java, 依赖包, 源代码编译成 classes-full-debug.jar</p>
+
+<pre>
+   <code class="shell"># 生成Java classes 保存为 classes-full-debug.jar
+echo "target Java: Calculator (out/target/common/obj/APPS/Calculator_intermediates/classes)"
+rm -f out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar
+rm -rf out/target/common/obj/APPS/Calculator_intermediates/classes
+mkdir -p out/target/common/obj/APPS/Calculator_intermediates/
+mkdir -p out/target/common/obj/APPS/Calculator_intermediates/classes
+# 检查该模块依赖的中间文件
+for f in  out/target/common/obj/JAVA_LIBRARIES/libarity_intermediates/javalib.jar  out/target/common/obj/JAVA_LIBRARIES/android-support-v4_intermediates/javalib.jar  out/target/common/obj/JAVA_LIBRARIES/guava_intermediates/javalib.jar; do if [ ! -f $f ]; then echo Missing file $f; exit 1; fi; unzip -qo $f -d out/target/common/obj/APPS/Calculator_intermediates/classes; done ;rm -rf out/target/common/obj/APPS/Calculator_intermediates/classes/META-INF
+# 保存一个中间的java源代码列表, 将列表进行保存便于去重与防止bash参数过长(getconf ARG_MAX)
+rm -f out/target/common/obj/APPS/Calculator_intermediates/classes/java-source-list
+echo -n 'packages/apps/Calculator/src/com/android/calculator2/ColorButton.java packages/apps/Calculator/src/com/android/calculator2/CalculatorEditable.java packages/apps/Calculator/src/com/android/calculator2/CalculatorEditText.java packages/apps/Calculator/src/com/android/calculator2/History.java packages/apps/Calculator/src/com/android/calculator2/EventListener.java packages/apps/Calculator/src/com/android/calculator2/Persist.java packages/apps/Calculator/src/com/android/calculator2/CalculatorDisplay.java packages/apps/Calculator/src/com/android/calculator2/Logic.java packages/apps/Calculator/src/com/android/calculator2/Calculator.java packages/apps/Calculator/src/com/android/calculator2/PanelSwitcher.java packages/apps/Calculator/src/com/android/calculator2/CalculatorViewPager.java packages/apps/Calculator/src/com/android/calculator2/HistoryEntry.java packages/apps/Calculator/src/com/android/calculator2/HistoryAdapter.java ' &gt;&gt; out/target/common/obj/APPS/Calculator_intermediates/classes/java-source-list
+if [ -d "out/target/common/obj/APPS/Calculator_intermediates/src" ]; then find out/target/common/obj/APPS/Calculator_intermediates/src -name '*.java' &gt;&gt; out/target/common/obj/APPS/Calculator_intermediates/classes/java-source-list; fi
+tr ' ' '\n' &lt; out/target/common/obj/APPS/Calculator_intermediates/classes/java-source-list | sort -u &gt; out/target/common/obj/APPS/Calculator_intermediates/classes/java-source-list-uniq
+# javac 走起
+if [ -s out/target/common/obj/APPS/Calculator_intermediates/classes/java-source-list-uniq ] ; then javac -J-Xmx512M -target 1.5 -Xmaxerrs 9999999 -encoding UTF-8 -g  -bootclasspath out/target/common/obj/JAVA_LIBRARIES/android_stubs_current_intermediates/classes.jar -classpath out/target/common/obj/JAVA_LIBRARIES/android_stubs_current_intermediates/classes.jar:out/target/common/obj/JAVA_LIBRARIES/libarity_intermediates/javalib.jar:out/target/common/obj/JAVA_LIBRARIES/android-support-v4_intermediates/javalib.jar:out/target/common/obj/JAVA_LIBRARIES/guava_intermediates/javalib.jar  -extdirs "" -d out/target/common/obj/APPS/Calculator_intermediates/classes  \@out/target/common/obj/APPS/Calculator_intermediates/classes/java-source-list-uniq || ( rm -rf out/target/common/obj/APPS/Calculator_intermediates/classes ; exit 41 ) fi
+rm -f out/target/common/obj/APPS/Calculator_intermediates/classes/java-source-list
+rm -f out/target/common/obj/APPS/Calculator_intermediates/classes/java-source-list-uniq
+# jar 打包
+jar -cf out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar  -C out/target/common/obj/APPS/Calculator_intermediates/classes .
+                  Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar'.
+</code>
+</pre>
+
+<h3>out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar</h3>
+
+<p>cp classes-full-debug.jar intermediates/classes-jarjar.jar</p>
+
+<pre>
+   <code class="shell"># 生成classes-jarjar.jar
+echo Copying: out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar
+# acp: Android cp command
+out/host/linux-x86/bin/acp -fp out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar
+                Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar'.
+</code>
+</pre>
+
+<h3>out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar</h3>
+
+<p>cp intermediates/classes-jarjar.jar emma_out/lib/classes-jarjar.jar</p>
+
+<pre>
+   <code class="shell"># 生成存放在emma_out下的classes-jarjar.jar
+echo Copying: out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar
+mkdir -p out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/
+out/host/linux-x86/bin/acp -fp out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar
+              Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar'.
+</code>
+</pre>
+
+<h3>out/target/common/obj/APPS/Calculator_intermediates/classes.jar</h3>
+
+<p>cp intermediates/emma_out/lib/classes-jarjar.jar classes.jar</p>
+
+<pre>
+   <code class="shell"># 生成classes.jar
+echo Copying: out/target/common/obj/APPS/Calculator_intermediates/classes.jar
+out/host/linux-x86/bin/acp -fp out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar out/target/common/obj/APPS/Calculator_intermediates/classes.jar
+            Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/classes.jar'.
+</code>
+</pre>
+
+<h3>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar</h3>
+
+<p>通过proguard.sh基于classes.jar生成proguard.classes.jar</p>
+
+<pre>
+   <code class="shell">echo Proguard: out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar
+external/proguard/bin/proguard.sh -injars out/target/common/obj/APPS/Calculator_intermediates/classes.jar -outjars out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar -libraryjars out/target/common/obj/JAVA_LIBRARIES/android_stubs_current_intermediates/classes.jar -include build/core/proguard.flags -forceprocessing -printmapping out/target/common/obj/APPS/Calculator_intermediates/proguard_dictionary -include out/target/common/obj/APPS/Calculator_intermediates/proguard_options
+---
+          Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar'.
+</code>
+</pre>
+
+<h3>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex</h3>
+
+<p>基于proguard.classes.jar通过dx生成proguard.classes-with-local.dex</p>
+
+<pre>
+   <code class="shell">echo "target Dex: Calculator"
+mkdir -p out/target/common/obj/APPS/Calculator_intermediates/
+out/host/linux-x86/bin/dx -JXms16M -JXmx2048M --dex --output=out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex     out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar
+        Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex'.
+</code>
+</pre>
+
+<h3>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex</h3>
+
+<p>cp proguard.classes-with-local.dex proguard.classes.dex</p>
+
+<pre>
+   <code class="shell">echo Copying: out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex
+out/host/linux-x86/bin/acp -fp out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex
+      Successfully remade target file `out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex'.
+</code>
+</pre>
+
+<h3>out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk</h3>
+
+<p>整体步骤:</p>
+
+<ol>
+<li>create a zip</li>
+<li>add resources to zip</li>
+<li>add dex to zip</li>
+<li>update zip by jar flags</li>
+<li>signature zip</li>
+<li>Alignment zip</li>
+</ol>
+
+
+<pre>
+   <code class="shell">echo "target Package: Calculator (out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk)"
+mkdir -p out/target/product/maguro/obj/APPS/Calculator_intermediates/
+# make a empty file for create a zip
+touch out/target/product/maguro/obj/APPS/Calculator_intermediates//dummy
+(cd out/target/product/maguro/obj/APPS/Calculator_intermediates/ &amp;&amp; jar cf package.apk dummy)
+# create a zip with empty dummy file
+zip -qd out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk dummy
+# rm dummy
+rm out/target/product/maguro/obj/APPS/Calculator_intermediates//dummy
+# Add resouces to zip
+out/host/linux-x86/bin/aapt package -u -z -c en_US,en_US,cs_CZ,da_DK,de_AT,de_CH,de_DE,de_LI,el_GR,en_AU,en_CA,en_GB,en_NZ,en_SG,eo_EU,es_ES,fr_CA,fr_CH,fr_BE,fr_FR,it_CH,it_IT,ja_JP,ko_KR,nb_NO,nl_BE,nl_NL,pl_PL,pt_PT,ru_RU,sv_SE,tr_TR,zh_CN,zh_HK,zh_TW,am_ET,hi_IN,en_US,fr_FR,it_IT,es_ES,de_DE,nl_NL,cs_CZ,pl_PL,ja_JP,zh_TW,zh_CN,ru_RU,ko_KR,nb_NO,es_US,da_DK,el_GR,tr_TR,pt_PT,pt_BR,rm_CH,sv_SE,bg_BG,ca_ES,en_GB,fi_FI,hi_IN,hr_HR,hu_HU,in_ID,iw_IL,lt_LT,lv_LV,ro_RO,sk_SK,sl_SI,sr_RS,uk_UA,vi_VN,tl_PH,ar_EG,fa_IR,th_TH,sw_TZ,ms_MY,af_ZA,zu_ZA,am_ET,hi_IN,normal,hdpi,xhdpi,nodpi --preferred-configurations xhdpi -M packages/apps/Calculator/AndroidManifest.xml -S packages/apps/Calculator/res  -I out/target/common/obj/APPS/framework-res_intermediates/package-export.apk --min-sdk-version 17 --target-sdk-version 17 --product nosdcard --version-code 17 --version-name 4.2.2-eng.pengcheng.wang.20140103.172137   -F out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk
+# add dex to zip
+_adtp_classes_dex=out/target/common/obj/APPS/Calculator_intermediates/classes.dex; cp out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex $_adtp_classes_dex &amp;&amp; out/host/linux-x86/bin/aapt add -k out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk $_adtp_classes_dex &amp;&amp; rm -f $_adtp_classes_dex
+# update zip by jar flags
+if [ -d out/target/common/obj/APPS/Calculator_intermediates/classes ] ; then java_res_jar_flags=$(find out/target/common/obj/APPS/Calculator_intermediates/classes -type f -a -not -name "*.class" | sed -e "s?^out/target/common/obj/APPS/Calculator_intermediates/classes/? -C out/target/common/obj/APPS/Calculator_intermediates/classes ?"); if [ -n "$java_res_jar_flags" ] ; then echo $java_res_jar_flags &gt;out/target/product/maguro/obj/APPS/Calculator_intermediates/java_res_jar_flags; jar uf out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk $java_res_jar_flags; fi; fi
+# Prepare for signature
+mv out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk.unsigned
+# signature
+java -jar out/host/linux-x86/framework/signapk.jar build/target/product/security/testkey.x509.pem build/target/product/security/testkey.pk8 out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk.unsigned out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk.signed
+# Finish signature
+mv out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk.signed out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk
+# Prepare for Alignment
+# Alignment must happen after all other zip operations.
+mv out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk.unaligned
+# Alignment
+out/host/linux-x86/bin/zipalign -f 4 out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk.unaligned out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk.aligned
+# To apk
+mv out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk.aligned out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk
+    Successfully remade target file `out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk'.
+</code>
+</pre>
+
+<h3>out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt</h3>
+
+<p>cp NOTICE to Calculator.apk.txt</p>
+
+<pre>
+   <code class="shell">echo Notice file: packages/apps/Calculator/NOTICE -- out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt
+mkdir -p out/target/product/maguro/obj/NOTICE_FILES/src//system/app/
+cat packages/apps/Calculator/NOTICE &gt;&gt; out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt
+      Successfully remade target file `out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt'.
+</code>
+</pre>
+
+<h3>out/target/product/maguro/system/app/Calculator.apk</h3>
+
+<p>cp package.apk Calculator.apk</p>
+
+<pre>
+   <code class="shell">echo "Install: out/target/product/maguro/system/app/Calculator.apk"
+mkdir -p out/target/product/maguro/system/app/
+out/host/linux-x86/bin/acp -fp out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk out/target/product/maguro/system/app/Calculator.apk
+    Successfully remade target file `out/target/product/maguro/system/app/Calculator.apk'.
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-2-3">过程回顾</h2>
+
+<h3>从中看到的一般流程</h3>
+
+<p>来自<a href="http://developer.android.com/tools/building/index.html#detailed-build">Android官方</a>的解释:
+<img src="http://developer.android.com/images/build.png" alt="Android APK Build Steps" /></p>
+
+<p>The general process for a typical build is outlined below:</p>
+
+<ol>
+<li>The Android Asset Packaging Tool (aapt) takes your application resource files, such as the AndroidManifest.xml file and the XML files for your Activities, and compiles them. An R.java is also produced so you can reference your resources from your Java code.</li>
+<li>The aidl tool converts any .aidl interfaces that you have into Java interfaces.</li>
+<li>All of your Java code, including the R.java and .aidl files, are compiled by the Java compiler and .class files are output.</li>
+<li>The dex tool converts the .class files to Dalvik byte code. Any 3rd party libraries and .class files that you have included in your project are also converted into .dex files so that they can be packaged into the final .apk file.</li>
+<li>All non-compiled resources (such as images), compiled resources, and the .dex files are sent to the apkbuilder tool to be packaged into an .apk file.</li>
+<li>Once the .apk is built, it must be signed with either a debug or release key before it can be installed to a device.</li>
+<li>Finally, if the application is being signed in release mode, you must align the .apk with the zipalign tool. Aligning the final .apk decreases memory usage when the application is running on a device.</li>
+</ol>
+
+
+<p>整体分为如下过程:</p>
+
+<ol>
+<li>资源ID准备
+
+<ol>
+<li>aapt to R.java</li>
+<li>aidl to Java interfaces</li>
+</ol>
+</li>
+<li>运行时文件生成
+
+<ol>
+<li>javac to classes</li>
+<li>classes 级优化与包装
+
+<ol>
+<li>proguard</li>
+</ol>
+</li>
+<li>dx to dex</li>
+</ol>
+</li>
+<li>apk 组装
+
+<ol>
+<li>empty zip</li>
+<li>add resources</li>
+<li>add dex</li>
+<li>update zip
+
+<ol>
+<li>jar flags</li>
+<li>signature</li>
+<li>zipalign</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+
+<h3>各个中间文件的作用</h3>
+
+<p>各模块在编译系统中的对应关系与具体作用:</p>
+
+<ul>
+<li>out/target/common/obj/APPS/Calculator_intermediates/src/R.stamp
+
+<ul>
+<li>R.java stub</li>
+<li>R_file_stamp</li>
+</ul>
+</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/classes-full-debug.jar
+
+<ul>
+<li>LOCAL_EMMA_INSTRUMENT == false</li>
+<li><a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-emma">emma 测试覆盖工具</a></li>
+<li>full_classes_compiled_jar_leaf</li>
+<li>full_classes_compiled_jar</li>
+</ul>
+</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/classes-jarjar.jar
+
+<ul>
+<li>LOCAL_JARJAR_RULES != ''</li>
+<li><a href="http://www.xinotes.org/notes/note/1468/">A utility to repackage and embed Java libraries</a></li>
+<li>可以重新指定类中的package引用名</li>
+<li>full_classes_jarjar_jar</li>
+</ul>
+</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/emma_out/lib/classes-jarjar.jar
+
+<ul>
+<li>full_classes_emma_jar</li>
+</ul>
+</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/classes.jar
+
+<ul>
+<li>full_classes_jar</li>
+</ul>
+</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.jar
+
+<ul>
+<li>full_classes_proguard_jar</li>
+</ul>
+</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes-with-local.dex
+
+<ul>
+<li>LOCAL_EMMA_INSTRUMENT == false</li>
+<li>built_dex_intermediate</li>
+</ul>
+</li>
+<li>out/target/common/obj/APPS/Calculator_intermediates/proguard.classes.dex
+
+<ul>
+<li>built_dex</li>
+</ul>
+</li>
+<li>out/target/product/maguro/obj/APPS/Calculator_intermediates/package.apk
+
+<ul>
+<li>LOCAL_BUILT_MODULE_STEM</li>
+</ul>
+</li>
+<li>out/target/product/maguro/obj/NOTICE_FILES/src//system/app/Calculator.apk.txt</li>
+<li>out/target/product/maguro/system/app/Calculator.apk
+
+<ul>
+<li>LOCAL_BUILT_MODULE</li>
+</ul>
+</li>
+<li>Calculator
+
+<ul>
+<li>LOCAL_PACKAGE_NAME</li>
+</ul>
+</li>
+<li>all_modules</li>
+</ul>
+
+
+<h3>中间整体加载的Makefile</h3>
+
+<p>完整的Makefile加载过程见下面的log:</p>
+
+<pre>
+   <code class="shell">This program built for x86_64-pc-linux-gnu
+Reading makefiles...
+Reading makefile `Makefile'...
+Reading makefile `build/core/main.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/help.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/config.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/pathmap.mk' (search path) (no ~ expansion)...
+Reading makefile `cts/build/config.mk' (search path) (don't care) (no ~ expansion)...
+Reading makefile `buildspec.mk' (search path) (don't care) (no ~ expansion)...
+Reading makefile `build/core/envsetup.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/version_defaults.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/build_id.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/product_config.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/node_fns.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/product.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/device.mk' (search path) (no ~ expansion)...
+Reading makefile `device/lge/mako/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/generic/armv7-a-neon/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/generic/armv7-a/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/generic/x86/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/generic/mips/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/ti/panda/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/sample/products/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/asus/tilapia/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/asus/grouper/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/samsung/manta/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/samsung/tuna/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/samsung/toro/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/samsung/toroplus/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/samsung/maguro/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `build/target/product/AndroidProducts.mk' (search path) (no ~ expansion)...
+Reading makefile `device/samsung/maguro/full_maguro.mk' (search path) (no ~ expansion)...
+Reading makefile `build/target/product/full_base_telephony.mk' (search path) (no ~ expansion)...
+Reading makefile `build/target/product/full_base.mk' (search path) (no ~ expansion)...
+Reading makefile `build/target/product/generic_no_telephony.mk' (search path) (no ~ expansion)...
+Reading makefile `build/target/product/core.mk' (search path) (no ~ expansion)...
+Reading makefile `build/target/product/base.mk' (search path) (no ~ expansion)...
+Reading makefile `external/cibu-fonts/fonts.mk' (search path) (no ~ expansion)...
+Reading makefile `external/lohit-fonts/fonts.mk' (search path) (no ~ expansion)...
+Reading makefile `external/naver-fonts/fonts.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/fonts/fonts.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/keyboards/keyboards.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/keyboards/common.mk' (search path) (no ~ expansion)...
+Reading makefile `build/target/product/locales_full.mk' (search path) (no ~ expansion)...
+Reading makefile `build/target/product/languages_full.mk' (search path) (no ~ expansion)...
+Reading makefile `external/svox/pico/lang/all_pico_languages.mk' (search path) (no ~ expansion)...
+Reading makefile `external/svox/pico/lang/PicoLangDeDeInSystem.mk' (search path) (no ~ expansion)...
+Reading makefile `external/svox/pico/lang/PicoLangEnGBInSystem.mk' (search path) (no ~ expansion)...
+Reading makefile `external/svox/pico/lang/PicoLangEnUsInSystem.mk' (search path) (no ~ expansion)...
+Reading makefile `external/svox/pico/lang/PicoLangEsEsInSystem.mk' (search path) (no ~ expansion)...
+Reading makefile `external/svox/pico/lang/PicoLangFrFrInSystem.mk' (search path) (no ~ expansion)...
+Reading makefile `external/svox/pico/lang/PicoLangItItInSystem.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/sounds/AllAudio.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/sounds/AudioPackage2.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/sounds/AudioPackage3.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/sounds/AudioPackage4.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/sounds/AudioPackage5.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/sounds/AudioPackage6.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/sounds/AudioPackage7.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/sounds/AudioPackage7alt.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/base/data/sounds/OriginalAudio.mk' (search path) (no ~ expansion)...
+Reading makefile `build/target/product/telephony.mk' (search path) (no ~ expansion)...
+Reading makefile `device/samsung/maguro/device.mk' (search path) (no ~ expansion)...
+Reading makefile `device/samsung/tuna/device.mk' (search path) (no ~ expansion)...
+Reading makefile `frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk' (search path) (no ~ expansion)...
+Reading makefile `hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk' (search path) (no ~ expansion)...
+Reading makefile `hardware/ti/omap4xxx/omap4.mk' (search path) (no ~ expansion)...
+Reading makefile `device/samsung/maguro/BoardConfig.mk' (search path) (no ~ expansion)...
+Reading makefile `vendor/samsung/maguro/BoardConfigVendor.mk' (search path) (don't care) (no ~ expansion)...
+Reading makefile `device/samsung/tuna/BoardConfig.mk' (search path) (no ~ expansion)...
+Reading makefile `vendor/samsung/tuna/BoardConfigVendor.mk' (search path) (don't care) (no ~ expansion)...
+Reading makefile `build/core/combo/select.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/combo/HOST_linux-x86.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/combo/select.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/combo/TARGET_linux-arm.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/combo/arch/arm/armv7-a-neon.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/combo/javac.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/llvm_config.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/dumpvar.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/cleanbuild.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/cleanspec.mk' (search path) (no ~ expansion)...
+Reading makefile `packages/apps/Calculator/CleanSpec.mk' (search path) (no ~ expansion)...
+Reading makefile `out/target/product/maguro/clean_steps.mk' (search path) (don't care) (no ~ expansion)...
+Reading makefile `out/target/product/maguro/previous_build_config.mk' (search path) (don't care) (no ~ expansion)...
+Reading makefile `out/versions_checked.mk' (search path) (don't care) (no ~ expansion)...
+Reading makefile `build/core/definitions.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/distdir.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/dex_preopt.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/pdk_config.mk' (search path) (no ~ expansion)...
+Reading makefile `packages/apps/Calculator/Android.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/clear_vars.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/package.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/java.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/base_rules.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/notice_files.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/post_clean.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/legacy_prebuilts.mk' (search path) (no ~ expansion)...
+Reading makefile `build/core/Makefile' (search path) (no ~ expansion)...
+</code>
+</pre>
+
+<h1 id="tocAnchor-1-6">编译脚本</h1>
+
+<p>目前先关注主要的Makefile过程,后续从整体上分析整个系统的结构.
+例如后续从APPS入手,分析整个编译系统的功能分布与依赖继承关系.</p>
+
+<h2 id="tocAnchor-1-6-1">Makefile加载的主要步骤</h2>
+
+<ul>
+<li>Makefile
+
+<ul>
+<li>build/core/main.mk
+
+<ul>
+<li>packages/apps/Calculator/CleanSpec.mk</li>
+<li>packages/apps/Calculator/Android.mk
+
+<ul>
+<li>build/core/clear_vars.mk</li>
+<li>build/core/package.mk
+
+<ul>
+<li>build/core/java.mk
+
+<ul>
+<li>build/core/base_rules.mk</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-6-2">具体运行过程</h2>
+
+<pre>
+   <code class="shell">mm
+    M=packages/apps/Calculator/Android.mk
+    T=TOPDIR/Makefile
+    ONE_SHOT_MAKEFILE=$M make -C $T all_modules $@
+        $T include build/core/main.mk
+            build/core/main.mk include $(ONE_SHOT_MAKEFILE)
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-6-3">各个过程的功能</h2>
+
+<ol>
+<li>mm 获取上下文与目标Android.mk后, 设置关键ONE_SHOT_MAKEFILE, 并进入make</li>
+<li>build/core/main.mk
+
+<ul>
+<li>设置系统环境</li>
+<li>定义目标</li>
+<li>packages/apps/Calculator/Android.mk
+
+<ul>
+<li>清理LOCAL_*变量</li>
+<li>定义编译模块相关的源代码等</li>
+<li>build/core/package.mk
+
+<ul>
+<li>AndroidManifest指定</li>
+<li>应用资源指定</li>
+<li>模块依赖
+
+<ul>
+<li>PROGUARD</li>
+<li>EMMA</li>
+</ul>
+</li>
+<li><p>build/core/java.mk</p>
+
+<ul>
+<li>依赖模块定义(JAVA_LIBRARIES, STATIC_JAVA_LIBRARIES)</li>
+<li>PROGUARD</li>
+<li>renderscript</li>
+<li>base/core/base_rules.mk
+
+<ul>
+<li>相关模块的依赖关系定义(主要用于与具体模块无关的上下文关系定义, 并可以明确需要安装的具体模块)</li>
+<li>.aidl to java</li>
+<li>Add .logtags</li>
+<li>proto to java</li>
+<li>java to class</li>
+<li>定义make clean的具体任务</li>
+<li>Install 模块相关定义
+
+<ul>
+<li>do dexpreopt</li>
+</ul>
+</li>
+<li>Register with ALL_MODULES</li>
+<li>NOTICE file target</li>
+</ul>
+</li>
+<li><p>定义中间模块产生的具体command</p>
+
+<pre><code class="``shell">  $(full_classes_compiled_jar): $(java_sources) $(java_resource_sources) $(full_java_lib_deps) $(jar_manifest_file) $(RenderScript_file_stamp) $(proto_java_sources_file_stamp)
+     $(transform-java-to-classes.jar)
+  $(full_classes_jarjar_jar): $(full_classes_compiled_jar)
+     # 根据是否需要jarjar的不同采用不同的处理
+     # JARJAR
+  $(full_classes_emma_jar): $(full_classes_jarjar_jar)
+     # 根据是否需要emma的不同采用不同的处理
+     # EMMA
+  $(full_classes_jar): $(full_classes_emma_jar) | $(ACP)
+  $(full_classes_proguard_jar) : $(full_classes_jar) $(proguard_flag_files)
+      # PROGUARD
+  $(built_dex_intermediate): $(full_classes_proguard_jar) $(DX)
+      # DEX
+  $(built_dex): $(built_dex_intermediate) | $(ACP)
+  $(findbugs_xml) : $(LOCAL_BUILT_MODULE)
+</code></pre></li>
+</ul>
+</li>
+<li><p>定义APP相关数据的生成</p>
+
+<pre><code class="``shell">  $(R_file_stamp): $(all_res_assets) $(full_android_manifest) $(RenderScript_file_stamp) $(AAPT) | $(ACP)
+      # AAPT
+  $(LOCAL_BUILT_MODULE): XXXXX
+      # PACKAGE
+      # signature
+      # zipalign
+</code></pre></li>
+<li><p>lintall : lint-$(LOCAL_PACKAGE_NAME)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+
+<h1 id="tocAnchor-1-10">开发者需要关注的API</h1>
+
+<h2 id="tocAnchor-1-10-1">可以使用的工具</h2>
+
+<ol>
+<li>SRC
+
+<ol>
+<li>java</li>
+<li>RenderScript</li>
+<li>Proto</li>
+<li>AIDL</li>
+<li>jni</li>
+</ol>
+</li>
+<li>TOOLS
+
+<ol>
+<li>EMMC测试覆盖工具</li>
+<li>jarjar Java包批处理工具</li>
+<li>Proguard 系统优化工具</li>
+<li>系统级优化工具(需要以ROM的形式发布): preopt/odex</li>
+<li>lint bug分析工具</li>
+<li>signature</li>
+<li>zipalign</li>
+<li>findbugs 好像已经无法使用了</li>
+</ol>
+</li>
+</ol>
+
+
+<h2 id="tocAnchor-1-10-2">编译控制参数</h2>
+
+<p>目前我们主要关注APP相关的控制参数.</p>
+
+<h3>主要的API</h3>
+
+<ul>
+<li>LOCAL_PACKAGE_NAME</li>
+<li>LOCAL_MODULE</li>
+<li>LOCAL_IS_HOST_MODULE
+
+<ul>
+<li>default value: false</li>
+</ul>
+</li>
+<li>LOCAL_MODULE_CLASS
+
+<ul>
+<li>default value: APPS</li>
+</ul>
+</li>
+<li><p>LOCAL_MODULE_TAGS</p>
+
+<ul>
+<li>default value: optional</li>
+<li>可以是很多参数
+
+<ul>
+<li>debug eng tests optional samples shell_ash shell_mksh</li>
+</ul>
+</li>
+<li>具体参数可能的影响
+
+<ul>
+<li><p>tests</p>
+
+<pre><code class="``makefile">  LOCAL_AAPT_FLAGS := $(LOCAL_AAPT_FLAGS) -z
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Resources</p>
+
+<ul>
+<li>LOCAL_MANIFEST_FILE
+
+<ul>
+<li>default value: AndroidManifest.xml</li>
+<li>LOCAL_PATH下用于指定MANIFEST</li>
+</ul>
+</li>
+<li>FULL_MANIFEST_FILE
+
+<ul>
+<li>default value: $(LOCAL_PATH)/$(LOCAL_MANIFEST_FILE)</li>
+<li>最终指定MANIFEST_FILE的地方</li>
+</ul>
+</li>
+<li>LOCAL_ASSET_DIR
+
+<ul>
+<li>default value: $(LOCAL_PATH)/assets</li>
+</ul>
+</li>
+<li>LOCAL_RESOURCE_DIR
+
+<ul>
+<li>default value: $(LOCAL_PATH)/res
+
+<ul>
+<li>add $(package_resource_overlays)
+
+<ul>
+<li>PRODUCT_PACKAGE_OVERLAYS</li>
+<li>DEVICE_PACKAGE_OVERLAYS</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>最后的整体结构是, 按先后编译应用的资源: 优先顺序是 PRODUCT, DEVICE, LOCAL</li>
+</ul>
+</li>
+<li>LOCAL_EXPORT_PACKAGE_RESOURCES</li>
+</ul>
+</li>
+<li>EMMA
+
+<ul>
+<li>LOCAL_EMMA_INSTRUMENT
+
+<ul>
+<li>default value:
+
+<ul>
+<li>$(LOCAL_MODULE_TAGS))$(LOCAL_INSTRUMENTATION_FOR) contain tests =&gt; true</li>
+</ul>
+</li>
+<li>会根据上下文自动添加emma的模块依赖</li>
+</ul>
+</li>
+<li>LOCAL_EMMA_COVERAGE_FILTER</li>
+</ul>
+</li>
+<li>PROGUARD
+
+<ul>
+<li><p>LOCAL_PROGUARD_ENABLED</p>
+
+<ul>
+<li>default value:
+
+<ul>
+<li>TARGET_BUILD_VARIANT contains user,userdebug=&gt; full</li>
+</ul>
+</li>
+<li>value:
+
+<ul>
+<li>disabled: 关闭</li>
+<li>custom
+
+<ul>
+<li><p>!=</p>
+
+<pre><code class="``makefile">  proguard_options_file := $(package_expected_intermediates_COMMON)/proguard_options
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>LOCAL_PROGUARD_FLAGS</p>
+
+<ul>
+<li>用于定义PROGUARD的相关参数</li>
+</ul>
+</li>
+<li>LOCAL_INSTRUMENTATION_FOR</li>
+</ul>
+</li>
+<li>LOCAL_DEX_PREOPT
+
+<ul>
+<li>default value:
+
+<ul>
+<li>WITH_DEXPREOPT==true =&gt; true</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>LOCAL_SRC_FILES
+
+<ul>
+<li>源代码文件列表</li>
+<li>.java</li>
+<li>.aidl</li>
+<li>MODULE_LICENSE*</li>
+<li>.proto</li>
+<li>.logtags</li>
+</ul>
+</li>
+<li>LOCAL_JNI_SHARED_LIBRARIES</li>
+<li>LOCAL_CERTIFICATE
+
+<ul>
+<li>签名</li>
+<li>platform 等</li>
+</ul>
+</li>
+<li>LOCAL_STATIC_JAVA_LIBRARIES
+
+<ul>
+<li>静态依赖库, 最终会与应用一起打包</li>
+</ul>
+</li>
+<li>LOCAL_JAVA_LIBRARIES
+
+<ul>
+<li>动态依赖库</li>
+<li>会根据上下文添加SDK依赖, 系统模块依赖等</li>
+</ul>
+</li>
+<li>RENDERSCRIPT
+
+<ul>
+<li>LOCAL_RENDERSCRIPT_TARGET_API</li>
+<li>LOCAL_RENDERSCRIPT_CC</li>
+<li>LOCAL_RENDERSCRIPT_FLAGS</li>
+<li>LOCAL_RENDERSCRIPT_INCLUDES</li>
+<li>LOCAL_RENDERSCRIPT_INCLUDES_OVERRIDE: 会覆盖上述变量LOCAL_RENDERSCRIPT_INCLUDES</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>HACK时使用的API</h3>
+
+<ul>
+<li>LOCAL_MODULE_PATH
+
+<ul>
+<li>default value: system/app</li>
+<li>安装路径</li>
+</ul>
+</li>
+<li>LOCAL_NO_STANDARD_LIBRARIES</li>
+<li><p>LOCAL_UNINSTALLABLE_MODULE</p>
+
+<ul>
+<li>default value: false</li>
+<li><p>起作用后主要是通过如下操作完成</p>
+
+<pre><code class="``makefile">  LOCAL_INSTALLED_MODULE := $(LOCAL_MODULE_PATH)/$(LOCAL_INSTALLED_MODULE_STEM)
+</code></pre></li>
+</ul>
+</li>
+<li><p>LOCAL_SDK_VERSION</p></li>
+<li>LOCAL_BUILT_MODULE_STEM</li>
+<li>LOCAL_INTERMEDIATE_TARGETS
+
+<ul>
+<li>中间编译结果, 在添加新机制时可以使用. 一般<em>不要定义</em>.</li>
+</ul>
+</li>
+<li>LOCAL_SOURCE_FILES_ALL_GENERATED</li>
+<li>LOCAL_PROPRIETARY_MODULE
+
+<ul>
+<li>主要影响partition_tag</li>
+</ul>
+</li>
+<li>LOCAL_MODULE_STEM
+
+<ul>
+<li>default value: LOCAL_MODULE</li>
+</ul>
+</li>
+<li>LOCAL_MODULE_SUFFIX
+
+<ul>
+<li>default value: .apk</li>
+</ul>
+</li>
+<li>LOCAL_AIDL_INCLUDES</li>
+<li>LOCAL_PROTOC_OPTIMIZE_TYPE</li>
+<li>LOCAL_JAVA_RESOURCE_DIRS</li>
+<li>LOCAL_JAR_MANIFEST</li>
+<li>LOCAL_AAPT_FLAGS</li>
+<li>findbugs.xml</li>
+</ul>
+
+
+<h1 id="tocAnchor-1-13">分析后的感觉</h1>
+
+<p>不得不说, Makefile能够变成OO化的东西, 确实不容易.
+整体编译系统中,我们可以看到Google在工程化上的强大, 将开发, 集成, 发布, 测试, 代码开源许可证等大量工程流程化的工作进行了一体化的封装与管理.</p>
+
+<p>后续我准备按模块地将这些OO化的东西进行学习.</p>
+
+<h2 id="tocAnchor-1-13-1">具体使用中的问题</h2>
+
+<h3>内置工具优化与整合</h3>
+
+<h4>proguard</h4>
+
+<p>官方文档<a href="http://developer.android.com/tools/help/proguard.html">proguard</a></p>
+
+<h4>lint</h4>
+
+<p>官方文档<a href="http://developer.android.com/tools/help/lint.html">lint</a></p>
+
+<pre>
+   <code class="shell">mm lintall
+</code>
+</pre>
+
+<h3>java_library 是如何起作用的</h3>
+
+<p>通过变量LOCAL_JAVA_LIBRARIES:</p>
+
+<pre>
+   <code class="shell">###################
+# @ base_rules.mk
+###################
+
+# out/target/common/obj/xxx/xxx_intermediates/classes.jar
+# 在编译时的依赖.class
+full_java_libs := $(call java-lib-files,$(LOCAL_JAVA_LIBRARIES),$(LOCAL_IS_HOST_MODULE))
+
+# out/target/common/obj/xxx/xxx_intermediates/javalib.jar
+# 在设备上的依赖.dex
+full_java_lib_deps := $(call java-lib-deps,$(LOCAL_JAVA_LIBRARIES),$(LOCAL_IS_HOST_MODULE))
+
+PRIVATE_ALL_JAVA_LIBRARIES:= $(full_java_libs)
+
+###################
+# @ definitions.mk
+###################
+compile-java
+    javac -classpath $(PRIVATE_ALL_JAVA_LIBRARIES)
+</code>
+</pre>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/living/life/2014/01/01/HeartPoint" title="心灵提醒与反馈">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/os/android/build/2014/01/03/DetailStudyPlan" title="Android 编译系统学习计划">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/os/android/build/2014/01/03/APP" data-title="Android APP 模块编译过程学习" data-url="http://www.5wpc.info/it/technical/os/android/build/2014/01/03/APP/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">学习环境</span></a></li><li class="toc_level-1 toc_section-2"><a href="#tocAnchor-1-2"><span class="tocnumber">2</span> <span class="toctext">一个例子</span></a><ul><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-2-1"><span class="tocnumber">2.1</span> <span class="toctext">模块编译并明确需要分析的过程</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-2-2"><span class="tocnumber">2.2</span> <span class="toctext">过程分析</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-2-3"><span class="tocnumber">2.3</span> <span class="toctext">过程回顾</span></a></li></ul></li><li class="toc_level-1 toc_section-6"><a href="#tocAnchor-1-6"><span class="tocnumber">3</span> <span class="toctext">编译脚本</span></a><ul><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-6-1"><span class="tocnumber">3.1</span> <span class="toctext">Makefile加载的主要步骤</span></a></li><li class="toc_level-2 toc_section-8"><a href="#tocAnchor-1-6-2"><span class="tocnumber">3.2</span> <span class="toctext">具体运行过程</span></a></li><li class="toc_level-2 toc_section-9"><a href="#tocAnchor-1-6-3"><span class="tocnumber">3.3</span> <span class="toctext">各个过程的功能</span></a></li></ul></li><li class="toc_level-1 toc_section-10"><a href="#tocAnchor-1-10"><span class="tocnumber">4</span> <span class="toctext">开发者需要关注的API</span></a><ul><li class="toc_level-2 toc_section-11"><a href="#tocAnchor-1-10-1"><span class="tocnumber">4.1</span> <span class="toctext">可以使用的工具</span></a></li><li class="toc_level-2 toc_section-12"><a href="#tocAnchor-1-10-2"><span class="tocnumber">4.2</span> <span class="toctext">编译控制参数</span></a></li></ul></li><li class="toc_level-1 toc_section-13"><a href="#tocAnchor-1-13"><span class="tocnumber">5</span> <span class="toctext">分析后的感觉</span></a><ul><li class="toc_level-2 toc_section-14"><a href="#tocAnchor-1-13-1"><span class="tocnumber">5.1</span> <span class="toctext">具体使用中的问题</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2014-01-03</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-08</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Make-ref">Make <span>9</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

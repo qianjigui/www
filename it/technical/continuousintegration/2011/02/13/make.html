@@ -1,0 +1,525 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>make</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/continuousintegration/2011/02/13/make" />
+<meta property="og:title" content="make" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2011-02-13" />
+
+<meta name="weibo:article:update_at" content="2014-01-01" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        make
+        <small>
+            
+            2016 程序"猿"码代中
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">make</h1>
+
+<h2 id="tocAnchor-1-1-1">变量</h2>
+
+<ul>
+<li>$(VAR)</li>
+<li>VAR=gcc</li>
+<li>如果你要使用真实的“$”字符，那么你需要用“$$”来表示</li>
+<li>$(var:a=b) 变量值的替换</li>
+<li>$(VAR)+=add_var</li>
+<li>多行变量</li>
+<li>全局变量</li>
+<li>命令行参数
+
+<ul>
+<li>override</li>
+</ul>
+</li>
+<li>局部(目标)变量
+
+<ul>
+<li>target: var-assignments</li>
+</ul>
+</li>
+<li>自动化变量
+
+<ul>
+<li>$@ 表示规则中的目标文件集。在模式规则中，如果有多个目标，那么，"$@"就是匹配于目标中模式定义的集合。</li>
+<li>$% 仅当目标是函数库文件中，表示规则中的目标成员名。例如，如果一个目标是"foo.a(bar.o)"，那么，"$%"就是"bar.o"，"$@"就是"foo.a"。如果目标不是函数库文件（Unix下是[.a]，Windows下是[.lib]），那么，其值为空。</li>
+<li>$&lt; 依赖目标中的第一个目标名字。如果依赖目标是以模式（即"%"）定义的，那么"$&lt;"将是符合模式的一系列的文件集。注意，其是一个一个取出来的。</li>
+<li>$?  所有比目标新的依赖目标的集合。以空格分隔。</li>
+<li>$^ 所有的依赖目标的集合。以空格分隔。如果在依赖目标中有多个重复的，那个这个变量会去除重复的依赖目标，只保留一份。</li>
+<li>$+ 这个变量很像"$^"，也是所有依赖目标的集合。只是它不去除重复的依赖目标。</li>
+<li>$<code>*</code> 这个变量表示目标模式中"%"及其之前的部分</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-2">命令</h2>
+
+<ul>
+<li>@echo</li>
+<li>pre;suf 前后有效应的命令(环境pwd)</li>
+<li>打印信息
+
+<ul>
+<li>$(info xxxxxxxx)</li>
+<li>$(warning xxx)</li>
+<li>$(error xxxxx)</li>
+<li>$(error $(abx) xxxx)</li>
+</ul>
+</li>
+<li>忽略出错命令
+
+<ul>
+<li>-command</li>
+<li>.IGNORE target
+
+<ul>
+<li>这个规则中的所有命令将会忽略错误</li>
+</ul>
+</li>
+<li>make
+
+<ul>
+<li>-i
+
+<ul>
+<li>所有命令都会忽略错误</li>
+</ul>
+</li>
+<li>-k
+
+<ul>
+<li>如果某规则中的命令出错了，那么就终止该规则的执行，但继续执行其它规则</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>嵌套执行</li>
+<li>定义命令包
+
+<ul>
+<li>define name</li>
+<li><code>&lt;TAB&gt;</code> command</li>
+<li><code>&lt;TAB&gt;</code> command</li>
+<li>endef</li>
+</ul>
+</li>
+<li>更新文件修改信息
+
+<ul>
+<li><code language="makefile"> update_modify_time=touch -d "<code>stat -c %y $^ | sort -n | tail -1</code>" $@ </code></li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-3">文件指示</h2>
+
+<ul>
+<li>Name
+
+<ul>
+<li>Makefile</li>
+<li>makefile</li>
+<li>make -f/--file arg</li>
+</ul>
+</li>
+<li>引入其他makefile: include</li>
+<li>文件搜索
+
+<ul>
+<li>默认是当前目录</li>
+<li>VPATH 环境变量(Makefile)</li>
+<li>vpath
+
+<ul>
+<li>vpath pattern directory: 为符合模式pattern的文件指定搜索目录directories</li>
+<li>vpath pattern: 清除符合模式pattern的文件的搜索目录</li>
+<li>vpath: 清除所有已被设置好了的文件搜索目录</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-4">注释</h2>
+
+<ul>
+<li>行注释</li>
+<li><h1 id="tocAnchor-1-9">...</h1></li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-5">表达式</h2>
+
+<ul>
+<li>conditional-directive
+
+<ul>
+<li>conditional-directive
+
+<ul>
+<li>ifeq(arg1,arg2)</li>
+<li>ifneq(arg1,arg2)</li>
+<li>ifdef var</li>
+<li>ifndef var</li>
+</ul>
+</li>
+<li>text-if-true</li>
+<li>else</li>
+<li>test-if-false</li>
+<li>endif</li>
+</ul>
+</li>
+<li>function
+
+<ul>
+<li>$(FUNCTION ARGUMENTS)
+
+<ul>
+<li>字符串处理
+
+<ul>
+<li>$(subst from,to,text) 字符串替换</li>
+<li>$(patsubst pattern,replacement,text) 模式字符串替换</li>
+<li>$(strip string) 去掉头尾空格</li>
+<li>$(findstring find,in)查找字符串</li>
+<li>$(filter pattern1 patter2...,text)过滤函数，符合模式的留下</li>
+<li>$(filter-out pattern1 patter2...,text)反过滤</li>
+<li>$(sort list) 排序</li>
+<li>$(word n,text)取单词</li>
+<li>$(wordlist start,end,text) 取单词串</li>
+<li>$(words text)单词个数统计</li>
+<li>$(firstword text) 首个单词</li>
+</ul>
+</li>
+<li>文件名
+
+<ul>
+<li>$(dir names...)</li>
+<li>$(notdir names...)</li>
+<li>$(suffix names...) 取后缀</li>
+<li>$(basename names...)取前缀</li>
+<li>$(addsuffix suffix,names...)</li>
+<li>$(addprefix prefix,names...)</li>
+<li>$(join list1,list2)
+
+<ul>
+<li>把list2 中的单词对应地加到list1的单词后面。如果list1的单词个数要比list2的多，那么list1中的多出来的单词将保持原样。如果list2的单词个数要比list1多，那么，list2多出来的单词将被复制到list2中。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>foreach
+
+<ul>
+<li>names := a b c d</li>
+<li>files := $(foreach n,$(names),$(n).o)</li>
+<li>$(files)的值是“a.o b.o c.o d.o”</li>
+</ul>
+</li>
+<li>$(if condition, then-part)</li>
+<li>$(if condition,then-part,else-part)</li>
+<li>call</li>
+<li>$(origin variable)
+
+<ul>
+<li>undefined</li>
+<li>default</li>
+<li>environment</li>
+<li>file</li>
+<li>command line</li>
+<li>automatic</li>
+</ul>
+</li>
+<li>$(shell command...)</li>
+<li>$(error message)</li>
+<li>$(warning message)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-6">规则</h2>
+
+<ul>
+<li>显式
+
+<ul>
+<li>Simple
+
+<ul>
+<li>target: prerequisties</li>
+<li><code>&lt;TAB&gt;</code>command</li>
+<li>反斜杠 \ 作为换行符</li>
+</ul>
+</li>
+<li>通配符
+
+<ul>
+<li>"<code>*</code>": 任何字符</li>
+<li>"?": 单个字符</li>
+<li>[...]: 集合中的一个字符</li>
+<li>反斜杠\转义为普通字符</li>
+<li>$(wildcard <code>*</code>) 展开通配符结果</li>
+</ul>
+</li>
+<li>目标
+
+<ul>
+<li>伪目标 .PHONY</li>
+<li>多目标 $@
+
+<ul>
+<li>静态模式 Target=target-pattern:require-pattern
+
+<ul>
+<li>objects = foo.o bar.o</li>
+<li>all: $(objects)</li>
+<li>$(objects): %.o: %.c</li>
+<li>$(CC) -c $(CFLAGS) $&lt; -o $@</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>隐晦
+
+<ul>
+<li>自动生成依赖性
+
+<ul>
+<li>gcc -MM</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-7">tags: Tool</h2>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/src/2011/02/13/Todo" title="TODO List">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/study/dcu/2011/02/14/EE552BroadbandNetworks" title="EE552-BroadbandNetworks">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/continuousintegration/2011/02/13/make" data-title="make" data-url="http://www.5wpc.info/it/technical/continuousintegration/2011/02/13/make/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">make</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">变量</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">命令</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">文件指示</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-1-4"><span class="tocnumber">1.4</span> <span class="toctext">注释</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-1-5"><span class="tocnumber">1.5</span> <span class="toctext">表达式</span></a></li><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-1-6"><span class="tocnumber">1.6</span> <span class="toctext">规则</span></a></li><li class="toc_level-2 toc_section-8"><a href="#tocAnchor-1-1-7"><span class="tocnumber">1.7</span> <span class="toctext">tags: Tool</span></a></li></ul></li><li class="toc_level-1 toc_section-9"><a href="#tocAnchor-1-9"><span class="tocnumber">2</span> <span class="toctext">...</span></a></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2011-02-13</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-01</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Tool-ref">Tool <span>7</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

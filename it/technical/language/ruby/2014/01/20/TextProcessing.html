@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Ruby文本处理相关实践</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/language/ruby/2014/01/20/TextProcessing" />
+<meta property="og:title" content="Ruby文本处理相关实践" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2014-01-20" />
+
+<meta name="weibo:article:update_at" content="2014-02-13" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Ruby文本处理相关实践
+        <small>
+            
+            2016 程序"猿"码代中
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">整体介绍</h1>
+
+<p><em>本文主要是对&lt;Ruby最佳实践&gt;文本处理内容的再次复习</em>.
+具体读书笔记见<a href="http://book.douban.com/people/qianjigui/annotation/4214148/">douban</a>.</p>
+
+<p>该章节目录如下:</p>
+
+<pre>
+   <code class="ruby">4. Text Processing and File Management
+Line-Based File Processing with State Tracking
+Regular Expressions
+    Don’t Work Too Hard
+    Anchors Are Your Friends
+    Use Caution When Working with Quantifiers
+Working with Files
+    Using Pathname and FileUtils
+The tempfile Standard Library
+    Automatic Temporary Directory Handling
+    Collision Avoidance
+    Same Old I/O Operations
+    Automatic Unlinking
+Text-Processing Strategies
+    Advanced Line Processing
+    Atomic Saves
+Conclusions
+</code>
+</pre>
+
+<p>文中主要涉及如下处理方法与手段:
+- 基于行的状态处理
+- 正则表达式
+- 文件处理的相关API
+- 临时文件API
+- 主要处理策略</p>
+
+<h1 id="tocAnchor-1-2">具体实践方案</h1>
+
+<h2 id="tocAnchor-1-2-1">基于行的带有状态的处理</h2>
+
+<p>主要特征如下:
+- 通过一个完整的Context记录整体分析状态, 可以借助栈等数据结构进行有序支持.
+- 每行有具体特征符号用于识别
+- 利用状态机进行有上下关联的整合
+- 对其它文本的报警与skip</p>
+
+<p>其实现的一般结构如下:</p>
+
+<pre>
+   <code class="ruby">case section
+when [xxx,xxx]
+   process
+when [xxx,xxx]
+   process
+else
+   process
+end
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-2-2">基于正则表达式的处理</h2>
+
+<p>充分利用正则表达式的特性, 特别是 锚点, 分组与捕获.</p>
+
+<p>关于正则表达式的详细API见<a href="/it/technical/language/ruby/2014/01/15/Regular/">Regular</a></p>
+
+<h2 id="tocAnchor-1-2-3">文件处理的API</h2>
+
+<ul>
+<li>Pathname, Ruby 1.9
+
+<ul>
+<li>支持大量关于路径的操作与关系运算</li>
+</ul>
+</li>
+<li>FileUtils, Ruby 1.8</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-2-4">tempfile API</h2>
+
+<p>通过tempfile进行中间状态的保存与过渡.</p>
+
+<p>tempfile API 内部具有与File类似的API, 并且可以防止文件操作的冲突.</p>
+
+<p>自动删除有两种: 一种是unlink!, 直接删除; 一种是unlink, GC时处理.</p>
+
+<h2 id="tocAnchor-1-2-5">文本处理的一般策略</h2>
+
+<h3>Enumerator</h3>
+
+<p>迭代器: 逐行处理, 行号访问</p>
+
+<pre>
+   <code class="ruby">f=File.open
+f.each
+f.lineno
+</code>
+</pre>
+
+<h3>原子化操作</h3>
+
+<p>利用tempfile API进行中间过程的处理, 再通过mv进行保存.</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/technical/language/ruby/2014/01/20/TDD" title="Ruby开发模式学习">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/os/ios/2014/01/23/app-develop-step" title="iOS 应用开发整体流程">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/language/ruby/2014/01/20/TextProcessing" data-title="Ruby文本处理相关实践" data-url="http://www.5wpc.info/it/technical/language/ruby/2014/01/20/TextProcessing/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">整体介绍</span></a></li><li class="toc_level-1 toc_section-2"><a href="#tocAnchor-1-2"><span class="tocnumber">2</span> <span class="toctext">具体实践方案</span></a><ul><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-2-1"><span class="tocnumber">2.1</span> <span class="toctext">基于行的带有状态的处理</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-2-2"><span class="tocnumber">2.2</span> <span class="toctext">基于正则表达式的处理</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-2-3"><span class="tocnumber">2.3</span> <span class="toctext">文件处理的API</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-2-4"><span class="tocnumber">2.4</span> <span class="toctext">tempfile API</span></a></li><li class="toc_level-2 toc_section-7"><a href="#tocAnchor-1-2-5"><span class="tocnumber">2.5</span> <span class="toctext">文本处理的一般策略</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2014-01-20</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-02-13</span></div>
+    
+
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2016/03/06/HttpNet">Ruby Http 基础库学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/23/MetaProgramming">Ruby 元编程</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/22/BestPractice">Ruby 最佳实践读书笔记</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/09/03/Closure">Ruby 中的闭包</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/language/ruby/2014/01/20/TextProcessing" class="active">Ruby文本处理相关实践</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/20/TDD">Ruby开发模式学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/15/Regular">Ruby 正则表达式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/RailsRecipes">Reading Note for Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/AdvancedRailsRecipes">Reading Note for Advanced Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2012/09/23/RubyAuthorThinking">RubyAuthorThinking</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/19/ruby265methods">Ruby 编程技巧--265式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/10/index.ruby">Ruby 编程技巧</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

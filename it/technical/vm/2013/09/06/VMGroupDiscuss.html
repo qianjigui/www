@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>VM-Group-Discuss</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/vm/2013/09/06/VMGroupDiscuss" />
+<meta property="og:title" content="VM-Group-Discuss" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2013-09-06" />
+
+<meta name="weibo:article:update_at" content="2014-01-01" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        VM-Group-Discuss
+        <small>
+            
+            2016 程序"猿"码代中
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">VM-Group-Discuss</h1>
+
+<h2 id="tocAnchor-1-1-1">Memory</h2>
+
+<ul>
+<li>Heap
+
+<ul>
+<li>ConstPool
+
+<ul>
+<li>StaticField
+
+<ul>
+<li>Direct reference
+
+<ul>
+<li>object</li>
+</ul>
+</li>
+<li>Reflect
+
+<ul>
+<li>ClassObject</li>
+<li>java.lang.reflect.Field</li>
+<li>Other
+
+<ul>
+<li>GC</li>
+<li>Relink</li>
+<li>Reinit</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>eg: http://hllvm.group.iteye.com/group/topic/34986</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>G1@java7u4
+
+<ul>
+<li>https://oracleus.activeevents.com/connect/sessionDetail.ww?SESSION_ID=6583</li>
+<li>http://www.infoq.com/cn/articles/jdk7-garbage-first-collector
+
+<ul>
+<li>特点
+
+<ul>
+<li>并行
+
+<ul>
+<li>ScanMark run with other app threads</li>
+</ul>
+</li>
+<li>并发
+
+<ul>
+<li>Remark step run in multi threads</li>
+<li>Clean step run in multi threads</li>
+</ul>
+</li>
+<li>分代</li>
+<li>空间整合
+
+<ul>
+<li>Multi Regions</li>
+<li>Region Level Clean
+
+<ul>
+<li>Reference set loging linking from other region(write barrier)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以预测的停顿
+
+<ul>
+<li>Clean some regions by its needing time</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Running
+
+<ul>
+<li><img src="http://www.infoq.com/resource/articles/jdk7-garbage-first-collector/zh/resources/image1.jpg" alt="Steps" /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Native
+
+<ul>
+<li>NIO-directMemory
+
+<ul>
+<li>http://hllvm.group.iteye.com/group/topic/35271</li>
+</ul>
+</li>
+<li>ByteBuffer.allocateDirect</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-2">JavaByteCode</h2>
+
+<ul>
+<li>Class Static Scope Codes
+
+<ul>
+<li>Generate <cinit>{}
+
+<ul>
+<li>只能作为类加载过程的一部分由JVM直接调用</li>
+<li>http://hllvm.group.iteye.com/group/topic/35224</li>
+</ul>
+</cinit></li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-3">JVMDebug</h2>
+
+<ul>
+<li>为什么 Java 会 Crash？
+
+<ul>
+<li>http://www.linuxeden.com/html/softuse/20120506/123909.html</li>
+<li>Problems
+
+<ul>
+<li>JVM bug</li>
+<li>Native library bug</li>
+<li>Java code bug</li>
+<li>Native memory left NONE</li>
+<li>Environment effect
+
+<ul>
+<li>OOM Killer</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Crash
+
+<ul>
+<li>JVM意外消失</li>
+<li>crash log
+
+<ul>
+<li>core.pid</li>
+<li>core dump</li>
+</ul>
+</li>
+<li>tools
+
+<ul>
+<li>jstack/gdb</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/technical/os/android/2013/09/06/AndroidDebugger" title="AndroidDebugger">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/design/2013/09/10/DesignPatternsForEmbeddedSystemsInC" title="DesignPatternsForEmbeddedSystemsInC">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/vm/2013/09/06/VMGroupDiscuss" data-title="VM-Group-Discuss" data-url="http://www.5wpc.info/it/technical/vm/2013/09/06/VMGroupDiscuss/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">VM-Group-Discuss</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">Memory</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">JavaByteCode</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">JVMDebug</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2013-09-06</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-01</span></div>
+    
+
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/vm/2013/09/06/VMGroupDiscuss" class="active">VM-Group-Discuss</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/vm/2012/08/18/GC">垃圾收集技术</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/vm/2012/08/08/index">虚拟机技术相关概要</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/vm/2012/08/08/VirtualMachines">Virtual Machines</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

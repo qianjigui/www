@@ -1,0 +1,652 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Ruby 编程技巧--265式</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/language/ruby/2011/02/19/ruby265methods" />
+<meta property="og:title" content="Ruby 编程技巧--265式" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2011-02-19" />
+
+<meta name="weibo:article:update_at" content="2014-01-12" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Ruby 编程技巧--265式
+        <small>
+            
+            2016 程序"猿"码代中
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">Ruby 265式</h1>
+
+<ul>
+<li>第1章 Ruby的语法.
+
+<ol>
+<li>001 常值（literal） 2</li>
+<li>002 运算符 6</li>
+<li>003 变量与常数 9</li>
+<li>004 代入 11</li>
+<li>005 程序语句的分段 12</li>
+<li>006 备注 13</li>
+<li>007 真假值与条件判断 14</li>
+<li>008 循环 17</li>
+<li>009 调用方法 19</li>
+<li>010 区块（block） 20</li>
+<li>011 方法（Method）定义 21</li>
+<li>012 限制方法的调用 22</li>
+<li>013 类别（Class）定义 23</li>
+<li>014 模块（Module）定义 24</li>
+<li>015 特殊方法 25</li>
+<li>016 例外处理 26</li>
+<li>017 alias与undef 27</li>
+<li>018 保留字 28</li>
+</ol>
+</li>
+<li>第2章 字符串
+
+<ol>
+<li>019 选择适当的字符串常值 30</li>
+<li>020 设置默认的文字编码 32</li>
+<li>021 变换文字编码 34</li>
+<li>022 推测文字编码 37</li>
+<li>023 复制字符串 39</li>
+<li>024 重复字符串 40</li>
+<li>025 取得字符串长度 41</li>
+<li>026 查找字符串 42</li>
+<li>027 查询正则表达式是否匹配字符串的开头/结尾 45</li>
+<li>028 匹配单字 46</li>
+<li>029 以特定的文字编码来进行正则表达式匹配 48</li>
+<li>030 在正则表达式“.”中匹配\n 50</li>
+<li>031 从上次匹配的部分开始继续匹配 51</li>
+<li>032 计算特定的文字、字符串出现的次数 53</li>
+<li>033 计算字符的出现频率 55</li>
+<li>034 比较字符串 56</li>
+<li>035 对空白进行匹配 57</li>
+<li>036 判断字符串是否为空行 58</li>
+<li>037 判断是否为表示数值的字符串 59</li>
+<li>038 将字符串变换为数值 60</li>
+<li>039 判断字符为大写或小写 62</li>
+<li>040 将字母变换为大写/小写 63</li>
+<li>041 取出字符串的一部分 65</li>
+<li>042 取出正则表达式匹配的部分 67</li>
+<li>043 取出正则表达式匹配部分的前后字符串 69</li>
+<li>044 查询包含特定文字部分的长度 70</li>
+<li>045 将字符串分割为段落 71</li>
+<li>046 将字符串分割为行 73</li>
+<li>047 将字符串分割为单字 74</li>
+<li>048 以正则表达式来分割字符串 76</li>
+<li>049 处理字符串的个别文字 78</li>
+<li>050 处理字符串的单一字节 79</li>
+<li>051 链接字符串 80</li>
+<li>052 置换字符串的一部分内容 81</li>
+<li>053 跳脱字符/除去跳脱字符 83</li>
+<li>054 除去字符串的一部分 85</li>
+<li>055 取出行尾的换行字符 87</li>
+<li>056 除去字符串开头/结尾的空白 89</li>
+<li>057 变换Tab与半角空格符 91</li>
+<li>058 变更缩排 92</li>
+<li>059 将Here Document缩排后编写 94</li>
+<li>060 在字符串结尾加上字符串 95</li>
+<li>061 对字符串的一部分进行破坏性删除 97</li>
+<li>062 在字符串中间破坏性地插入字符串 99</li>
+<li>063 字符与字符编码相互变换 101</li>
+<li>064 将字符串依n个文字来分割 103</li>
+<li>065 将字符串切出最大n字节的部分字符串 104</li>
+<li>066 将字符串切出最大n个文字的部分字符串 106</li>
+<li>067 将字符串切出最大n位的部分字符串 107</li>
+<li>068 以特定文字来隐藏部分字符串 108</li>
+<li>069 建立信息摘要（Message Digest） 109</li>
+<li>070 判断字符串是否可作为正确的正则表达式 111</li>
+<li>071 跳脱正则表达式的Meta文字 112</li>
+<li>072 判断字符串是否同时与多个正则表达式匹配 113</li>
+<li>073 分割正则表达式来记述 114</li>
+<li>074 正则表达式集 116</li>
+<li>075 将字符串整形为各段落 118</li>
+<li>076 解析各种文字格式 119</li>
+<li>077 处理以“,”来分隔的数据（CSV） 122</li>
+<li>078 解析XML 124</li>
+<li>079 解析YAML 127</li>
+<li>080 处理HTML 129</li>
+<li>081 自动补完单字 132</li>
+<li>082 判断是否为有效的E-mail地址 134</li>
+</ol>
+</li>
+<li>第3章 数组（Array）与哈希（Hash）
+
+<ol>
+<li>083 建立数组 136</li>
+<li>084 复制数组 138</li>
+<li>085 建立多维数组 139</li>
+<li>086 依序处理数组及哈希的所有元素 140</li>
+<li>087 并行处理多个数组 141</li>
+<li>088 多维数组的循环 143</li>
+<li>089 取得数组的元素 144</li>
+<li>090 改变数组的元素 146</li>
+<li>091 删除数组的元素 147</li>
+<li>092 在数组的开头/结尾加入元素 148</li>
+<li>093 取出并除去数组开头/结尾的元素 149</li>
+<li>094 置换数组的元素 150</li>
+<li>095 随机取得数组中的元素 151</li>
+<li>096 随机排列数组中的元素 152</li>
+<li>097 查询数组的元素个数 153</li>
+<li>098 查询数组中元素的出现次数 154</li>
+<li>099 从数组中一次取出多个元素 155</li>
+<li>100 取得数组中索引与元素的配对组 156</li>
+<li>101 将数组中元素填入相同的值 157</li>
+<li>102 由数组中取出并除去重复的元素 158</li>
+<li>103 取得数组中满足条件的元素 159</li>
+<li>104 查找数组的元素 160</li>
+<li>105 比较两个数组 161</li>
+<li>106 找出两个数组中相同的元素 162</li>
+<li>107 取出两个数组间的差 163</li>
+<li>108 连接数组 164</li>
+<li>109 将数组中元素的顺序反转 165</li>
+<li>110 将一定范围的整数作为数组的元素 166</li>
+<li>111 将数组作为（以“,”）连接的字符串 167</li>
+<li>112 二元查找法 168</li>
+<li>113 建立哈希的键值类别 169</li>
+<li>114 在哈希中加入元素 170</li>
+<li>115 查询哈希内键值是否存在 171</li>
+<li>116 删除哈希的元素 172</li>
+<li>117 显示哈希的内容 173</li>
+<li>118 将哈希元素以插入顺序取出 174</li>
+<li>119 建立单一键可对应多值的哈希 176</li>
+<li>120 交替哈希的键与值 177</li>
+<li>121 排序数组及哈希 178</li>
+<li>122 合并哈希 180</li>
+<li>123 找出两个哈希中都有的键/只有一个哈希才有的键 181</li>
+<li>124 设置默认值 182</li>
+<li>125 使用巨大的离散数组 183</li>
+<li>126 建立具有Collection特性的类别 184</li>
+<li>127 使用堆栈与队列 185</li>
+</ol>
+</li>
+<li>第4章 文件与目录
+
+<ol>
+<li>128 将文件名分割为其组成元素 188</li>
+<li>129 从相对路径求出绝对路径 189</li>
+<li>130 判断路径名是否吻合样式（Pattern）.. 190</li>
+<li>131 取得目录与文件一览 192</li>
+<li>132 取得目前所在的目录名称 194</li>
+<li>133 变更当前目录 195</li>
+<li>134 求得执行脚本所处的路径 196</li>
+<li>135 更改文件名 197</li>
+<li>136 复制文件 198</li>
+<li>137 删除文件 200</li>
+<li>138 判断文件是否可读取、可写入 201</li>
+<li>139 判断文件是否存在/判断其种类 202</li>
+<li>140 取得文件属性 203</li>
+<li>141 变更文件属性 205</li>
+<li>142 建立链接 207</li>
+<li>143 判断两个文件是否相同 209</li>
+<li>144 建立目录 211</li>
+<li>145 对目录内的所有文件进行递归处理 212</li>
+<li>146 递归复制目录 213</li>
+<li>147 删除目录 214</li>
+<li>148 事先确认文件操作 215</li>
+<li>149 新增名称不重复的文件 216</li>
+</ol>
+</li>
+<li>第5章 输入/输出
+
+<ol>
+<li>150 打开文件 219</li>
+<li>151 以行为单位来处理文件 220</li>
+<li>152 读取文件内容 222</li>
+<li>153 建立新的文件 224</li>
+<li>154 在文件末尾加入数据 226</li>
+<li>155 以单行指令（One-liner）更新文件 227</li>
+<li>156 使输出操作与文件更新同步 228</li>
+<li>157 计算文件的行数 229</li>
+<li>158 将文件由文件末尾开始处理至行单位中 230</li>
+<li>159 读取正在写入的文件 232</li>
+<li>160 建立暂存文件 233</li>
+<li>161 锁定文件 234</li>
+<li>162 将文件转为十六进制 235</li>
+<li>163 在文件中插入一行 236</li>
+<li>164 以二进制模式写入文件 238</li>
+<li>165 处理固定长度的记录 239</li>
+<li>166 切割文件大小 241</li>
+<li>167 删除文件开头的n行 242</li>
+<li>168 删除文件末尾的n行 243</li>
+<li>169 将标准输入/输出接替至文件 245</li>
+<li>170 复制I/O对象 246</li>
+<li>171 以printf来格式化输出 248</li>
+</ol>
+</li>
+<li>第6章 数值
+
+<ol>
+<li>172 格式化数值 251</li>
+<li>173 位运算 253</li>
+<li>174 在二进制、八进制、十进制、十六进制间相互转换 254</li>
+<li>175 将数值每三位以“,”区隔开来 255</li>
+<li>176 指定次数并重复处理 256</li>
+<li>177 求解最大值、最小值 257</li>
+<li>178 求解数值的总和 258</li>
+<li>179 求绝对值 259</li>
+<li>180 求除法的余数 260</li>
+<li>181 求解指数 262</li>
+<li>182 求最大公因数及最小公倍数 263</li>
+<li>183 求解平方根 264</li>
+<li>184 计算三角函数 265</li>
+<li>185 将直角坐标系转换为极坐标系 266</li>
+<li>186 进行对数计算 267</li>
+<li>187 对浮点数进行四舍五入等处理 268</li>
+<li>188 比较浮点数 270</li>
+<li>189 取得随机数 271</li>
+<li>190 使用矩阵 272</li>
+<li>191 使用复数 274</li>
+<li>192 使用有理数 275</li>
+</ol>
+</li>
+<li>第7章 日期与时间
+
+<ol>
+<li>193 查询现在的日期与时间 277</li>
+<li>194 由日期时间中取出月份、星期几等 279</li>
+<li>195 日期时间与Epoch秒相互转换 280</li>
+<li>196 求两个日期时间的差 282</li>
+<li>197 格式化日期时间 283</li>
+<li>198 将字符串转换为日期时间 285</li>
+<li>199 求出由1月1日起到目前所经过的天数 286</li>
+<li>200 判断闰年 287</li>
+<li>201 求出一个月最后一天的日期 288</li>
+<li>202 判断是否为假日 289</li>
+<li>203 求出“本月第三个星期一”的日期 290</li>
+</ol>
+</li>
+<li>第8章 环境相关
+
+<ol>
+<li>204 将Ruby脚本做成一般指令 292</li>
+<li>205 暂时性地在做成指令的Ruby脚本上加入选项后执行 295</li>
+<li>206 取得命令行的参数 296</li>
+<li>207 解析命令行选项 298</li>
+<li>208 存取环境变量 301</li>
+<li>209 让脚本作为指令或者函数库都可以执行 302</li>
+<li>210 控制Ruby的函数库加载器（Library Loader） 303</li>
+<li>211 对Ruby脚本进行除错 304</li>
+<li>212 取得用户及群组相关信息 307</li>
+<li>213 切换使用者ID、群组ID 310</li>
+<li>214 存取Windows登录文件（Registry） 312</li>
+<li>215 调用系统函数库的函数 313</li>
+</ol>
+</li>
+<li>第9章 程序间通信
+
+<ol>
+<li>216 暂时停止脚本 317</li>
+<li>217 测量脚本的运行时间 318</li>
+<li>218 启动指令 320</li>
+<li>219 产生子程序（fork） 322</li>
+<li>220 设置信号处理器（Signal Handler） 323</li>
+<li>221 Deamo 324</li>
+<li>222 控制Windows的应用程序 325</li>
+<li>223 取得本机名称 327</li>
+<li>224 变换机器名称以及IP位置 328</li>
+<li>225 建立TCP客户端 329</li>
+<li>226 制作一个TCP服务器 330</li>
+<li>227 建立HTTP客户端 332</li>
+<li>228 存取其他程序的Ruby对象 334</li>
+</ol>
+</li>
+<li>第10章 CGI
+
+<ol>
+<li>229 由窗体中取出输入值 337</li>
+<li>230 取出Query字符串 338</li>
+<li>231 使用Session 339</li>
+<li>232 处理Cookie 341</li>
+<li>233 参照Meta变量 343</li>
+<li>234 输出HTML头文件 344</li>
+<li>235 对URL进行编码/反编码 345</li>
+<li>236 跳脱/不跳脱HTML 346</li>
+<li>237 使用污染模式（taint mode） 347</li>
+<li>238 预防XSS（Cross Site Scripting） 349</li>
+<li>239 在HTML中嵌入Ruby脚本 351</li>
+<li>240 上传文件 352</li>
+</ol>
+</li>
+<li>第11章 对象
+
+<ol>
+<li>241 判断对象是否相同 354</li>
+<li>242 复制对象 356</li>
+<li>243 查询对象的类别 357</li>
+<li>244 将对象转换为字符串 359</li>
+<li>245 将对象转换为数值 360</li>
+<li>246 将对象转换为数组 362</li>
+<li>247 将对象存储在文件中 363</li>
+<li>248 多重继承 365</li>
+<li>249 委托方法 366</li>
+<li>250 委托区块 368</li>
+<li>251 建立可作为String或Array来操作的类别 369</li>
+<li>252 使用无名函数 371</li>
+<li>253 多载方法 372</li>
+<li>254 使用关键词参数 374</li>
+<li>255 定义模块函数 375</li>
+<li>256 定义类别方法的别名 376</li>
+<li>257 将实例变量依各个类别来设为private 377</li>
+<li>258 查询方法是否存在于对象中 379</li>
+<li>259 取得对象中定义的方法列表 381</li>
+<li>260 保有兼容性并改变方法名 383</li>
+<li>261 保有兼容性并改变参数的个数 384</li>
+<li>262 保有兼容性并加上/移除区块 386</li>
+<li>263 保持兼容性并更改类别名 387</li>
+<li>264 保有兼容性并更改函数库名 388</li>
+<li>265 在旧版Ruby中使用新版Ruby的方法 389</li>
+<li>266 将文件当作Ruby脚本来载入 390</li>
+<li>267 将字符串当作Ruby脚本来执行 391</li>
+<li>268 替代脚本文件名/行编号 392</li>
+</ol>
+</li>
+<li>附录A
+
+<ol>
+<li>A01 Web上的资源 394</li>
+<li>A02 指令列选项 395</li>
+<li>A03 Ruby参考的环境变量 397</li>
+<li>A04 Ruby标准类别及函数库 398</li>
+<li>A05 printf格式化字符串 401</li>
+<li>A06 pack模板字符串... 403</li>
+</ol>
+</li>
+</ul>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/career/coder/2011/02/19/ThePragmaticProgrammer" title="程序员修炼之道 读书笔记">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/study/dcu/2011/02/26/NS2" title="NS-2">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/language/ruby/2011/02/19/ruby265methods" data-title="Ruby 编程技巧--265式" data-url="http://www.5wpc.info/it/technical/language/ruby/2011/02/19/ruby265methods/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Ruby 265式</span></a></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2011-02-19</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-12</span></div>
+    
+
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2016/03/06/HttpNet">Ruby Http 基础库学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/23/MetaProgramming">Ruby 元编程</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/22/BestPractice">Ruby 最佳实践读书笔记</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/09/03/Closure">Ruby 中的闭包</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/20/TextProcessing">Ruby文本处理相关实践</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/20/TDD">Ruby开发模式学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/15/Regular">Ruby 正则表达式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/RailsRecipes">Reading Note for Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/AdvancedRailsRecipes">Reading Note for Advanced Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2012/09/23/RubyAuthorThinking">RubyAuthorThinking</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/language/ruby/2011/02/19/ruby265methods" class="active">Ruby 编程技巧--265式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/10/index.ruby">Ruby 编程技巧</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

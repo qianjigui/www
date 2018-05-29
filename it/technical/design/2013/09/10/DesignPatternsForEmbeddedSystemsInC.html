@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>DesignPatternsForEmbeddedSystemsInC</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/design/2013/09/10/DesignPatternsForEmbeddedSystemsInC" />
+<meta property="og:title" content="DesignPatternsForEmbeddedSystemsInC" />
+<meta property="og:description" content=" " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2013-09-10" />
+
+<meta name="weibo:article:update_at" content="2014-01-11" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        DesignPatternsForEmbeddedSystemsInC
+        <small>
+            
+            2016 程序"猿"码代中
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">DesignPatternsForEmbeddedSystemsInC</h1>
+
+<h2 id="tocAnchor-1-1-1">tags: Embedded</h2>
+
+<h2 id="tocAnchor-1-1-2">访问硬件</h2>
+
+<ul>
+<li>硬件代理模式
+
+<ul>
+<li>将硬件封装到类或结构体中</li>
+<li>Proxy</li>
+</ul>
+</li>
+<li>Adapter</li>
+<li>中介者模式
+
+<ul>
+<li>协调复杂的交互</li>
+</ul>
+</li>
+<li>Observer
+
+<ul>
+<li>支持高效传感器数据分页</li>
+</ul>
+</li>
+<li>去抖模式
+
+<ul>
+<li>抑制间歇硬件信号</li>
+</ul>
+</li>
+<li>中断模式
+
+<ul>
+<li>处理高紧急硬件信号</li>
+</ul>
+</li>
+<li>轮询模式
+
+<ul>
+<li>定期检查新的传感器数据</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-3">嵌入并发和资源管理</h2>
+
+<ul>
+<li>循环执行模式
+
+<ul>
+<li>在无限循环内调试线程</li>
+</ul>
+</li>
+<li>静态优先级模式
+
+<ul>
+<li>通过优先级调试线程</li>
+</ul>
+</li>
+<li>临界区模式
+
+<ul>
+<li>通过禁用任务转换保护资源</li>
+</ul>
+</li>
+<li>守卫调用模式
+
+<ul>
+<li>通过互斥信号量保护资源</li>
+</ul>
+</li>
+<li>队列模式
+
+<ul>
+<li>通过消息排队序列化访问</li>
+</ul>
+</li>
+<li>汇合模式
+
+<ul>
+<li>协调复杂任务同步</li>
+</ul>
+</li>
+<li>同时锁定模式
+
+<ul>
+<li>通过同时锁定资源以避免死锁</li>
+</ul>
+</li>
+<li>排序锁定模式
+
+<ul>
+<li>通过以特定顺序锁定资源以避免死锁</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-4">状态机</h2>
+
+<ul>
+<li>单事件接收器模式
+
+<ul>
+<li>通过单个事件接收器实现状态机</li>
+</ul>
+</li>
+<li>多事件接收器模式
+
+<ul>
+<li>通过多个事件接收器实现状态机</li>
+</ul>
+</li>
+<li>状态表模式
+
+<ul>
+<li>实现表驱动的状态机</li>
+</ul>
+</li>
+<li>状态设计模式
+
+<ul>
+<li>通过创建状态对象实现状态机</li>
+</ul>
+</li>
+<li>分解与状态模式
+
+<ul>
+<li>通过分解复合状态实现与(and)状态</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-1-5">安全和可靠性模式</h2>
+
+<ul>
+<li>二进制反码</li>
+<li>CRC</li>
+<li>智能数据
+
+<ul>
+<li>对数据添加行为来确保满足数据的前置条件和約束</li>
+</ul>
+</li>
+<li>通道</li>
+<li>保护单通道</li>
+<li>双通道</li>
+</ul>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/technical/vm/2013/09/06/VMGroupDiscuss" title="VM-Group-Discuss">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/os/android/2013/11/23/SystemStartup" title="SystemStartup">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/design/2013/09/10/DesignPatternsForEmbeddedSystemsInC" data-title="DesignPatternsForEmbeddedSystemsInC" data-url="http://www.5wpc.info/it/technical/design/2013/09/10/DesignPatternsForEmbeddedSystemsInC/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">DesignPatternsForEmbeddedSystemsInC</span></a><ul><li class="toc_level-2 toc_section-2"><a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">tags: Embedded</span></a></li><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">访问硬件</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">嵌入并发和资源管理</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-1-4"><span class="tocnumber">1.4</span> <span class="toctext">状态机</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-1-5"><span class="tocnumber">1.5</span> <span class="toctext">安全和可靠性模式</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2013-09-10</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-01-11</span></div>
+    
+
+  
+    <h4>标签/Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Embedded-ref">Embedded <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2014/10/29/Crack">软件破解技术</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2014/09/21/TheDesignOfDesign">TheDesignOfDesign</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2014/09/19/FileOrientedProgramming">FileOrientedProgramming</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/design/2013/09/10/DesignPatternsForEmbeddedSystemsInC" class="active">DesignPatternsForEmbeddedSystemsInC</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2012/12/09/TheArtOfConcurrency">TheArtOfConcurrency</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2011/09/22/DesignPattern">设计模式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2011/02/19/RefactoringtoPatterns">重构与模式 读书笔记</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/design/2011/02/19/ImplementationPatterns">实现模式 读书笔记</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

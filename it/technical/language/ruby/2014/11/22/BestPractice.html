@@ -1,0 +1,549 @@
+
+<!DOCTYPE html>
+<html lang="cn" xmlns:wb="http://open.weibo.com/wb">
+  <head>
+    <meta charset="utf-8">
+    <title>Ruby 最佳实践读书笔记</title>
+    
+    <meta name="author" content="王鹏程(WPC)">
+
+    <!-- sina weibo API -->
+    <meta property="wb:webmaster" content="632e6945a16c1527" />
+<!--必填-->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/it/technical/language/ruby/2014/11/22/BestPractice" />
+<meta property="og:title" content="Ruby 最佳实践读书笔记" />
+<meta property="og:description" content="Ruby 基础技术 " />
+<!--选填-->
+<meta name="weibo:article:create_at" content="2014-11-22" />
+
+<meta name="weibo:article:update_at" content="2014-11-27" />
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- sina weibo API END -->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes//toc/css/toc.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">PC的程序员记录</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">所有文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">目录分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/search">站内检索</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags">标签云</a></li>
+      	
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>
+        Ruby 最佳实践读书笔记
+        <small>
+            
+            Ruby 基础技术
+            
+        </small>
+    </h1>
+    <wb:share-button appkey="2546085774" addition="number" type="button" ralateUid="1620259387" pic="http%3A%2F%2Fpic.yupoo.com%2Fqianjigui%2FDuruKAwV%2FyhZb1.jpg"></wb:share-button>
+
+</div>
+
+<div class="row">
+  <div class="span8" id='main_content'>
+    <h1 id="tocAnchor-1-1">开发模式</h1>
+
+<ul>
+<li>TDD</li>
+<li>BDD: spec http://www.infoq.com/cn/articles/Spec-Flow</li>
+<li>Mock,Stub</li>
+</ul>
+
+
+<h1 id="tocAnchor-1-2">文本处理</h1>
+
+<h2 id="tocAnchor-1-2-1">Line-Based File Processing with State Tracking</h2>
+
+<ul>
+<li>主要问题：分析有结构的数据文件，主要是分section</li>
+<li>利用状态机原理进行分类处理,利用beginning/end markers for a section</li>
+<li>利用栈结构进行状态保存（特别是nested sections）</li>
+<li>保存整体数据状态Context</li>
+<li><p>容错处理要完善，目前建议skip</p>
+
+<pre><code>  case section
+  when [xxx,xxx]
+     process
+  when [xxx,xxx]
+     process
+  else
+     process
+  end
+</code></pre></li>
+</ul>
+
+
+<h2 id="tocAnchor-1-2-2">正则表达式</h2>
+
+<ul>
+<li>关键概念: 正则表达式的主要特性.http://qianjigui.iteye.com/blog/1390067
+
+<ul>
+<li>Anchors</li>
+<li>Caution, quantifier</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="tocAnchor-1-2-3">File API</h2>
+
+<ul>
+<li>Pathname Ruby 1.9</li>
+<li>FileUtils</li>
+<li>tempfile</li>
+</ul>
+
+
+<h3>tempfile</h3>
+
+<pre>
+   <code class="ruby">
+require 'tempfile'
+a = Tempfile
+a.close  (delete @ GC a)
+a.close! (delete immediately)
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-2-4">Advanced Line Processing</h2>
+
+<ul>
+<li><p>Enumerator: foreach, each</p>
+
+<pre><code>  f=File.open
+  f.each
+  f.lineno
+</code></pre></li>
+<li><p>Atomic Saves: Don't waste old file, and use tempfile then mv to it</p></li>
+</ul>
+
+
+<h1 id="tocAnchor-1-7">Function Programming</h1>
+
+<ul>
+<li>http://qianjigui.iteye.com/blog/1997358</li>
+<li>主要涉及基本的lamba操作,不过对其它特性支持并不好.</li>
+</ul>
+
+
+<h1 id="tocAnchor-1-8">API</h1>
+
+<h2 id="tocAnchor-1-8-1">pp 相关库</h2>
+
+<pre>
+   <code>
+#!/usr/bin/env ruby
+#
+# Pretty-Printer for Ruby Objects
+require 'pp'
+friends = [
+    { first_name: 'Emily', last_name: 'Laskin'},
+    { first_name: 'Nick',  last_name: 'Mauro'},
+    { first_name: 'Mark',  last_name: 'Maxwell'}
+]
+
+me = {first_name: 'Gregory', last_name: 'Brown', friends: friends}
+
+p me
+puts '--------------'
+pp me
+
+class Person
+    def initialize(fn,ln,friends)
+        @fn,@ln,@frs = fn,ln,friends
+    end
+
+    # You can rewrite pretty_print
+    def pretty_print(printer)
+        printer.text &lt;&lt;-END
+            Person &lt;#{object_id}&gt;:
+                Name: #@fn #@ln
+                Friends:
+        END
+        @frs.each do |f|
+            printer.text &lt;&lt;-END
+                    #{f[:first_name] } #{f[:last_name]}
+            END
+        end
+    end
+end
+
+person = Person.new('Gregory','Brown',friends)
+puts '========================='
+pp person
+
+=begin
+Output:
+{:first_name=&gt;"Gregory", :last_name=&gt;"Brown", :friends=&gt;[{:first_name=&gt;"Emily", :last_name=&gt;"Laskin"}, {:first_name=&gt;"Nick", :last_name=&gt;"Mauro"}, {:first_name=&gt;"Mark", :last_name=&gt;"Maxwell"}]}
+-----------
+---
+{:first_name=&gt;"Gregory",
+ :last_name=&gt;"Brown",
+ :friends=&gt;
+  [{:first_name=&gt;"Emily", :last_name=&gt;"Laskin"},
+   {:first_name=&gt;"Nick", :last_name=&gt;"Mauro"},
+   {:first_name=&gt;"Mark", :last_name=&gt;"Maxwell"}]}
+=========================
+            Person &lt;540731910&gt;:
+                Name: Gregory Brown
+                Friends:
+                    Emily Laskin
+                    Nick Mauro
+                    Mark Maxwell
+=end
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-8-2">注意直接使用open，返回值是StringIO</h2>
+
+<h2 id="tocAnchor-1-8-3">Working with HTTP and FTP</h2>
+
+<pre>
+   <code>
+require 'open-uri'
+
+a = open('http://www.ruby-lang.org/en/LICENSE.txt')
+pp a
+=begin
+&lt;StringIO:0x002b1836406a90
+ @base_uri=
+  #&lt;URI::HTTP:0x002b1836406f68 URL:http://www.ruby-lang.org/en/about/license.txt&gt;,
+ @meta=
+  {"content-type"=&gt;"text/plain",
+   "last-modified"=&gt;"Tue, 31 Dec 2013 12:28:20 GMT",
+   "server"=&gt;"thin 1.6.1 codename Death Proof",
+   "content-length"=&gt;"2504",
+   "connection"=&gt;"keep-alive"},
+ @status=["200", "OK"]&gt;
+=end
+# Here, you can use StringIO for saving data
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-8-4">时间处理，词法分析，HASH加密，数学处理，cvs,json,模板生成</h2>
+
+<pre>
+   <code>
+#Working with Dates and Times(date)
+puts 'date'
+pp Date.today
+
+#Lexical Parsing with Regular Expressions(strscan)
+puts 'strscan'
+require 'strscan'
+s = StringScanner.new('This is an example string')
+s.eos?               # -&gt; false
+
+p s.scan(/\w+/)      # -&gt; "This"
+p s.scan(/\w+/)      # -&gt; nil
+p s.scan(/\s+/)      # -&gt; " "
+p s.scan(/\s+/)      # -&gt; nil
+p s.scan(/\w+/)      # -&gt; "is"
+s.eos?               # -&gt; false
+
+p s.scan(/\s+/)      # -&gt; " "
+p s.scan(/\w+/)      # -&gt; "an"
+p s.scan(/\s+/)      # -&gt; " "
+p s.scan(/\w+/)      # -&gt; "example"
+p s.scan(/\s+/)      # -&gt; " "
+p s.scan(/\w+/)      # -&gt; "string"
+s.eos?               # -&gt; true
+
+p s.scan(/\s+/)      # -&gt; nil
+p s.scan(/\w+/)      # -&gt; nil
+
+#Cryptographic Hash Functions (digest)
+
+puts 'digest'
+
+require 'digest/md5'
+
+pp Digest::MD5.hexdigest(File.binread(__FILE__))
+
+require 'digest/sha2'
+pp Digest::SHA256.hexdigest(File.binread(__FILE__))
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-8-5">Mathematical Ruby Scripts(mathn)</h2>
+
+<pre>
+   <code>puts 'mathn'
+require 'mathn'
+pp Math.sqrt(-1)
+pp 1/2
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-8-6">cvs,json,erb</h2>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/it/project/financialmanage/2014/11/22/BasicThoughts" title="理财基本思维">&larr; 老的一篇</a></li>
+      
+        <li><a href="/archive.html">归档列表</a></li>
+      
+        <li class="next"><a href="/it/technical/language/ruby/2014/11/23/MetaProgramming" title="Ruby 元编程">新的一篇 &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  
+<!-- Duoshuo Comment start -->
+<div class="ds-thread" data-thread-key="/it/technical/language/ruby/2014/11/22/BestPractice" data-title="Ruby 最佳实践读书笔记" data-url="http://www.5wpc.info/it/technical/language/ruby/2014/11/22/BestPractice/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qianjigui"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0]
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment end -->
+
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <div id="toc-container"><table class="toc" id="toc"><tbody><tr><td><div id="toctitle"><h2>文章目录</h2></div><ul><li class="toc_level-1 toc_section-1"><a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">开发模式</span></a></li><li class="toc_level-1 toc_section-2"><a href="#tocAnchor-1-2"><span class="tocnumber">2</span> <span class="toctext">文本处理</span></a><ul><li class="toc_level-2 toc_section-3"><a href="#tocAnchor-1-2-1"><span class="tocnumber">2.1</span> <span class="toctext">Line-Based File Processing with State Tracking</span></a></li><li class="toc_level-2 toc_section-4"><a href="#tocAnchor-1-2-2"><span class="tocnumber">2.2</span> <span class="toctext">正则表达式</span></a></li><li class="toc_level-2 toc_section-5"><a href="#tocAnchor-1-2-3"><span class="tocnumber">2.3</span> <span class="toctext">File API</span></a></li><li class="toc_level-2 toc_section-6"><a href="#tocAnchor-1-2-4"><span class="tocnumber">2.4</span> <span class="toctext">Advanced Line Processing</span></a></li></ul></li><li class="toc_level-1 toc_section-7"><a href="#tocAnchor-1-7"><span class="tocnumber">3</span> <span class="toctext">Function Programming</span></a></li><li class="toc_level-1 toc_section-8"><a href="#tocAnchor-1-8"><span class="tocnumber">4</span> <span class="toctext">API</span></a><ul><li class="toc_level-2 toc_section-9"><a href="#tocAnchor-1-8-1"><span class="tocnumber">4.1</span> <span class="toctext">pp 相关库</span></a></li><li class="toc_level-2 toc_section-10"><a href="#tocAnchor-1-8-2"><span class="tocnumber">4.2</span> <span class="toctext">注意直接使用open，返回值是StringIO</span></a></li><li class="toc_level-2 toc_section-11"><a href="#tocAnchor-1-8-3"><span class="tocnumber">4.3</span> <span class="toctext">Working with HTTP and FTP</span></a></li><li class="toc_level-2 toc_section-12"><a href="#tocAnchor-1-8-4"><span class="tocnumber">4.4</span> <span class="toctext">时间处理，词法分析，HASH加密，数学处理，cvs,json,模板生成</span></a></li><li class="toc_level-2 toc_section-13"><a href="#tocAnchor-1-8-5"><span class="tocnumber">4.5</span> <span class="toctext">Mathematical Ruby Scripts(mathn)</span></a></li><li class="toc_level-2 toc_section-14"><a href="#tocAnchor-1-8-6"><span class="tocnumber">4.6</span> <span class="toctext">cvs,json,erb</span></a></li></ul></li></ul></td></tr></tbody></table></div>
+    <h4>创建@</h4>
+    <div class="date"><span>2014-11-22</span></div>
+    
+        <h4>最后修改@</h4>
+        <div class="date"><span>2014-11-27</span></div>
+    
+
+  
+
+  
+    <h4>相同类目/Categories</h4>
+    <ul>
+    
+    
+    
+
+
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2016/03/06/HttpNet">Ruby Http 基础库学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/11/23/MetaProgramming">Ruby 元编程</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li class="active"><a href="/it/technical/language/ruby/2014/11/22/BestPractice" class="active">Ruby 最佳实践读书笔记</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/09/03/Closure">Ruby 中的闭包</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/20/TextProcessing">Ruby文本处理相关实践</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/20/TDD">Ruby开发模式学习</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2014/01/15/Regular">Ruby 正则表达式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/RailsRecipes">Reading Note for Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2013/01/30/AdvancedRailsRecipes">Reading Note for Advanced Rails Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2012/09/23/RubyAuthorThinking">RubyAuthorThinking</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/19/ruby265methods">Ruby 编程技巧--265式</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/it/technical/language/ruby/2011/02/10/index.ruby">Ruby 编程技巧</a></li>
+      	
+      
+    
+  
+
+
+
+
+    </ul>
+  
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+    <p>&copy; 王鹏程(WPC) 2010-2014
+    with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+    and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+    <p>
+    声明：文章版权属于王鹏程(WPC)，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。
+    </p>
+    </p>
+</footer>
+
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+
