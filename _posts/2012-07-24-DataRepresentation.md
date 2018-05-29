@@ -1,6 +1,6 @@
 ---
 layout: post
-lmtime: 2014-01-12
+lmtime: 2018-05-29
 category: it/technical/language
 title: "信息的表示和处理"
 tags: ComputerSystem
@@ -13,10 +13,10 @@ tags: ComputerSystem
 
 #信息的表示和存储#
 
-##数据存储##
+## 数据存储
 
-###数据长短###
-###寻址和直接顺序###
+### 数据长短
+### 寻址和直接顺序
 表示数据0x12345678,数据中0x12为数据最高位:
 * 大端:
 
@@ -29,6 +29,21 @@ tags: ComputerSystem
 |  地址 |  0x100|  0x101|  0x102|  0x103 | 
 |------|------|------|------|------|
 |  数据 |   78  |   56  |   34  |   12   | 
+
+#### 如何通过各种语言在二进制数据中进行加载与解析
+
+一个常见的问题是：在一个二进制数据传输环境中，我们如何进行一些二进制的数据块传输与加载？
+
+常见的一个头部: | MAGIC(4bytes) | Length(4bytes) | Data |
+
+使用各种语言进行有效的加载？
+
+* Java
+* C
+* Ruby
+* Golang
+
+详细用例见: https://github.com/qianjigui/sample-code-dataloader
 
 ###C中的移位运算###
 * 左移(0xff<<8=0xff0)
