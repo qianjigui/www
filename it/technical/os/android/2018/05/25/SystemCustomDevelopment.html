@@ -17,7 +17,7 @@
 <!--选填-->
 <meta name="weibo:article:create_at" content="2018-05-25" />
 
-<meta name="weibo:article:update_at" content="2018-05-29" />
+<meta name="weibo:article:update_at" content="2018-06-12" />
 
 <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
@@ -129,7 +129,9 @@
   <div class="span8" id='main_content'>
     <h2>具体Case</h2>
 
-<h3>实时反馈目前系统是否在播放声音</h3>
+<h3>多媒体相关</h3>
+
+<h4>实时反馈目前系统是否在播放声音</h4>
 
 <p>主要介入修改点: <code>frameworks/av/services/audioflinger/Threads.cpp</code></p>
 
@@ -139,26 +141,16 @@ AudioFlinger::PlaybackThread::mixer_state AudioFlinger::MixerThread::prepareTrac
 void AudioFlinger::MixerThread::threadLoop_standby()
 </code></pre>
 
-<h3>系统广播乱发问题</h3>
+<h3>系统性能相关</h3>
 
-<h3>Valgrind不可使用的问题</h3>
+<h4>系统广播乱发问题</h4>
 
-<ul>
-<li>frameworks/base commit a32dbad</li>
-</ul>
+<h4>开机广播发送速度慢</h4>
 
+<p><code>BOOT_COMPLETE</code>广播是串行广播，需要上个应用处理完成后，才能在下个应用中进行处理。
+通过添加广播转发log，查看问题.</p>
 
-<p>https://lark.alipay.com/pengcheng.wang/aosppatch/fix-valgrind-run</p>
-
-<h3>系统多层系统签名问题</h3>
-
-<h3>第三方应用广播接收权限管理</h3>
-
-<h3>安全管家相关功能</h3>
-
-<h3>开机广播</h3>
-
-<h4>Android 7.0相关流程</h4>
+<h5>Android 7.0相关流程调试</h5>
 
 <p>https://blog.csdn.net/petib_wangwei/article/details/70318057</p>
 
@@ -193,6 +185,29 @@ index f78f29c..cfa03e5 100644
                              + target + ": " + r);
                      deliverToRegisteredReceiverLocked(r, (BroadcastFilter)target, false, i);
 </code></pre>
+
+<h3>系统调试相关</h3>
+
+<h4>Valgrind不可使用的问题</h4>
+
+<ul>
+<li>frameworks/base commit a32dbad</li>
+</ul>
+
+
+<p>https://lark.alipay.com/pengcheng.wang/aosppatch/fix-valgrind-run</p>
+
+<h3>系统安全</h3>
+
+<h4>多层系统签名问题</h4>
+
+<h4>第三方应用广播接收权限管理</h4>
+
+<h4>安全管家相关功能</h4>
+
+<h3>系统UI定制</h3>
+
+<p>资源替换</p>
 
     <hr>
     <div class="pagination">
@@ -238,7 +253,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
     <div class="date"><span>2018-05-25</span></div>
     
         <h4>最后修改@</h4>
-        <div class="date"><span>2018-05-29</span></div>
+        <div class="date"><span>2018-06-12</span></div>
     
 
   
@@ -250,7 +265,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
 
   
      
-    	<li><a href="/tags.html#AOSP-ref">AOSP <span>2</span></a></li>
+    	<li><a href="/tags.html#AOSP-ref">AOSP <span>3</span></a></li>
     
   
 
@@ -281,7 +296,7 @@ var duoshuoQuery = {short_name:"qianjigui"};
       </div>
 
       <footer>
-    <p>&copy; 王鹏程(PC) 2010-2014
+    <p>&copy; 王鹏程(PC) 2010-2018
     with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
     and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
     <p>

@@ -4,13 +4,113 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2018-05-30T23:56:15+08:00</updated>
+ <updated>2018-06-17T12:05:47+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(PC)</name>
    <email>qianjigui@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Android 升级主要关注点</title>
+   <link href="http://www.5wpc.info/it/technical/os/android/2018/06/12/Osupdate"/>
+   <updated>2018-06-12T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/technical/os/android/2018/06/12/Osupdate</id>
+   <content type="html">&lt;p&gt;升级涉及系统升级与应用升级&lt;/p&gt;
+
+&lt;h4&gt;常见策略&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;分片下降&lt;/li&gt;
+&lt;li&gt;出错记录&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h4&gt;常见错误&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;网络问题
+
+&lt;ul&gt;
+&lt;li&gt;NETWORK_ERROR&lt;/li&gt;
+&lt;li&gt;NETWORK_IO_ERROR&lt;/li&gt;
+&lt;li&gt;NETWORK_NOT_AVAILABLE&lt;/li&gt;
+&lt;li&gt;NETWORK_TIMEOUT&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;数据包问题
+
+&lt;ul&gt;
+&lt;li&gt;DOWNLOAD_ERROR&lt;/li&gt;
+&lt;li&gt;FILE_NOT_FOUND&lt;/li&gt;
+&lt;li&gt;FOTA_VERIFY_FAIL&lt;/li&gt;
+&lt;li&gt;MD5_ERROR&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;本地存储空间问题
+
+&lt;ul&gt;
+&lt;li&gt;SPACE_NOT_ENOUGH&lt;/li&gt;
+&lt;li&gt;STORAGE_ERROR&lt;/li&gt;
+&lt;li&gt;CACHE_SPACE_NOT_ENOUGH&lt;/li&gt;
+&lt;li&gt;DATA_SPACE_NOT_ENOUGH&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;系统权限问题
+
+&lt;ul&gt;
+&lt;li&gt;PERMISSION_DENY&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;升级本身问题
+
+&lt;ul&gt;
+&lt;li&gt;APP_UPGRADE_FAIL&lt;/li&gt;
+&lt;li&gt;FOTA_UPGRADE_FAIL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h4&gt;兼容性问题&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;升级引导&lt;/li&gt;
+&lt;li&gt;数据存储区索引&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>SMART 原则</title>
+   <link href="http://www.5wpc.info/it/career/manage/2018/06/10/SMART"/>
+   <updated>2018-06-10T00:00:00+08:00</updated>
+   <id>http://www.5wpc.info/it/career/manage/2018/06/10/SMART</id>
+   <content type="html">&lt;h3&gt;Smart原则&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;绩效指标必须是具体的（Specific）&lt;/li&gt;
+&lt;li&gt;绩效指标必须是可以衡量的（Measurable）&lt;/li&gt;
+&lt;li&gt;绩效指标必须是可以达到的（Attainable）&lt;/li&gt;
+&lt;li&gt;绩效指标是要与其他目标具有一定的相关性(Relevant)&lt;/li&gt;
+&lt;li&gt;绩效指标必须具有明确的截止期限（Time-bound）&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;无论是制定团队的工作目标还是员工的绩效目标都必须符合上述原则，五个原则缺一不可。
+制定的过程也是自身能力不断增长的过程，经理必须和员工一起在不断制定高绩效目标的过程中共同提高绩效能力。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/SMART%E5%8E%9F%E5%88%99/8575850?fr=aladdin&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;STAR原则&lt;/h3&gt;
+
+&lt;p&gt;STAR法则是情境(situation)、任务(task)、行动(action)、结果(result)四项的缩写。STAR法则是一种常常被面试官使用的工具，用来收集面试者与工作相关的具体信息和能力。STAR法则比起传统的面试手法来说，可以更精确地预测面试者未来的工作表现。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/STAR%E6%B3%95%E5%88%99/9056070&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Gdb lldb 调试工具</title>
@@ -60,7 +160,9 @@
    <id>http://www.5wpc.info/it/technical/os/android/2018/05/25/SystemCustomDevelopment</id>
    <content type="html">&lt;h2&gt;具体Case&lt;/h2&gt;
 
-&lt;h3&gt;实时反馈目前系统是否在播放声音&lt;/h3&gt;
+&lt;h3&gt;多媒体相关&lt;/h3&gt;
+
+&lt;h4&gt;实时反馈目前系统是否在播放声音&lt;/h4&gt;
 
 &lt;p&gt;主要介入修改点: &lt;code&gt;frameworks/av/services/audioflinger/Threads.cpp&lt;/code&gt;&lt;/p&gt;
 
@@ -70,26 +172,16 @@ AudioFlinger::PlaybackThread::mixer_state AudioFlinger::MixerThread::prepareTrac
 void AudioFlinger::MixerThread::threadLoop_standby()
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3&gt;系统广播乱发问题&lt;/h3&gt;
+&lt;h3&gt;系统性能相关&lt;/h3&gt;
 
-&lt;h3&gt;Valgrind不可使用的问题&lt;/h3&gt;
+&lt;h4&gt;系统广播乱发问题&lt;/h4&gt;
 
-&lt;ul&gt;
-&lt;li&gt;frameworks/base commit a32dbad&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h4&gt;开机广播发送速度慢&lt;/h4&gt;
 
+&lt;p&gt;&lt;code&gt;BOOT_COMPLETE&lt;/code&gt;广播是串行广播，需要上个应用处理完成后，才能在下个应用中进行处理。
+通过添加广播转发log，查看问题.&lt;/p&gt;
 
-&lt;p&gt;https://lark.alipay.com/pengcheng.wang/aosppatch/fix-valgrind-run&lt;/p&gt;
-
-&lt;h3&gt;系统多层系统签名问题&lt;/h3&gt;
-
-&lt;h3&gt;第三方应用广播接收权限管理&lt;/h3&gt;
-
-&lt;h3&gt;安全管家相关功能&lt;/h3&gt;
-
-&lt;h3&gt;开机广播&lt;/h3&gt;
-
-&lt;h4&gt;Android 7.0相关流程&lt;/h4&gt;
+&lt;h5&gt;Android 7.0相关流程调试&lt;/h5&gt;
 
 &lt;p&gt;https://blog.csdn.net/petib_wangwei/article/details/70318057&lt;/p&gt;
 
@@ -124,6 +216,29 @@ index f78f29c..cfa03e5 100644
                              + target + &quot;: &quot; + r);
                      deliverToRegisteredReceiverLocked(r, (BroadcastFilter)target, false, i);
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;系统调试相关&lt;/h3&gt;
+
+&lt;h4&gt;Valgrind不可使用的问题&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;frameworks/base commit a32dbad&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;https://lark.alipay.com/pengcheng.wang/aosppatch/fix-valgrind-run&lt;/p&gt;
+
+&lt;h3&gt;系统安全&lt;/h3&gt;
+
+&lt;h4&gt;多层系统签名问题&lt;/h4&gt;
+
+&lt;h4&gt;第三方应用广播接收权限管理&lt;/h4&gt;
+
+&lt;h4&gt;安全管家相关功能&lt;/h4&gt;
+
+&lt;h3&gt;系统UI定制&lt;/h3&gt;
+
+&lt;p&gt;资源替换&lt;/p&gt;
 </content>
  </entry>
  
@@ -4249,6 +4364,10 @@ import_list
 cd aosp
 repo init -u http://sssss -b android-4.2.2_r1.2
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Build 构建&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/shui1025701856/article/details/80497911&quot;&gt;Ubuntu 18.04编译出错问题处理&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3&gt;非AOSP部分代码合入&lt;/h3&gt;
 
@@ -20106,7 +20225,17 @@ Dispose of a table.
    <link href="http://www.5wpc.info/it/technical/architecture/2013/01/15/HowToBe"/>
    <updated>2013-01-15T00:00:00+08:00</updated>
    <id>http://www.5wpc.info/it/technical/architecture/2013/01/15/HowToBe</id>
-   <content type="html">&lt;h1&gt;How to?&lt;/h1&gt;
+   <content type="html">&lt;h1&gt;业务场景总结&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;img src=&quot;/assets/BigWebStructureHighPerformance.svg&quot; alt=&quot;BigWebStructureHighPerformance&quot; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&quot;/assets/ContainerTech.svg&quot; alt=&quot;ContainerTech&quot; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&quot;/assets/SolveAndroidFragmentsVersions.svg&quot; alt=&quot;SolveAndroidFragmentsVersions&quot; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&quot;/assets/SystemMonitor.svg&quot; alt=&quot;SystemMonitor&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h1&gt;How to?&lt;/h1&gt;
 
 &lt;p&gt;http://www.iteye.com/news/26955&lt;/p&gt;
 
@@ -33990,8 +34119,6 @@ sudo mount -t cifs -o uid=1000,username=administrator,passwd=system009 //10.9.5.
 # 创建一个文件大小为file_size
 dd if=/dev/zero of=upload_test bs=file_size(in bytes) count=1
 
-
-
 # Server Manager
 sudo useradd username -m -s /bin/bash
 sudo passwd username
@@ -34001,25 +34128,27 @@ sudo adduser username sudo
 # delete user and home directory:
 sudo deluser --remove-home username
 
-
-
-# key
-
-创建keystore：keytool -genkey -alias test.keystore -keyalg RSA -validity 10000 -keystore test.keystore
-查看keystore：keytool -list  -v -keystore &quot;C:\sign\bin1\test.keystore&quot;
-签名: jarsigner -keystore test.keystore -storepass test.test -keypass test.test -signedjar t.lar t.apk test.keystore
-
-
-
-tar
-
-ls -l | grep ^[^d] | awk '{print $8}' | tar czfhv snod.tar.gz -T -
-
-Diff
-#diff a directory with git format and ignore .git directory
-
-diff -r -u -x '.git' aaaa/packages/apps/PackageInstaller bbb/packages/apps/PackageInstaller
+#添加sudo免密码
+vim /etc/sudoers
+jenkins ALL=(ALL) NOPASSWD: ALL
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1&gt;key&lt;/h1&gt;
+
+&lt;p&gt;创建keystore：keytool -genkey -alias test.keystore -keyalg RSA -validity 10000 -keystore test.keystore
+查看keystore：keytool -list  -v -keystore &quot;C:\sign\bin1\test.keystore&quot;
+签名: jarsigner -keystore test.keystore -storepass test.test -keypass test.test -signedjar t.lar t.apk test.keystore&lt;/p&gt;
+
+&lt;p&gt;tar&lt;/p&gt;
+
+&lt;p&gt;ls -l | grep ^[^d] | awk '{print $8}' | tar czfhv snod.tar.gz -T -&lt;/p&gt;
+
+&lt;p&gt;Diff&lt;/p&gt;
+
+&lt;h1&gt;diff a directory with git format and ignore .git directory&lt;/h1&gt;
+
+&lt;p&gt;diff -r -u -x '.git' aaaa/packages/apps/PackageInstaller bbb/packages/apps/PackageInstaller
+```&lt;/p&gt;
 
 &lt;p&gt;版本号相关规范
 http://www.cnblogs.com/sdjxcolin/archive/2007/07/02/803376.html&lt;/p&gt;

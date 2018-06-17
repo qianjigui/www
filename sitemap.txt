@@ -7,6 +7,8 @@ http://www.5wpc.info/search
 http://www.5wpc.info/sitemap.txt
 http://www.5wpc.info/tags
 
+http://www.5wpc.info/it/technical/os/android/2018/06/12/Osupdate
+http://www.5wpc.info/it/career/manage/2018/06/10/SMART
 http://www.5wpc.info/it/technical/debug/2018/05/29/GDB_LLDB
 http://www.5wpc.info/it/technical/language/c/2018/05/25/pthread
 http://www.5wpc.info/it/technical/os/android/2018/05/25/SystemCustomDevelopment
