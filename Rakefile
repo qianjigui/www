@@ -119,6 +119,7 @@ task :publish do
         "config" => "_config.yml"
     })).process
 
+    #exit 1
     # Get the origin to which we are going to push the site.
     origin = `git config --get remote.origin.url`
 
