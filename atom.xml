@@ -4,7 +4,7 @@
  <title>PC的程序员记录</title>
  <link href="http://www.5wpc.info/atom.xml" rel="self"/>
  <link href="http://www.5wpc.info"/>
- <updated>2018-06-17T12:05:47+08:00</updated>
+ <updated>2018-07-01T17:57:01+08:00</updated>
  <id>http://www.5wpc.info</id>
  <author>
    <name>王鹏程(PC)</name>
@@ -266,6 +266,32 @@ index f78f29c..cfa03e5 100644
 &lt;li&gt;自动化程度高&lt;/li&gt;
 &lt;/ul&gt;
 
+
+&lt;h2&gt;编译环境搭建注意点&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;账号与权限的配置&lt;/li&gt;
+&lt;li&gt;时区的配置 &lt;code&gt;sudo apt-get install tzdata&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;系统编码的配置&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;pre&gt;&lt;code&gt;LANG=en_US.UTF-8
+LANGUAGE=en_US.UTF-8
+LC_CTYPE=&quot;en_US.UTF-8&quot;
+LC_NUMERIC=&quot;en_US.UTF-8&quot;
+LC_TIME=&quot;en_US.UTF-8&quot;
+LC_COLLATE=&quot;en_US.UTF-8&quot;
+LC_MONETARY=&quot;en_US.UTF-8&quot;
+LC_MESSAGES=&quot;en_US.UTF-8&quot;
+LC_PAPER=&quot;en_US.UTF-8&quot;
+LC_NAME=&quot;en_US.UTF-8&quot;
+LC_ADDRESS=&quot;en_US.UTF-8&quot;
+LC_TELEPHONE=&quot;en_US.UTF-8&quot;
+LC_MEASUREMENT=&quot;en_US.UTF-8&quot;
+LC_IDENTIFICATION=&quot;en_US.UTF-8&quot;
+LC_ALL=en_US.UTF-8
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h1&gt;外部工具集合&lt;/h1&gt;
 
@@ -10163,6 +10189,26 @@ while(EOF!=sscanf((const char*)(res+total_read), &quot;%s %d %n&quot;, name, &am
    <content type="html">&lt;h1&gt;入库AppStore流程&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/jwzbskywz/article/details/7730231&quot;&gt;iPhone应用提交流程：如何将App程序发布到App Store？&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1&gt;常见问题处理&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000002933776&quot;&gt;iOS9 &amp;amp; iOS10 &amp;amp; iOS11 HTTP 不能正常使用的解决办法&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;常见错误提示: &lt;code&gt;Error copying matching creds.  Error=-25300&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://m.jb51.net/article/114891.htm&quot;&gt;iOS利用AVPlayer播放网络音乐的方法教程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/onlyou930/article/details/16116553&quot;&gt;iOS socket异常会发生 SIGPIPE, 处理方案&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;代码中处理: &lt;code&gt;signal(SIGPIPE, SIG_IGN);&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Xcode 调试中进行ignore: &lt;code&gt;process handle SIGPIPE -s false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
 </content>
  </entry>
  
